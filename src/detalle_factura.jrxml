@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
+<!-- 2014-11-15T15:50:39 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalle_factura" pageWidth="209" pageHeight="566" columnWidth="207" leftMargin="1" rightMargin="1" topMargin="1" bottomMargin="1" isIgnorePagination="true" uuid="e9d259ce-530d-474d-a8ab-332b5e3850f2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="factura_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT m.id,'Membresia',m.nombre,pm.pago,'(',md.fecha_inicio_membresia,'/',md.fecha_fin_membresia,')',
+CASE WHEN pm.saldo = 0 THEN 'Pago' WHEN pm.saldo > 0 THEN 'Abono' END AS texto
+FROM pago_membresia pm , factura fac, socio s, membresia m,membresia_datos md,membresia_usuario mu
+WHERE fac.id =  $P{factura_id} 
+AND s.id = pm.socio_id
+AND md.id = pm.membresiadatos_id
+AND fac.id = pm.factura_id
+AND s.id = fac.socio_id
+AND m.id = mu.membresia_id
+AND s.id = mu.socio_id
+AND md.id = pm.membresiadatos_id
+AND md.membresia_socio_id = mu.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="?column?" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="pago" class="java.math.BigDecimal"/>
+	<field name="COLUMN_5" class="java.lang.String"/>
+	<field name="fecha_inicio_membresia" class="java.util.Date"/>
+	<field name="COLUMN_7" class="java.lang.String"/>
+	<field name="fecha_fin_membresia" class="java.util.Date"/>
+	<field name="COLUMN_9" class="java.lang.String"/>
+	<field name="texto" class="java.lang.String"/>
+	<group name="id">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<group name="?column?">
+		<groupExpression><![CDATA[$F{?column?}]]></groupExpression>
+	</group>
+	<group name="nombre">
+		<groupExpression><![CDATA[$F{nombre}]]></groupExpression>
+	</group>
+	<group name="pago">
+		<groupExpression><![CDATA[$F{pago}]]></groupExpression>
+	</group>
+	<group name="COLUMN_5">
+		<groupExpression><![CDATA[$F{COLUMN_5}]]></groupExpression>
+	</group>
+	<group name="fecha_inicio_membresia">
+		<groupExpression><![CDATA[$F{fecha_inicio_membresia}]]></groupExpression>
+	</group>
+	<group name="COLUMN_7">
+		<groupExpression><![CDATA[$F{COLUMN_7}]]></groupExpression>
+	</group>
+	<group name="fecha_fin_membresia">
+		<groupExpression><![CDATA[$F{fecha_fin_membresia}]]></groupExpression>
+	</group>
+	<group name="COLUMN_9">
+		<groupExpression><![CDATA[$F{COLUMN_9}]]></groupExpression>
+	</group>
+	<group name="texto">
+		<groupExpression><![CDATA[$F{texto}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="66" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="4" width="37" height="18" uuid="c6345a6a-31a4-4153-87c7-9e7013b9e27d"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="4" width="46" height="18" uuid="6e0ec90e-e7e9-478c-85ac-295cab85940a"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="10" y="20" width="130" height="18" uuid="d7964c9a-ef37-4372-8adc-b22ba9611582"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="4" width="66" height="18" uuid="303af885-ec1c-486d-b241-dcd5523316ec"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{?column?}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="140" y="20" width="10" height="18" uuid="aab775a1-3701-4948-a3cb-bdf6ea77fc8c"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<textField pattern="#">
+				<reportElement x="150" y="20" width="50" height="18" uuid="db77f0a3-09fc-4b54-9fca-abd7f0a3caff"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="38" width="10" height="20" uuid="5fd5c624-b128-4f55-abf3-9a66ec233c4a"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="38" width="10" height="20" uuid="72ebce41-1868-4417-827d-5f3a30bc7548"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="38" width="10" height="20" uuid="235d6419-8589-4e2d-af2f-690901f787a3"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_9}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="20" y="38" width="75" height="20" uuid="71e4f376-ba26-4d9a-91fc-bee70567f297"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_inicio_membresia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="103" y="38" width="67" height="20" uuid="13160af3-b65c-40df-bed5-fa94ea04eafa"/>
+				<textElement>
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_fin_membresia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
