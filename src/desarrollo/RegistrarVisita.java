@@ -70,6 +70,8 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
         txtCosto = new javax.swing.JTextField();
         cToken = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtIdentificacion = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -152,6 +154,16 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Primer Nombre");
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("Identificacion");
+
+        txtIdentificacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtIdentificacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdentificacionKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -176,12 +188,14 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
                                     .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                                     .addComponent(txtPriApellido)
                                     .addComponent(txtPriNombre))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtIdentificacion)
                                     .addComponent(txtSegNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                                     .addComponent(txtSegApellido)))
                             .addComponent(cToken))))
@@ -212,10 +226,14 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
                             .addComponent(txtSegApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -242,7 +260,7 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +363,7 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
             if (!cToken.getText().isEmpty()) {
                 try {
                     //Traer datos del socio y posicionar foco en el valor
-                    String query = String.format("SELECT id,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido FROM socio where clave = '%s'", cToken.getText());
+                    String query = String.format("SELECT id,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,identificacion FROM socio where clave = '%s'", cToken.getText());
                     ResultSet datosQuery = db.sqlDatos(query);
                     while (datosQuery.next()) {
                         socioId = datosQuery.getString(1);
@@ -353,6 +371,7 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
                         txtSegNombre.setText(datosQuery.getString(3));
                         txtPriApellido.setText(datosQuery.getString(4));
                         txtSegApellido.setText(datosQuery.getString(5));
+                        txtIdentificacion.setText(datosQuery.getString(6));
                         txtCosto.requestFocus();
                     }
                 } catch (SQLException ex) {
@@ -376,10 +395,15 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCostoKeyPressed
 
+    private void txtIdentificacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdentificacionKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JTextField cToken;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -391,6 +415,7 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtPriApellido;
     private javax.swing.JTextField txtPriNombre;
     private javax.swing.JTextField txtSegApellido;

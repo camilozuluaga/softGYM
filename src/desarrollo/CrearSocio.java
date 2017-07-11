@@ -516,6 +516,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
         try {
             boolean validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
 
@@ -756,50 +757,54 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
         }
         String identificacion = txtIdentificacion.getText();
         String sexo = String.valueOf(cboSexo.getSelectedItem());
-        if (!txtPrimerNombre.getText().isEmpty()) {
-            if (!txtPrimerApellido.getText().isEmpty()) {
-                if (!cboSexo.getSelectedItem().toString().isEmpty()) {
-                    if (socioId > 0) {
-                        querySQL = String.format("UPDATE socio SET identificacion='%s',primer_nombre='%s',segundo_nombre='%s',primer_apellido='%s',segundo_apellido='%s',fecha_nacimiento=%s,telefono='%s',email='%s',sexo='%s', activo=%s WHERE id=%s", identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, estado, socioId);
-                        success = db.sqlEjec(querySQL);
-                        if (success) {
-                            this.dispose();
-                            current.updateDatos();
-                            Telegraph tele = new Telegraph("Socio Actualizado", "Se ha actualizado Correctamente el Socio", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
-                            TelegraphQueue q = new TelegraphQueue();
-                            q.add(tele);
-                        }
-                    } else {
-                        querySQL = String.format("INSERT INTO socio(usuario_sistema_id,clave,identificacion,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,fecha_nacimiento,telefono,email,sexo,activo,foto,fecha_registro) VALUES (%s,'%s','%s','%s','%s','%s','%s',%s,'%s','%s','%s',TRUE,%s,now())", Integer.valueOf(usuarioSistema), clave, identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, fotos);
-                        success = db.sqlEjec(querySQL);
-                        if (success) {
-                            txtPrimerNombre.requestFocus(false);
-                            btnGuardar.setVisible(false);
-                            btnCerrar.setVisible(true);
-                            int capturarFoto = JOptionPane.showConfirmDialog(this, "¿Desea Capturar la Foto?", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                            if (capturarFoto == JOptionPane.OK_OPTION) {
-                                tomarFoto.setLbFoto(lblFoto);
-                                tomarFoto.setTabla("socio");
-                                tomarFoto.tomarFoto(lbCodigo.getText());
-
-                            } else {
-                                Telegraph tele = new Telegraph("Socio Registrado", "Se ha registrado Correctamente el Socio", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
+        if (!txtIdentificacion.getText().isEmpty()) {
+            if (!txtPrimerNombre.getText().isEmpty()) {
+                if (!txtPrimerApellido.getText().isEmpty()) {
+                    if (!cboSexo.getSelectedItem().toString().isEmpty()) {
+                        if (socioId > 0) {
+                            querySQL = String.format("UPDATE socio SET identificacion='%s',primer_nombre='%s',segundo_nombre='%s',primer_apellido='%s',segundo_apellido='%s',fecha_nacimiento=%s,telefono='%s',email='%s',sexo='%s', activo=%s WHERE id=%s", identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, estado, socioId);
+                            success = db.sqlEjec(querySQL);
+                            if (success) {
+                                this.dispose();
+                                current.updateDatos();
+                                Telegraph tele = new Telegraph("Socio Actualizado", "Se ha actualizado Correctamente el Socio", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
                                 TelegraphQueue q = new TelegraphQueue();
                                 q.add(tele);
-                                this.dispose();
-                                //Enviar clave al portapapeles
-                                Utilidades.enviarPortapales(clave);
+                            }
+                        } else {
+                            querySQL = String.format("INSERT INTO socio(usuario_sistema_id,clave,identificacion,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,fecha_nacimiento,telefono,email,sexo,activo,foto,fecha_registro) VALUES (%s,'%s','%s','%s','%s','%s','%s',%s,'%s','%s','%s',TRUE,%s,now())", Integer.valueOf(usuarioSistema), clave, identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, fotos);
+                            success = db.sqlEjec(querySQL);
+                            if (success) {
+                                txtPrimerNombre.requestFocus(false);
+                                btnGuardar.setVisible(false);
+                                btnCerrar.setVisible(true);
+                                int capturarFoto = JOptionPane.showConfirmDialog(this, "¿Desea Capturar la Foto?", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                                if (capturarFoto == JOptionPane.OK_OPTION) {
+                                    tomarFoto.setLbFoto(lblFoto);
+                                    tomarFoto.setTabla("socio");
+                                    tomarFoto.tomarFoto(lbCodigo.getText());
+
+                                } else {
+                                    Telegraph tele = new Telegraph("Socio Registrado", "Se ha registrado Correctamente el Socio", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
+                                    TelegraphQueue q = new TelegraphQueue();
+                                    q.add(tele);
+                                    this.dispose();
+                                    //Enviar clave al portapapeles
+                                    Utilidades.enviarPortapales(clave);
+                                }
                             }
                         }
+                    } else {
+                        utilidades.llamarMensaje("Sexo");
                     }
                 } else {
-                    utilidades.llamarMensaje("Sexo");
+                    utilidades.llamarMensaje("Primer Apellido");
                 }
             } else {
-                utilidades.llamarMensaje("Primer Apellido");
+                utilidades.llamarMensaje("Primer Nombre");
             }
         } else {
-            utilidades.llamarMensaje("Primer Nombre");
+            utilidades.llamarMensaje("Identificacion");
         }
     }
 
