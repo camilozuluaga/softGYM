@@ -766,7 +766,7 @@ public final class CrearMembresia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreMembresiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreMembresiaKeyReleased
-
+        txtNombreMembresia.setText(utilidades.formatearCadena(txtNombreMembresia.getText()));
     }//GEN-LAST:event_txtNombreMembresiaKeyReleased
 
     private void txtValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyReleased

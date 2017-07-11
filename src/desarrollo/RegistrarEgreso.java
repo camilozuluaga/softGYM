@@ -71,6 +71,14 @@ public class RegistrarEgreso extends javax.swing.JInternalFrame {
         jLabel4.setText("Descripción del Egreso");
 
         txtDescripcion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Cantidad");
@@ -223,6 +231,14 @@ public class RegistrarEgreso extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionKeyTyped
+
+    private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
+       txtDescripcion.setText(utilidades.formatearCadena(txtDescripcion.getText()));
+    }//GEN-LAST:event_txtDescripcionKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

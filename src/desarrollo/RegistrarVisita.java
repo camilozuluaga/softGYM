@@ -310,24 +310,28 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         logica.Utilidades coso = new logica.Utilidades();
         coso.validarCamposTexto(txtPriNombre.getText(), txtPriNombre);
+        txtPriNombre.setText(utilidades.formatearCadena(txtPriNombre.getText()));
     }//GEN-LAST:event_txtPriNombreKeyReleased
 
     private void txtSegNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegNombreKeyReleased
         // TODO add your handling code here:
         logica.Utilidades coso = new logica.Utilidades();
         coso.validarCamposTexto(txtSegNombre.getText(), txtSegNombre);
+        txtSegNombre.setText(utilidades.formatearCadena(txtSegNombre.getText()));
     }//GEN-LAST:event_txtSegNombreKeyReleased
 
     private void txtPriApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriApellidoKeyReleased
         // TODO add your handling code here:
         logica.Utilidades coso = new logica.Utilidades();
         coso.validarCamposTexto(txtPriApellido.getText(), txtPriApellido);
+        txtPriApellido.setText(utilidades.formatearCadena(txtPriApellido.getText()));
     }//GEN-LAST:event_txtPriApellidoKeyReleased
 
     private void txtSegApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegApellidoKeyReleased
         // TODO add your handling code here:
         logica.Utilidades coso = new logica.Utilidades();
         coso.validarCamposTexto(txtSegApellido.getText(), txtSegApellido);
+        txtSegApellido.setText(utilidades.formatearCadena(txtSegApellido.getText()));
     }//GEN-LAST:event_txtSegApellidoKeyReleased
 
     private void txtCostoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyReleased

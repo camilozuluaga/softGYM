@@ -204,6 +204,11 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                 txtCorreoActionPerformed(evt);
             }
         });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyReleased(evt);
+            }
+        });
 
         jdFechaNaci.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -536,18 +541,23 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
 
     private void txtSegundoApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoApellidoKeyReleased
         utilidades.validarCamposTexto(txtSegundoApellido.getText(), txtSegundoApellido);
+        txtSegundoApellido.setText(utilidades.formatearCadena(txtSegundoApellido.getText()));
+        
     }//GEN-LAST:event_txtSegundoApellidoKeyReleased
 
     private void txtSegundoNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoNombreKeyReleased
         utilidades.validarCamposTexto(txtSegundoNombre.getText(), txtSegundoNombre);
+        txtSegundoNombre.setText(utilidades.formatearCadena(txtSegundoNombre.getText()));
     }//GEN-LAST:event_txtSegundoNombreKeyReleased
 
     private void txtPrimerApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerApellidoKeyReleased
         utilidades.validarCamposTexto(txtPrimerApellido.getText(), txtPrimerApellido);
+        txtPrimerApellido.setText(utilidades.formatearCadena(txtPrimerApellido.getText()));
     }//GEN-LAST:event_txtPrimerApellidoKeyReleased
 
     private void txtPrimerNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerNombreKeyReleased
         utilidades.validarCamposTexto(txtPrimerNombre.getText(), txtPrimerNombre);
+        txtPrimerNombre.setText(utilidades.formatearCadena(txtPrimerNombre.getText()));
     }//GEN-LAST:event_txtPrimerNombreKeyReleased
 
     private void txtIdentificacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdentificacionFocusLost
@@ -597,6 +607,10 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
             guardarSocio();
         }
     }//GEN-LAST:event_cboSexoKeyPressed
+
+    private void txtCorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyReleased
+        txtCorreo.setText(utilidades.formatearCadena(txtCorreo.getText()));
+    }//GEN-LAST:event_txtCorreoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

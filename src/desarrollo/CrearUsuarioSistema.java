@@ -280,6 +280,11 @@ public class CrearUsuarioSistema extends javax.swing.JInternalFrame {
                 txtCorreoActionPerformed(evt);
             }
         });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyReleased(evt);
+            }
+        });
 
         jdFechaNaci.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -619,14 +624,17 @@ public class CrearUsuarioSistema extends javax.swing.JInternalFrame {
 
     private void txtSegundoApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoApellidoKeyReleased
         utilidades.validarCamposTexto(txtSegundoApellido.getText(), txtSegundoApellido);
+        txtSegundoApellido.setText(utilidades.formatearCadena(txtSegundoApellido.getText()));
     }//GEN-LAST:event_txtSegundoApellidoKeyReleased
 
     private void txtPrimerApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerApellidoKeyReleased
         utilidades.validarCamposTexto(txtPrimerApellido.getText(), txtPrimerApellido);
+        txtPrimerApellido.setText(utilidades.formatearCadena(txtPrimerApellido.getText()));
     }//GEN-LAST:event_txtPrimerApellidoKeyReleased
 
     private void txtSegundoNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoNombreKeyReleased
         utilidades.validarCamposTexto(txtSegundoNombre.getText(), txtSegundoNombre);
+        txtSegundoNombre.setText(utilidades.formatearCadena(txtSegundoNombre.getText()));
     }//GEN-LAST:event_txtSegundoNombreKeyReleased
 
     private void txtSegundoNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSegundoNombreFocusLost
@@ -660,6 +668,7 @@ public class CrearUsuarioSistema extends javax.swing.JInternalFrame {
 
     private void txtPrimerNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerNombreKeyReleased
         utilidades.validarCamposTexto(txtPrimerNombre.getText(), txtPrimerNombre);
+        txtPrimerNombre.setText(utilidades.formatearCadena(txtPrimerNombre.getText()));
     }//GEN-LAST:event_txtPrimerNombreKeyReleased
 
     private void txtPrimerNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrimerNombreFocusLost
@@ -685,6 +694,11 @@ public class CrearUsuarioSistema extends javax.swing.JInternalFrame {
             guardar();
         }
     }//GEN-LAST:event_txtClaveKeyPressed
+
+    private void txtCorreoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyReleased
+        // TODO add your handling code here:     
+        txtCorreo.setText(utilidades.formatearCadena(txtCorreo.getText()));
+    }//GEN-LAST:event_txtCorreoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -739,4 +739,9 @@ public class Utilidades {
 //    public static String nClase(Class<?> c){
 //        return c.getTypeName();
 //    }
+    
+    public String formatearCadena(String cadena){
+        cadena= cadena.toUpperCase();
+        return cadena;
+    }
 }
