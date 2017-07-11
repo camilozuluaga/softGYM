@@ -62,7 +62,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jTabbedPane1.setEnabledAt(2, true);
         jTabbedPane1.setEnabledAt(3, false);
         jTabbedPane1.setEnabledAt(4, false);
-
+        
         initRegistrarVisita();
         /*Ver Facturas cliente*/
         obtenerFacturas(socioID);
@@ -1131,11 +1131,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 }
                 switch (data.getString("sexo")) {
                     case "Masculino":
-                        lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/sin_foto_hombre.png"))); // NOI18N
+
                         lblFoto.setBorder(null);
                         break;
                     case "Femenino":
-                        lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/sin_foto_mujer.png"))); // NOI18N
                         lblFoto.setBorder(null);
                         break;
                 }
