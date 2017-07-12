@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import logica.DB;
 import logica.Utilidades;
 import net.sf.jcarrierpigeon.WindowPosition;
@@ -46,6 +47,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//evita cerra jframe con ALT+C
         this.setExtendedState(MAXIMIZED_BOTH);//maximizado
         this.setAlwaysOnTop(true);//siempre al frente
+        lblFoto.setVisible(false);
 
     }
 
@@ -179,9 +181,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(lblNombreSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -192,7 +194,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addComponent(lblImagen))))
-                    .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -257,7 +261,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         public void run() {
                             try {
                                 if (usuarioExiste(clave)) {
-                                    getImagen();
+                     
                                     
                                     //comprobar si el usuario esta cumpliendo años hoy o maniana
                                     if (miCumpleañosSocio.tieneFechaNacimiento(socio)) {
@@ -275,12 +279,15 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                                     lblNombreSocio.setVisible(true);
                                     lblNombreSocio.setText("Bienvenido: " + miEntrada.traerNombreSocio(clave));
                                     lblMembresiaVence.setText(venceMembresia());
+                                    
+                                    getImagen();
 
                                     delay(4500);
                                     lblNombreSocio.setText("");
                                     lblMembresiaVence.setText("");
                                     lblCumpleanios.setText("");
                                     lblImagen.setVisible(false);
+                                    lblFoto.setVisible(false);
 
                                 }
 
@@ -357,8 +364,8 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblMembresiaVence;
-    private javax.swing.JLabel lblNombreSocio;
-    private javax.swing.JPasswordField pass;
+    public javax.swing.JLabel lblNombreSocio;
+    public javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
 
     private int getIdMembresia(String clave) {
@@ -541,14 +548,15 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     public void getImagen() {
         try {
             CachedRowSet data;
-            int socioID=Integer.parseInt(pass.getText());
+                    
             System.out.println("pass "+pass.getText());
-            data = db.sqlDatos("SELECT foto,REPLACE(concat(soc.primer_nombre,' ',soc.segundo_nombre,' ',soc.primer_apellido,' ',soc.segundo_apellido),'  ',' ') as Usuario, EXTRACT(year FROM AGE(NOW(),soc.fecha_nacimiento))::text || ' Años' edad , soc.sexo ,soc.clave FROM socio soc WHERE soc.id = " + socioID);
+            data = db.sqlDatos("SELECT foto,REPLACE(concat(soc.primer_nombre,' ',soc.segundo_nombre,' ',soc.primer_apellido,' ',soc.segundo_apellido),'  ',' ') as Usuario, EXTRACT(year FROM AGE(NOW(),soc.fecha_nacimiento))::text || ' Años' edad , soc.sexo ,soc.clave FROM socio soc WHERE soc.id = " + socio);
             
 
             while (data.next()) {
                 if (data.getBytes("foto") != null) {
                     ImageIcon foto = new ImageIcon(data.getBytes("foto"));
+                    lblFoto.setVisible(true);
                     lblFoto.setIcon(foto);
                     lblFoto.setBorder(null);
 
