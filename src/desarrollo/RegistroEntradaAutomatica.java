@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.ImageIcon;
 import logica.DB;
 import logica.Utilidades;
 import net.sf.jcarrierpigeon.WindowPosition;
@@ -30,6 +31,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     Frame frame;
     VerSocio versocio;
     puerta.Puerta arduino;
+    private final DB db = new DB();
 
     /**
      * Creates new form FrameBloqueo
@@ -67,6 +69,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         lblMembresiaVence = new javax.swing.JLabel();
         lblCumpleanios = new javax.swing.JLabel();
         lblImagen = new javax.swing.JLabel();
+        lblFoto = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,12 +139,16 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
 
         lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/cumpleaños.png"))); // NOI18N
 
+        lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/sin_foto_hombre.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(172, 172, 172)
+                .addContainerGap()
+                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblNombreSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -152,9 +159,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                             .addGap(6, 6, 6)
                             .addComponent(jButton1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblCumpleanios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblMembresiaVence, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblMembresiaVence, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                            .addComponent(lblCumpleanios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblImagen)))
                 .addContainerGap(90, Short.MAX_VALUE))
@@ -173,16 +180,19 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(lblNombreSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMembresiaVence, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCumpleanios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(lblImagen)))
+                        .addComponent(lblNombreSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblMembresiaVence, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCumpleanios, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(lblImagen))))
+                    .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -215,6 +225,14 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
 
     }//GEN-LAST:event_imagenKeyPressed
 
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        pass.requestFocus();
+    }//GEN-LAST:event_formFocusLost
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        pass.requestFocus();
+    }//GEN-LAST:event_formFocusGained
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         pass.setText("");
         pass.requestFocus();
@@ -239,6 +257,8 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         public void run() {
                             try {
                                 if (usuarioExiste(clave)) {
+                                    getImagen();
+                                    
                                     //comprobar si el usuario esta cumpliendo años hoy o maniana
                                     if (miCumpleañosSocio.tieneFechaNacimiento(socio)) {
                                         if (miCumpleañosSocio.cumpleañosManiana(socio)) {
@@ -297,14 +317,6 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
-
-    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
-        pass.requestFocus();
-    }//GEN-LAST:event_formFocusLost
-
-    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        pass.requestFocus();
-    }//GEN-LAST:event_formFocusGained
     /**
      * @param args the command line arguments
      */
@@ -342,10 +354,11 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblCumpleanios;
+    private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblMembresiaVence;
-    public javax.swing.JLabel lblNombreSocio;
-    public javax.swing.JPasswordField pass;
+    private javax.swing.JLabel lblNombreSocio;
+    private javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
 
     private int getIdMembresia(String clave) {
@@ -524,4 +537,26 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         } catch (InterruptedException ix) {
         }
     }
+
+    public void getImagen() {
+        try {
+            CachedRowSet data;
+            int socioID=Integer.parseInt(pass.getText());
+            System.out.println("pass "+pass.getText());
+            data = db.sqlDatos("SELECT foto,REPLACE(concat(soc.primer_nombre,' ',soc.segundo_nombre,' ',soc.primer_apellido,' ',soc.segundo_apellido),'  ',' ') as Usuario, EXTRACT(year FROM AGE(NOW(),soc.fecha_nacimiento))::text || ' Años' edad , soc.sexo ,soc.clave FROM socio soc WHERE soc.id = " + socioID);
+            
+
+            while (data.next()) {
+                if (data.getBytes("foto") != null) {
+                    ImageIcon foto = new ImageIcon(data.getBytes("foto"));
+                    lblFoto.setIcon(foto);
+                    lblFoto.setBorder(null);
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
+
