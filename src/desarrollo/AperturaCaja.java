@@ -363,8 +363,8 @@ public class AperturaCaja extends javax.swing.JFrame {
         return fecha;
     }
 
-    public void cargarUsuario() {
-        String nombre_usuario;
+    public String cargarUsuario() {
+        String nombre_usuario="";
         String usuario;
         usuario = System.getProperty("usuario_sistema");
         try {
@@ -378,6 +378,7 @@ public class AperturaCaja extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AperturaCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return nombre_usuario;
     }
 
     public void cargarNumeroCaja() {

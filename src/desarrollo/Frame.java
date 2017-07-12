@@ -44,6 +44,7 @@ public class Frame extends javax.swing.JFrame {
     private Utilidades utiles = new Utilidades();
     private PlaceHolder placeholder;
     public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.png");
+    public AperturaCaja aperturaCaja;
 
     public Frame() {
         initComponents();
@@ -55,6 +56,9 @@ public class Frame extends javax.swing.JFrame {
         PlaceHolder placeHolder = new PlaceHolder("Buscar Socios ...", txtBuscar);
         cargarImagen(escritorio, foto1);
         comprobarPermisosMenu();
+        aperturaCaja=new AperturaCaja();
+        lbUsuario.setText("USUARIO: "+aperturaCaja.cargarUsuario());
+                
     }
 
     public Frame(String id) throws SQLException, ParseException {
@@ -106,13 +110,14 @@ public class Frame extends javax.swing.JFrame {
         btnCierreCaja = new javax.swing.JButton();
         btnRegistrarEgreso = new javax.swing.JButton();
         btnCrearMembresia = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtBuscar = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
         bInicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bPuerta1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lbUsuario = new javax.swing.JLabel();
         MenuAplicacion = new javax.swing.JMenuBar();
         mArchivo = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -201,9 +206,6 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setText("www.gidsoft.org");
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         txtBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -272,13 +274,21 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        lbUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbUsuario.setForeground(java.awt.Color.blue);
+        lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbUsuario.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -287,21 +297,18 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(81, 81, 81)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addComponent(btnCrearSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(btnRegistrarEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCierreCaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addComponent(btnRegistrarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(btnCrearMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCierreCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,10 +324,17 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(btnCrearMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addComponent(btnCierreCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
+        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuAplicacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -810,7 +824,6 @@ public class Frame extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem itemAdministrarPuerta;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
@@ -830,8 +843,10 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JLabel lbUsuario;
     private javax.swing.JMenu mAcciones;
     private javax.swing.JMenu mAdministracion;
     private javax.swing.JMenu mArchivo;
