@@ -45,15 +45,19 @@ public class Frame extends javax.swing.JFrame {
     private PlaceHolder placeholder;
     public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.png");
     public AperturaCaja aperturaCaja;
+    public Utilidades utilidades;
+
 
     public Frame() {
         initComponents();
+        utilidades=new Utilidades();
+        this.setDefaultCloseOperation(0); 
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setTitle("BioFisic GYM - > Sistema de Control Acceso");
         this.setVisible(true);
         txtBuscar.requestFocusInWindow();
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon_biofisic.png")).getImage());
-        PlaceHolder placeHolder = new PlaceHolder("Buscar Socios ...", txtBuscar);
+        PlaceHolder placeHolder = new PlaceHolder("Buscar socio por identificación o codigo ...", txtBuscar);
         cargarImagen(escritorio, foto1);
         comprobarPermisosMenu();
         aperturaCaja=new AperturaCaja();
@@ -63,6 +67,7 @@ public class Frame extends javax.swing.JFrame {
 
     public Frame(String id) throws SQLException, ParseException {
         initComponents();
+        this.setDefaultCloseOperation(0); 
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setTitle("Biofisic GYM - > Sistema de Control Acceso");
         this.setVisible(true);
@@ -215,6 +220,9 @@ public class Frame extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
         });
 
         bBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/buscar.png"))); // NOI18N
@@ -253,7 +261,7 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bPuerta1)
@@ -308,7 +316,7 @@ public class Frame extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(btnCrearMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -776,6 +784,11 @@ public class Frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemAdministrarPuertaActionPerformed
 
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericos(txtBuscar.getText(), txtBuscar);
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -945,6 +958,11 @@ public class Frame extends javax.swing.JFrame {
                         boolean visible = acceso.menuPermitido(elementoMenu.getText(), menu.getText());
                         elementoMenu.setVisible(visible);
                         if (!visible) {
+                            if(elementoMenu.getText().equals("Crear Membresía")){
+                                btnCrearMembresia.setEnabled(false);
+                            }else if(elementoMenu.getText().equals("Crear Socio")){
+                                btnCrearSocio.setEnabled(false);
+                            }
                             elementosOcultos++;
                         }
                     }
