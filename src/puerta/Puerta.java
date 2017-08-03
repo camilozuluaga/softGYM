@@ -33,7 +33,7 @@ public class Puerta {
             if (puertoBluetooth == null) {
                 puertoBluetooth = new SerialPort(p.getParamConfig("puerto_bluetooth"));
             }
-
+            System.out.println("es abierto? "+puertoBluetooth.isOpened());
             if (!puertoBluetooth.isOpened()) {
                 puertoBluetooth.openPort();
                 puertoBluetooth.setParams(SerialPort.BAUDRATE_9600,
@@ -43,9 +43,13 @@ public class Puerta {
 
                 puertoBluetooth.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN
                         | SerialPort.FLOWCONTROL_RTSCTS_OUT);
+                puertoBluetooth.writeString("1");
+            }else{
+               puertoBluetooth.writeString("1"); 
+               puertoBluetooth.closePort();
             }
 
-            puertoBluetooth.writeString("1");
+            
 
         } catch (SerialPortException ex) {
             Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, "Puerto no disponible o bluetooth no conectado; verifique", ex);
