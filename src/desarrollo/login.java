@@ -402,9 +402,20 @@ public class login extends javax.swing.JFrame {
         System.out.println((Integer.parseInt(anio) > Integer.parseInt(datos[0])));
         System.out.println(Integer.parseInt(mes) > Integer.parseInt(datos[1]));
         System.out.println(Integer.parseInt(dia) > Integer.parseInt(datos[2]));
-        if ((Integer.parseInt(anio) > Integer.parseInt(datos[0])) || (Integer.parseInt(mes) > Integer.parseInt(datos[1])) || (Integer.parseInt(dia) > Integer.parseInt(datos[2]))) {
-
+        if ((Integer.parseInt(anio) > Integer.parseInt(datos[0]))) {
             return true;
+        }else if((Integer.parseInt(anio) == Integer.parseInt(datos[0]))){
+            if((Integer.parseInt(mes) > Integer.parseInt(datos[1]))){
+                return true;
+            }else if((Integer.parseInt(mes) == Integer.parseInt(datos[1]))){
+                if((Integer.parseInt(dia) >= Integer.parseInt(datos[2]))){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
         }
         return false;
     }
