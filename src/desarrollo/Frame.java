@@ -53,7 +53,7 @@ public class Frame extends javax.swing.JFrame {
         utilidades=new Utilidades();
         this.setDefaultCloseOperation(0); 
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.setTitle("BioFisic GYM - > Sistema de Control Acceso");
+        this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+ " - > Sistema de Control Acceso");
         this.setVisible(true);
         txtBuscar.requestFocusInWindow();
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon_biofisic.png")).getImage());
@@ -152,6 +152,10 @@ public class Frame extends javax.swing.JFrame {
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
+        mInformes1 = new javax.swing.JMenu();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -298,6 +302,14 @@ public class Frame extends javax.swing.JFrame {
             .addComponent(lbUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
+        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -336,13 +348,6 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
-        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuAplicacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -558,6 +563,30 @@ public class Frame extends javax.swing.JFrame {
         mInformes.add(jMenuItem18);
 
         MenuAplicacion.add(mInformes);
+
+        mInformes1.setText("Configuraciones");
+        mInformes1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        mInformes1.add(jSeparator3);
+
+        jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jMenuItem10.setText("Cambiar Nombre");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        mInformes1.add(jMenuItem10);
+
+        jMenuItem19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jMenuItem19.setText("Cambiar Imagen");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        mInformes1.add(jMenuItem19);
+
+        MenuAplicacion.add(mInformes1);
 
         setJMenuBar(MenuAplicacion);
 
@@ -789,6 +818,14 @@ public class Frame extends javax.swing.JFrame {
         utilidades.validarCampoNumericos(txtBuscar.getText(), txtBuscar);
     }//GEN-LAST:event_txtBuscarKeyReleased
 
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -839,6 +876,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
@@ -847,6 +885,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -859,6 +898,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lbUsuario;
     private javax.swing.JMenu mAcciones;
     private javax.swing.JMenu mAdministracion;
@@ -866,6 +906,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mEgreso;
     private javax.swing.JMenuItem mEmpleado;
     private javax.swing.JMenu mInformes;
+    private javax.swing.JMenu mInformes1;
     private javax.swing.JMenuItem mIngreso;
     private javax.swing.JMenuItem mMembresia;
     private javax.swing.JPopupMenu.Separator separador;

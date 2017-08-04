@@ -343,8 +343,8 @@ public class AdministrarUsuarioSistema extends javax.swing.JInternalFrame {
         String querySql;
         String orderBy = " ORDER BY us.id ASC ";
         try {
-            dtmEjemplo = new DefaultTableModel(null, new String[]{"id", "Nombres", "Apellidos", "nombreUsuario", "estado"});
-            querySql = String.format("SELECT us.id,CONCAT(us.primer_nombre,' ',us.segundo_nombre),"
+            dtmEjemplo = new DefaultTableModel(null, new String[]{"Nombres", "Apellidos", "nombreUsuario", "estado"});
+            querySql = String.format("SELECT CONCAT(us.primer_nombre,' ',us.segundo_nombre),"
                     + "CONCAT(us.primer_apellido,' ',us.segundo_apellido),us.identificacion, "
                     + "CASE WHEN us.estado IS TRUE THEN 'Activo' WHEN us.estado IS FALSE THEN 'Inactivo'::text END\n "
                     + "FROM usuario_sistema us\n"

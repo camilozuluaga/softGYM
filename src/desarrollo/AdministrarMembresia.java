@@ -77,11 +77,11 @@ public class AdministrarMembresia extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nombre Membresia", "Valor", "Duracion", "Disponibilidad"
+                "Nombre Membresia", "Valor", "Duracion", "Disponibilidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -339,8 +339,8 @@ public class AdministrarMembresia extends javax.swing.JInternalFrame {
         String whereSQL = "";
         String orderBy = " ORDER BY mem.id ASC ";
         try {
-            dtmEjemplo = new DefaultTableModel(null, new String[]{"Id Membresia","Nombre Membresia", "Valor Membresia", "Duracion", "Fecha Expiracion", "Estado"});
-            querySql = String.format("SELECT mem.id,mem.nombre,mem.valor,CONCAT(dura.duracion,'',dura.unidad),\n"
+            dtmEjemplo = new DefaultTableModel(null, new String[]{"Nombre Membresia", "Valor Membresia", "Duracion", "Fecha Expiracion", "Estado"});
+            querySql = String.format("SELECT mem.nombre,mem.valor,CONCAT(dura.duracion,'',dura.unidad),\n"
                     + "CASE WHEN promo.fecha_expiracion IS NULL THEN 'SIEMPRE DISPONIBLE' WHEN promo.fecha_expiracion IS NOT NULL THEN promo.fecha_expiracion::text END\n,"
                     + "CASE WHEN mem.estado IS True THEN 'Activa' WHEN mem.estado IS False THEN 'Inactiva'::text END\n"
                     + "FROM membresia mem\n"

@@ -16,6 +16,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,6 +24,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -298,7 +300,7 @@ public class Utilidades {
             String usuario = Conexion.getConexion().getMetaData().getUserName();
             String pass = "admin";
 
-            String  postgreSQLPatch= "C:/Program Files (x86)/PostgreSQL/9.1/bin/pg_dump.exe";
+            String postgreSQLPatch = "C:/Program Files (x86)/PostgreSQL/9.1/bin/pg_dump.exe";
 
             CachedRowSet data;
             data = db.sqlDatos("Select REPLACE(setting,'data','bin/pg_dump.exe') as ruta from pg_settings where name = 'data_directory' LIMIT 1");
@@ -308,8 +310,8 @@ public class Utilidades {
                 System.out.println("adentro:  " + postgreSQLPatch);
             }
             System.out.println("afuera:  " + postgreSQLPatch);
-            
-           // postgreSQLPatch= "C:/Program Files (x86)/PostgreSQL/9.1/bin/pg_dump.exe";
+
+            // postgreSQLPatch= "C:/Program Files (x86)/PostgreSQL/9.1/bin/pg_dump.exe";
             if (postgreSQLPatch.isEmpty()) {
                 msj.show("Error Generando Backup", "No se detecto ruta de Instalacion DBMS", TelegraphType.DOCUMENT_WARNING);
                 return;
@@ -698,8 +700,6 @@ public class Utilidades {
         return fechaHoy;
     }
 
-
-
     public boolean validarFechaRegistro(String fecha_Aper, String fecha_Hoy) throws SQLException {
         String fechaActual = fecha_Hoy;
         String fechaApertura = fecha_Aper;
@@ -739,9 +739,43 @@ public class Utilidades {
 //    public static String nClase(Class<?> c){
 //        return c.getTypeName();
 //    }
-    
-    public String formatearCadena(String cadena){
-        cadena= cadena.toUpperCase();
+    public String formatearCadena(String cadena) {
+        cadena = cadena.toUpperCase();
         return cadena;
     }
+
+    public String CargarNombreTitulo() {
+        
+        String cadena = "";
+
+        FileReader fr = null;
+        BufferedReader entrada = null;
+
+        try {
+            fr = new FileReader(new File("NombreApp.txt"));
+            entrada = new BufferedReader(fr);
+
+            while (entrada.ready()) {
+                cadena= entrada.readLine();
+
+            }
+
+            
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+        return cadena;
+    }
+    
+    
 }
