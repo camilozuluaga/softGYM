@@ -823,7 +823,9 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
+        String nombre=JOptionPane.showInputDialog("Ingrese el nombre que desea", JOptionPane.INFORMATION_MESSAGE);
+        utiles.cambiarNombreTitulo(nombre);
+        this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+ " - > Sistema de Control Acceso");
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**

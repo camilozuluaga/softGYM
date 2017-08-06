@@ -17,9 +17,11 @@ import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -776,6 +778,32 @@ public class Utilidades {
 
         return cadena;
     }
+    public void cambiarNombreTitulo(String nombre){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("NombreApp.txt");
+            pw = new PrintWriter(fichero);
+
+            
+                pw.println(nombre);
+                pw.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    
     
     
 }

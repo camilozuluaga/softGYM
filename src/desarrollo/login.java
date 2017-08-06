@@ -41,7 +41,7 @@ public class login extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/imagen/gym.png")).getImage());
-        setTitle("Acceso Sistema BioFisic GYM");
+        setTitle("Acceso Sistema "+utilidades.CargarNombreTitulo().toUpperCase());
         //System.out.println("=> "+Utilidades.nClase(login.class));
     }
 
