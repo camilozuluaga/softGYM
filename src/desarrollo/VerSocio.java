@@ -1144,9 +1144,9 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"Cod. Pago", "Fecha Pago", "Hora Pago", "Valor Pagado", "Valor Restante", "Tipo Pago", "Membresia", "Quien recibe"});
+            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "Fecha Pago", "Hora Pago", "Valor Pagado", "Valor Restante", "Tipo Pago", "Membresia", "Quien recibe"});
             //SELECT m.id, pago.id as \"Codigo Pago\", pago.fecha_pago::date as \"Fecha Pago\" , to_char(pago.fecha_pago, 'HH12:MI:SS AM') as \"Hora Pago\"  , pago.pago as \"Valor Pagado\" , pago.saldo as \"Valor Restante\", pago.usuario_sistema_id as \"Quien Recibe\" FROM pago_membresia pago, membresia m WHERE pago.socio_id = " + socioID + " AND pago.pago <> 0 ORDER BY id DESC LIMIT 5
-            data = db.sqlDatos("SELECT pago.id as \"Cod. Pago\" ,  pago.fecha_pago::date as \"Fecha Pago\" , to_char(pago.fecha_pago, 'HH12:MI:SS AM') as \"Hora Pago\" ,translate(to_char(pago.pago, '$99,999'),' ','') as \"Valor Pagado\" , translate(to_char(pago.saldo, '$99,999'),' ','') as \"Valor Restante\" , CASE WHEN pago.saldo = 0 THEN 'Pagada' WHEN pago.saldo > 0 THEN 'Abono'::text END AS \"Tipo Pago\" ,  CONCAT(mem.nombre,'(',memdatos.fecha_inicio_membresia,'/',memdatos.fecha_fin_membresia,')') as \"Membresia\" , CONCAT(usuariosis.primer_nombre , ' ' , usuariosis.segundo_nombre) AS \"Quien recibe\"\n"
+            data = db.sqlDatos("SELECT  pago.fecha_pago::date as \"Fecha Pago\" , to_char(pago.fecha_pago, 'HH12:MI:SS AM') as \"Hora Pago\" ,translate(to_char(pago.pago, '$99,999'),' ','') as \"Valor Pagado\" , translate(to_char(pago.saldo, '$99,999'),' ','') as \"Valor Restante\" , CASE WHEN pago.saldo = 0 THEN 'Pagada' WHEN pago.saldo > 0 THEN 'Abono'::text END AS \"Tipo Pago\" ,  CONCAT(mem.nombre,'(',memdatos.fecha_inicio_membresia,'/',memdatos.fecha_fin_membresia,')') as \"Membresia\" , CONCAT(usuariosis.primer_nombre , ' ' , usuariosis.segundo_nombre) AS \"Quien recibe\"\n"
                     + "FROM  pago_membresia pago , membresia_datos memdatos , usuario_sistema usuariosis , membresia_usuario memusuario , membresia mem\n"
                     + "WHERE pago.membresiadatos_id = memdatos.id AND  pago.usuario_sistema_id = usuariosis.id AND memdatos.membresia_socio_id = memusuario.id AND memusuario.membresia_id = mem.id AND \n"
                     + "pago.socio_id = " + socioID + " AND pago.factura_id IS NOT NULL ORDER BY pago.id DESC LIMIT 5");
@@ -1162,8 +1162,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            dtmEjemplo = new DefaultTableModel(null, new String[]{"Cod.","Membresia", "Comienza", "Termina", "Estado"});
-            data = db.sqlDatos("SELECT mem.id , mem.nombre as \"Membresia\" , mendatos.fecha_inicio_membresia as \"Comienza\" , mendatos.fecha_fin_membresia as \"Termina\", mendatos.estado as \"Estado\", CASE WHEN mendatos.renovar = true Then 'Si' WHEN mendatos.renovar = false Then 'No' END AS \"Renueva\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
+            dtmEjemplo = new DefaultTableModel(null, new String[]{"Membresia", "Comienza", "Termina", "Estado"});
+            data = db.sqlDatos("SELECT  mem.nombre as \"Membresia\" , mendatos.fecha_inicio_membresia as \"Comienza\" , mendatos.fecha_fin_membresia as \"Termina\", mendatos.estado as \"Estado\", CASE WHEN mendatos.renovar = true Then 'Si' WHEN mendatos.renovar = false Then 'No' END AS \"Renueva\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
                     + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND memusu.socio_id = " + socioID + "ORDER BY mendatos.fecha_fin_membresia DESC ");
 
             tablaMembresias = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaMembresias);
@@ -1202,11 +1202,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"Codigo", "Fecha", "Hora", "Membresia"});
-            data = db.sqlDatos("SELECT entrada.id, entrada.fecha_hora::date as \"Fecha\" , to_char(entrada.fecha_hora, 'HH12:MI:SS AM') as \"Hora\", mem.nombre , REPLACE(concat(s.primer_nombre,' ',s.segundo_nombre,' ',s.primer_apellido,' ',s.segundo_apellido),'  ',' ') as Usuario FROM entrada_socio entrada , socio s , membresia mem\n" +
+            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "Fecha", "Hora", "Membresia"});
+            data = db.sqlDatos("SELECT  entrada.fecha_hora::date as \"Fecha\" , to_char(entrada.fecha_hora, 'HH12:MI:SS AM') as \"Hora\", mem.nombre , REPLACE(concat(s.primer_nombre,' ',s.segundo_nombre,' ',s.primer_apellido,' ',s.segundo_apellido),'  ',' ') as Usuario FROM entrada_socio entrada , socio s , membresia mem\n" +
 "WHERE entrada.socio_id = s.id AND entrada.membresia_id = mem.id AND socio_id = "+socioID+" \n" +
 "UNION\n" +
-"SELECT visita.id , visita.fecha_registro::date as \"Fecha\" , to_char(visita.fecha_registro, 'HH12:MI:SS AM') as \"Hora\" , 'VISITA' , visita.nombres||' '||visita.apellidos FROM pago_visita visita WHERE visita.socio_id = "+socioID+" \n" +
+"SELECT visita.fecha_registro::date as \"Fecha\" , to_char(visita.fecha_registro, 'HH12:MI:SS AM') as \"Hora\" , 'VISITA' , visita.nombres||' '||visita.apellidos FROM pago_visita visita WHERE visita.socio_id = "+socioID+" \n" +
 "ORDER BY \"Fecha\" DESC LIMIT "+limit);
 
             nombreTabla = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, nombreTabla);
@@ -1269,8 +1269,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         String querySql;
         try {
-            dtmEjemplo = new DefaultTableModel(null, new String[]{"Codigo", "Fecha", "Descripcion", "Valor"});
-            querySql = String.format("SELECT fac.id,fac.fecha_registro::DATE,CONCAT(CASE WHEN pm.saldo = 0 THEN 'Pago' WHEN pm.saldo > 0 THEN 'Abono'::text END ||' Membresia '||m.nombre||' '||pm.pago||' ( '||md.fecha_inicio_membresia||'/'||md.fecha_fin_membresia||' )'),fac.paga\n"
+            dtmEjemplo = new DefaultTableModel(null, new String[]{ "Fecha", "Descripcion", "Valor"});
+            querySql = String.format("SELECT fac.fecha_registro::DATE,CONCAT(CASE WHEN pm.saldo = 0 THEN 'Pago' WHEN pm.saldo > 0 THEN 'Abono'::text END ||' Membresia '||m.nombre||' '||pm.pago||' ( '||md.fecha_inicio_membresia||'/'||md.fecha_fin_membresia||' )'),fac.paga\n"
                     + "FROM pago_membresia pm , factura fac, socio s, membresia m,membresia_datos md,membresia_usuario mu\n"
                     + "WHERE s.id = %s\n"
                     + "AND s.id = pm.socio_id\n"
