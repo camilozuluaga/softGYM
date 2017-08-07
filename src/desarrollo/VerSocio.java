@@ -831,12 +831,21 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
+      if(tablaMembresias.getRowCount()<1){
+        
         try {
             AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
             miAgregarMembresia.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
+      }else{
+          Telegraph tele = new Telegraph("Membresia existente", "Ya existe una membresia para esta persona", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
+          
+      }
+      
     }//GEN-LAST:event_bAgregarMembresiasActionPerformed
 
     private void bRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {

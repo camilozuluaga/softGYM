@@ -28,6 +28,10 @@ import logica.DB;
 import logica.Fondo;
 import logica.PlaceHolder;
 import logica.Utilidades;
+import net.sf.jcarrierpigeon.WindowPosition;
+import net.sf.jtelegraph.Telegraph;
+import net.sf.jtelegraph.TelegraphQueue;
+import net.sf.jtelegraph.TelegraphType;
 import puerta.Puerta;
 
 /**
@@ -69,7 +73,7 @@ public class Frame extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(0); 
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.setTitle("Biofisic GYM - > Sistema de Control Acceso");
+        this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+" - > Sistema de Control Acceso");
         this.setVisible(true);
         txtBuscar.requestFocusInWindow();
         txtBuscar.setText(id);
@@ -826,6 +830,9 @@ public class Frame extends javax.swing.JFrame {
         String nombre=JOptionPane.showInputDialog("Ingrese el nombre que desea");
         utiles.cambiarNombreTitulo(nombre);
         this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+ " - > Sistema de Control Acceso");
+        Telegraph tele = new Telegraph("Cambio de Nombre", "El nombre se ha cambiado con exito", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 4000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
