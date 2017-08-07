@@ -840,7 +840,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
       }else{
-          Telegraph tele = new Telegraph("Membresia existente", "Ya existe una membresia para esta persona", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+          Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
                 TelegraphQueue q = new TelegraphQueue();
                 q.add(tele);
           
