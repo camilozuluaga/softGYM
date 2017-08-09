@@ -1171,8 +1171,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            dtmEjemplo = new DefaultTableModel(null, new String[]{"Membresia", "Comienza", "Termina", "Estado"});
-            data = db.sqlDatos("SELECT  mem.nombre as \"Membresia\" , mendatos.fecha_inicio_membresia as \"Comienza\" , mendatos.fecha_fin_membresia as \"Termina\", mendatos.estado as \"Estado\", CASE WHEN mendatos.renovar = true Then 'Si' WHEN mendatos.renovar = false Then 'No' END AS \"Renueva\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
+            dtmEjemplo = new DefaultTableModel(null, new String[]{"Cod.", "Membresia", "Comienza", "Termina", "Estado"});
+            data = db.sqlDatos("SELECT  mem.id ,mem.nombre as \"Membresia\" , mendatos.fecha_inicio_membresia as \"Comienza\" , mendatos.fecha_fin_membresia as \"Termina\", mendatos.estado as \"Estado\", CASE WHEN mendatos.renovar = true Then 'Si' WHEN mendatos.renovar = false Then 'No' END AS \"Renueva\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
                     + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND memusu.socio_id = " + socioID + "ORDER BY mendatos.fecha_fin_membresia DESC ");
 
             tablaMembresias = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaMembresias);
