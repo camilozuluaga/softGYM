@@ -13,6 +13,7 @@ import javax.sql.rowset.CachedRowSet;
 import javax.swing.SpinnerNumberModel;
 import logica.DB;
 import logica.Reportes;
+import logica.Utilidades;
 
 /**
  *
@@ -25,6 +26,8 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
     int idFactura;
     String descripcion;
     Date fecha = new Date();
+    Utilidades utilitis =new Utilidades();
+    
     SpinnerNumberModel model = new SpinnerNumberModel(
             new Integer(1), // Dato visualizado al inicio en el spinner 
             new Integer(1), // Límite inferior 
@@ -40,7 +43,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
         lblNit.setVisible(false);
         this.idFactura = idFactura;
         this.setTitle(".:: Hércules - Vista Previa Recibo ::.");
-
+jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
         txtFecha.setEditable(false);
         txtCliente.setEditable(false);
         txtOperador.setEditable(false);

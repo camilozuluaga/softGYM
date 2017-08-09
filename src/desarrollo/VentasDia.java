@@ -184,9 +184,10 @@ public class VentasDia extends javax.swing.JInternalFrame {
         CachedRowSet data;
 
         try {
-            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "USUARIO", "NOMBRE SOCIO", "TIPO DE PAGO", "VALOR DE PAGO", "DESCRIPCIÓN", "DESCUENTO", "FECHA DEL PAGO"});
+            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD", "USUARIO", "NOMBRE SOCIO", "TIPO DE PAGO", "VALOR DE PAGO", "DESCRIPCIÓN", "DESCUENTO", "FECHA DEL PAGO"});
 
-            String consulta = "SELECT sis.primer_nombre \n"
+            String consulta = "SELECT f.socio_id, \n"
+                    + "        sis.primer_nombre \n"
                     + "       ||' ' \n"
                     + "       ||sis.primer_apellido, \n"
                     + "       s.primer_nombre \n"
@@ -221,7 +222,8 @@ public class VentasDia extends javax.swing.JInternalFrame {
                     + "       AND mem_u.membresia_id = memb.id\n"
                     + "	AND f.fecha_registro between (now()::date||' 00:00:00')::timestamp  AND  (now()::date||' 23:59:59')::timestamp  \n"
                     + "UNION \n"
-                    + "SELECT sis.primer_nombre \n"
+                    + "SELECT sf.socio_id, \n"
+                    + "        sis.primer_nombre \n"
                     + "       ||' ' \n"
                     + "       ||sis.primer_apellido, \n"
                     + "       s.primer_nombre \n"
@@ -260,7 +262,7 @@ public class VentasDia extends javax.swing.JInternalFrame {
                     + "       AND s.id = sf.socio_id\n"
                     + "       AND sf.fecha_registro between (now()::date||' 00:00:00')::timestamp  AND  (now()::date||' 23:59:59')::timestamp\n"
                     + "UNION\n"
-                    + "SELECT us.primer_nombre AS \"USUARIO\", pago.nombres || ' ' || pago.apellidos AS \"Nombre Socio\", 'VISITAS' AS \"TIPO DE PAGO\", pago.costo AS \"VALOR PAGO\", 'PAGO VISITA' AS \"DESCRIPCIÓN\" ,0.0 AS \"Descuento\", pago.fecha_registro AS \"FECHA PAGO\"\n"
+                    + "SELECT pago.socio_id ,us.primer_nombre AS \"USUARIO\", pago.nombres || ' ' || pago.apellidos AS \"Nombre Socio\", 'VISITAS' AS \"TIPO DE PAGO\", pago.costo AS \"VALOR PAGO\", 'PAGO VISITA' AS \"DESCRIPCIÓN\" ,0.0 AS \"Descuento\", pago.fecha_registro AS \"FECHA PAGO\"\n"
                     + "FROM pago_visita pago, caja ca, usuario_sistema us\n"
                     + "WHERE pago.fecha_registro >= ca.fecha_apertura\n"
                     + "AND ca.estado= true\n"
@@ -291,6 +293,9 @@ public class VentasDia extends javax.swing.JInternalFrame {
                 lblTotal.setVisible(true);
             }
             tablaTotal = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tablaTotal);
+            tablaTotal.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaTotal.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }

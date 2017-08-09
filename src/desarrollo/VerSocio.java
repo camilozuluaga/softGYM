@@ -62,13 +62,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jTabbedPane1.setEnabledAt(2, true);
         jTabbedPane1.setEnabledAt(3, false);
         jTabbedPane1.setEnabledAt(4, false);
-        
+
         initRegistrarVisita();
         /*Ver Facturas cliente*/
         obtenerFacturas(socioID);
-        
+
         new PlaceHolder("Filtrar Facturas ...", txtBuscar);
-        if(!utilidades.socioActivo(socioID)){
+        if (!utilidades.socioActivo(socioID)) {
             System.out.println("skdskd");
             bEliminarMembresia.setEnabled(false);
             bAgregarMembresias.setEnabled(false);
@@ -831,21 +831,21 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
-      if(tablaMembresias.getRowCount()<1){
-        
-        try {
-            AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
-            miAgregarMembresia.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        if (tablaMembresias.getRowCount() < 1) {
+
+            try {
+                AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
+                miAgregarMembresia.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+            TelegraphQueue q = new TelegraphQueue();
+            q.add(tele);
+
         }
-      }else{
-          Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
-                TelegraphQueue q = new TelegraphQueue();
-                q.add(tele);
-          
-      }
-      
+
     }//GEN-LAST:event_bAgregarMembresiasActionPerformed
 
     private void bRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -868,10 +868,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRegistrarEntradaActionPerformed
 
     private void btnEditarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSocioActionPerformed
-            CrearSocio crearSocio = new CrearSocio(socioID, this);
-            Frame.escritorio.add(crearSocio);
-            crearSocio.toFront();
-            crearSocio.setVisible(true);
+        CrearSocio crearSocio = new CrearSocio(socioID, this);
+        Frame.escritorio.add(crearSocio);
+        crearSocio.toFront();
+        crearSocio.setVisible(true);
     }//GEN-LAST:event_btnEditarSocioActionPerformed
 
     private void bEliminarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarMembresiaActionPerformed
@@ -991,7 +991,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void bRegistrarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarVisitaActionPerformed
         try {
-            RegistrarVisita rg = new RegistrarVisita(getDatosSocio()[0], getDatosSocio()[1], getDatosSocio()[2], getDatosSocio()[3],getDatosSocio()[4],getDatosSocio()[5]);
+            RegistrarVisita rg = new RegistrarVisita(getDatosSocio()[0], getDatosSocio()[1], getDatosSocio()[2], getDatosSocio()[3], getDatosSocio()[4], getDatosSocio()[5]);
             Frame.escritorio.add(rg);
             rg.toFront();
             Utilidades.centrarInternalFrame(rg);
@@ -1153,14 +1153,16 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "Fecha Pago", "Hora Pago", "Valor Pagado", "Valor Restante", "Tipo Pago", "Membresia", "Quien recibe"});
+            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"Cod. Pago", "Fecha Pago", "Hora Pago", "Valor Pagado", "Valor Restante", "Tipo Pago", "Membresia", "Quien recibe"});
             //SELECT m.id, pago.id as \"Codigo Pago\", pago.fecha_pago::date as \"Fecha Pago\" , to_char(pago.fecha_pago, 'HH12:MI:SS AM') as \"Hora Pago\"  , pago.pago as \"Valor Pagado\" , pago.saldo as \"Valor Restante\", pago.usuario_sistema_id as \"Quien Recibe\" FROM pago_membresia pago, membresia m WHERE pago.socio_id = " + socioID + " AND pago.pago <> 0 ORDER BY id DESC LIMIT 5
-            data = db.sqlDatos("SELECT  pago.fecha_pago::date as \"Fecha Pago\" , to_char(pago.fecha_pago, 'HH12:MI:SS AM') as \"Hora Pago\" ,translate(to_char(pago.pago, '$99,999'),' ','') as \"Valor Pagado\" , translate(to_char(pago.saldo, '$99,999'),' ','') as \"Valor Restante\" , CASE WHEN pago.saldo = 0 THEN 'Pagada' WHEN pago.saldo > 0 THEN 'Abono'::text END AS \"Tipo Pago\" ,  CONCAT(mem.nombre,'(',memdatos.fecha_inicio_membresia,'/',memdatos.fecha_fin_membresia,')') as \"Membresia\" , CONCAT(usuariosis.primer_nombre , ' ' , usuariosis.segundo_nombre) AS \"Quien recibe\"\n"
+            data = db.sqlDatos("SELECT pago.id as \"Cod. Pago\" , pago.fecha_pago::date as \"Fecha Pago\" , to_char(pago.fecha_pago, 'HH12:MI:SS AM') as \"Hora Pago\" ,translate(to_char(pago.pago, '$99,999'),' ','') as \"Valor Pagado\" , translate(to_char(pago.saldo, '$99,999'),' ','') as \"Valor Restante\" , CASE WHEN pago.saldo = 0 THEN 'Pagada' WHEN pago.saldo > 0 THEN 'Abono'::text END AS \"Tipo Pago\" ,  CONCAT(mem.nombre,'(',memdatos.fecha_inicio_membresia,'/',memdatos.fecha_fin_membresia,')') as \"Membresia\" , CONCAT(usuariosis.primer_nombre , ' ' , usuariosis.segundo_nombre) AS \"Quien recibe\"\n"
                     + "FROM  pago_membresia pago , membresia_datos memdatos , usuario_sistema usuariosis , membresia_usuario memusuario , membresia mem\n"
                     + "WHERE pago.membresiadatos_id = memdatos.id AND  pago.usuario_sistema_id = usuariosis.id AND memdatos.membresia_socio_id = memusuario.id AND memusuario.membresia_id = mem.id AND \n"
                     + "pago.socio_id = " + socioID + " AND pago.factura_id IS NOT NULL ORDER BY pago.id DESC LIMIT 5");
 
             tablaUltimosPagos = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaUltimosPagos);
+            tablaUltimosPagos.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaUltimosPagos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
 
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
@@ -1176,6 +1178,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND memusu.socio_id = " + socioID + "ORDER BY mendatos.fecha_fin_membresia DESC ");
 
             tablaMembresias = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaMembresias);
+            tablaMembresias.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaMembresias.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
 
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
@@ -1211,16 +1215,18 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "Fecha", "Hora", "Membresia"});
-            data = db.sqlDatos("SELECT  entrada.fecha_hora::date as \"Fecha\" , to_char(entrada.fecha_hora, 'HH12:MI:SS AM') as \"Hora\", mem.nombre , REPLACE(concat(s.primer_nombre,' ',s.segundo_nombre,' ',s.primer_apellido,' ',s.segundo_apellido),'  ',' ') as Usuario FROM entrada_socio entrada , socio s , membresia mem\n" +
-"WHERE entrada.socio_id = s.id AND entrada.membresia_id = mem.id AND socio_id = "+socioID+" \n" +
-"UNION\n" +
-"SELECT visita.fecha_registro::date as \"Fecha\" , to_char(visita.fecha_registro, 'HH12:MI:SS AM') as \"Hora\" , 'VISITA' , visita.nombres||' '||visita.apellidos FROM pago_visita visita WHERE visita.socio_id = "+socioID+" \n" +
-"ORDER BY \"Fecha\" DESC LIMIT "+limit);
+            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"Codigo", "Fecha", "Hora", "Membresia"});
+            data = db.sqlDatos("SELECT  entrada.id, entrada.fecha_hora::date as \"Fecha\" , to_char(entrada.fecha_hora, 'HH12:MI:SS AM') as \"Hora\", mem.nombre , REPLACE(concat(s.primer_nombre,' ',s.segundo_nombre,' ',s.primer_apellido,' ',s.segundo_apellido),'  ',' ') as Usuario FROM entrada_socio entrada , socio s , membresia mem\n"
+                    + "WHERE entrada.socio_id = s.id AND entrada.membresia_id = mem.id AND socio_id = " + socioID + " \n"
+                    + "UNION\n"
+                    + "SELECT visita.id,visita.fecha_registro::date as \"Fecha\" , to_char(visita.fecha_registro, 'HH12:MI:SS AM') as \"Hora\" , 'VISITA' , visita.nombres||' '||visita.apellidos FROM pago_visita visita WHERE visita.socio_id = " + socioID + " \n"
+                    + "ORDER BY \"Fecha\" DESC LIMIT " + limit);
 
             nombreTabla = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, nombreTabla);
             System.out.println(nombreTabla);
             System.out.println(data.createCopy());
+            tablaUltimasEntradas.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaUltimasEntradas.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1278,8 +1284,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         String querySql;
         try {
-            dtmEjemplo = new DefaultTableModel(null, new String[]{ "Fecha", "Descripcion", "Valor"});
-            querySql = String.format("SELECT fac.fecha_registro::DATE,CONCAT(CASE WHEN pm.saldo = 0 THEN 'Pago' WHEN pm.saldo > 0 THEN 'Abono'::text END ||' Membresia '||m.nombre||' '||pm.pago||' ( '||md.fecha_inicio_membresia||'/'||md.fecha_fin_membresia||' )'),fac.paga\n"
+            dtmEjemplo = new DefaultTableModel(null, new String[]{"Codigo", "Fecha", "Descripcion", "Valor"});
+            querySql = String.format("SELECT fac.id, fac.fecha_registro::DATE,CONCAT(CASE WHEN pm.saldo = 0 THEN 'Pago' WHEN pm.saldo > 0 THEN 'Abono'::text END ||' Membresia '||m.nombre||' '||pm.pago||' ( '||md.fecha_inicio_membresia||'/'||md.fecha_fin_membresia||' )'),fac.paga\n"
                     + "FROM pago_membresia pm , factura fac, socio s, membresia m,membresia_datos md,membresia_usuario mu\n"
                     + "WHERE s.id = %s\n"
                     + "AND s.id = pm.socio_id\n"
@@ -1293,6 +1299,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
             data = db.sqlDatos(querySql);
             jtFactura = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, jtFactura);
+            jtFactura.getColumnModel().getColumn(0).setMinWidth(0);
+            jtFactura.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1317,14 +1325,14 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 saldoMembresia = rs5.getDouble("consulta");
 
             }
-            
+
             //Obtener el saldo anterior a favor que tiene el socio antes de la devolucion
             Double nuevoSaldoFavor = saldoMembresia + utilidades.obtenerSaldoAFavor(socioID);
-            
+
             //consultamos cual es la caja actual
             cajaActual = utilidades.cajaActual();
             // devolvemos el dinero al usuario para eliminarle la membresía.
-            String consultaDevolverDinero = String.format("INSERT INTO saldofavor (caja_id, socio_id, valor, fecha_registro, usuario_sistema_id,valor_caja) VALUES (%s, %s, %s, now(), %s,%s); ", cajaActual, socioID, nuevoSaldoFavor, System.getProperty("usuario_sistema"),saldoMembresia);
+            String consultaDevolverDinero = String.format("INSERT INTO saldofavor (caja_id, socio_id, valor, fecha_registro, usuario_sistema_id,valor_caja) VALUES (%s, %s, %s, now(), %s,%s); ", cajaActual, socioID, nuevoSaldoFavor, System.getProperty("usuario_sistema"), saldoMembresia);
             Boolean success = db.sqlEjec(consultaDevolverDinero);
             if (success) {
                 System.out.println("Abono a saldo a favor Exitoso");
@@ -1368,7 +1376,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         CachedRowSet data;
         data = db.sqlDatos("SELECT primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,id,clave FROM SOCIO WHERE id=" + socioID + ";");
 
-        while (data.next()) { 
+        while (data.next()) {
             socio[0] = data.getString("primer_nombre");
             socio[1] = data.getString("segundo_nombre");
             socio[2] = data.getString("primer_apellido");

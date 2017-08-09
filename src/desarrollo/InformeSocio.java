@@ -516,15 +516,19 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void listadoTodosLosSocios() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "FECHA REGISTRO"});
         try {
 
-            String querySQL = "SELECT CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, sexo AS Sexo, fecha_registro AS FechaRegistro "
+            String querySQL = "SELECT id,CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, sexo AS Sexo, fecha_registro AS FechaRegistro "
                     + "FROM socio\n"
                     + "ORDER BY primer_apellido ASC";
             data = db.sqlDatos(querySQL);
             System.out.println("La consulta es: " + querySQL);
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            
+            
+tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -532,10 +536,10 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void sociosConMembresiasActivas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
         try {
 
-            String querySQL = "SELECT CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'ACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\"\n"
+            String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'ACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\"\n"
                     + "FROM socio so, membresia_usuario mu, membresia_datos md, membresia mem, usuario_sistema us\n"
                     + "WHERE so.id= mu.socio_id\n"
                     + "AND mem.id= mu.membresia_id\n"
@@ -547,6 +551,8 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -554,10 +560,10 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void sociosConMembresiasInactivas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
         try {
 
-            String querySQL = "SELECT  CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'INACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\"\n"
+            String querySQL = "SELECT  so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'INACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\"\n"
                     + "FROM socio so, membresia_usuario mu, membresia_datos md, membresia mem, usuario_sistema us\n"
                     + "WHERE so.id= mu.socio_id\n"
                     + "AND mem.id= mu.membresia_id\n"
@@ -569,6 +575,8 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -576,16 +584,18 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void sociosActivos() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "COD.","NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO"});
         try {
 
-            String querySQL = "SELECT  CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Activo', sexo AS Sexo, fecha_registro AS FechaRegistro\n"
+            String querySQL = "SELECT id, CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Activo', sexo AS Sexo, fecha_registro AS FechaRegistro\n"
                     + "FROM socio\n"
                     + "WHERE activo = TRUE\n"
                     + "ORDER BY primer_apellido";
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -593,16 +603,18 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void sociosInactivos() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO"});
         try {
 
-            String querySQL = "SELECT CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Inactivo', sexo AS Sexo, fecha_registro AS FechaRegistro\n"
+            String querySQL = "SELECT id, CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Inactivo', sexo AS Sexo, fecha_registro AS FechaRegistro\n"
                     + "FROM socio\n"
                     + "WHERE activo = FALSE\n"
                     + "ORDER BY primer_apellido";
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -610,10 +622,10 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void inactivasFechasEspecificas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
         try {
 
-            String querySQL = "SELECT  CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'Inactiva' AS Membresia, so.sexo AS Sexo, so.fecha_registro AS FechaRegistro\n"
+            String querySQL = "SELECT so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'Inactiva' AS Membresia, so.sexo AS Sexo, so.fecha_registro AS FechaRegistro\n"
                     + "FROM socio so, membresia_usuario mem, membresia_datos da\n"
                     + "WHERE mem.activa = FALSE\n"
                     + "AND so.id = mem.socio_id\n"
@@ -622,6 +634,8 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -629,16 +643,18 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void sociosCumplenMes() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "FECHA NACIMIENTO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "COD.","NOMBRE SOCIO", "APELLIDO SOCIO", "FECHA NACIMIENTO"});
         try {
             int mesSelccionado = mes.getMonth() + 1;
-            String querySQL = "SELECT  CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, fecha_nacimiento \n"
+            String querySQL = "SELECT  id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, fecha_nacimiento \n"
                     + "FROM socio so\n"
                     + "WHERE extract(month from fecha_nacimiento)=".concat(String.valueOf(mesSelccionado));
             System.out.println("La consulta es: " + querySQL);
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -646,10 +662,10 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void expirarAntes() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "COD.","NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA"});
         try {
 
-            String querySQL = "SELECT CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia\n"
+            String querySQL = "SELECT id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia\n"
                     + "FROM socio so, membresia_datos md, membresia_usuario mu,membresia m\n"
                     + "WHERE so.id = mu.socio_id\n"
                     + "AND mu.id = md.membresia_socio_id\n"
@@ -659,6 +675,8 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -666,10 +684,10 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void expirarDespues() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA"});
         try {
 
-            String querySQL = "SELECT  CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia\n"
+            String querySQL = "SELECT  id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia\n"
                     + "FROM socio so, membresia_datos md, membresia_usuario mu,membresia m\n"
                     + "WHERE so.id = mu.socio_id\n"
                     + "AND mu.id = md.membresia_socio_id\n"
@@ -679,6 +697,8 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             data = db.sqlDatos(querySQL);
 
             tabla = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tabla);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
