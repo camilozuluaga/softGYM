@@ -706,16 +706,62 @@ public final class AgregarMembresia extends javax.swing.JFrame {
         }
     }
 
+    private boolean desactivarMembresiasVencidas(int id) throws SQLException {
+        CachedRowSet dataPromocional;
+        Calendar c1 = Calendar.getInstance();
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+        try {
+            DB miDb = new DB();
+            dataPromocional = miDb.sqlDatos("SELECT fecha_expiracion FROM membresia_promocional WHERE membresia_id="+id+"");
+            String fecha;
+            while (dataPromocional.next()) {
+                fecha = dataPromocional.getDate("fecha_expiracion").toString();
+                String datos[] = fecha.split("-");
+                
+                for (int i = 0; i < datos.length; i++) {
+                    System.out.println(datos[i]);
+                }
+                if ((Integer.parseInt(anio) > Integer.parseInt(datos[0]))) {
+                    return true;
+                } else if ((Integer.parseInt(anio) == Integer.parseInt(datos[0]))) {
+                    if ((Integer.parseInt(mes) > Integer.parseInt(datos[1]))) {
+                        return true;
+                    } else if ((Integer.parseInt(mes) == Integer.parseInt(datos[1]))) {
+                        if ((Integer.parseInt(dia) >= Integer.parseInt(datos[2]))) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    
     private void obtenerMembresiasActivas() throws SQLException {
         CachedRowSet data;
         try {
             DB miDb = new DB();
-            data = miDb.sqlDatos("SELECT nombre FROM membresia where estado=True");
+            data = miDb.sqlDatos("SELECT nombre,id FROM membresia where estado=True");
             String valorAdquirido;
+            int id;
             cboMembresia.removeAllItems();
             while (data.next()) {
+                id=data.getInt("id");
                 valorAdquirido = data.getString("nombre");
+                System.out.println("Vencida: "+ desactivarMembresiasVencidas(id));
+                if(desactivarMembresiasVencidas(id)){
                 cboMembresia.addItem(valorAdquirido);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
