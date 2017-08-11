@@ -78,7 +78,7 @@ public class Aviso extends javax.swing.JFrame {
         jLabel3.setText("Lo sentimos");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setText("Ha sobrepasado el tiempo limite de pago");
+        jLabel4.setText("Tu licencia a expirado.");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel5.setText("Por favor, pongase en contacto");

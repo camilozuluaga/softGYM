@@ -44,6 +44,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         this.setUndecorated(true);//quita bordes a jframe
         initComponents();
         lblImagen.setVisible(false);
+        jLabel1.setText("BIENVENIDO A "+sonidos.CargarNombreTitulo().toUpperCase());
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//evita cerra jframe con ALT+C
         this.setExtendedState(MAXIMIZED_BOTH);//maximizado
         this.setAlwaysOnTop(true);//siempre al frente

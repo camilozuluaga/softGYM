@@ -7,6 +7,8 @@ package desarrollo;
 
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -39,9 +41,10 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/imagen/gym.png")).getImage());
-        setTitle("Acceso Sistema "+utilidades.CargarNombreTitulo().toUpperCase());
+        setTitle("Acceso Sistema " + utilidades.CargarNombreTitulo().toUpperCase());
         //System.out.println("=> "+Utilidades.nClase(login.class));
     }
 
@@ -216,7 +219,13 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        verificarAcceso();
+        try {
+            verificarAcceso();
+        } catch (ParseException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -233,7 +242,13 @@ public class login extends javax.swing.JFrame {
 
     private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            verificarAcceso();
+            try {
+                verificarAcceso();
+            } catch (ParseException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtClaveKeyPressed
 
@@ -292,7 +307,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    public void verificarAcceso() {
+    public void verificarAcceso() throws ParseException, SQLException {
 
         if (!validarAcceso()) {
 
@@ -368,21 +383,15 @@ public class login extends javax.swing.JFrame {
         return id;
     }
 
-    public boolean validarAcceso() {
+    public boolean validarAcceso() throws ParseException, SQLException {
         CachedRowSet data;
-        String fecha = "";
+        String fecha="";
         String querySQL = "SELECT fecha_fin FROM acceso";
         data = db.sqlDatos(querySQL);
 
         Calendar c1 = Calendar.getInstance();
-
-        String dia = Integer.toString(c1.get(Calendar.DATE));
-        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
-        String anio = Integer.toString(c1.get(Calendar.YEAR));
-
-        String fecha_actual = anio + "-0" + mes + "-" + dia;
-        System.out.println("Esta es la fecha actual: " + fecha_actual);
-
+        
+        
         try {
             if (data.next()) {
                 fecha = data.getDate("fecha_fin").toString();
@@ -392,32 +401,28 @@ public class login extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        String datos[] = fecha.split("-");
-
-        for (int i = 0; i < datos.length; i++) {
-            System.out.println(datos[i]);
-        }
         
-        System.out.println((Integer.parseInt(anio) > Integer.parseInt(datos[0])));
-        System.out.println(Integer.parseInt(mes) > Integer.parseInt(datos[1]));
-        System.out.println(Integer.parseInt(dia) > Integer.parseInt(datos[2]));
-        if ((Integer.parseInt(anio) > Integer.parseInt(datos[0]))) {
+
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+
+        String fecha_actual = anio + "-0" + mes + "-" + dia;
+        System.out.println("Esta es la fecha actual: " + fecha_actual);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = sdf.parse(fecha_actual);
+        Date date2 = sdf.parse(fecha);
+
+       
+
+        int v = date1.compareTo(date2);
+        if (v == 1) {
             return true;
-        }else if((Integer.parseInt(anio) == Integer.parseInt(datos[0]))){
-            if((Integer.parseInt(mes) > Integer.parseInt(datos[1]))){
-                return true;
-            }else if((Integer.parseInt(mes) == Integer.parseInt(datos[1]))){
-                if((Integer.parseInt(dia) >= Integer.parseInt(datos[2]))){
-                    return true;
-                }else{
-                    return false;
-                }
-            }else{
-                return false;
-            }
+
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void verificarMembresiasFinalizadas() {
