@@ -463,7 +463,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
 
         return fecha_apertura;
     }
-
+// ARREGLAR ESTA CONSULTA
     public long obtenerDineroSaldoFavor() {
         double suma = 0;
         long total = 0;

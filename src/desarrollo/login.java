@@ -72,7 +72,6 @@ public class login extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(493, 271));
         setResizable(false);
 
         jLabel4.setBackground(new java.awt.Color(153, 153, 153));
@@ -107,6 +106,7 @@ public class login extends javax.swing.JFrame {
         });
 
         txtClave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtClave.setText("123456");
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClaveKeyPressed(evt);
@@ -155,6 +155,7 @@ public class login extends javax.swing.JFrame {
         );
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtUsuario.setText("123456");
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusLost(evt);

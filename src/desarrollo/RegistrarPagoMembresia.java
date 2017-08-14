@@ -54,7 +54,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         obtenerMembresiasActivas();
 
         //darle el foco al campo de dinero
-        cDineroRecibido.requestFocus();
+       // cDineroRecibido.requestFocus();
 
     }
 
@@ -397,9 +397,18 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     }//GEN-LAST:event_cDineroRecibidoKeyReleased
 
     private void bPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPagoActionPerformed
+        
+        boolean validacion=false;
         try {
-            boolean validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
-
+            validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
+               } catch (SQLException ex) {
+            Logger.getLogger(RegistrarEgreso.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "¿Desea guardar el cambio como saldo a favor?", "Warning", dialogButton);
+        System.out.println("hola putitos 1");
+        if (dialogResult == JOptionPane.YES_OPTION) {
             if (validacion == false) {
                 JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
                 Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
@@ -408,9 +417,19 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
             } else {
                 guardar();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistrarEgreso.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            if (validacion == false) {
+                JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
+                Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
+            } else {
+                guardarDevolver();
+            }
         }
+
+        
+
     }//GEN-LAST:event_bPagoActionPerformed
 
     private void checkUtilizarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkUtilizarSaldoActionPerformed
@@ -519,7 +538,25 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         }
 
         int idFactura = registrarPagos();
-//        registrarPago();
+        socio.updateDatos();
+        this.dispose();
+        ImprimirRecibo imprimirRecibo = new ImprimirRecibo(idFactura);
+        Frame.escritorio.add(imprimirRecibo);
+        imprimirRecibo.toFront();
+        imprimirRecibo.setVisible(true);
+        Utilidades.centrarInternalFrame(imprimirRecibo);
+    }
+    private void guardarDevolver() {
+
+        String dineroRecibido = cDineroRecibido.getText();
+        boolean usoSaldo = checkUtilizarSaldo.isSelected();
+
+        if ("0".equals(dineroRecibido) && !usoSaldo) {
+            msj.show("Registro de Cero Pesos no permitido", "Debe indicar el dinero recibido o utilizar el saldo a favor si lo dispone.", TelegraphType.NOTIFICATION_INFO, 3000);
+            return;
+        }
+
+        int idFactura = registrarPagosDevolver();
         socio.updateDatos();
         this.dispose();
         ImprimirRecibo imprimirRecibo = new ImprimirRecibo(idFactura);
@@ -574,7 +611,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
 //            msj.show("Error Registrando Pago", "No se completó la operación de registrar el Pago, consulte con el administrador del Sistema", TelegraphType.NOTIFICATION_ERROR);
 //        }
     }
-
+    
     private int registrarPagos() {
         boolean success = false;
         Double dineroRecibido = 0.0;
@@ -630,6 +667,79 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         } else if (checkUtilizarSaldo.isSelected()) {
             Double valor = saldoFavorUsuario - Double.valueOf(cSaldoFavor.getText());
             actualizarSaldoFavor(valor, -Double.valueOf(cSaldoFavor.getText()));
+            System.out.println("ELSE IF => - Double.valueOf(cSaldoFavor.getText())" + (-Double.valueOf(cSaldoFavor.getText())));
+        }
+
+        if (success) {
+            bPago.setEnabled(false);
+            cDineroRecibido.setEditable(false);
+            cSaldoFavor.setEditable(false);
+
+            //Actualizar Valores Factura Aqui.
+            actualizarValoresFactura(facturaId);
+
+            msj.show("Transacción Exitosa", "Pago registrado con exito", TelegraphType.NOTIFICATION_DONE, 3000);
+        } else {
+
+        }
+
+        return facturaId;
+
+    }
+
+    private int registrarPagosDevolver() {
+        boolean success = false;
+        Double dineroRecibido = 0.0;
+        if (!cDineroRecibido.getText().isEmpty()) {
+            dineroRecibido = Double.valueOf(cDineroRecibido.getText());
+        }
+
+        Double saldoFavor = 0.0;
+
+        if (checkUtilizarSaldo.isSelected()) {
+            saldoFavor = Double.valueOf(cSaldoFavorUtilizado.getText());
+        }
+        dineroRecibido += saldoFavor;
+
+        //Aqui Generar Factura
+        int facturaId = generarFactura(dineroRecibido);
+        if (facturaId == -1) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, "Error generado factura .. no es posible registrar Pago");
+        }
+
+        for (Map.Entry<Integer, Double> entry : saldoProductos.entrySet()) {
+            int membresiaDatosId = entry.getKey();
+            Double saldo = entry.getValue();
+
+            //Obtener valor adquirido de pago_membresia en base a id
+            Double valorAdquirido = obtenerValorAdquirido(membresiaDatosId);
+            if (dineroRecibido >= saldo) {
+                success = procesarPago(valorAdquirido, saldo, 0.0, membresiaDatosId, facturaId);
+                //System.out.println("Membresia de id " + membresiaDatosId + " se pagara completa");
+                if (success) {
+                    actualizarEstadoPagoMembresia(membresiaDatosId);
+                }
+                dineroRecibido = dineroRecibido - saldo;
+            } else //Registrar Abono
+            {
+                if (dineroRecibido != 0) {
+                    success = procesarPago(valorAdquirido, dineroRecibido, saldo - dineroRecibido, membresiaDatosId, facturaId);
+                    dineroRecibido = dineroRecibido - saldo;
+                    break;
+                }
+            }
+
+        }
+
+        if (dineroRecibido > 0) {
+            Double saldoAnterior = saldoFavorUsuario - saldoFavor;
+            Double nuevoSaldo = dineroRecibido + saldoAnterior;
+            actualizarSaldoFavor(0.0, 0.0);
+
+            System.out.println("IF => nuevoSaldo - saldoAnterior" + (nuevoSaldo - saldoAnterior));
+        } else if (checkUtilizarSaldo.isSelected()) {
+            Double valor = saldoFavorUsuario - Double.valueOf(cSaldoFavor.getText());
+            actualizarSaldoFavor(0.0, 0.0);
             System.out.println("ELSE IF => - Double.valueOf(cSaldoFavor.getText())" + (-Double.valueOf(cSaldoFavor.getText())));
         }
 
