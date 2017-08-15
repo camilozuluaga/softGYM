@@ -46,7 +46,6 @@ public class PlaceHolder extends JLabel
         setFont(component.getFont());
         setForeground(component.getForeground());
         setBorder(new EmptyBorder(component.getInsets()));
-        setHorizontalAlignment(JLabel.LEADING);
 
         component.addFocusListener(this);
         document.addDocumentListener(this);

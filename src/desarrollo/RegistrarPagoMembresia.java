@@ -33,7 +33,6 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     Map<Integer, Double> saldoProductos = new HashMap<>();
     Map<String, Integer> MembresiasUsuario = new HashMap<>();
     private final int socioId;
-    private Double saldoFavorUsuario;
     private VerSocio socio;
     private final int usuario_sistema = Integer.valueOf(System.getProperty("usuario_sistema"));
     Utilidades utilidades = new Utilidades();
@@ -50,7 +49,6 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         this.setTitle(".:: Hércules - Ventana de Pagos ::.");
         this.socioId = socioId;
         this.socio = socio;
-        obtenerSaldoaFavor();
         obtenerMembresiasActivas();
 
         //darle el foco al campo de dinero
@@ -74,17 +72,12 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         lBalance = new javax.swing.JLabel();
-        cSaldoFavorUtilizado = new javax.swing.JTextField();
         cBalance = new javax.swing.JTextField();
         cValorAdquirido = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaProductos = new javax.swing.JTable();
-        panelSaldoaFavor = new javax.swing.JPanel();
-        checkUtilizarSaldo = new javax.swing.JCheckBox();
-        cSaldoFavor = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         cDineroRecibido = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -157,17 +150,8 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("Saldo a favor $");
-
         lBalance.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lBalance.setText("Nuevo Balance $");
-
-        cSaldoFavorUtilizado.setEditable(false);
-        cSaldoFavorUtilizado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        cSaldoFavorUtilizado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        cSaldoFavorUtilizado.setText("0");
-        cSaldoFavorUtilizado.setFocusable(false);
+        lBalance.setText("Cambio $");
 
         cBalance.setEditable(false);
         cBalance.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -182,7 +166,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         cValorAdquirido.setFocusable(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel8.setText("Valor Adquirido $");
+        jLabel8.setText("Valor A Pagar $");
 
         TablaProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -199,71 +183,22 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         TablaProductos.setFocusable(false);
         jScrollPane1.setViewportView(TablaProductos);
 
-        panelSaldoaFavor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Saldo a Favor", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14))); // NOI18N
-
-        checkUtilizarSaldo.setText("Usar para este pago?");
-        checkUtilizarSaldo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkUtilizarSaldoActionPerformed(evt);
-            }
-        });
-
-        cSaldoFavor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        cSaldoFavor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cSaldoFavorFocusLost(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelSaldoaFavorLayout = new javax.swing.GroupLayout(panelSaldoaFavor);
-        panelSaldoaFavor.setLayout(panelSaldoaFavorLayout);
-        panelSaldoaFavorLayout.setHorizontalGroup(
-            panelSaldoaFavorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSaldoaFavorLayout.createSequentialGroup()
-                .addGroup(panelSaldoaFavorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cSaldoFavor, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkUtilizarSaldo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        panelSaldoaFavorLayout.setVerticalGroup(
-            panelSaldoaFavorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSaldoaFavorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkUtilizarSaldo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(cSaldoFavor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(panelSaldoaFavor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lBalance)
+                            .addComponent(jLabel8))
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lBalance, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(26, 26, 26)
-                                        .addComponent(cSaldoFavorUtilizado, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(26, 26, 26)
-                                .addComponent(cValorAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(cValorAdquirido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cBalance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -272,23 +207,14 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cValorAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cSaldoFavorUtilizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lBalance)
-                            .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(panelSaldoaFavor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)))
-                .addGap(17, 17, 17))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cValorAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lBalance))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -310,6 +236,9 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         cDineroRecibido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cDineroRecibidoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cDineroRecibidoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cDineroRecibidoKeyTyped(evt);
@@ -363,7 +292,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -372,7 +301,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -397,86 +326,25 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     }//GEN-LAST:event_cDineroRecibidoKeyReleased
 
     private void bPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPagoActionPerformed
-        
-        boolean validacion=false;
+
+        boolean validacion = false;
         try {
             validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
-               } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(RegistrarEgreso.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(this, "¿Desea guardar el cambio como saldo a favor?", "Warning", dialogButton);
-        System.out.println("hola putitos 1");
-        if (dialogResult == JOptionPane.YES_OPTION) {
-            if (validacion == false) {
-                JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
-                Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
-                TelegraphQueue q = new TelegraphQueue();
-                q.add(tele);
-            } else {
-                guardar();
-            }
-        }else{
-            if (validacion == false) {
-                JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
-                Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
-                TelegraphQueue q = new TelegraphQueue();
-                q.add(tele);
-            } else {
-                guardarDevolver();
-            }
+
+        if (validacion == false) {
+            JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
+            Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
+            TelegraphQueue q = new TelegraphQueue();
+            q.add(tele);
+        } else {
+            guardar();
         }
 
-        
 
     }//GEN-LAST:event_bPagoActionPerformed
-
-    private void checkUtilizarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkUtilizarSaldoActionPerformed
-        try {
-
-            if (checkUtilizarSaldo.isSelected()) {
-                cSaldoFavorUtilizado.setText(cSaldoFavor.getText());
-                cBalance.setText(String.valueOf((Double.parseDouble(cValorAdquirido.getText()))-(Double.parseDouble(cSaldoFavorUtilizado.getText()))));
-            } else {
-                cSaldoFavorUtilizado.setText("0");
-            }
-
-            recalcularDinero();
-            
-
-        } catch (java.lang.NumberFormatException e) {
-
-        }
-    }//GEN-LAST:event_checkUtilizarSaldoActionPerformed
-
-    private void cSaldoFavorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cSaldoFavorFocusLost
-
-        if (checkUtilizarSaldo.isSelected()) {
-
-            boolean error = false;
-
-            try {
-                Double valorNuevo = Double.valueOf(cSaldoFavor.getText());
-                if (valorNuevo > saldoFavorUsuario || valorNuevo < 0) {
-                    error = true;
-                }
-            } catch (java.lang.NumberFormatException e) {
-                error = true;
-            } finally {
-                if (error) {
-                    cSaldoFavor.setText(String.valueOf(saldoFavorUsuario));
-                    msj.show("Valor no permitido", "Saldo a favor incorrecto", TelegraphType.APPLICATION, 3000);
-                } else {
-                    cSaldoFavorUtilizado.setText(cSaldoFavor.getText());
-                    recalcularDinero();
-                }
-            }
-
-        }
-        //darle el foco al campo de dinero
-        cDineroRecibido.requestFocus();
-    }//GEN-LAST:event_cSaldoFavorFocusLost
 
     private void cDineroRecibidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cDineroRecibidoFocusGained
         //Seleccionar Texto de la Caja
@@ -485,9 +353,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     }//GEN-LAST:event_cDineroRecibidoFocusGained
 
     private void cDineroRecibidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            guardar();
-        }
+
     }//GEN-LAST:event_cDineroRecibidoKeyPressed
 
     private void cDineroRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyTyped
@@ -507,16 +373,12 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     private javax.swing.JButton bPago;
     private javax.swing.JTextField cBalance;
     private javax.swing.JTextField cDineroRecibido;
-    private javax.swing.JTextField cSaldoFavor;
-    private javax.swing.JTextField cSaldoFavorUtilizado;
     private javax.swing.JTextField cValorAdquirido;
-    private javax.swing.JCheckBox checkUtilizarSaldo;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -524,39 +386,22 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lBalance;
-    private javax.swing.JPanel panelSaldoaFavor;
     // End of variables declaration//GEN-END:variables
 
     private void guardar() {
 
         String dineroRecibido = cDineroRecibido.getText();
-        boolean usoSaldo = checkUtilizarSaldo.isSelected();
 
-        if ("0".equals(dineroRecibido) && !usoSaldo) {
-            msj.show("Registro de Cero Pesos no permitido", "Debe indicar el dinero recibido o utilizar el saldo a favor si lo dispone.", TelegraphType.NOTIFICATION_INFO, 3000);
+        if ("0".equals(dineroRecibido)) {
+            msj.show("Registro de Cero Pesos no permitido", "Debe indicar el dinero recibido.", TelegraphType.NOTIFICATION_INFO, 3000);
             return;
         }
 
         int idFactura = registrarPagos();
-        socio.updateDatos();
-        this.dispose();
-        ImprimirRecibo imprimirRecibo = new ImprimirRecibo(idFactura);
-        Frame.escritorio.add(imprimirRecibo);
-        imprimirRecibo.toFront();
-        imprimirRecibo.setVisible(true);
-        Utilidades.centrarInternalFrame(imprimirRecibo);
-    }
-    private void guardarDevolver() {
-
-        String dineroRecibido = cDineroRecibido.getText();
-        boolean usoSaldo = checkUtilizarSaldo.isSelected();
-
-        if ("0".equals(dineroRecibido) && !usoSaldo) {
-            msj.show("Registro de Cero Pesos no permitido", "Debe indicar el dinero recibido o utilizar el saldo a favor si lo dispone.", TelegraphType.NOTIFICATION_INFO, 3000);
+        if(idFactura==-1){
             return;
         }
-
-        int idFactura = registrarPagosDevolver();
+         
         socio.updateDatos();
         this.dispose();
         ImprimirRecibo imprimirRecibo = new ImprimirRecibo(idFactura);
@@ -565,6 +410,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         imprimirRecibo.setVisible(true);
         Utilidades.centrarInternalFrame(imprimirRecibo);
     }
+   
 
     private void obtenerMembresiasActivas() {
         CachedRowSet data;
@@ -614,22 +460,13 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     
     private int registrarPagos() {
         boolean success = false;
-        Double dineroRecibido = 0.0;
-        if (!cDineroRecibido.getText().isEmpty()) {
-            dineroRecibido = Double.valueOf(cDineroRecibido.getText());
-        }
-
-        Double saldoFavor = 0.0;
-
-        if (checkUtilizarSaldo.isSelected()) {
-            saldoFavor = Double.valueOf(cSaldoFavorUtilizado.getText());
-        }
-        dineroRecibido += saldoFavor;
-
+        Double dineroRecibido =Double.parseDouble(cDineroRecibido.getText());
+       
         //Aqui Generar Factura
         int facturaId = generarFactura(dineroRecibido);
         if (facturaId == -1) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, "Error generado factura .. no es posible registrar Pago");
+            return -1; 
         }
 
         for (Map.Entry<Integer, Double> entry : saldoProductos.entrySet()) {
@@ -645,36 +482,15 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
                     actualizarEstadoPagoMembresia(membresiaDatosId);
                 }
                 dineroRecibido = dineroRecibido - saldo;
-            } else //Registrar Abono
-            {
-                if (dineroRecibido != 0) {
-                    success = procesarPago(valorAdquirido, dineroRecibido, saldo - dineroRecibido, membresiaDatosId, facturaId);
-                    dineroRecibido = dineroRecibido - saldo;
-                    break;
-                }
-            }
+                msj.show("Pago exitoso", "El cambio es: "+dineroRecibido+"", TelegraphType.NOTIFICATION_DONE, 4000);
+            } 
 
         }
 
-        if (dineroRecibido > 0) {
-            System.out.println("Aumentar en " + dineroRecibido + " saldo a favor");
-
-            Double saldoAnterior = saldoFavorUsuario - saldoFavor;
-            Double nuevoSaldo = dineroRecibido + saldoAnterior;
-            actualizarSaldoFavor(nuevoSaldo, nuevoSaldo - saldoFavorUsuario);
-
-            System.out.println("IF => nuevoSaldo - saldoAnterior" + (nuevoSaldo - saldoAnterior));
-        } else if (checkUtilizarSaldo.isSelected()) {
-            Double valor = saldoFavorUsuario - Double.valueOf(cSaldoFavor.getText());
-            actualizarSaldoFavor(valor, -Double.valueOf(cSaldoFavor.getText()));
-            System.out.println("ELSE IF => - Double.valueOf(cSaldoFavor.getText())" + (-Double.valueOf(cSaldoFavor.getText())));
-        }
 
         if (success) {
             bPago.setEnabled(false);
             cDineroRecibido.setEditable(false);
-            cSaldoFavor.setEditable(false);
-
             //Actualizar Valores Factura Aqui.
             actualizarValoresFactura(facturaId);
 
@@ -687,79 +503,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
 
     }
 
-    private int registrarPagosDevolver() {
-        boolean success = false;
-        Double dineroRecibido = 0.0;
-        if (!cDineroRecibido.getText().isEmpty()) {
-            dineroRecibido = Double.valueOf(cDineroRecibido.getText());
-        }
-
-        Double saldoFavor = 0.0;
-
-        if (checkUtilizarSaldo.isSelected()) {
-            saldoFavor = Double.valueOf(cSaldoFavorUtilizado.getText());
-        }
-        dineroRecibido += saldoFavor;
-
-        //Aqui Generar Factura
-        int facturaId = generarFactura(dineroRecibido);
-        if (facturaId == -1) {
-            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, "Error generado factura .. no es posible registrar Pago");
-        }
-
-        for (Map.Entry<Integer, Double> entry : saldoProductos.entrySet()) {
-            int membresiaDatosId = entry.getKey();
-            Double saldo = entry.getValue();
-
-            //Obtener valor adquirido de pago_membresia en base a id
-            Double valorAdquirido = obtenerValorAdquirido(membresiaDatosId);
-            if (dineroRecibido >= saldo) {
-                success = procesarPago(valorAdquirido, saldo, 0.0, membresiaDatosId, facturaId);
-                //System.out.println("Membresia de id " + membresiaDatosId + " se pagara completa");
-                if (success) {
-                    actualizarEstadoPagoMembresia(membresiaDatosId);
-                }
-                dineroRecibido = dineroRecibido - saldo;
-            } else //Registrar Abono
-            {
-                if (dineroRecibido != 0) {
-                    success = procesarPago(valorAdquirido, dineroRecibido, saldo - dineroRecibido, membresiaDatosId, facturaId);
-                    dineroRecibido = dineroRecibido - saldo;
-                    break;
-                }
-            }
-
-        }
-
-        if (dineroRecibido > 0) {
-            Double saldoAnterior = saldoFavorUsuario - saldoFavor;
-            Double nuevoSaldo = dineroRecibido + saldoAnterior;
-            actualizarSaldoFavor(0.0, 0.0);
-
-            System.out.println("IF => nuevoSaldo - saldoAnterior" + (nuevoSaldo - saldoAnterior));
-        } else if (checkUtilizarSaldo.isSelected()) {
-            Double valor = saldoFavorUsuario - Double.valueOf(cSaldoFavor.getText());
-            actualizarSaldoFavor(0.0, 0.0);
-            System.out.println("ELSE IF => - Double.valueOf(cSaldoFavor.getText())" + (-Double.valueOf(cSaldoFavor.getText())));
-        }
-
-        if (success) {
-            bPago.setEnabled(false);
-            cDineroRecibido.setEditable(false);
-            cSaldoFavor.setEditable(false);
-
-            //Actualizar Valores Factura Aqui.
-            actualizarValoresFactura(facturaId);
-
-            msj.show("Transacción Exitosa", "Pago registrado con exito", TelegraphType.NOTIFICATION_DONE, 3000);
-        } else {
-
-        }
-
-        return facturaId;
-
-    }
-
+    
     /**
      * Consultar el Valor adquirido de una membresia en la tabla de pagos,
      * obteniendo el ultimo registro de manera descendente.
@@ -795,91 +539,14 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     private boolean procesarPago(Double valorAdquirido, Double pago, Double saldo, int membresiaDatos, int facturaId) {
         int socio_id = socioId;
         String querySQL = String.format("INSERT INTO pago_membresia(fecha_pago,socio_id,valor_adquirido,pago,saldo,fecha_registro,usuario_sistema_id,membresiadatos_id,factura_id) VALUES (now(),%s,%s,%s,%s,now(),%s,%s,%s)", socio_id, valorAdquirido, pago, saldo, usuario_sistema, membresiaDatos, facturaId);
-
         boolean success = db.sqlEjec(querySQL);
-
-        //Proceder a reportar el cambio en saldo a favor
-        if (checkUtilizarSaldo.isSelected()) {
-
-        }
-
         return success;
     }
 
-    private void obtenerSaldoaFavor() {
-        saldoFavorUsuario = utilidades.obtenerSaldoAFavor(socioId);
-        //No mostrar si no tiene saldo a favor
-        if (saldoFavorUsuario == 0.0) {
-            panelSaldoaFavor.setVisible(false);
-        }
-        cSaldoFavor.setText(String.valueOf(saldoFavorUsuario));
-    }
+    
 
-    private void actualizarSaldoFavor(Double valor, Double aumentoFavor) {
-        //obtener caja activa
-        int cajaId = utilidades.obtenerCajaActiva();
-        // solo aplica para cuando se paga 
-        String querySaldoFavor = String.format("INSERT INTO saldofavor(caja_id,socio_id,valor,fecha_registro,usuario_sistema_id,valor_caja) VALUES (%s,%s,%s,now(),%s,%s)", cajaId, socioId, valor, usuario_sistema, aumentoFavor);
 
-        if (aumentoFavor < 0) {
-            int cajaAnteriorId = verificarSaldoFavorAnterior(cajaId, aumentoFavor);
-            if (cajaAnteriorId != -1) {
-                querySaldoFavor = String.format("INSERT INTO saldofavor(caja_id,socio_id,valor,fecha_registro,usuario_sistema_id,valor_caja,caja_origen) VALUES (%s,%s,%s,now(),%s,%s,%s)", cajaId, socioId, valor, usuario_sistema, aumentoFavor, cajaAnteriorId);
-            }
-        }
-
-        db.sqlEjec(querySaldoFavor);
-    }
-
-    private int verificarSaldoFavorAnterior(int cajaId, Double aumentoFavor) {
-
-        System.out.println("Verificando Saldos anteriores ...");
-
-        String querySaldoGastadoCajaActual = String.format("SELECT SUM(valor_caja) * -1 as gastado  FROM saldofavor WHERE caja_id = %s AND socio_id = %s AND valor_caja < 0", cajaId, socioId);
-        String querySaldoCajaAnterior = String.format("SELECT valor as anterior , caja_id FROM saldofavor WHERE socio_id = %s \n"
-                + "GROUP BY valor , id \n"
-                + "HAVING max(caja_id) <> %s\n"
-                + "ORDER BY id desc limit 1", socioId, cajaId);
-
-        CachedRowSet dataSaldoGastadoActual;
-        CachedRowSet dataSaldoCajaAnterior;
-
-        Double valorGastado = aumentoFavor * -1;
-        Double valorAnterior = -1.0;
-        Double diferencia = -1.0;
-        int cajaAnteriorId = -1;
-        int res = -1;
-
-        try {
-            dataSaldoGastadoActual = db.sqlDatos(querySaldoGastadoCajaActual);
-            dataSaldoCajaAnterior = db.sqlDatos(querySaldoCajaAnterior);
-
-            while (dataSaldoGastadoActual.next()) {
-                valorGastado = dataSaldoGastadoActual.getDouble("gastado");
-            }
-
-            while (dataSaldoCajaAnterior.next()) {
-                valorAnterior = dataSaldoCajaAnterior.getDouble("anterior");
-                cajaAnteriorId = dataSaldoCajaAnterior.getInt("caja_id");
-            }
-
-            //Si tiene saldo anterior
-            if (valorAnterior != -1) {
-                diferencia = valorAnterior - valorGastado;
-
-                if (diferencia >= 0 && cajaAnteriorId != -1) {
-                    res = cajaAnteriorId;
-                }
-            }
-
-        } catch (SQLException e) {
-            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.INFO, "{0} Error al consultar saldo anterior ", e);
-        }
-
-        return res;
-
-    }
-
+   
     public void recalcularDinero() {
         if (!cDineroRecibido.getText().isEmpty()) {
             if (cDineroRecibido.getText().startsWith("0")) {
@@ -888,15 +555,8 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
             try {
                 Double valorAdquirido = Double.valueOf(cValorAdquirido.getText());
                 Double dineroRecibido = Double.valueOf(cDineroRecibido.getText());
-                Double dineroaFavor = Double.valueOf(cSaldoFavorUtilizado.getText());
                 Double saldo = 0.0;
-
-                if (checkUtilizarSaldo.isSelected()) {
-                    saldo = valorAdquirido - (dineroRecibido + dineroaFavor);
-                    cBalance.setText(String.valueOf(saldo));
-                } else {
-                    saldo = valorAdquirido - dineroRecibido;
-                }
+                saldo = valorAdquirido - dineroRecibido;
 
                 if (saldo > 0) {
                     lBalance.setText("Resta $");
@@ -907,14 +567,14 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
                     cBalance.setText("0");
                     usuarioPaga = true;
                 } else if (saldo < 0) {
-                    lBalance.setText("Suma Saldo a favor $");
-                    cBalance.setText(String.valueOf(saldo * -1));
+                    lBalance.setText("Cambio $");
+                    cBalance.setText(String.valueOf((saldo)*(-1)));
                     usuarioPaga = true;
                 }
 
             } catch (NumberFormatException e) {
                 new PlaceHolder("0", cDineroRecibido);
-                cDineroRecibido.setText("");
+                cDineroRecibido.setText("0");
                 msj.show("Numero Incorrecto", "Debe de digitar una Suma Correcta para poder registrar el Pago", TelegraphType.APPLICATION_WARNING, 4000);
             }
 
@@ -934,13 +594,12 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         Double debe = 0.0;
 
         if (!usuarioPaga) {
-            debe = paga - utilidades.obtenerSaldoUsuario(socioId);
-            if (debe < 0) {
-                debe = debe * -1;
-            }
+            msj.show("Numero Incorrecto", "Debe de digitar una Suma Correcta para poder registrar el Pago", TelegraphType.APPLICATION_WARNING, 4000);
+            return -1;  
         }
+        
 
-        String queryFactura = String.format("INSERT INTO factura(socio_id,paga,debe,saldo_favor,usuario_sistema_id) VALUES (%s,%s,%s,%s,%s);", socioId, paga, debe, "0", usuario_sistema);
+        String queryFactura = String.format("INSERT INTO factura(socio_id,paga,debe,usuario_sistema_id) VALUES (%s,%s,%s,%s);", socioId, paga, debe, usuario_sistema);
         if (db.sqlEjec(queryFactura)) {
             id = db.getKeys();
         }
@@ -953,20 +612,9 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
             paga = Double.valueOf(cDineroRecibido.getText());
         }
 
-        Double valorSaldoFavor = Double.valueOf(cSaldoFavorUtilizado.getText());
         Double valorAdquirido = Double.valueOf(cValorAdquirido.getText());
 
-        /**
-         * Si utiliza todo el saldo a favor debe verificar realmente cuando va a
-         * emplear para pagar ya que puede tener mas saldo a favor de lo que va
-         * a pagar y esto es el dinero que se debe reflejar como utilizado del
-         * saldo a favor
-         */
-        Double saldoFavor = utilidades.obtenerSaldoAFavor(socioId);
 
-        if (valorSaldoFavor > valorAdquirido) {
-            valorSaldoFavor = valorSaldoFavor - saldoFavor;
-        }
 
         Double debe = 0.0;
 
@@ -974,7 +622,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
             debe = Double.valueOf(cBalance.getText());
         }
 
-        String query = String.format("UPDATE factura SET paga = %s , debe = %s , saldo_favor = %s , saldo_favor_uso = %s  WHERE id = %s", paga, debe, saldoFavor, valorSaldoFavor, facturaId);
+        String query = String.format("UPDATE factura SET paga = %s , debe = %s   WHERE id = %s", paga, debe, facturaId);
 
         db.sqlEjec(query);
     }

@@ -38,7 +38,6 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         this.ventana = ventana;
         lblFechaApertura.setText(utilidades.fecha_apertura());
         lblResponsableCaja.setText(cargarUsuario());
-        obtenerDineroSaldoFavor();
         obtenerDineroEgreso();
         obtenerVisitas();
         obtenerMembresias();
@@ -83,14 +82,11 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtSumaTotalVentas = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        txtSumaSaldoFavor = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         txtSumaEgreso = new javax.swing.JTextField();
         btnVisitas = new javax.swing.JButton();
         btnMembresia = new javax.swing.JButton();
         btnTotal = new javax.swing.JButton();
-        btnIngreso = new javax.swing.JButton();
         btnEgresos = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
@@ -237,23 +233,14 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         });
         jPanel1.add(txtSumaTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 139, 35));
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("Suma total de saldo a favor (Saldo a Favor) . . . . . . . . .");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
-
-        txtSumaSaldoFavor.setEditable(false);
-        txtSumaSaldoFavor.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtSumaSaldoFavor.setForeground(new java.awt.Color(0, 153, 51));
-        jPanel1.add(txtSumaSaldoFavor, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 260, 139, 33));
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel16.setText("Suma de gastos de caja (Egresos) . . . . . . . . . . . . . . .");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 30));
+        jLabel16.setText("Suma de gastos de caja (Egresos) . . . . . . . . . . . . . . . .");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 400, 30));
 
         txtSumaEgreso.setEditable(false);
         txtSumaEgreso.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSumaEgreso.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(txtSumaEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 139, 30));
+        jPanel1.add(txtSumaEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 260, 139, 30));
 
         btnVisitas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisitas.setText("Detalle");
@@ -262,7 +249,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnVisitasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 170, -1, -1));
+        jPanel1.add(btnVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 170, -1, 30));
 
         btnMembresia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnMembresia.setText("Detalle");
@@ -271,7 +258,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnMembresiaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMembresia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, -1));
+        jPanel1.add(btnMembresia, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, 30));
 
         btnTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnTotal.setText("Detalle");
@@ -280,16 +267,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnTotalActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, -1, -1));
-
-        btnIngreso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnIngreso.setText("Detalle");
-        btnIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, -1, -1));
+        jPanel1.add(btnTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 215, -1, 30));
 
         btnEgresos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEgresos.setText("Detalle");
@@ -298,18 +276,18 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnEgresosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 805, 17));
+        jPanel1.add(btnEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, -1, 30));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 317, 805, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
         jLabel4.setText("Dinero en caja . . . . . . . . . ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
         lblDineroCaja.setBackground(new java.awt.Color(255, 102, 0));
         lblDineroCaja.setFont(new java.awt.Font("Tahoma", 1, 38)); // NOI18N
         lblDineroCaja.setForeground(new java.awt.Color(0, 153, 51));
         lblDineroCaja.setToolTipText("Dinero Recibido");
-        jPanel1.add(lblDineroCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 210, 50));
+        jPanel1.add(lblDineroCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 210, 50));
 
         txtSumaVisitas.setEditable(false);
         txtSumaVisitas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -330,7 +308,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -387,15 +365,6 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         dinero.setVisible(true);
     }//GEN-LAST:event_btnTotalActionPerformed
 
-    private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
-        // TODO add your handling code here:
-        DetalleSaldoFavor ingreso = new DetalleSaldoFavor();
-        Frame.escritorio.add(ingreso);
-        ingreso.toFront();
-        ingreso.setVisible(true);
-        Utilidades.centrarInternalFrame(ingreso);
-    }//GEN-LAST:event_btnIngresoActionPerformed
-
     private void btnEgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEgresosActionPerformed
         // TODO add your handling code here:
         DetalleEgreso egreso = new DetalleEgreso();
@@ -414,14 +383,12 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAgregarEgreso;
     private javax.swing.JButton btnCerrarCaja;
     private javax.swing.JButton btnEgresos;
-    private javax.swing.JButton btnIngreso;
     private javax.swing.JButton btnMembresia;
     private javax.swing.JButton btnTotal;
     private javax.swing.JButton btnVisitas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -438,7 +405,6 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblResponsableCaja;
     private javax.swing.JTextField txtAperturaCaja;
     private javax.swing.JTextField txtSumaEgreso;
-    private javax.swing.JTextField txtSumaSaldoFavor;
     private javax.swing.JTextField txtSumaTotalVentas;
     private javax.swing.JTextField txtSumaVisitas;
     private javax.swing.JTextField txtVentaMembresia;
@@ -462,43 +428,6 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         }
 
         return fecha_apertura;
-    }
-// ARREGLAR ESTA CONSULTA
-    public long obtenerDineroSaldoFavor() {
-        double suma = 0;
-        long total = 0;
-        try {
-            String querySQL = "SELECT SUM(sf.valor_caja) as Dinero FROM saldofavor sf, caja c\n"
-                    + "WHERE sf.caja_id = c.id AND c.estado = TRUE AND sf.socio_id IN (SELECT sf.socio_id\n"
-                    + "		FROM saldofavor sf, caja c\n"
-                    + "		WHERE sf.caja_id = c.id AND c.estado = TRUE\n"
-                    + "		GROUP BY sf.valor , sf.valor_caja,sf.id\n"
-                    + "		)\n"
-                    + "AND sf.caja_origen is null";
-            //--HAVING sf.valor - sf.valor_caja <= 0                 
-            data = db.sqlDatos(querySQL);
-            System.out.println("Consulta Saldo a Favor " + querySQL);
-            if (data.size() == 0) {
-                btnIngreso.setVisible(false);
-            } else {
-                btnIngreso.setVisible(true);
-            }
-
-            while (data.next()) {
-                suma = data.getDouble("Dinero");
-            }
-            if (suma == 0) {
-                txtSumaSaldoFavor.setText("0.0");
-            } else {
-                total = (long) suma;
-                txtSumaSaldoFavor.setText(String.valueOf(total));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CierreCaja.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return total;
-
     }
 
     public double obtenerDineroEgreso() {
@@ -644,13 +573,11 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     }
 
     public void cerrarCaja() {
-        String totalSaldoFavor = txtSumaSaldoFavor.getText();
         String totalEgresos = txtSumaEgreso.getText();
         String totalMembresia = txtVentaMembresia.getText();
         String totalVisitas = txtSumaVisitas.getText();
         String fecha_cierre = "now()";
 
-        double saldoFavor = Double.parseDouble(totalSaldoFavor);
         double egresos = Double.parseDouble(totalEgresos);
         double membresia = Double.parseDouble(totalMembresia);
         double visitas = Double.parseDouble(totalVisitas);
@@ -662,7 +589,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             q.add(tele);
 
         } else {
-            String querySQL = String.format("UPDATE caja SET ventas_membresia=%s, ventas_visitas=%s, fecha_cierre=now(), total_egresos=%s, adeudar_creditos=%s, estado=false, total_venta=%s,  total_recibido=%s, saldo_favor=%s WHERE estado=true", membresia, visitas, egresos, adeudos, calcularTotal(), lblDineroCaja.getText(), saldoFavor);
+            String querySQL = String.format("UPDATE caja SET ventas_membresia=%s, ventas_visitas=%s, fecha_cierre=now(), total_egresos=%s, adeudar_creditos=%s, estado=false, total_venta=%s,  total_recibido=%s, saldo_favor=%s WHERE estado=true", membresia, visitas, egresos, adeudos, calcularTotal(), lblDineroCaja.getText(), 0.0);
             boolean success = db.sqlEjec(querySQL);
 
             if (success) {
@@ -722,12 +649,11 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     }
 
     public double calcularTotal() {
-        String totalSaldoaFavor = txtSumaSaldoFavor.getText();
         String totalEgresos = txtSumaEgreso.getText();
         String totalMembresia = txtVentaMembresia.getText();
         String totalVisitas = txtSumaVisitas.getText();
-        long total = (long) ((long) Double.parseDouble(totalSaldoaFavor) + Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia));
-        long menosEgresos = (long) ((long) Double.parseDouble(totalSaldoaFavor) + Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia));
+        long total = (long) ((long)  Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia));
+        long menosEgresos = (long) ((long)  Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia));
         txtSumaTotalVentas.setText(String.valueOf(total));
         if (total == 0.0) {
             btnTotal.setVisible(false);

@@ -1327,14 +1327,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
             }
 
             //Obtener el saldo anterior a favor que tiene el socio antes de la devolucion
-            Double nuevoSaldoFavor = saldoMembresia + utilidades.obtenerSaldoAFavor(socioID);
+            Double nuevoSaldoFavor = saldoMembresia;
 
             //consultamos cual es la caja actual
             cajaActual = utilidades.cajaActual();
-            // devolvemos el dinero al usuario para eliminarle la membresía.
-            String consultaDevolverDinero = String.format("INSERT INTO saldofavor (caja_id, socio_id, valor, fecha_registro, usuario_sistema_id,valor_caja) VALUES (%s, %s, %s, now(), %s,%s); ", cajaActual, socioID, nuevoSaldoFavor, System.getProperty("usuario_sistema"), saldoMembresia);
-            Boolean success = db.sqlEjec(consultaDevolverDinero);
-            if (success) {
+
                 System.out.println("Abono a saldo a favor Exitoso");
 //                            si se abonó exitosamente el saldo a favor pasamos a eliminar la membresía.
                 String consultaEliminar1 = String.format("DELETE FROM pago_membresia WHERE membresiadatos_id=%s", identificador);
@@ -1351,12 +1348,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     q.add(tele);
                     return true;
                 } else {
-                    Telegraph tele = new Telegraph("Eliminar Membresia", "La membresía ha sido eliminada. El usuario ahora tiene " + "<b>" + nuevoSaldoFavor + "</b>" + " de saldo a favor.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
+                    Telegraph tele = new Telegraph("Eliminar Membresia", "La membresía ha sido eliminada. Debe retornar al usuario la cantidad " + "<b>" + nuevoSaldoFavor + "</b>" + " de saldo a favor.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
                     return true;
                 }
-            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
