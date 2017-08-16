@@ -38,6 +38,11 @@ public class InformeAsistencia extends javax.swing.JInternalFrame {
     public InformeAsistencia() {
         initComponents();
         cargarDia();
+         Calendar fechaActual = new GregorianCalendar();
+        deUno.setCalendar(fechaActual);
+        aUno.setCalendar(fechaActual);
+        deDos.setCalendar(fechaActual);
+        aDos.setCalendar(fechaActual);
     }
 
     /**

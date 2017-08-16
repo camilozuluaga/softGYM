@@ -43,6 +43,9 @@ public class InformeMembresia extends javax.swing.JInternalFrame {
 
     public InformeMembresia() {
         initComponents();
+         Calendar fechaActual = new GregorianCalendar();
+        deUno.setCalendar(fechaActual);
+        aUno.setCalendar(fechaActual);
 
     }
 

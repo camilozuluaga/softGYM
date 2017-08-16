@@ -37,6 +37,9 @@ public class InformeCaja extends javax.swing.JInternalFrame {
 
     public InformeCaja() {
         initComponents();
+         Calendar fechaActual = new GregorianCalendar();
+        deUno.setCalendar(fechaActual);
+        aUno.setCalendar(fechaActual);
 
     }
 

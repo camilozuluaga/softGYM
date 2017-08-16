@@ -43,6 +43,9 @@ public class InformeSocio extends javax.swing.JInternalFrame {
         cargarDias();
         cargarDia();
         System.out.println("Fecha actual" + obtnerFechaActual());
+         Calendar fechaActual = new GregorianCalendar();
+        deUno.setCalendar(fechaActual);
+        aUno.setCalendar(fechaActual);
     }
 
     /**

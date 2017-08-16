@@ -40,7 +40,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
      */
     public ImprimirRecibo(int idFactura) {
         initComponents();
-        lblNit.setVisible(false);
+       
         this.idFactura = idFactura;
         this.setTitle(".:: Hércules - Vista Previa Recibo ::.");
 jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());

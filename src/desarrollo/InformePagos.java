@@ -38,6 +38,10 @@ public class InformePagos extends javax.swing.JInternalFrame {
     public InformePagos() {
         initComponents();
         cargarTrimestre();
+        
+        Calendar fechaActual = new GregorianCalendar();
+        deUno.setCalendar(fechaActual);
+        aUno.setCalendar(fechaActual);
 
     }
 
@@ -249,6 +253,12 @@ public class InformePagos extends javax.swing.JInternalFrame {
             }
         });
 
+        cboTrimestre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTrimestreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -443,6 +453,10 @@ public class InformePagos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         pagosRealizadosEnOtrasFechas();
     }//GEN-LAST:event_rPagosEnOtrasFechasActionPerformed
+
+    private void cboTrimestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrimestreActionPerformed
+   sumaPagosTrimestre();        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTrimestreActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser aUno;
@@ -733,7 +747,6 @@ public class InformePagos extends javax.swing.JInternalFrame {
     }
 
     public void cargarTrimestre() {
-        cboTrimestre.addItem("SELECCIONE");
         cboTrimestre.addItem("PRIMER TRIMESTRE");
         cboTrimestre.addItem("SEGUNDO TRIMESTRE");
         cboTrimestre.addItem("TERCER TRIMESTRE");
