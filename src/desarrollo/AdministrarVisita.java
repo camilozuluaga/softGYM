@@ -238,10 +238,12 @@ public final class AdministrarVisita extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "Nombres", "Apellidos", "Valor", "Fecha Visita"});
-            data = db.sqlDatos("SELECT nombres, apellidos, costo, fecha_registro FROM pago_visita");
+            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"id", "Nombres", "Apellidos", "Valor", "Fecha Visita"});
+            data = db.sqlDatos("SELECT id, nombres, apellidos, costo, fecha_registro FROM pago_visita");
 
             tablaVisitas = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tablaVisitas);
+            tablaVisitas.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaVisitas.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
 
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);

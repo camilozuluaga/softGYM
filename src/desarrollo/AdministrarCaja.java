@@ -186,14 +186,15 @@ public class AdministrarCaja extends javax.swing.JInternalFrame {
         usuario = Integer.parseInt(nombre_usuario);
         try {
 
-            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{ "USUARIO", "BASE", "MEMBRESÍAS", "VISITAS", "FECHA DE APERTURA", "SALDO A FAVOR", "EGRESOS", "ADEUDOS", "TOTAL VENTAS", "TOTAL RECIBIDO", "FECHA DE CIERRE"});
-            data = db.sqlDatos("SELECT us.primer_nombre, ca.base, ca.ventas_membresia, ventas_visitas, ca.fecha_apertura, ca.saldo_favor, ca.total_egresos, ca.adeudar_creditos, ca.total_venta, ca.total_recibido, ca.fecha_cierre \n"
+            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"ID", "USUARIO", "BASE", "MEMBRESÍAS", "VISITAS", "FECHA DE APERTURA", "SALDO A FAVOR", "EGRESOS", "ADEUDOS", "TOTAL VENTAS", "TOTAL RECIBIDO", "FECHA DE CIERRE"});
+            data = db.sqlDatos("SELECT ca.id, us.primer_nombre, ca.base, ca.ventas_membresia, ventas_visitas, ca.fecha_apertura, ca.saldo_favor, ca.total_egresos, ca.adeudar_creditos, ca.total_venta, ca.total_recibido, ca.fecha_cierre \n"
                     + "FROM caja ca, usuario_sistema us\n"
                     + "WHERE ca.usuario_sistema_id= us.id\n"
                     + "AND ca.estado = false ORDER BY ca.id DESC");
             tablaCaja = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tablaCaja);
-            //TableColumn columna = tablaCaja.getColumn("ID");
-            //columna.setPreferredWidth(28);
+            
+            TableColumn columna = tablaCaja.getColumn("ID");
+            columna.setPreferredWidth(28);
             TableColumn columnaDos = tablaCaja.getColumn("USUARIO");
             columnaDos.setPreferredWidth(98);
             TableColumn columnaTres = tablaCaja.getColumn("BASE");
@@ -210,6 +211,9 @@ public class AdministrarCaja extends javax.swing.JInternalFrame {
             columnaOcho.setPreferredWidth(49);
             TableColumn columnanNueve = tablaCaja.getColumn("ADEUDOS");
             columnanNueve.setPreferredWidth(49);
+            tablaCaja.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaCaja.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+            
             
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);

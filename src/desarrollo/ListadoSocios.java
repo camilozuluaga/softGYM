@@ -192,6 +192,8 @@ public class ListadoSocios extends javax.swing.JInternalFrame {
 
             data = utils.buscarSocios(busqueda, inactivos);
             tablaSocios = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaSocios);
+            tablaSocios.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaSocios.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
             TableColumnModel columnModel = tablaSocios.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(2);
             columnModel.getColumn(1).setPreferredWidth(2);

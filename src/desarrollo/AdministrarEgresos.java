@@ -225,11 +225,13 @@ public class AdministrarEgresos extends javax.swing.JInternalFrame {
         CachedRowSet data;
         try {
 
-            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"Descripcion Del Egreso", "Valor del Egreso", "Hora Del Egreso"});
-            data = db.sqlDatos("SELECT nota, valor, fecha_registro FROM movimiento WHERE tipo='Egreso'");
+            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"ID","Descripcion Del Egreso", "Valor del Egreso", "Hora Del Egreso"});
+            data = db.sqlDatos("SELECT id, nota, valor, fecha_registro FROM movimiento WHERE tipo='Egreso'");
 
 
             tablaIngresos = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tablaIngresos);
+            tablaIngresos.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaIngresos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
 
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
