@@ -250,7 +250,6 @@ public void registrarIngreso(){
                 TelegraphQueue q = new TelegraphQueue();
                 q.add(tele);
                 this.dispose();
-                parent.obtenerDineroSaldoFavor();
                 parent.calcularTotal();
                 parent.cargarBase();
 
