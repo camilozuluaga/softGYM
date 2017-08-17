@@ -455,7 +455,8 @@ public class InformePagos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rPagosEnOtrasFechasActionPerformed
 
     private void cboTrimestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrimestreActionPerformed
-   sumaPagosTrimestre();        // TODO add your handling code here:
+   if(rPagosTrimestre.isSelected())
+        sumaPagosTrimestre();        // TODO add your handling code here:
     }//GEN-LAST:event_cboTrimestreActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

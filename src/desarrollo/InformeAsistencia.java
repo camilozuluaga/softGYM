@@ -236,6 +236,11 @@ public class InformeAsistencia extends javax.swing.JInternalFrame {
         });
 
         cboDia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cboDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDiaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("DIAS");
@@ -431,6 +436,12 @@ public class InformeAsistencia extends javax.swing.JInternalFrame {
         todasLasVisitas();
         sumaVisitas();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void cboDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDiaActionPerformed
+if(rSociosAusentesDia.isSelected()){
+  sociosAusentesDias();
+}
+    }//GEN-LAST:event_cboDiaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser aDos;
