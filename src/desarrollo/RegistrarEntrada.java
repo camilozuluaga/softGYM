@@ -29,6 +29,7 @@ public final class RegistrarEntrada {
     RegistroEntradaAutomatica entradaAuto;
     Utilidades util;
     DB miDb;
+    int idEmpresa;
     String tiempogracia;
     String unidad_tiempogracia;
     boolean entrada; // determina si al abrir la puerta el cliente está entrando o saliendo.
@@ -46,6 +47,7 @@ public final class RegistrarEntrada {
     boolean contadorFlag; //usado con un propósito específico de notificar si ya se le avisó al socio que es su ultima entrada. 
     Utilidades sonido = new Utilidades();
     puerta.Puerta pp = new puerta.Puerta();
+    int plazoEntrada;
 
     /**
      *
@@ -56,6 +58,7 @@ public final class RegistrarEntrada {
      */
     public RegistrarEntrada(int socio_id, VerSocio ventanaVerSocio) throws SQLException, ParseException {
         this.socio = socio_id;
+        idEmpresa=1;
         registroEntradaAutomatica = new RegistroEntradaAutomatica();
         contadorFlag = false;
         entrada = false;
@@ -70,6 +73,7 @@ public final class RegistrarEntrada {
         diaDeLaSemana();
         idMembresiaAdquirida = traerIdMembresiaAdquirida(); // no es el id de la membresía sino el id de membresia_usuario. (es el id de contrato de adquisicion)
         validaciones();
+        
         try {
             ventanaVerSocio.updateDatos();
         } catch (Exception e) {
@@ -175,13 +179,20 @@ public final class RegistrarEntrada {
     private boolean entreFechaInicioFin() {
         int id = 0;
         int id2=0;
+        int id3=0;
         try {
-            CachedRowSet data,data2;
+            CachedRowSet data,data2,data3;
             DB db = new DB();
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
             
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '72h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
+            data3 = db.sqlDatos(sql3);
+            while (data3.next()) {
+                id3 = data3.getInt("plazo_entrada");
+            }
+            int plazo_permitido=id3*24;
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '"+plazo_permitido+"h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
             while (data.next()) {
                 id = data.getInt("cantidad");
@@ -190,13 +201,16 @@ public final class RegistrarEntrada {
                 id2 = data2.getInt("cantidad");
             }
             
+
+            
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
                 return true;
-            }else if(id2>=1){
+            }else if(id2>=1 && id3>=1){
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
-                System.out.println("Su membresía caduco tiene 3 dias para ponerse al dia");
+                System.out.println("Su membresía caduco tiene "+id3+" dias para ponerse al dia");
+                System.out.println("Su membresía caduco tiene "+plazo_permitido+" horas para ponerse al dia");
                 return true;
             }else  {
                 sonido.sonar("alarma");
@@ -496,7 +510,7 @@ public final class RegistrarEntrada {
     public int traerIdMembresiaAdquirida() throws SQLException {
         CachedRowSet data;
         int id = 0;
-        String consulta = String.format("SELECT id from membresia_usuario where socio_id=%s and membresia_id=%s and activa=true ORDER BY id DESC;", socio, idMembresiaSocio);
+        String consulta = String.format("SELECT id from membresia_usuario where socio_id=%s and membresia_id=%s  ORDER BY id DESC LIMIT 1;", socio, idMembresiaSocio);
         data = miDb.sqlDatos(consulta);
         while (data.next()) {
             try {
@@ -692,6 +706,7 @@ public final class RegistrarEntrada {
             if (hayBloqueHorario()) {
                 int aciertoHorario = 0;// cantidad de aciertos horarios// es decir cantidad de coincidencias entre la hora actual y un bloque horario definido.
                 CachedRowSet data;
+                System.out.println("membresia socio en bloque horario "+idMembresiaSocio);
                 String query = String.format("SELECT count(id) as id FROM membresia_restriccion_horario WHERE current_time BETWEEN hora_inicio and hora_fin and membresia_id=%s;", idMembresiaSocio);
                 data = miDb.sqlDatos(query);
                 while (data.next()) {
@@ -860,5 +875,6 @@ public final class RegistrarEntrada {
         return nombreCompleto;
 
     }
+        
 
 }
