@@ -745,65 +745,93 @@ public class Utilidades {
         cadena = cadena.toUpperCase();
         return cadena;
     }
+    public String cargarDireccionEmpresa(){
+         CachedRowSet data;
+        String querySQL = "SELECT dir FROM empresa;";
+        data = db.sqlDatos(querySQL);
+        try {
+            if (data.next()) {
+                return data.getString("dir");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+        
+    }
+     public String cargarNitEmpresa(){
+         CachedRowSet data;
+        String querySQL = "SELECT nit FROM empresa;";
+        data = db.sqlDatos(querySQL);
+        try {
+            if (data.next()) {
+                return data.getString("nit");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+        
+    }
+    
+    
+    
+    
 
     public String CargarNombreTitulo() {
-        
-        String cadena = "";
 
-        FileReader fr = null;
-        BufferedReader entrada = null;
-
+          CachedRowSet data;
+        String querySQL = "SELECT nombre FROM empresa;";
+        data = db.sqlDatos(querySQL);
         try {
-            fr = new FileReader(new File("NombreApp.txt"));
-            entrada = new BufferedReader(fr);
-
-            while (entrada.ready()) {
-                cadena= entrada.readLine();
-
+            if (data.next()) {
+                return data.getString("nombre");
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "HERCULES GYM";
+        
+        
+    }
 
-            
+    public void cambiarNombreTitulo(String nombre) {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter("NombreApp.txt");
+            pw = new PrintWriter(fichero);
 
-        } catch (IOException e) {
+            pw.println(nombre);
+            pw.close();
+
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if (null != fr) {
-                    fr.close();
+
+                if (null != fichero) {
+                    fichero.close();
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
         }
-
-        return cadena;
     }
-    public void cambiarNombreTitulo(String nombre){
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try
-        {
-            fichero = new FileWriter("NombreApp.txt");
-            pw = new PrintWriter(fichero);
 
-            
-                pw.println(nombre);
-                pw.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-           try {
-           
-           if (null != fichero)
-              fichero.close();
-           } catch (Exception e2) {
-              e2.printStackTrace();
-           }
+    public boolean mostrarPantallaBienvenida() {
+        CachedRowSet data;
+        String querySQL = "SELECT * FROM empresa;";
+        data = db.sqlDatos(querySQL);
+        try {
+            if (data.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
+        
     }
-    
-    
-    
-    
+
 }

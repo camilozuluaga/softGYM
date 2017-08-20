@@ -40,11 +40,19 @@ public class login extends javax.swing.JFrame {
      * Creates new form login
      */
     public login() {
-        initComponents();
+        if (!utilidades.mostrarPantallaBienvenida()) {
+            EmpresaData empre = new EmpresaData();
+            this.setVisible(false);
+            empre.setVisible(true);
 
-        this.setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("/imagen/gym.png")).getImage());
-        setTitle("Acceso Sistema " + utilidades.CargarNombreTitulo().toUpperCase());
+        } else {
+            initComponents();
+
+            this.setLocationRelativeTo(null);
+            setIconImage(new ImageIcon(getClass().getResource("/imagen/gym.png")).getImage());
+            setTitle("Acceso Sistema " + utilidades.CargarNombreTitulo().toUpperCase());
+        }
+
         //System.out.println("=> "+Utilidades.nClase(login.class));
     }
 
@@ -386,13 +394,12 @@ public class login extends javax.swing.JFrame {
 
     public boolean validarAcceso() throws ParseException, SQLException {
         CachedRowSet data;
-        String fecha="";
+        String fecha = "";
         String querySQL = "SELECT fecha_fin FROM acceso";
         data = db.sqlDatos(querySQL);
 
         Calendar c1 = Calendar.getInstance();
-        
-        
+
         try {
             if (data.next()) {
                 fecha = data.getDate("fecha_fin").toString();
@@ -402,7 +409,6 @@ public class login extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
         String dia = Integer.toString(c1.get(Calendar.DATE));
         String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
@@ -414,8 +420,6 @@ public class login extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = sdf.parse(fecha_actual);
         Date date2 = sdf.parse(fecha);
-
-       
 
         int v = date1.compareTo(date2);
         if (v == 1) {

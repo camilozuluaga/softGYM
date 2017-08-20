@@ -26,8 +26,8 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
     int idFactura;
     String descripcion;
     Date fecha = new Date();
-    Utilidades utilitis =new Utilidades();
-    
+    Utilidades utilitis = new Utilidades();
+
     SpinnerNumberModel model = new SpinnerNumberModel(
             new Integer(1), // Dato visualizado al inicio en el spinner 
             new Integer(1), // Límite inferior 
@@ -40,10 +40,12 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
      */
     public ImprimirRecibo(int idFactura) {
         initComponents();
-       
+
         this.idFactura = idFactura;
         this.setTitle(".:: Hércules - Vista Previa Recibo ::.");
-jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
+        jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
+        jLabel3.setText("DIRECCION: "+utilitis.cargarDireccionEmpresa().toUpperCase());
+        lblNit.setText("NIT: "+utilitis.cargarNitEmpresa().toUpperCase());
         txtFecha.setEditable(false);
         txtCliente.setEditable(false);
         txtOperador.setEditable(false);
@@ -103,9 +105,11 @@ jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Vista Previa Recibo"));
 
         jLabel1.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("BioFisic GYM");
 
         lblNit.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
+        lblNit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNit.setText("Nit: 10270746-1");
 
         jLabel3.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
@@ -116,6 +120,7 @@ jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
         jLabel4.setText("Cliente:");
 
         jLabel5.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Recibo de Pago No.");
 
         jLabel6.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
@@ -190,27 +195,24 @@ jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(lblNit))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtOperador)
-                            .addComponent(txtCliente)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtOperador)
+                                    .addComponent(txtCliente)
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -241,12 +243,17 @@ jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
                                             .addComponent(txtSaldoFavor, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cSaldoFavorUsado)))
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(30, 30, 30)
-                                .addComponent(lbNumeroRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71))))))
+                                .addContainerGap())))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbNumeroRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +336,7 @@ jLabel1.setText(utilitis.CargarNombreTitulo().toUpperCase());
 
             }
         });
-        
+
         hiloFactura.start();
 
     }//GEN-LAST:event_txtImprimirActionPerformed

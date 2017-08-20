@@ -217,7 +217,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         imagen.add(jPanel2, gridBagConstraints);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("WWW.GIDSOFT.ORG");
+        jLabel3.setText("www.dreamsoftcolombia.com");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
