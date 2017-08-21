@@ -5,6 +5,8 @@
  */
 package logica;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -78,6 +80,36 @@ public class ConexionFoto {
         return false;
     }
 
+    public boolean guardarfoto(FileInputStream fis, int longitudimagen) {
+
+        try {
+
+            PreparedStatement pstm = null;
+
+            pstm = connection.prepareStatement("UPDATE empresa SET imagen = ? ");
+
+            pstm.setBinaryStream(1, fis, longitudimagen);
+            pstm.execute();
+            pstm.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public boolean consultarFoto(String clave, JLabel lbFoto) {
         try {
             PreparedStatement pstm = connection.prepareStatement("SELECT foto FROM socio WHERE clave= '" + clave + "';");
@@ -101,6 +133,60 @@ public class ConexionFoto {
         }
         return false;
     }
-    
-    
+
+    public boolean consultarFoto(JLabel lbFoto) {
+        try {
+            PreparedStatement pstm = connection.prepareStatement("SELECT imagen FROM empresa");
+            resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+
+                if (resultSet.getBytes("imagen") != null) {
+
+                    ImageIcon foto = new ImageIcon(resultSet.getBytes("imagen"));
+                    Image img = foto.getImage();
+                    Image newimg = img.getScaledInstance(lbFoto.getWidth(), lbFoto.getHeight(), java.awt.Image.SCALE_SMOOTH);
+
+                    ImageIcon newicon = new ImageIcon(newimg);
+                    lbFoto.setIcon(newicon);
+                }
+            }
+            pstm.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public ImageIcon consultarFoto() {
+      
+        try {
+            PreparedStatement pstm = connection.prepareStatement("SELECT imagen FROM empresa");
+            resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+
+                if (resultSet.getBytes("imagen") != null) {
+
+                    ImageIcon foto = new ImageIcon(resultSet.getBytes("imagen"));
+                    return foto;
+                   
+                }
+            }
+            pstm.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

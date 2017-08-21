@@ -24,6 +24,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import logica.Acceso;
+import logica.ConexionFoto;
 import logica.DB;
 import logica.Fondo;
 import logica.PlaceHolder;
@@ -47,7 +48,10 @@ public class Frame extends javax.swing.JFrame {
     private CachedRowSet data;
     private Utilidades utiles = new Utilidades();
     private PlaceHolder placeholder;
-    public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.png");
+    public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.jpeg");
+    ConexionFoto foto =new ConexionFoto();
+    
+    
     public AperturaCaja aperturaCaja;
     public Utilidades utilidades;
 
@@ -62,7 +66,9 @@ public class Frame extends javax.swing.JFrame {
         txtBuscar.requestFocusInWindow();
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon_biofisic.png")).getImage());
         PlaceHolder placeHolder = new PlaceHolder("Buscar socio por identificación o codigo ...", txtBuscar);
+        
         cargarImagen(escritorio, foto1);
+        
         comprobarPermisosMenu();
         aperturaCaja=new AperturaCaja();
         lbUsuario.setText("USUARIO: "+aperturaCaja.cargarUsuario());
@@ -159,7 +165,6 @@ public class Frame extends javax.swing.JFrame {
         mInformes1 = new javax.swing.JMenu();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem19 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -290,8 +295,9 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lbUsuario.setBackground(new java.awt.Color(0, 0, 0));
         lbUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbUsuario.setForeground(java.awt.Color.blue);
+        lbUsuario.setForeground(java.awt.Color.red);
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbUsuario.setText("jLabel2");
 
@@ -318,7 +324,7 @@ public class Frame extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 679, Short.MAX_VALUE)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(81, 81, 81)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -332,7 +338,7 @@ public class Frame extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(btnCrearMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -573,22 +579,13 @@ public class Frame extends javax.swing.JFrame {
         mInformes1.add(jSeparator3);
 
         jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuItem10.setText("Cambiar Nombre");
+        jMenuItem10.setText("Editar Empresa");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
             }
         });
         mInformes1.add(jMenuItem10);
-
-        jMenuItem19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuItem19.setText("Cambiar Imagen");
-        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem19ActionPerformed(evt);
-            }
-        });
-        mInformes1.add(jMenuItem19);
 
         MenuAplicacion.add(mInformes1);
 
@@ -822,17 +819,10 @@ public class Frame extends javax.swing.JFrame {
         utilidades.validarCampoNumericos(txtBuscar.getText(), txtBuscar);
     }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem19ActionPerformed
-
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        String nombre=JOptionPane.showInputDialog("Ingrese el nombre que desea");
-        utiles.cambiarNombreTitulo(nombre);
-        this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+ " - > Sistema de Control Acceso");
-        Telegraph tele = new Telegraph("Cambio de Nombre", "El nombre se ha cambiado con exito", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 4000);
-                TelegraphQueue q = new TelegraphQueue();
-                q.add(tele);
+EmpresaData empresa = new EmpresaData();
+empresa.setVisible(true);
+ 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -894,7 +884,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

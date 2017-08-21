@@ -765,7 +765,7 @@ public class Utilidades {
         data = db.sqlDatos(querySQL);
         try {
             if (data.next()) {
-                return data.getString("nit");
+                return data.getString("nit")+dv(data.getString("nit"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
@@ -795,31 +795,9 @@ public class Utilidades {
         
     }
 
-    public void cambiarNombreTitulo(String nombre) {
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter("NombreApp.txt");
-            pw = new PrintWriter(fichero);
 
-            pw.println(nombre);
-            pw.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-    }
-
-    public boolean mostrarPantallaBienvenida() {
+   public boolean mostrarPantallaBienvenida() {
         CachedRowSet data;
         String querySQL = "SELECT * FROM empresa;";
         data = db.sqlDatos(querySQL);
@@ -832,6 +810,24 @@ public class Utilidades {
         }
         return false;
         
+    }
+    
+        public  String dv(String documento) {
+        int suma = 0;
+        String[] iden = new String[100];
+        int[] primos = {1, 3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71};
+        iden = documento.split("");
+        for (int i = 0; i < iden.length; i++) {
+            suma += (Integer.valueOf(iden[i]) * primos[iden.length - i]);
+        }
+        suma = suma % 11;
+        if (suma > 1) {
+            suma = 11 - suma;
+            return String.valueOf("-"+suma);
+        } else {
+            return String.valueOf("-"+suma);
+        }
+
     }
 
 }
