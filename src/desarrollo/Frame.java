@@ -48,7 +48,7 @@ public class Frame extends javax.swing.JFrame {
     private CachedRowSet data;
     private Utilidades utiles = new Utilidades();
     private PlaceHolder placeholder;
-    public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.jpeg");
+    public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.png");
     ConexionFoto foto =new ConexionFoto();
     
     

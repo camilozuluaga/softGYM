@@ -90,7 +90,6 @@ public class login extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(153, 153, 153));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/icon_biofisic.png"))); // NOI18N
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         btnEntrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/entrar.png"))); // NOI18N
