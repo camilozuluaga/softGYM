@@ -723,16 +723,18 @@ public final class AgregarMembresia extends javax.swing.JFrame {
                 for (int i = 0; i < datos.length; i++) {
                     System.out.println(datos[i]);
                 }
+                System.out.println("anio"+anio);
+                System.out.println("datos"+datos[0]);
                 if ((Integer.parseInt(anio) > Integer.parseInt(datos[0]))) {
-                    return true;
+                    return false;
                 } else if ((Integer.parseInt(anio) == Integer.parseInt(datos[0]))) {
                     if ((Integer.parseInt(mes) > Integer.parseInt(datos[1]))) {
-                        return true;
+                        return false;
                     } else if ((Integer.parseInt(mes) == Integer.parseInt(datos[1]))) {
-                        if ((Integer.parseInt(dia) >= Integer.parseInt(datos[2]))) {
-                            return true;
-                        } else {
+                        if ((Integer.parseInt(dia) > Integer.parseInt(datos[2]))) {
                             return false;
+                        } else {
+                            return true;
                         }
                     } else {
                         return false;
