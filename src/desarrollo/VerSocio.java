@@ -834,6 +834,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
         try {
+            
             if (ValidarMembresiasActivas()) {
 
                 try {
@@ -1184,7 +1185,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         String fecha_actual = anio + "-0" + mes + "-" + dia;
         int fila = tablaMembresias.getRowCount();
-
+        
+        if(tablaMembresias.getRowCount()==0){
+            return true;
+        }else{
+        
         for (int i = 0; i < fila; i++) {
             Object fecha = tablaMembresias.getValueAt(i, 2);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -1199,7 +1204,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 return false;
             }
 
-        }
+        }}
 
         return false;
     }

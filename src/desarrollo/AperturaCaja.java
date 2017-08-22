@@ -310,7 +310,7 @@ public class AperturaCaja extends javax.swing.JFrame {
         usuario = System.getProperty("usuario_sistema");
         int usuario_id = Integer.parseInt(usuario);
         if (!rbAcepto.isSelected()) {
-            Telegraph tele = new Telegraph("Apertura Caja", "Debe de seleccionar la opcion Acepto primero", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 9000);
+            Telegraph tele = new Telegraph("Apertura Caja", "Debe de seleccionar la opcion Acepto primero", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 5000);
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
 
@@ -318,7 +318,7 @@ public class AperturaCaja extends javax.swing.JFrame {
 
         if (rbAcepto.isSelected()) {
             if (txtCajaChica.getText().isEmpty()) {
-                Telegraph tele = new Telegraph("Apertura Caja", "Debe de completar el campo Dinero en Caja Chica", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 9000);
+                Telegraph tele = new Telegraph("Apertura Caja", "Debe de completar el campo Dinero en Caja Chica", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 5000);
                 TelegraphQueue q = new TelegraphQueue();
                 q.add(tele);
             } else {
@@ -330,14 +330,14 @@ public class AperturaCaja extends javax.swing.JFrame {
 
                 if (success) {
 
-                    Telegraph tele = new Telegraph("Apertura De Caja", "Se ha abierto Correctamente la caja", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 9000);
+                    Telegraph tele = new Telegraph("Apertura De Caja", "Se ha abierto Correctamente la caja", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
                     utilidades.verificarBackups("backup_abrircaja");
                     this.dispose();
 
                 } else {
-                    Telegraph tele = new Telegraph("Apertura De Caja", "No se ha abierto Correctamente la caja", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 9000);
+                    Telegraph tele = new Telegraph("Apertura De Caja", "No se ha abierto Correctamente la caja", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
                 }
@@ -387,7 +387,7 @@ public class AperturaCaja extends javax.swing.JFrame {
         int numero;
 
         try {
-            String nombre = String.format("SELECT id FROM caja WHERE total_venta > 0.0");
+            String nombre = String.format("SELECT id FROM caja");
             data = db.sqlDatos(nombre);
             if (data.size() == 0) {
                 lblAperturaCaja.setText("# ".concat(String.valueOf(1)));

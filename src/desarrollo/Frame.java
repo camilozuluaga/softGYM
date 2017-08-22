@@ -135,8 +135,6 @@ public class Frame extends javax.swing.JFrame {
         MenuAplicacion = new javax.swing.JMenuBar();
         mArchivo = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         mAcciones = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -300,6 +298,14 @@ public class Frame extends javax.swing.JFrame {
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbUsuario.setText("jLabel2");
 
+        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lbUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -338,13 +344,6 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
-        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(lbUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuAplicacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -359,25 +358,6 @@ public class Frame extends javax.swing.JFrame {
             }
         });
         mArchivo.add(jMenuItem13);
-
-        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuItem6.setText("Cerrar Sesión");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        mArchivo.add(jMenuItem6);
-
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
-        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuItem7.setText("Salir");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        mArchivo.add(jMenuItem7);
 
         MenuAplicacion.add(mArchivo);
 
@@ -616,15 +596,6 @@ public class Frame extends javax.swing.JFrame {
         agregarInternalFrame(escritorio, new CrearMembresia());
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-
-        int response = JOptionPane.showConfirmDialog(null, "¿Realmente desea Salir?", "Salir",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void btnCrearMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMembresiaActionPerformed
         agregarInternalFrame(escritorio, new CrearMembresia());
     }//GEN-LAST:event_btnCrearMembresiaActionPerformed
@@ -748,13 +719,6 @@ public class Frame extends javax.swing.JFrame {
         t1.start();
     }//GEN-LAST:event_btnAbrirPuertaActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        this.dispose();
-        login login = new login();
-        login.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
     private void escritorioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_escritorioKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_escritorioKeyTyped
@@ -875,8 +839,6 @@ empresa.setVisible(true);
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;

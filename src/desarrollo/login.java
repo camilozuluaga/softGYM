@@ -119,7 +119,11 @@ public class login extends javax.swing.JFrame {
         });
 
         txtClave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtClave.setText("123456");
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
+            }
+        });
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClaveKeyPressed(evt);
@@ -168,7 +172,6 @@ public class login extends javax.swing.JFrame {
         );
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtUsuario.setText("123456");
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusLost(evt);
@@ -269,6 +272,10 @@ public class login extends javax.swing.JFrame {
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
 
     }//GEN-LAST:event_txtUsuarioFocusLost
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveActionPerformed
 
     /**
      * @param args the command line arguments
