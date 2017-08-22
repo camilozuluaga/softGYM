@@ -816,7 +816,7 @@ public class Frame extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        utilidades.validarCampoNumericos(txtBuscar.getText(), txtBuscar);
+        
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed

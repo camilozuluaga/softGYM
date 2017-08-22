@@ -96,50 +96,52 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lUsoSaldoFavor" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="txtPaga" max="32767" attributes="0"/>
-                                              <Component id="txtDebe" max="32767" attributes="0"/>
                                               <Component id="txtSaldoFavor" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
-                                              <Component id="cSaldoFavorUsado" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="jLabel3" alignment="1" min="-2" pref="343" max="-2" attributes="0"/>
+                                      <Component id="lbDireccion" alignment="1" min="-2" pref="343" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="lblNit" max="32767" attributes="0"/>
+                          <Component id="lbNit" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="lbNombre" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="lbNumeroRecibo" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtSaldoFavor1" min="-2" pref="69" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="lbNombre" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblNit" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbNit" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="lbDireccion" min="-2" pref="16" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lbNumeroRecibo" max="32767" attributes="0"/>
@@ -171,22 +173,17 @@
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtPaga" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cSaldoFavorUsado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lUsoSaldoFavor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtDebe" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtSaldoFavor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSaldoFavor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="38" max="32767" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -201,7 +198,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lbNombre">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
@@ -210,7 +207,7 @@
             <Property name="text" type="java.lang.String" value="BioFisic GYM"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblNit">
+        <Component class="javax.swing.JLabel" name="lbNit">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
@@ -219,7 +216,7 @@
             <Property name="text" type="java.lang.String" value="Nit: 10270746-1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lbDireccion">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
@@ -311,7 +308,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Paga $"/>
+            <Property name="text" type="java.lang.String" value="Valor a pagar $"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -319,15 +316,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Saldo a Favor $"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Monospaced" size="11" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Debe $"/>
+            <Property name="text" type="java.lang.String" value="Dinero recibido $"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
@@ -339,8 +328,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPaga">
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtDebe">
         </Component>
         <Component class="javax.swing.JTextField" name="txtSaldoFavor">
         </Component>
@@ -398,21 +385,15 @@
             <Property name="text" type="java.lang.String" value="Numero de Copias"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lUsoSaldoFavor">
+        <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
             </Property>
-            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection component="cSaldoFavorUsado" type="bean"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Usado de saldo a favor"/>
+            <Property name="text" type="java.lang.String" value="Cambio $"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="cSaldoFavorUsado">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtSaldoFavor1">
         </Component>
       </SubComponents>
     </Container>
