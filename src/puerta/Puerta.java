@@ -53,7 +53,7 @@ public class Puerta {
 
         } catch (SerialPortException ex) {
             Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, "Puerto no disponible o bluetooth no conectado; verifique", ex);
-            msj.show("Dispositivo de Control de Acceso no detectado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado(puerto: "+ p.getParamConfig("puerto_bluetooth") +") e intente nuevamente.", TelegraphType.NOTIFICATION_ERROR, 8000);
+            //msj.show("Dispositivo de Control de Acceso no detectado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado(puerto: "+ p.getParamConfig("puerto_bluetooth") +") e intente nuevamente.", TelegraphType.NOTIFICATION_ERROR, 8000);
         }
     }
 

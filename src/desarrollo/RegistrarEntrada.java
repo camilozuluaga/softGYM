@@ -7,6 +7,8 @@ package desarrollo;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ import net.sf.jtelegraph.TelegraphType;
  */
 public final class RegistrarEntrada {
 
+    private DB db = new DB();
     RegistroEntradaAutomatica registroEntradaAutomatica;
     RegistroEntradaAutomatica entradaAuto;
     Utilidades util;
@@ -58,7 +61,7 @@ public final class RegistrarEntrada {
      */
     public RegistrarEntrada(int socio_id, VerSocio ventanaVerSocio) throws SQLException, ParseException {
         this.socio = socio_id;
-        idEmpresa=1;
+        idEmpresa = 1;
         registroEntradaAutomatica = new RegistroEntradaAutomatica();
         contadorFlag = false;
         entrada = false;
@@ -71,9 +74,10 @@ public final class RegistrarEntrada {
         miDb = new DB();
         idMembresiaSocio = membresia_id();
         diaDeLaSemana();
+        validarentradas(socio_id);
         idMembresiaAdquirida = traerIdMembresiaAdquirida(); // no es el id de la membresía sino el id de membresia_usuario. (es el id de contrato de adquisicion)
         validaciones();
-        
+
         try {
             ventanaVerSocio.updateDatos();
         } catch (Exception e) {
@@ -133,7 +137,7 @@ public final class RegistrarEntrada {
                 Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println("Ultima membresia: "+membresia_id);
+        System.out.println("Ultima membresia: " + membresia_id);
         return membresia_id;
     }
 
@@ -157,8 +161,12 @@ public final class RegistrarEntrada {
             while (data.next()) {
                 cantidadEntradasHoy = data.getInt("id");
             }
+            data.close();
             // teniendo la cantidad de entradas permitidas y las entradas que se han hecho hoy, validamos.
+
+            System.out.println("esta es la cantidad de entradas hoy " + cantidadEntradasHoy + " esta es la cantidad permitida " + cantidadEntradasPermitidas);
             if ((cantidadEntradasHoy < cantidadEntradasPermitidas) && (cantidadEntradasHoy != (cantidadEntradasPermitidas - 1))) {
+                System.out.println("ME VALE VERGA");
                 return true;
             } else if (cantidadEntradasHoy == (cantidadEntradasPermitidas - 1)) {
                 System.out.println("Bienvenido, Recuerde que esta sería su ultima entrada hoy.");
@@ -178,21 +186,21 @@ public final class RegistrarEntrada {
 
     private boolean entreFechaInicioFin() {
         int id = 0;
-        int id2=0;
-        int id3=0;
+        int id2 = 0;
+        int id3 = 0;
         try {
-            CachedRowSet data,data2,data3;
+            CachedRowSet data, data2, data3;
             DB db = new DB();
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
-            
+
             String sql3 = String.format("SELECT plazo_entrada FROM empresa");
             data3 = db.sqlDatos(sql3);
             while (data3.next()) {
                 id3 = data3.getInt("plazo_entrada");
             }
-            int plazo_permitido=(id3*24)+24;
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '"+plazo_permitido+"h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            int plazo_permitido = (id3 * 24) + 24;
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
             while (data.next()) {
                 id = data.getInt("cantidad");
@@ -200,19 +208,18 @@ public final class RegistrarEntrada {
             while (data2.next()) {
                 id2 = data2.getInt("cantidad");
             }
-            System.out.println("plazo entrada :"+plazo_permitido+"h");
+            System.out.println("plazo entrada :" + plazo_permitido + "h");
 
-            
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
                 return true;
-            }else if(id2>=1 && id3>=1){
+            } else if (id2 >= 1 && id3 >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
-                System.out.println("Su membresía caduco tiene "+id3+" dias para ponerse al dia");
-                System.out.println("Su membresía caduco tiene "+plazo_permitido+" horas para ponerse al dia");
+                System.out.println("Su membresía caduco tiene " + id3 + " dias para ponerse al dia");
+                System.out.println("Su membresía caduco tiene " + plazo_permitido + " horas para ponerse al dia");
                 return true;
-            }else  {
+            } else {
                 sonido.sonar("alarma");
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
                 System.out.println("No tiene membresías activas para entrar hoy,\nSi tenía una membresía promocional, ésta ya venció.");
@@ -450,14 +457,14 @@ public final class RegistrarEntrada {
         while (data.next()) {
             diaSemana = data.getDouble("dia");
         }
-        System.out.println("diaSemana: "+diaSemana);
-        return diaSemana; 
-        
+        System.out.println("diaSemana: " + diaSemana);
+        return diaSemana;
+
     }
+
     /*
      Este método permite validad qué dias de la semana el socio tiene permitido entrar.
      */
-
     public boolean tieneRestriccionesSemana() {
         try {
             int hay = 0;
@@ -485,7 +492,7 @@ public final class RegistrarEntrada {
                 int diaInt = (int) dia;
                 validarDiaSemana(diaInt);
                 CachedRowSet data1;
-                System.out.println("dia actual:"+diaActual);
+                System.out.println("dia actual:" + diaActual);
                 String querySQL = String.format("SELECT %s as permitido FROM membresia_restriccion_semana WHERE membresia_id=%s ", diaActual, idMembresiaSocio);//preguntando si hoy se puede entrar.
                 data1 = db.sqlDatos(querySQL);
                 while (data1.next()) {
@@ -706,7 +713,7 @@ public final class RegistrarEntrada {
             if (hayBloqueHorario()) {
                 int aciertoHorario = 0;// cantidad de aciertos horarios// es decir cantidad de coincidencias entre la hora actual y un bloque horario definido.
                 CachedRowSet data;
-                System.out.println("membresia socio en bloque horario "+idMembresiaSocio);
+                System.out.println("membresia socio en bloque horario " + idMembresiaSocio);
                 String query = String.format("SELECT count(id) as id FROM membresia_restriccion_horario WHERE current_time BETWEEN hora_inicio and hora_fin and membresia_id=%s;", idMembresiaSocio);
                 data = miDb.sqlDatos(query);
                 while (data.next()) {
@@ -730,7 +737,7 @@ public final class RegistrarEntrada {
     private void validadorTiempoGracia(int membresia_id) throws SQLException {
         if (socioEntroHoy()) {
             System.out.println(tieneTiempoGracia());
-            if (tieneTiempoGracia() && estaEnFranjaTiempoGracia() !=0) {
+            if (tieneTiempoGracia() && estaEnFranjaTiempoGracia() != 0) {
                 pp.openDoor();
             } else {
                 efectuarRegistroEntradaBD(membresia_id);
@@ -758,7 +765,7 @@ public final class RegistrarEntrada {
             System.out.println("---------PERSISTIDO REGISTRAR ENTRADA---------");
             if (!contadorFlag) {
                 mensaje("Bienvenido", "Entrada Registrada Satisfactoriamente.", TelegraphType.NOTIFICATION_DONE);
-            
+
             }
         } else {
             sonido.sonar("alerta");
@@ -802,10 +809,13 @@ public final class RegistrarEntrada {
         }
         return false;
     }
+
     /**
-     * este método comprueba si en este momento el socio esta dentro el tiempo de gracia.
+     * este método comprueba si en este momento el socio esta dentro el tiempo
+     * de gracia.
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public Integer estaEnFranjaTiempoGracia() throws SQLException {
         int pivote = -1;
@@ -875,6 +885,103 @@ public final class RegistrarEntrada {
         return nombreCompleto;
 
     }
-        
+
+    public int obtenerEntradas(int clave) throws SQLException {
+        int entradas = 0;
+        CachedRowSet data;
+        String query = String.format("SELECT entradas_hoy FROM socio WHERE id=%s;", clave);
+        data = miDb.sqlDatos(query);
+        while (data.next()) {
+            try {
+                entradas = data.getInt("entradas_hoy");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return entradas;
+
+    }
+
+    public String obtenerEechaEntrada(int clave) throws SQLException {
+        String entradas = "";
+        CachedRowSet data;
+        String query = String.format("SELECT fecha_ultima_enntrada FROM socio WHERE id=%s", clave);
+        data = miDb.sqlDatos(query);
+        while (data.next()) {
+            try {
+                entradas = data.getString("fecha_ultima_enntrada");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return entradas;
+
+    }
+
+    public void editarFechaEntrada(int clave) throws SQLException, ParseException {
+        String querySQL = "";
+        Calendar c1 = Calendar.getInstance();
+
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+
+        String fecha_actual = anio + "-0" + mes + "-" + dia;
+
+        System.out.println(fecha_actual + "esta es la fecha actual del dia de hoy");
+        boolean suceses;
+        querySQL = String.format("UPDATE socio SET fecha_ultima_enntrada='%s' WHERE id=%s", fecha_actual, clave);
+        suceses = db.sqlEjec(querySQL);
+
+        if (suceses) {
+
+            return;
+
+        }
+
+    }
+
+    public void sumarEntrada(int clave, int entada) throws SQLException {
+
+        String querySQL = "";
+
+        boolean suceses;
+        querySQL = String.format("UPDATE socio SET entradas_hoy=%s WHERE id=%s", entada, clave);
+        suceses = db.sqlEjec(querySQL);
+
+        if (suceses) {
+
+            return;
+
+        }
+
+    }
+
+    public boolean validarentradas(int clave) throws SQLException, ParseException {
+        Calendar c1 = Calendar.getInstance();
+
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+
+        String fecha_actual = anio + "-0" + mes + "-" + dia;
+        System.out.println("hola socia esta es la actual " + fecha_actual + "esta es la otra entrada " + obtenerEechaEntrada(clave));
+        System.out.println(fecha_actual.equals(obtenerEechaEntrada(clave)));
+        System.out.println(obtenerEechaEntrada(clave) == null);
+        if (obtenerEechaEntrada(clave) == null) {
+            editarFechaEntrada(clave);
+        } else if (!(fecha_actual.equals(obtenerEechaEntrada(clave)))) {
+
+            editarFechaEntrada(clave);
+            sumarEntrada(clave, 0);
+
+        }
+
+        return true;
+    }
 
 }
