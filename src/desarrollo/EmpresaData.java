@@ -5,6 +5,7 @@
  */
 package desarrollo;
 
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -98,6 +99,7 @@ public class EmpresaData extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         lblfoto = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -255,6 +257,13 @@ public class EmpresaData extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Examinar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,21 +301,19 @@ public class EmpresaData extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75))))
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblfoto, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jRadioButton4)
                         .addGap(18, 18, 18)
@@ -351,7 +358,8 @@ public class EmpresaData extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(txtBackup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtBackup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -401,7 +409,7 @@ public class EmpresaData extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         foto();
-        
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -410,7 +418,7 @@ public class EmpresaData extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDiasActionPerformed
 
     private void txtNitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNitFocusLost
-         jLabel2.setText("DV: "+txtNit.getText()+utilidades.dv(txtNit.getText()));
+        jLabel2.setText("DV: " + txtNit.getText() + utilidades.dv(txtNit.getText()));
     }//GEN-LAST:event_txtNitFocusLost
 
     private void txtTelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelKeyReleased
@@ -418,15 +426,30 @@ public class EmpresaData extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelKeyReleased
 
     private void txtNitKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNitKeyReleased
-utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO add your handling code here:
+        utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO add your handling code here:
     }//GEN-LAST:event_txtNitKeyReleased
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    
-    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        FileDialog dialogoArchivo;
+        dialogoArchivo = new FileDialog(this, "Lista de Archivos desde Frame", FileDialog.LOAD);
+        dialogoArchivo.setLocationRelativeTo(null);
+        dialogoArchivo.setFile("*.jpg");
+        dialogoArchivo.setVisible(true);
+        if (dialogoArchivo.getFile() != null) {
+            String directorio = dialogoArchivo.getDirectory();
+            String nombreArchivo = dialogoArchivo.getFile();
+            String rutatotal = directorio + nombreArchivo;
+            System.out.println(rutatotal);
+        } else {
+            System.out.println("No Seleccionó Archivo");
+        }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     public void guardarDatosEmpresa() {
 
         String nom = txtnombre.getText();
@@ -459,7 +482,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
                 if (utilidades.mostrarPantallaBienvenida()) {
                     querySQL = String.format("UPDATE empresa SET nombre='%s',nit='%s',dir='%s',tel='%s',backup_ruta='%s',backup_sesion=%s,backup_abrircaja=%s,backup_cierrecaja=%s,tipo_puerta='%s',plazo_entrada=%s", nom, nit, dire, tel, backup, sesion, abrir, cerrar, tipo, Integer.valueOf(dias));
                     suceses = db.sqlEjec(querySQL);
-                  
+
                     if (suceses) {
 
                         this.dispose();
@@ -469,7 +492,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
 
                     querySQL = String.format("INSERT INTO empresa(nombre,nit,dir,tel,backup_ruta,backup_sesion,backup_abrircaja,backup_cierrecaja,tipo_puerta,plazo_entrada) VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,'%s','%s')", nom, nit, dire, tel, backup, sesion, abrir, cerrar, tipo, Integer.valueOf(dias));
                     suceses = db.sqlEjec(querySQL);
-                    
+
                     if (suceses) {
                         this.dispose();
                         login lo = new login();
@@ -482,7 +505,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
             if (utilidades.mostrarPantallaBienvenida()) {
                 querySQL = String.format("UPDATE empresa SET nombre='%s',nit='%s',dir='%s',tel='%s',backup_ruta='%s',backup_sesion=%s,backup_abrircaja=%s,backup_cierrecaja=%s,tipo_puerta='%s',plazo_entrada=%s", nom, nit, dire, tel, backup, sesion, abrir, cerrar, tipo, Integer.valueOf(dias));
                 suceses = db.sqlEjec(querySQL);
-                
+
                 if (suceses) {
 
                     this.dispose();
@@ -496,7 +519,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
 
                 querySQL = String.format("INSERT INTO empresa(nombre,nit,dir,tel,backup_ruta,backup_sesion,backup_abrircaja,backup_cierrecaja,tipo_puerta,plazo_entrada) VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,'%s','%s')", nom, nit, dire, tel, backup, sesion, abrir, cerrar, tipo, Integer.valueOf(dias));
                 suceses = db.sqlEjec(querySQL);
-                
+
                 if (suceses) {
                     this.dispose();
                     login lo = new login();
@@ -509,7 +532,6 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
 
     public void foto() {
 
-     
         JFileChooser j = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         j.setFileFilter(imageFilter);
@@ -534,7 +556,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
-        }else if(estado == JFileChooser.CANCEL_OPTION){
+        } else if (estado == JFileChooser.CANCEL_OPTION) {
             System.out.println("no haga nada");
         }
     }
@@ -557,7 +579,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
                 txtTel.setText(data.getString("tel"));
                 txtBackup.setText(data.getString("backup_ruta"));
                 txtDire.setText(data.getString("dir"));
-                jLabel2.setText("DV: "+data.getString("nit")+utilidades.dv(data.getString("nit")));
+                jLabel2.setText("DV: " + data.getString("nit") + utilidades.dv(data.getString("nit")));
 
                 if (data.getBoolean("backup_sesion") == true) {
                     rsesion.setSelected(true);
@@ -597,6 +619,7 @@ utilidades.validarCampoNumericos(txtNit.getText(), txtNit, 10);        // TODO a
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
