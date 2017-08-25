@@ -82,15 +82,8 @@
                                   <Component id="lblFoto" min="-2" pref="135" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="lEstadoCuentaDescripcion" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="74" max="32767" attributes="0"/>
-                                                  <Component id="bRegistrarPago" min="-2" pref="125" max="-2" attributes="0"/>
-                                              </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
@@ -101,80 +94,92 @@
                                                       </Group>
                                                       <Component id="lNombreUsuario" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="btnEditarSocio" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lmsjVencimiento" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="80" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="btnEditarSocio" min="-2" max="-2" attributes="0"/>
+                                              <Component id="bRegistrarPago" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lmsjVencimiento" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lmsjVencimiento1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="lbComfenalco" min="-2" pref="220" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="lEstadoCuentaDescripcion" min="-2" pref="227" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTabbedPane2" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="bRegistrarVisita" min="-2" pref="169" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnRegistrarEntrada" min="-2" pref="161" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="bEliminarMembresia" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="bAgregarMembresias" min="-2" pref="162" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" min="-2" pref="148" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="bRegistrarVisita" min="-2" pref="169" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnRegistrarEntrada" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                                  <Component id="bEliminarMembresia" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="bAgregarMembresias" min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <EmptySpace pref="274" max="32767" attributes="0"/>
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                                  <Component id="lblFoto" min="-2" pref="135" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Component id="lNombreUsuario" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="lNombreUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnEditarSocio" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="lCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="lEdad" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnEditarSocio" min="-2" pref="49" max="-2" attributes="0"/>
+                                          <Component id="lmsjVencimiento" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="bRegistrarPago" min="-2" pref="49" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lmsjVencimiento" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="bRegistrarPago" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                       <Component id="jLabel6" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                                       <Component id="lEstadoCuentaDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lmsjVencimiento1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbComfenalco" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="lblFoto" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jTabbedPane2" pref="319" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane2" pref="301" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -483,6 +488,25 @@
                     </Container>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="lmsjVencimiento1">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Comfenalco:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbComfenalco">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="0"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="NO"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

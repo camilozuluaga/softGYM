@@ -111,6 +111,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
         tablaUltimasEntradas = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaMembresias = new javax.swing.JTable();
+        lmsjVencimiento1 = new javax.swing.JLabel();
+        lbComfenalco = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -300,6 +302,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Membresías", jScrollPane3);
 
+        lmsjVencimiento1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lmsjVencimiento1.setText("Comfenalco:");
+
+        lbComfenalco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbComfenalco.setForeground(new java.awt.Color(255, 0, 0));
+        lbComfenalco.setText("NO");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -314,12 +323,6 @@ public class VerSocio extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lEstadoCuentaDescripcion)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                                        .addComponent(bRegistrarPago, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(lCodigo)
@@ -327,59 +330,70 @@ public class VerSocio extends javax.swing.JInternalFrame {
                                                 .addComponent(lEdad)
                                                 .addGap(0, 0, Short.MAX_VALUE))
                                             .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnEditarSocio)))
-                                .addContainerGap(80, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lmsjVencimiento)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lmsjVencimiento)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEditarSocio)
+                                    .addComponent(bRegistrarPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lmsjVencimiento1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lbComfenalco, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lEstadoCuentaDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jTabbedPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane2)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(bRegistrarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnRegistrarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(bEliminarMembresia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bAgregarMembresias, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
-                                .addGap(130, 130, 130)))
-                        .addContainerGap())))
+                        .addComponent(bRegistrarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegistrarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)
+                        .addComponent(bEliminarMembresia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bAgregarMembresias, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addGap(130, 130, 130)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(lNombreUsuario)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lNombreUsuario)
+                                    .addComponent(btnEditarSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lCodigo)
-                                    .addComponent(lEdad)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnEditarSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lmsjVencimiento)
+                                    .addComponent(lEdad))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lmsjVencimiento))
+                            .addComponent(bRegistrarPago, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bRegistrarPago, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lEstadoCuentaDescripcion))))
+                            .addComponent(lEstadoCuentaDescripcion))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lmsjVencimiento1)
+                            .addComponent(lbComfenalco)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -829,7 +843,6 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
@@ -1081,8 +1094,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lEdad;
     private javax.swing.JLabel lEstadoCuentaDescripcion;
     private javax.swing.JLabel lNombreUsuario;
+    private javax.swing.JLabel lbComfenalco;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lmsjVencimiento;
+    private javax.swing.JLabel lmsjVencimiento1;
     private javax.swing.JTable tablaMembresias;
     private javax.swing.JTable tablaUltimasEntradas;
     private javax.swing.JTable tablaUltimosPagos;
@@ -1136,7 +1151,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private void getSocio() {
         try {
             CachedRowSet data;
-            data = db.sqlDatos("SELECT foto,REPLACE(concat(soc.primer_nombre,' ',soc.segundo_nombre,' ',soc.primer_apellido,' ',soc.segundo_apellido),'  ',' ') as Usuario, EXTRACT(year FROM AGE(NOW(),soc.fecha_nacimiento))::text || ' Años' edad , soc.sexo ,soc.clave FROM socio soc WHERE soc.id = " + socioID);
+            data = db.sqlDatos("SELECT foto,REPLACE(concat(soc.primer_nombre,' ',soc.segundo_nombre,' ',soc.primer_apellido,' ',soc.segundo_apellido),'  ',' ') as Usuario, soc.comfenalco,EXTRACT(year FROM AGE(NOW(),soc.fecha_nacimiento))::text || ' Años' edad , soc.sexo ,soc.clave FROM socio soc WHERE soc.id = " + socioID);
 
             while (data.next()) {
                 if (data.getBytes("foto") != null) {
@@ -1150,6 +1165,17 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         break;
                     case "Femenino":
                         lblFoto.setBorder(null);
+                        break;
+                }
+                switch(data.getString("comfenalco")){
+                    case "A":
+                        lbComfenalco.setText("CATEGORIA A");
+                        break;
+                    case "B":
+                        lbComfenalco.setText("CATEGORIA B");
+                        break;
+                    case "N":
+                        lbComfenalco.setText("NO TIENE CATEGORIA");
                         break;
                 }
 
