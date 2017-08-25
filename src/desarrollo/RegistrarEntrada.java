@@ -154,16 +154,15 @@ public final class RegistrarEntrada {
                 cantidadEntradasPermitidas = data.getInt("asistencias_permitidas");
             }
             data.close();
-            
-            // teniendo la cantidad de entradas permitidas y las entradas que se han hecho hoy, validamos.
 
+            // teniendo la cantidad de entradas permitidas y las entradas que se han hecho hoy, validamos.
             System.out.println("esta es la cantidad de entradas hoy " + cantidadEntradasHoy + " esta es la cantidad permitida " + cantidadEntradasPermitidas);
             if ((cantidadEntradasHoy < cantidadEntradasPermitidas) && (cantidadEntradasHoy != (cantidadEntradasPermitidas - 1))) {
-               
+
                 return true;
             } else if (cantidadEntradasHoy == (cantidadEntradasPermitidas - 1)) {
                 System.out.println("Bienvenido, Recuerde que esta sería su ultima entrada hoy.");
-               
+
                 mensaje("Bienvenido", "Atención! Recuerde que esta es su última entrada el día de hoy.", TelegraphType.NOTIFICATION_DONE, 4000);
                 contadorFlag = true;
                 return true;
@@ -236,7 +235,7 @@ public final class RegistrarEntrada {
                         if (bloqueHorario()) {
                             if (socioDebe()) {
                                 validadorTiempoGracia(idMembresiaSocio);
-                                sumarEntrada(socio, obtenerEntradas(socio)+1);
+                                sumarEntrada(socio, obtenerEntradas(socio) + 1);
 
                             } else {
                                 System.out.println("No se pudo persistir 1");
@@ -264,7 +263,7 @@ public final class RegistrarEntrada {
                         if (socioDebe()) {
                             if (bloqueHorario()) {
                                 validadorTiempoGracia(idMembresiaSocio);
-                                sumarEntrada(socio, obtenerEntradas(socio)+1);
+                                sumarEntrada(socio, obtenerEntradas(socio) + 1);
                             } else {
                                 if (!contadorFlag) {
                                     sonido.sonar("alerta");
@@ -286,7 +285,7 @@ public final class RegistrarEntrada {
                         if (socioDebe()) {
                             if (bloqueHorario()) {
                                 validadorTiempoGracia(idMembresiaSocio);
-                                sumarEntrada(socio, obtenerEntradas(socio)+1);
+                                sumarEntrada(socio, obtenerEntradas(socio) + 1);
                             } else {
                                 if (!contadorFlag) {
                                     sonido.sonar("alerta");

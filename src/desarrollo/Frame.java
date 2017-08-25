@@ -49,37 +49,35 @@ public class Frame extends javax.swing.JFrame {
     private Utilidades utiles = new Utilidades();
     private PlaceHolder placeholder;
     public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.png");
-    ConexionFoto foto =new ConexionFoto();
-    
-    
+    ConexionFoto foto = new ConexionFoto();
+
     public AperturaCaja aperturaCaja;
     public Utilidades utilidades;
 
-
     public Frame() {
         initComponents();
-        utilidades=new Utilidades();
-        this.setDefaultCloseOperation(0); 
+        utilidades = new Utilidades();
+        this.setDefaultCloseOperation(0);
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+ " - > Sistema de Control Acceso");
+        this.setTitle(utiles.CargarNombreTitulo().toUpperCase() + " - > Sistema de Control Acceso");
         this.setVisible(true);
         txtBuscar.requestFocusInWindow();
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
         PlaceHolder placeHolder = new PlaceHolder("Buscar socio por identificación o codigo ...", txtBuscar);
-        
+
         cargarImagen(escritorio, foto1);
-        
+
         comprobarPermisosMenu();
-        aperturaCaja=new AperturaCaja();
-        lbUsuario.setText("USUARIO: "+aperturaCaja.cargarUsuario());
-                
+        aperturaCaja = new AperturaCaja();
+        lbUsuario.setText("USUARIO: " + aperturaCaja.cargarUsuario());
+
     }
 
     public Frame(String id) throws SQLException, ParseException {
         initComponents();
-        this.setDefaultCloseOperation(0); 
+        this.setDefaultCloseOperation(0);
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+" - > Sistema de Control Acceso");
+        this.setTitle(utiles.CargarNombreTitulo().toUpperCase() + " - > Sistema de Control Acceso");
         this.setVisible(true);
         txtBuscar.requestFocusInWindow();
         txtBuscar.setText(id);
@@ -767,13 +765,13 @@ public class Frame extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-EmpresaData empresa = new EmpresaData();
-empresa.setVisible(true);
- 
+        EmpresaData empresa = new EmpresaData();
+        empresa.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -945,9 +943,9 @@ empresa.setVisible(true);
                         boolean visible = acceso.menuPermitido(elementoMenu.getText(), menu.getText());
                         elementoMenu.setVisible(visible);
                         if (!visible) {
-                            if(elementoMenu.getText().equals("Crear Membresía")){
+                            if (elementoMenu.getText().equals("Crear Membresía")) {
                                 btnCrearMembresia.setEnabled(false);
-                            }else if(elementoMenu.getText().equals("Crear Socio")){
+                            } else if (elementoMenu.getText().equals("Crear Socio")) {
                                 btnCrearSocio.setEnabled(false);
                             }
                             elementosOcultos++;

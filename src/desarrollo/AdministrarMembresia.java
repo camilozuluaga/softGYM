@@ -361,6 +361,19 @@ public class AdministrarMembresia extends javax.swing.JInternalFrame {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public String obtenerEstadoPagoMembresia( JTable tabla) {
+        int fila = tabla.getSelectedRow();
+        String estado = "";
+        if (fila >= 0) {
+            estado = String.valueOf(tabla.getModel().getValueAt(fila, 4));
+
+        } else {
+            utilidades.llamarMensaje();
+        }
+        return estado;
+    }
 
     public String obtenerIdMembresia( JTable tabla) {
         int fila = tabla.getSelectedRow();

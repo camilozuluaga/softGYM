@@ -917,6 +917,7 @@ public final class CrearMembresia extends javax.swing.JInternalFrame {
                                         Logger.getLogger(CrearMembresia.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 }
+                                System.out.println(clave+" esta es la clave ");
                                 if (clave != null) {
                                     querySQL = String.format("UPDATE membresia SET nombre='%s',valor=%s,asistencia_diaria=%s,estado=%s WHERE id=%s", nombreMembresia, valorMembresia, asistencia_diaria, estado, clave);
                                     actualizar = db.sqlEjec(querySQL);

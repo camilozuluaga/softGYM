@@ -834,7 +834,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
         try {
-            
+
             if (ValidarMembresiasActivas()) {
 
                 try {
@@ -884,7 +884,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
 
     private void bEliminarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarMembresiaActionPerformed
-        // Nos damos cuenta que membresia fue seleccionada para eliminar
+
         if (tablaMembresias.getSelectedRow() >= 0) {
 
             try {
@@ -910,7 +910,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
 
-                } else {
+                } else if (!ValidarPago()){
+                   Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
+                    TelegraphQueue q = new TelegraphQueue();
+                    q.add(tele); 
+                    
+                }else {
                     String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
                     ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
                     int identificador = 0;
@@ -1186,26 +1191,27 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         String fecha_actual = anio + "-0" + mes + "-" + dia;
         int fila = tablaMembresias.getRowCount();
-        
-        if(tablaMembresias.getRowCount()==0){
+
+        if (tablaMembresias.getRowCount() == 0) {
             return true;
-        }else{
-        
-        for (int i = 0; i < fila; i++) {
-            Object fecha = tablaMembresias.getValueAt(i, 2);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = sdf.parse(fecha_actual);
-            Date date2 = sdf.parse(String.valueOf(fecha));
+        } else {
 
-            int v = date1.compareTo(date2);
-            if (v == 1) {
-                return true;
+            for (int i = 0; i < fila; i++) {
+                Object fecha = tablaMembresias.getValueAt(i, 2);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = sdf.parse(fecha_actual);
+                Date date2 = sdf.parse(String.valueOf(fecha));
 
-            } else {
-                return false;
+                int v = date1.compareTo(date2);
+                if (v == 1) {
+                    return true;
+
+                } else {
+                    return false;
+                }
+
             }
-
-        }}
+        }
 
         return false;
     }
@@ -1444,7 +1450,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
             return false;
         }
     }
-    
+
     public void sumarEntrada(int clave, int entada) throws SQLException {
 
         String querySQL = "";
@@ -1457,6 +1463,15 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
             return;
 
+        }
+
+    }
+
+    public boolean ValidarPago() {
+        if (admonMembresias.obtenerEstadoPagoMembresia(tablaMembresias).equals("Sin Cancelar")) {
+            return true;
+        } else {
+            return false;
         }
 
     }

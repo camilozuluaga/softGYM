@@ -52,6 +52,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         this.setTitle(".:: Hércules - Ventana de Pagos ::.");
         this.socioId = socioId;
         this.socio = socio;
+       cDineroRecibido.requestFocus();
         obtenerMembresiasActivas();
 
         //darle el foco al campo de dinero
@@ -356,7 +357,24 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     }//GEN-LAST:event_cDineroRecibidoFocusGained
 
     private void cDineroRecibidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyPressed
+if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+    boolean validacion = false;
+        try {
+            validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarEgreso.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        if (validacion == false) {
+            JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
+            Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
+            TelegraphQueue q = new TelegraphQueue();
+            q.add(tele);
+        } else {
+            guardar();
+        }
+    
+}
     }//GEN-LAST:event_cDineroRecibidoKeyPressed
 
     private void cDineroRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyTyped

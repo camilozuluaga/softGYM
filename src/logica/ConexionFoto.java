@@ -162,8 +162,9 @@ public class ConexionFoto {
         }
         return false;
     }
+
     public ImageIcon consultarFoto() {
-      
+
         try {
             PreparedStatement pstm = connection.prepareStatement("SELECT imagen FROM empresa");
             resultSet = pstm.executeQuery();
@@ -173,11 +174,11 @@ public class ConexionFoto {
 
                     ImageIcon foto = new ImageIcon(resultSet.getBytes("imagen"));
                     return foto;
-                   
+
                 }
             }
             pstm.close();
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

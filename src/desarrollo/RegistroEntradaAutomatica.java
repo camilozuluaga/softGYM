@@ -21,6 +21,7 @@ import net.sf.jtelegraph.TelegraphType;
  * @author GermanV
  */
 public class RegistroEntradaAutomatica extends javax.swing.JFrame {
+
     Utilidades sonidos;
     CumpleaniosSocio miCumpleañosSocio;
     RegistrarEntrada miEntrada;
@@ -36,26 +37,22 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     String recordatorio;
     private final DB db = new DB();
 
-
     /**
      * Creates new form FrameBloqueo
      */
     public RegistroEntradaAutomatica() {
-        sonidos= new Utilidades();
+        sonidos = new Utilidades();
         miCumpleañosSocio = new CumpleaniosSocio();
         midb = new DB(); //objeto de base de datos
         this.setUndecorated(true);//quita bordes a jframe
         initComponents();
-        idEmpresa=1;
+        idEmpresa = 1;
         lblImagen.setVisible(false);
-        jLabel1.setText("BIENVENIDO A "+sonidos.CargarNombreTitulo().toUpperCase());
+        jLabel1.setText("BIENVENIDO A " + sonidos.CargarNombreTitulo().toUpperCase());
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//evita cerra jframe con ALT+C
         this.setExtendedState(MAXIMIZED_BOTH);//maximizado
         this.setAlwaysOnTop(true);//siempre al frente
         lblFoto.setVisible(false);
-  
-        
-       
 
     }
 
@@ -280,8 +277,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         public void run() {
                             try {
                                 if (usuarioExiste(clave)) {
-                     
-                                    
+
                                     //comprobar si el usuario esta cumpliendo años hoy o maniana
                                     if (miCumpleañosSocio.tieneFechaNacimiento(socio)) {
                                         if (miCumpleañosSocio.cumpleañosManiana(socio)) {
@@ -299,7 +295,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                                     lblNombreSocio.setText("Bienvenido: " + miEntrada.traerNombreSocio(clave));
                                     lblMembresiaVence.setText(venceMembresia());
                                     getVencimientoMembresias();
-                                    
+
                                     getImagen();
 
                                     delay(4500);
@@ -324,7 +320,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                 } else {
                     if (usuarioSistema(pass.getText().trim()) > 0) {
                         //PuertaController.OpenDoor();
-                        arduino= new puerta.Puerta();
+                        arduino = new puerta.Puerta();
                         arduino.openDoor();
                         Telegraph tele = new Telegraph("Bienvenido", "Usuario del sistema", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 4000);
                         TelegraphQueue q = new TelegraphQueue();
@@ -447,22 +443,22 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         boolean correcto = true;
         int id = 0;
         int id2 = 0;
-        int id3=0;
+        int id3 = 0;
         try {
-            CachedRowSet data, data2,data3;
+            CachedRowSet data, data2, data3;
             DB db = new DB();
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM socio s ,membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia and md.fecha_fin_membresia and md.membresia_socio_id= mu.id and s.id=%s;", socio);
             data = db.sqlDatos(sql);
-            
+
             String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
             data3 = db.sqlDatos(sql3);
             while (data3.next()) {
                 id3 = data3.getInt("plazo_entrada");
             }
-            int plazo_permitido=id3*24;
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '"+plazo_permitido+"h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
-             data2 = db.sqlDatos(sql2);
-            
+            int plazo_permitido = id3 * 24;
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            data2 = db.sqlDatos(sql2);
+
             while (data.next()) {
                 id = data.getInt("cantidad");
             }
@@ -472,16 +468,16 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
-                vencio="Su membresía vence el día:";
-                recordatorio="";
+                vencio = "Su membresía vence el día:";
+                recordatorio = "";
                 getVencimientoMembresias();
                 return true;
-            }else if(id2>=1 && id3>=1){
+            } else if (id2 >= 1 && id3 >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
-                
-                vencio="Su membresía vencio el día:";
-                System.out.println("Su membresía caduco tiene "+id3+" dias para ponerse al dia");
-                System.out.println("Su membresía caduco tiene "+plazo_permitido+" horas para ponerse al dia");
+
+                vencio = "Su membresía vencio el día:";
+                System.out.println("Su membresía caduco tiene " + id3 + " dias para ponerse al dia");
+                System.out.println("Su membresía caduco tiene " + plazo_permitido + " horas para ponerse al dia");
                 getVencimientoMembresias();
                 return true;
             } else {
@@ -555,7 +551,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                     mesLetras = "Diciembre";
                     break;
             }
-            cadena = vencio +" "+ dia + " de " + mesLetras + " de " + año +" "+recordatorio;
+            cadena = vencio + " " + dia + " de " + mesLetras + " de " + año + " " + recordatorio;
         }
 
         return cadena;
@@ -603,10 +599,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     public void getImagen() {
         try {
             CachedRowSet data;
-                    
-            System.out.println("pass "+pass.getText());
+
+            System.out.println("pass " + pass.getText());
             data = db.sqlDatos("SELECT foto,REPLACE(concat(soc.primer_nombre,' ',soc.segundo_nombre,' ',soc.primer_apellido,' ',soc.segundo_apellido),'  ',' ') as Usuario, EXTRACT(year FROM AGE(NOW(),soc.fecha_nacimiento))::text || ' Años' edad , soc.sexo ,soc.clave FROM socio soc WHERE soc.id = " + socio);
-            
 
             while (data.next()) {
                 if (data.getBytes("foto") != null) {
@@ -621,9 +616,10 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void getVencimientoMembresias() {
         try {
-          
+
             int dias = 0;
             java.util.Date fechaVencimiento = new java.util.Date();
             CachedRowSet data;
@@ -664,4 +660,3 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         }
     }
 }
-
