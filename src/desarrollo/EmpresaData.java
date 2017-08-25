@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -42,6 +43,7 @@ public class EmpresaData extends javax.swing.JFrame {
     FileInputStream fis;
     Utilidades utilidades = new Utilidades();
     ConexionFoto foto = new ConexionFoto();
+    private JFileChooser chooser;
 
     /**
      * Creates new form EmpresaData
@@ -434,19 +436,21 @@ public class EmpresaData extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        FileDialog dialogoArchivo;
-        dialogoArchivo = new FileDialog(this, "Lista de Archivos desde Frame", FileDialog.LOAD);
-        dialogoArchivo.setLocationRelativeTo(null);
-        dialogoArchivo.setFile("*.jpg");
-        dialogoArchivo.setVisible(true);
-        if (dialogoArchivo.getFile() != null) {
-            String directorio = dialogoArchivo.getDirectory();
-            String nombreArchivo = dialogoArchivo.getFile();
-            String rutatotal = directorio + nombreArchivo;
-            System.out.println(rutatotal);
+chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File(txtBackup.getText()));
+        chooser.setDialogTitle("Seleccione Ruta de Copia de Seguridad");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+           
+            System.out.println("getSelectedFile() : "
+                    + chooser.getSelectedFile());
+            txtBackup.setText(chooser.getSelectedFile().toString());
         } else {
-            System.out.println("No Seleccionó Archivo");
-        }
+            System.out.println("No Selection ");
+        }        
+        
+        
 
     }//GEN-LAST:event_jButton4ActionPerformed
 

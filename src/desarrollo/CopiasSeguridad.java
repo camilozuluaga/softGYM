@@ -143,6 +143,11 @@ public class CopiasSeguridad extends javax.swing.JInternalFrame {
         jLabel5.setText("Ubicación");
 
         cUbicacion.setEditable(false);
+        cUbicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cUbicacionActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Seleccionar Ubicación");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -307,6 +312,10 @@ public class CopiasSeguridad extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cUbicacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cUbicacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
