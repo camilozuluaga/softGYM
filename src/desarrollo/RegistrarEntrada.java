@@ -144,7 +144,7 @@ public final class RegistrarEntrada {
     private boolean cantidadEntradasPorDia(int socio) {
         try {
             int cantidadEntradasPermitidas = 0;
-            int cantidadEntradasHoy = 0;
+            int cantidadEntradasHoy = obtenerEntradas(socio);
 
             CachedRowSet data;
             DB db = new DB();
@@ -154,22 +154,16 @@ public final class RegistrarEntrada {
                 cantidadEntradasPermitidas = data.getInt("asistencias_permitidas");
             }
             data.close();
-            String sql1 = String.format("SELECT count(es.id) as id \n"
-                    + "FROM entrada_socio es \n"
-                    + "WHERE es.fecha_registro= date(now()) and es.socio_id=%s;", socio);
-            data = db.sqlDatos(sql1);
-            while (data.next()) {
-                cantidadEntradasHoy = data.getInt("id");
-            }
-            data.close();
+            
             // teniendo la cantidad de entradas permitidas y las entradas que se han hecho hoy, validamos.
 
             System.out.println("esta es la cantidad de entradas hoy " + cantidadEntradasHoy + " esta es la cantidad permitida " + cantidadEntradasPermitidas);
             if ((cantidadEntradasHoy < cantidadEntradasPermitidas) && (cantidadEntradasHoy != (cantidadEntradasPermitidas - 1))) {
-                System.out.println("ME VALE VERGA");
+               
                 return true;
             } else if (cantidadEntradasHoy == (cantidadEntradasPermitidas - 1)) {
                 System.out.println("Bienvenido, Recuerde que esta sería su ultima entrada hoy.");
+               
                 mensaje("Bienvenido", "Atención! Recuerde que esta es su última entrada el día de hoy.", TelegraphType.NOTIFICATION_DONE, 4000);
                 contadorFlag = true;
                 return true;
@@ -242,6 +236,7 @@ public final class RegistrarEntrada {
                         if (bloqueHorario()) {
                             if (socioDebe()) {
                                 validadorTiempoGracia(idMembresiaSocio);
+                                sumarEntrada(socio, obtenerEntradas(socio)+1);
 
                             } else {
                                 System.out.println("No se pudo persistir 1");
@@ -269,6 +264,7 @@ public final class RegistrarEntrada {
                         if (socioDebe()) {
                             if (bloqueHorario()) {
                                 validadorTiempoGracia(idMembresiaSocio);
+                                sumarEntrada(socio, obtenerEntradas(socio)+1);
                             } else {
                                 if (!contadorFlag) {
                                     sonido.sonar("alerta");
@@ -290,6 +286,7 @@ public final class RegistrarEntrada {
                         if (socioDebe()) {
                             if (bloqueHorario()) {
                                 validadorTiempoGracia(idMembresiaSocio);
+                                sumarEntrada(socio, obtenerEntradas(socio)+1);
                             } else {
                                 if (!contadorFlag) {
                                     sonido.sonar("alerta");

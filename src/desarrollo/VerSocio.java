@@ -839,6 +839,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
                 try {
                     AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
+                    sumarEntrada(socioID, 0);
                     miAgregarMembresia.setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -1443,4 +1444,21 @@ public class VerSocio extends javax.swing.JInternalFrame {
             return false;
         }
     }
+    
+    public void sumarEntrada(int clave, int entada) throws SQLException {
+
+        String querySQL = "";
+
+        boolean suceses;
+        querySQL = String.format("UPDATE socio SET entradas_hoy=%s WHERE id=%s", entada, clave);
+        suceses = db.sqlEjec(querySQL);
+
+        if (suceses) {
+
+            return;
+
+        }
+
+    }
+
 }
