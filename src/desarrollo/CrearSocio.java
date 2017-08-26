@@ -813,6 +813,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                                 Telegraph tele = new Telegraph("Socio Actualizado", "Se ha actualizado Correctamente el Socio", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
                                 TelegraphQueue q = new TelegraphQueue();
                                 q.add(tele);
+                                
                             }
                         } else {
                             querySQL = String.format("INSERT INTO socio(usuario_sistema_id,clave,identificacion,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,fecha_nacimiento,telefono,email,sexo,activo,foto,fecha_registro,comfenalco) VALUES (%s,'%s','%s','%s','%s','%s','%s',%s,'%s','%s','%s',TRUE,%s,now(),'%s')", Integer.valueOf(usuarioSistema), clave, identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, fotos,comfenalco);

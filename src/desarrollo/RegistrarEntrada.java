@@ -157,10 +157,10 @@ public final class RegistrarEntrada {
 
             // teniendo la cantidad de entradas permitidas y las entradas que se han hecho hoy, validamos.
             System.out.println("esta es la cantidad de entradas hoy " + cantidadEntradasHoy + " esta es la cantidad permitida " + cantidadEntradasPermitidas);
-            if ((cantidadEntradasHoy < cantidadEntradasPermitidas) && (cantidadEntradasHoy != (cantidadEntradasPermitidas - 1))) {
+            if ((cantidadEntradasHoy < cantidadEntradasPermitidas) && (cantidadEntradasHoy != (cantidadEntradasPermitidas - 2))) {
 
                 return true;
-            } else if (cantidadEntradasHoy == (cantidadEntradasPermitidas - 1)) {
+            } else if (cantidadEntradasHoy == (cantidadEntradasPermitidas - 2)) {
                 System.out.println("Bienvenido, Recuerde que esta sería su ultima entrada hoy.");
 
                 mensaje("Bienvenido", "Atención! Recuerde que esta es su última entrada el día de hoy.", TelegraphType.NOTIFICATION_DONE, 4000);
@@ -369,6 +369,7 @@ public final class RegistrarEntrada {
             while (data.next()) {
                 cantidad = data.getInt("cantidad");
             }
+            System.out.println("OE PARCE VENGA UN MOMENTO "+cantidad);
             return cantidad >= 1;
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
