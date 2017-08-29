@@ -20,14 +20,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class InformeSocio extends javax.swing.JInternalFrame {
+public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form DetalleDineroRecibido
@@ -38,7 +37,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
     CierreCaja caja = new CierreCaja();
     int idSocio;
 
-    public InformeSocio() {
+    public InformeSocioComfenalco() {
         initComponents();
         cargarDias();
         cargarDia();
@@ -494,9 +493,9 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             try {
                 verSocio = new VerSocio(idSocio);
             } catch (SQLException ex) {
-                Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
-                Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
             }
             Frame.escritorio.add(verSocio);
             verSocio.toFront();
@@ -572,7 +571,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
             String querySQL = "SELECT id,CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, sexo AS Sexo, fecha_registro AS FechaRegistro, comfenalco "
                     + "FROM socio\n"
-                    + "WHERE comfenalco='A'\n"
+                    + "WHERE (comfenalco='A' OR comfenalco='B')\n"
                     + "ORDER BY primer_apellido ASC";
             data = db.sqlDatos(querySQL);
             System.out.println("La consulta es: " + querySQL);
@@ -581,22 +580,23 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void sociosConMembresiasActivas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO","FECHA FIN MEMBRESIA","CATEGORIA"});
         try {
 
-            String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'ACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\"\n"
+            String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'ACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\",so.comfenalco\n"
                     + "FROM socio so, membresia_usuario mu, membresia_datos md, membresia mem, usuario_sistema us\n"
                     + "WHERE so.id= mu.socio_id\n"
                     + "AND mem.id= mu.membresia_id\n"
                     + "AND us.id= mu.usuario_sistema_id\n"
                     + "AND mu.activa= TRUE\n"
                     + "AND mu.id= md.membresia_socio_id\n"
+                    + "AND (so.comfenalco='A' OR so.comfenalco='B')\n"
                     + "ORDER BY so.primer_apellido ASC";
             System.out.println("La consulta es: " + querySQL);
             data = db.sqlDatos(querySQL);
@@ -605,21 +605,22 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void sociosConMembresiasInactivas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO","FECHA FIN MEMBRESIA","CATEGORIA"});
         try {
 
-            String querySQL = "SELECT  so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'INACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\"\n"
+            String querySQL = "SELECT  so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'INACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\", so.comfenalco\n"
                     + "FROM socio so, membresia_usuario mu, membresia_datos md, membresia mem, usuario_sistema us\n"
                     + "WHERE so.id= mu.socio_id\n"
                     + "AND mem.id= mu.membresia_id\n"
                     + "AND us.id= mu.usuario_sistema_id\n"
                     + "AND mu.activa= FALSE\n"
+                    + "AND (so.comfenalco='A' OR so.comfenalco='B')\n"
                     + "AND mu.id= md.membresia_socio_id\n";
             // + "ORDER BY so.primer_apellido ASC";
             System.out.println("La consulta es: " + querySQL);
@@ -629,18 +630,19 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void sociosActivos() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO","CATEGORIA"});
         try {
 
-            String querySQL = "SELECT id, CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Activo', sexo AS Sexo, fecha_registro AS FechaRegistro\n"
+            String querySQL = "SELECT id, CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Activo', sexo AS Sexo, fecha_registro AS FechaRegistro,comfenalco\n"
                     + "FROM socio\n"
                     + "WHERE activo = TRUE\n"
+                    + "AND (comfenalco='A' OR comfenalco='B')\n"
                     + "ORDER BY primer_apellido";
             data = db.sqlDatos(querySQL);
 
@@ -648,7 +650,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -660,6 +662,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             String querySQL = "SELECT id, CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Inactivo', sexo AS Sexo, fecha_registro AS FechaRegistro\n"
                     + "FROM socio\n"
                     + "WHERE activo = FALSE\n"
+                    + "AND (comfenalco='A' OR comfenalco='B')\n"
                     + "ORDER BY primer_apellido";
             data = db.sqlDatos(querySQL);
 
@@ -667,19 +670,20 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void inactivasFechasEspecificas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO","CATEGORIA"});
         try {
 
-            String querySQL = "SELECT so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'Inactiva' AS Membresia, so.sexo AS Sexo, so.fecha_registro AS FechaRegistro\n"
+            String querySQL = "SELECT so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'Inactiva' AS Membresia, so.sexo AS Sexo, so.fecha_registro AS FechaRegistro,so.comfenalco\n"
                     + "FROM socio so, membresia_usuario mem, membresia_datos da\n"
                     + "WHERE mem.activa = FALSE\n"
                     + "AND so.id = mem.socio_id\n"
+                    + "AND (so.comfenalco='A' OR so.comfenalco='B')\n"
                     + "AND da.membresia_socio_id = mem.membresia_id AND mem.fecha_registro BETWEEN '".concat(String.valueOf(obtnerFechaDe())).concat(" 00:00:00.00' AND '").concat(String.valueOf(obtnerFechaA())).concat(" 24:00:00.00'");
             System.out.println("La consulta es: " + querySQL);
             data = db.sqlDatos(querySQL);
@@ -688,18 +692,19 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void sociosCumplenMes() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "FECHA NACIMIENTO"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "FECHA NACIMIENTO","CATEGORIA"});
         try {
             int mesSelccionado = mes.getMonth() + 1;
-            String querySQL = "SELECT  id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, fecha_nacimiento \n"
+            String querySQL = "SELECT  id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, fecha_nacimiento,so.comfenalco \n"
                     + "FROM socio so\n"
-                    + "WHERE extract(month from fecha_nacimiento)=".concat(String.valueOf(mesSelccionado));
+                    + "WHERE extract(month from fecha_nacimiento)=".concat(String.valueOf(mesSelccionado))
+                    + "AND (so.comfenalco='A' OR so.comfenalco='B')\n";
             System.out.println("La consulta es: " + querySQL);
             data = db.sqlDatos(querySQL);
 
@@ -707,18 +712,19 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void expirarAntes() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA","CATEGORIA"});
         try {
 
-            String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia\n"
+            String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia,so.comfenalco\n"
                     + "FROM socio so, membresia_datos md, membresia_usuario mu,membresia m\n"
                     + "WHERE so.id = mu.socio_id\n"
+                    + "AND (so.comfenalco='A' OR so.comfenalco='B')\n"
                     + "AND mu.id = md.membresia_socio_id\n"
                     + "AND m.id = mu.membresia_id\n"
                     + "AND md.fecha_fin_membresia BETWEEN CURRENT_DATE AND CURRENT_DATE+".concat(String.valueOf(obtenerDia()));
@@ -729,18 +735,19 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void expirarDespues() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA","CATEGORIA"});
         try {
 
-            String querySQL = "SELECT  so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia\n"
+            String querySQL = "SELECT  so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia,so.comfenalco\n"
                     + "FROM socio so, membresia_datos md, membresia_usuario mu,membresia m\n"
                     + "WHERE so.id = mu.socio_id\n"
+                    + "AND (so.comfenalco='A' OR so.comfenalco='B')\n"
                     + "AND mu.id = md.membresia_socio_id\n"
                     + "AND m.id = mu.membresia_id\n"
                     + "AND md.fecha_fin_membresia BETWEEN CURRENT_DATE-".concat(String.valueOf(obtenerDiaDespues())) + " AND CURRENT_DATE";
@@ -751,7 +758,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
-            Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -839,23 +846,23 @@ public class InformeSocio extends javax.swing.JInternalFrame {
     public String comboSeleccionado() {
         String nombreArchivo = null;
         if (rSociosActivos.isSelected()) {
-            nombreArchivo = "Informe_Socios_Activos";
+            nombreArchivo = "Informe_Socios_Activos_comfenalco";
         } else if (rApuntoExpirar.isSelected()) {
-            nombreArchivo = "Informe_Socios_Membresia_Apunto_De_Expirar";
+            nombreArchivo = "Informe_Socios_Membresia_Apunto_De_Expirar_comfenalco";
         } else if (rExpiradas.isSelected()) {
-            nombreArchivo = "Informe_Socios_Membresias_Expiradas";
+            nombreArchivo = "Informe_Socios_Membresias_Expiradas_comfenalco";
         } else if (rSociosCumpleanos.isSelected()) {
-            nombreArchivo = "Informe_Socios_Mes_Cumpleaños";
+            nombreArchivo = "Informe_Socios_Mes_Cumpleaños_comfenalco";
         } else if (rSociosInactivos.isSelected()) {
-            nombreArchivo = "Informe_Socios_Inactivos";
+            nombreArchivo = "Informe_Socios_Inactivos_comfenalco";
         } else if (rTodosLosSocios.isSelected()) {
-            nombreArchivo = "Informe_Todos_LosSocios";
+            nombreArchivo = "Informe_Todos_LosSocios_comfenalco";
         } else if (rMembresiasActivas.isSelected()) {
-            nombreArchivo = "Informe_Membresias_Activas";
+            nombreArchivo = "Informe_Membresias_Activas_comfenalco";
         } else if (rMembresiasInactivas.isSelected()) {
-            nombreArchivo = "Informe_Membresias_Inactivas";
+            nombreArchivo = "Informe_Membresias_Inactivas_comfenalco";
         } else if (rMembresiasActivasEnOtrasFechas.isSelected()) {
-            nombreArchivo = "Informe_Membresias_Inactivas_En_Otras_Fechas";
+            nombreArchivo = "Informe_Membresias_Inactivas_En_Otras_Fechas_comfenalco";
         }
         return nombreArchivo;
     }
