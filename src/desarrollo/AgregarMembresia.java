@@ -728,7 +728,7 @@ public final class AgregarMembresia extends javax.swing.JFrame {
         tablaAgregarMembresia.setModel(dtmEjemplo);
         DB miDb = new DB();
 
-        String sqlSentence = String.format("SELECT membresia.nombre, concat(duracion,'  ', unidad) , membresia.valor FROM membresia, membresia_duracion  where membresia_duracion.membresia_id= membresia.id and nombre='%s';", membresiaSeleccionada);
+        String sqlSentence = String.format("SELECT membresia.nombre, concat(duracion,'  ', unidad) , membresia.valor FROM membresia, membresia_duracion where membresia_duracion.membresia_id= membresia.id and nombre='%s';", membresiaSeleccionada);
 
         data = miDb.sqlDatos(sqlSentence);
         logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaAgregarMembresia);

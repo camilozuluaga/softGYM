@@ -418,11 +418,13 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
 
             if (checkUtilizarSaldo.isSelected()) {
                 cSaldoFavorUtilizado.setText(cSaldoFavor.getText());
+                cBalance.setText(String.valueOf((Double.parseDouble(cValorAdquirido.getText()))-(Double.parseDouble(cSaldoFavorUtilizado.getText()))));
             } else {
                 cSaldoFavorUtilizado.setText("0");
             }
 
             recalcularDinero();
+            
 
         } catch (java.lang.NumberFormatException e) {
 
@@ -781,6 +783,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
 
                 if (checkUtilizarSaldo.isSelected()) {
                     saldo = valorAdquirido - (dineroRecibido + dineroaFavor);
+                    cBalance.setText(String.valueOf(saldo));
                 } else {
                     saldo = valorAdquirido - dineroRecibido;
                 }
