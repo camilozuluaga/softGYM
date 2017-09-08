@@ -469,31 +469,33 @@ public boolean congelado() throws SQLException {
         } catch (ParseException ex) {
             Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
         }
-         int id = 0;
+        int id = 0;
         int id2 = 0;
         int id3 = 0;
+        int plazo_permitido=0;
         try {
             CachedRowSet data, data2, data3;
-            DB db = new DB();
 
 
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id and md.activa=TRUE and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
-
+            while (data.next()) {
+                id = data.getInt("cantidad");
+            }
+            if(id<1){
             String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
             data3 = db.sqlDatos(sql3);
             while (data3.next()) {
                 id3 = data3.getInt("plazo_entrada");
             }
-            int plazo_permitido = id3 * 24;
+            plazo_permitido = id3 * 24;
             String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and md.activa=FALSE and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
 
-            while (data.next()) {
-                id = data.getInt("cantidad");
-            }
+
             while (data2.next()) {
                 id2 = data2.getInt("cantidad");
+            }
             }
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
@@ -722,7 +724,7 @@ public boolean congelado() throws SQLException {
             CachedRowSet dataMembresia; 
             int id5=0;
 
-            String sql5 = String.format("SELECT mu.id, FROM membresia_usuario mu, membresia_datos md WHERE md.membresia_socio_id=mu.id AND mu.socio_id=%s;", idSocio);
+            String sql5 = String.format("SELECT mu.id FROM membresia_usuario mu, membresia_datos md WHERE md.membresia_socio_id=mu.id AND mu.socio_id=%s;", idSocio);
             dataMembresia = db.sqlDatos(sql5);
             System.out.println("SQL 5"+sql5);
             while (dataMembresia.next()) {

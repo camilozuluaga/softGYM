@@ -130,7 +130,7 @@ public final class RegistrarEntrada {
         int membresia_id = 0;
         CachedRowSet data;
         DB db = new DB();
-        String Sql = String.format("SELECT mu.membresia_id FROM membresia_usuario mu where mu.socio_id=%s order by mu.membresia_id desc limit 1", socio);
+        String Sql = String.format("SELECT mu.membresia_id AS membresia_id FROM membresia_usuario mu,membresia_datos md WHERE mu.socio_id=%s AND md.membresia_socio_id=mu.id AND md.activa=true ORDER BY  mu.id DESC LIMIT 1;", socio);
         data = db.sqlDatos(Sql);
         while (data.next()) {
             try {
@@ -183,32 +183,33 @@ public final class RegistrarEntrada {
         int id = 0;
         int id2 = 0;
         int id3 = 0;
-        int id5 = 0;
+        int plazo_permitido = 0;
         try {
             CachedRowSet data, data2, data3;
-            DB db = new DB();
 
 
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id and md.activa=TRUE and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
-
+            while (data.next()) {
+                id = data.getInt("cantidad");
+            }
+            if(id<1){
             String sql3 = String.format("SELECT plazo_entrada FROM empresa");
             data3 = db.sqlDatos(sql3);
             while (data3.next()) {
                 id3 = data3.getInt("plazo_entrada");
             }
-            int plazo_permitido = (id3 * 24) + 24;
+            
+            plazo_permitido = (id3 * 24) + 24;
             String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id and md.activa=FALSE and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
-            while (data.next()) {
-                id = data.getInt("cantidad");
-            }
+
 
             while (data2.next()) {
                 id2 = data2.getInt("cantidad");
             }
             System.out.println("plazo entrada :" + plazo_permitido + "h");
-
+            }
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
@@ -541,11 +542,11 @@ public final class RegistrarEntrada {
     public int traerIdMembresiaAdquirida() throws SQLException {
         CachedRowSet data;
         int id = 0;
-        String consulta = String.format("SELECT id from membresia_usuario where socio_id=%s and membresia_id=%s  ORDER BY id DESC LIMIT 1;", socio, idMembresiaSocio);
+        String consulta = String.format("SELECT mu.id AS idmu FROM membresia_usuario mu,membresia_datos md WHERE mu.socio_id=%s and mu.membresia_id=%s AND md.membresia_socio_id=mu.id AND md.activa=true ORDER BY  mu.id DESC LIMIT 1;", socio, idMembresiaSocio);
         data = miDb.sqlDatos(consulta);
         while (data.next()) {
             try {
-                id = data.getInt("id");
+                id = data.getInt("idmu");
                 System.out.println("id de membresia adquirida = " + id);
             } catch (SQLException ex) {
                 Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
