@@ -5,6 +5,7 @@
  */
 package desarrollo;
 
+import help.Help;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -317,6 +318,8 @@ public class login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new login().setVisible(true);
+                Help help = new Help();
+                help.setVisible(true);
             }
         });
     }

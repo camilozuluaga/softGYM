@@ -883,7 +883,7 @@ public final class CrearMembresia extends javax.swing.JInternalFrame {
 
         if (tamanoValor <= 10) {
             try {
-                int asistencia_diaria = -1;
+                int asistencia_diaria = 40;
                 int duracion;
                 String unidad;
                 boolean actualizar;

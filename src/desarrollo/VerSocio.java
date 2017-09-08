@@ -1647,9 +1647,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     public String sumarDiasFecha(int numeroDiasSumar, String fecha) {
+        System.out.println("esta es la fecha de la base "+fecha);
         int diaActual, mesActual, anioActual;// se supone que estas variables ya contienen valores, supongamos que la fecha es:
         diaActual = Integer.parseInt(fecha.substring(8, 10));
-        System.out.println(diaActual);
+        System.out.println( "Este es el dia actual "+diaActual);
         mesActual = Integer.parseInt(fecha.substring(5, 7));
         System.out.println(mesActual);
         anioActual = Integer.parseInt(fecha.substring(0, 4));
@@ -1702,10 +1703,15 @@ public class VerSocio extends javax.swing.JInternalFrame {
         String dia = Integer.toString(c1.get(Calendar.DATE));
         String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
         String anio = Integer.toString(c1.get(Calendar.YEAR));
-
-        String fecha_actual = anio + "-0" + mes + "-" + dia;
+        
+if(dia.length()==1){
+    dia="0"+dia;
+}
+if(mes.length()==1){
+    mes="0"+mes;
+}
+        String fecha_actual = anio + "-" + mes + "-" + dia;
         String querySQL = "";
-        System.out.println(fecha_actual);
         String aux=sumarDiasFecha(dias,fecha_actual);
         System.out.println(aux);
         boolean suceses;
