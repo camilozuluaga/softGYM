@@ -88,9 +88,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
             bAgregarMembresias.setEnabled(false);
         }
     }
-    public void congeladosocio(){
+
+    public void congeladosocio() {
         try {
-            if (congelado().equals("no")||congelado().equals("descongelar")) {
+            if (congelado().equals("no") || congelado().equals("descongelar")) {
                 JcongelarMembresia.setVisible(true);
             } else if (congelado().equals("congelar")) {
                 JcongelarMembresia.setSelected(true);
@@ -883,27 +884,25 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
-     
+
         //try {
+        //  if (ValidarMembresiasActivas()) {
+        try {
+            AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
+            sumarEntrada(socioID, 0);
+            editarCongelado("descongelar", socioID);
+            miAgregarMembresia.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //} else {
+        //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+        //TelegraphQueue q = new TelegraphQueue();
+        //q.add(tele);
 
-          //  if (ValidarMembresiasActivas()) {
-
-                try {
-                    AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
-                    sumarEntrada(socioID, 0);
-                    editarCongelado("descongelar",socioID);
-                    miAgregarMembresia.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            //} else {
-              //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
-                //TelegraphQueue q = new TelegraphQueue();
-                //q.add(tele);
-
-           // }
+        // }
         //} catch (ParseException ex) {
-          //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         //}
 
     }//GEN-LAST:event_bAgregarMembresiasActionPerformed
@@ -1076,26 +1075,22 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void JcongelarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcongelarMembresiaActionPerformed
         if (JcongelarMembresia.isSelected()) {
-            JcongelarMembresia.setText("Descongelar Membresia");
 
+            CongelarMembresia congelarMembresia = new CongelarMembresia(socioID, this, JcongelarMembresia);
+            congelarMembresia.setVisible(true);
+
+        } else {
             try {
-
-                int diasCongelados = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de dias que quiere congelar la membresia"));
-
-                modificarFechaFinMembresia(sumardias(diasCongelados, obtenerFechaFinMembresias()), obtenerIdMembresias());
-                editarCongelado("congelar",socioID);
-                editarFechaCongelacion(socioID,diasCongelados);
-                
-                
-                updateDatos();
-            } catch (NumberFormatException ex) {
-                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+                modificarFechaFinMembresia(restarDias(diasRestantesCongelados(),obtenerFechaFinMembresias()),obtenerIdMembresias());          
+                editarFechaCongelado(restarDiasFecha(diasRestantesCongelados(), obtenerFechaCongelacion()), socioID);
             } catch (ParseException ex) {
                 Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
             JcongelarMembresia.setText("Congelar Membresia");
-            editarCongelado("descongelar",socioID);
+            editarCongelado("descongelar", socioID);
+            updateDatos();
         }
     }//GEN-LAST:event_JcongelarMembresiaActionPerformed
 
@@ -1213,7 +1208,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         congeladosocio();
 
     }
-    
+
     public void recorrer(ArrayList<String> aux) {
         for (int i = 0; i < aux.size(); i++) {
             System.out.println(aux.get(i));
@@ -1660,10 +1655,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     public String sumarDiasFecha(int numeroDiasSumar, String fecha) {
-        System.out.println("esta es la fecha de la base "+fecha);
+        System.out.println("esta es la fecha de la base " + fecha);
         int diaActual, mesActual, anioActual;// se supone que estas variables ya contienen valores, supongamos que la fecha es:
         diaActual = Integer.parseInt(fecha.substring(8, 10));
-        System.out.println( "Este es el dia actual "+diaActual);
+        System.out.println("Este es el dia actual " + diaActual);
         mesActual = Integer.parseInt(fecha.substring(5, 7));
         System.out.println(mesActual);
         anioActual = Integer.parseInt(fecha.substring(0, 4));
@@ -1710,63 +1705,140 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     public void editarFechaCongelacion(int clave, int dias) {
-        
+
         Calendar c1 = Calendar.getInstance();
 
         String dia = Integer.toString(c1.get(Calendar.DATE));
         String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
         String anio = Integer.toString(c1.get(Calendar.YEAR));
-        
-if(dia.length()==1){
-    dia="0"+dia;
-}
-if(mes.length()==1){
-    mes="0"+mes;
-}
+
+        if (dia.length() == 1) {
+            dia = "0" + dia;
+        }
+        if (mes.length() == 1) {
+            mes = "0" + mes;
+        }
         String fecha_actual = anio + "-" + mes + "-" + dia;
         String querySQL = "";
-        String aux=sumarDiasFecha(dias,fecha_actual);
+        String aux = sumarDiasFecha(dias, fecha_actual);
         System.out.println(aux);
         boolean suceses;
 
-        querySQL = String.format("UPDATE socio SET fecha_descongelar='%s' WHERE id=%s", aux,clave);
+        querySQL = String.format("UPDATE socio SET fecha_descongelar='%s' WHERE id=%s", aux, clave);
         suceses = db.sqlEjec(querySQL);
 
         if (suceses) {
 
-            
-
         }
 
     }
-    public String obtenerFechaCongelacion() throws SQLException{
-        String aux = "";
-        CachedRowSet data;
-        data = db.sqlDatos("SELECT fecha_congelar FROM socio WHERE id=%s " , socioID);
 
-        while (data.next()) {
-            aux = data.getString("fecha_congelar");
+    public void editarFechaCongelado(String fecha, int clave) {
+        String querySQL = "";
+        boolean suceses;
+
+        querySQL = String.format("UPDATE socio SET fecha_descongelar='%s' WHERE id=%s", fecha, clave);
+        suceses = db.sqlEjec(querySQL);
+
+        if (suceses) {
 
         }
-        if (aux == null) {
-            return "no";
+    }
+
+    public String obtenerFechaCongelacion() throws SQLException {
+        String aux = "";
+        CachedRowSet data;
+        data = db.sqlDatos("SELECT fecha_descongelar FROM socio WHERE socio.id = " + socioID);
+
+        while (data.next()) {
+            aux = data.getString("fecha_descongelar");
+
         }
         return aux;
     }
 
-    public void editarCongelado(String congelado,int clave) {
+    public void editarCongelado(String congelado, int clave) {
         String querySQL = "";
 
         boolean suceses;
 
-        querySQL = String.format("UPDATE socio SET congelado='%s' WHERE id=%s", congelado,clave);
+        querySQL = String.format("UPDATE socio SET congelado='%s' WHERE id=%s", congelado, clave);
         suceses = db.sqlEjec(querySQL);
 
         if (suceses) {
 
+        }
+
+    }
+
+    public int diasRestantesCongelados() throws ParseException, SQLException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+
+        if (dia.length() == 1) {
+            dia = "0" + dia;
+        }
+        if (mes.length() == 1) {
+            mes = "0" + mes;
+        }
+        String fecha_actual = anio + "-" + mes + "-" + dia;
+        System.out.println(obtenerFechaCongelacion());
+
+        Date fechaInicial = dateFormat.parse(fecha_actual);
+        Date fechaFinal = dateFormat.parse(obtenerFechaCongelacion());
+
+        int dias = (int) ((fechaFinal.getTime() - fechaInicial.getTime()) / 86400000);
+
+        System.out.println("Hay " + dias + " dias de diferencia");
+
+        return dias;
+    }
+
+    public String restarDiasFecha(int numeroDiasRestar, String fecha) {
+        System.out.println("esta es la fecha de la base " + fecha);
+        int diaActual, mesActual, anioActual;// se supone que estas variables ya contienen valores, supongamos que la fecha es:
+        diaActual = Integer.parseInt(fecha.substring(8, 10));
+        System.out.println("Este es el dia actual " + diaActual);
+        mesActual = Integer.parseInt(fecha.substring(5, 7));
+        System.out.println(mesActual);
+        anioActual = Integer.parseInt(fecha.substring(0, 4));
+        System.out.println(anioActual);
+        System.out.println("la fecha queda" + diaActual + " de " + mesActual + "  del " + anioActual);
+        int aux = 0;
+        int numDias = 0;
+        if (mesActual == 1) {
+            numDias = diasPorMes(12, anioActual);
+        } else {
+            numDias = diasPorMes(mesActual - 1, anioActual);
+        }
+
+        if ((diaActual - numeroDiasRestar) <= 0) {
+            aux = numDias + diaActual - numeroDiasRestar;
+            if (mesActual == 1) {
+                mesActual = 12;
+                anioActual--;
+            } else {
+                mesActual--;
+            }
+
+        } else {
+            aux = diaActual - numeroDiasRestar;
+        }
+
+        return anioActual + "-" + mesActual + "-" + aux;
+    }
+    public ArrayList<String> restarDias(int dias, ArrayList<String> fechas) throws ParseException {
+        for (int i = 0; i < fechas.size(); i++) {
+
+            fechas.set(i, restarDiasFecha(dias, fechas.get(i)));
 
         }
 
+        return fechas;
     }
 
 }
