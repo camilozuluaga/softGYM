@@ -13,3 +13,5 @@
       - [Crear Membresia][membresia]
       - [Asignar Membresia][asignar_membresia]
       - [Pagar Membresia][pagar_membresia]
+   |[Barra Superior][menu_superior]
+      - [Archivos][archivos]
