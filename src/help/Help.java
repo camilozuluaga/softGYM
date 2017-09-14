@@ -23,7 +23,8 @@ import javax.swing.tree.TreePath;
 public class Help extends javax.swing.JFrame {
 
     //dirección de la carpeta de archivos HTML e imagenes
-    private String help_path = System.getProperty("user.dir") + "\\help\\";
+    private File aux = new File("");
+   String help_path=aux.getAbsolutePath()+"\\src\\help\\";
 
     /**
      * Constructor
@@ -31,7 +32,7 @@ public class Help extends javax.swing.JFrame {
     public Help() {
         initComponents();
         setLocationRelativeTo(this);
-        
+        System.out.println(help_path+"************");
         setTitle("Ayuda Hercules");
         this.setBounds(0, 0, 1300, 700);
         //propiedades de splipanel
