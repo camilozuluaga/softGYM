@@ -80,7 +80,7 @@ public final class RegistrarEntrada {
         idMembresiaAdquirida = traerIdMembresiaAdquirida(); // no es el id de la membresía sino el id de membresia_usuario. (es el id de contrato de adquisicion)
         validaciones();
         
-
+      
         try {
             ventanaVerSocio.updateDatos();
         } catch (Exception e) {
@@ -1155,7 +1155,7 @@ public final class RegistrarEntrada {
         String anio = Integer.toString(c1.get(Calendar.YEAR));  
         String fechafin=obtenerFechaCongelacion(clave);
         String fecha_actual = anio + "-0" + mes + "-" + dia;
-        if(fechafin==null){
+        if(fechafin.equals("")){
             fechafin=fecha_actual;
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -1218,5 +1218,5 @@ public final class RegistrarEntrada {
         }
 
     }
-
+    
 }
