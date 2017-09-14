@@ -1152,12 +1152,16 @@ public final class RegistrarEntrada {
 
         String dia = Integer.toString(c1.get(Calendar.DATE));
         String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
-        String anio = Integer.toString(c1.get(Calendar.YEAR));
-
+        String anio = Integer.toString(c1.get(Calendar.YEAR));  
+        String fechafin=obtenerFechaCongelacion(clave);
         String fecha_actual = anio + "-0" + mes + "-" + dia;
+        if(fechafin==null){
+            fechafin=fecha_actual;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = sdf.parse(fecha_actual);
-        Date date2 = sdf.parse(obtenerFechaCongelacion(clave));
+        
+        Date date2 = sdf.parse(fechafin);
 
         int v = date1.compareTo(date2);
         if (v == 1) {
@@ -1195,7 +1199,6 @@ public final class RegistrarEntrada {
 
         }
         if (aux == null) {
-            return "no";
         }
         return aux;
     }
