@@ -950,21 +950,66 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
                 // verificar que la membresía seleccionada está activa.
                 String consultaMembresiaSeleccionadaEstaActiva = String.format("SELECT activa from membresia_usuario where id=%s;", membresia_id);
+                System.out.println("activa: SELECT activa from membresia_usuario where id="+membresia_id);
                 ResultSet rs2 = db.sqlDatos(consultaMembresiaSeleccionadaEstaActiva);
                 boolean activa = false;
                 if (rs2.next()) {
                     activa = rs2.getBoolean(1);
                 }
-
                 if (!activa) {
                     Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya fue utilizada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
 
                 } else if (!ValidarPago()) {
-                    Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
+                    int cajaDelPago = 0;
+                    CachedRowSet data;
+                    String query = "SELECT id_caja  FROM pago_membresia WHERE pago>0 AND membresiadatos_id="+membresia_id;
+                    data = db.sqlDatos(query);
+                    try {
+                        while (data.next()) {
+                            cajaDelPago = data.getInt("id_caja");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    cajaActual=utilidades.cajaActual();
+                    System.out.println("caja del pago "+cajaDelPago );
+                    System.out.println("caja actual "+cajaActual);
+                    if (cajaDelPago==cajaActual) {
+                         String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
+                    ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
+                    int identificador = 0;
+                    if (rs3.next()) {
+                        identificador = rs3.getInt("identificador");
+                        System.out.println("identificador = " + identificador);
+                    }
+                    String consultaCuandoHaPagado = String.format("SELECT saldo FROM pago_membresia where membresiadatos_id =%s ORDER BY fecha_registro DESC limit 1;", identificador);
+                    ResultSet rs4 = db.sqlDatos(consultaCuandoHaPagado);
+                    double saldoMembresia = 0.0;
+                    if (rs4.next()) {
+                        // esta consulta permite saber cuanto se ha pagado por una membresía.
+                        saldoMembresia = rs4.getDouble("saldo");
+                        System.out.println("saldoMembresia = " + saldoMembresia);
+                    }
+
+                    if (saldoMembresia == 0.0) {
+                        System.out.println("El usuario ya pagó esta membresía o es gratuita.");
+
+                        String cosultaValorMembresia = String.format("SELECT saldo as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s", socioID, identificador);
+                        abonandoSaldoSocio(cosultaValorMembresia, identificador);
+
+                    } else if (saldoMembresia != 0) {
+                        System.out.println("El usuario abonó a la membresía o no la ha pagado.");
+
+                        String consultaValorAbonado = String.format("SELECT pago as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s ORDER BY id DESC", socioID, identificador);
+                        abonandoSaldoSocio(consultaValorAbonado, identificador);
+                    }
+                    }else{
+                    Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya se cerro la caja con la cual fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
+                    }
 
                 } else {
                     String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
@@ -1185,7 +1230,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         int id = 0;
         String consulta = String.format("SELECT membresia_usuario.id"
                 + "                      FROM membresia_usuario, membresia_datos "
-                + "                      WHERE socio_id=%s and membresia_id=%s and membresia_usuario.id = membresia_datos.membresia_socio_id and membresia_datos.fecha_fin_membresia='%s' ; ", socioID, seleccion, fechaFin);
+                + "                      WHERE socio_id=%s and membresia_usuario.id=%s and membresia_usuario.id = membresia_datos.membresia_socio_id and membresia_datos.fecha_fin_membresia='%s' ; ", socioID, seleccion, fechaFin);
         data = new DB().sqlDatos(consulta);
         while (data.next()) {
             try {
@@ -1515,9 +1560,14 @@ public class VerSocio extends javax.swing.JInternalFrame {
 //                            si se abonó exitosamente el saldo a favor pasamos a eliminar la membresía.
             String consultaEliminar1 = String.format("DELETE FROM pago_membresia WHERE membresiadatos_id=%s", identificador);
             db.sqlEjec(consultaEliminar1);
+            
             String consultaEliminar2 = String.format("DELETE FROM membresia_datos WHERE id=%s", identificador);
             db.sqlEjec(consultaEliminar2);
-            String consultaEliminar3 = String.format("DELETE FROM membresia_usuario WHERE socio_id=%s and membresia_id=%s and activa=TRUE", socioID, seleccion);
+
+            String consultaEliminar4 = String.format("DELETE FROM factura WHERE socio_id=%s and id_membresia_usuario=%s", socioID, seleccion);
+            db.sqlEjec(consultaEliminar4);
+            
+            String consultaEliminar3 = String.format("DELETE FROM membresia_usuario WHERE socio_id=%s and id=%s and activa=TRUE", socioID, seleccion);
             db.sqlEjec(consultaEliminar3);
             updateDatos();
 

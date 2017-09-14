@@ -38,6 +38,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     Utilidades utilidades = new Utilidades();
     private boolean usuarioPaga;
     double valorPagado;
+    int idMembresia;
     
 
 
@@ -457,9 +458,10 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 //cbMembresias.addItem(ComboInfo);
 
                 valorAdquirido += data.getDouble("saldo");
-
+                idMembresia=data.getInt("id");
                 saldoProductos.put(data.getInt("id"), data.getDouble("saldo"));
                 MembresiasUsuario.put(ComboInfo, data.getInt("id"));
+                
             }
 
             cValorAdquirido.setText(String.valueOf(valorAdquirido));
@@ -561,7 +563,18 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
      */
     private boolean procesarPago(Double valorAdquirido, Double pago, Double saldo, int membresiaDatos, int facturaId) {
         int socio_id = socioId;
-        String querySQL = String.format("INSERT INTO pago_membresia(fecha_pago,socio_id,valor_adquirido,pago,saldo,fecha_registro,usuario_sistema_id,membresiadatos_id,factura_id) VALUES (now(),%s,%s,%s,%s,now(),%s,%s,%s)", socio_id, valorAdquirido, pago, saldo, usuario_sistema, membresiaDatos, facturaId);
+        int id_caja = 0;
+        CachedRowSet data;
+        String query = "SELECT id  FROM caja WHERE estado=TRUE ORDER BY id DESC LIMIT 1";
+        data = db.sqlDatos(query);
+        try {
+            while (data.next()) {
+                id_caja = data.getInt("id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String querySQL = String.format("INSERT INTO pago_membresia(fecha_pago,socio_id,valor_adquirido,pago,saldo,fecha_registro,usuario_sistema_id,membresiadatos_id,factura_id,id_caja) VALUES (now(),%s,%s,%s,%s,now(),%s,%s,%s,%s)", socio_id, valorAdquirido, pago, saldo, usuario_sistema, membresiaDatos, facturaId,id_caja);
         boolean success = db.sqlEjec(querySQL);
         return success;
     }
@@ -622,7 +635,8 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         }
         
 
-        String queryFactura = String.format("INSERT INTO factura(socio_id,paga,debe,usuario_sistema_id) VALUES (%s,%s,%s,%s);", socioId, paga, debe, usuario_sistema);
+        String queryFactura = String.format("INSERT INTO factura(socio_id,paga,debe,usuario_sistema_id,id_membresia_usuario) VALUES (%s,%s,%s,%s,%s);", socioId, paga, debe, usuario_sistema,idMembresia);
+        System.out.println("INSERTANDO EN FACTURA:"+queryFactura);
         if (db.sqlEjec(queryFactura)) {
             id = db.getKeys();
         }
