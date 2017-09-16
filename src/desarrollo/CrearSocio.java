@@ -816,7 +816,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                                 
                             }
                         } else {
-                            querySQL = String.format("INSERT INTO socio(usuario_sistema_id,clave,identificacion,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,fecha_nacimiento,telefono,email,sexo,activo,foto,fecha_registro,comfenalco) VALUES (%s,'%s','%s','%s','%s','%s','%s',%s,'%s','%s','%s',TRUE,%s,now(),'%s')", Integer.valueOf(usuarioSistema), clave, identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, fotos,comfenalco);
+                            querySQL = String.format("INSERT INTO socio(usuario_sistema_id,clave,identificacion,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,fecha_nacimiento,telefono,email,sexo,activo,foto,fecha_registro,comfenalco,congelado) VALUES (%s,'%s','%s','%s','%s','%s','%s',%s,'%s','%s','%s',TRUE,%s,now(),'%s','%s')", Integer.valueOf(usuarioSistema), clave, identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, fotos,comfenalco,"no");
                             success = db.sqlEjec(querySQL);
                             if (success) {
                                 txtPrimerNombre.requestFocus(false);

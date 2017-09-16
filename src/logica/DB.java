@@ -76,4 +76,8 @@ public class DB {
         this.keys = keys;
     }
 
+    public CachedRowSet sqlDatos(String select_fecha_descongelar_FROM_socio_WHERE, int clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

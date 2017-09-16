@@ -4,12 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -65,6 +67,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jTabbedPane1.setEnabledAt(3, false);
         jTabbedPane1.setEnabledAt(4, false);
 
+        if (congelado().equals("no")) {
+            JcongelarMembresia.setVisible(false);
+        } else if (congelado().equals("congelar")) {
+            JcongelarMembresia.setSelected(true);
+            JcongelarMembresia.setText("Descongelar Membresia");
+        }
+
         initRegistrarVisita();
         /*Ver Facturas cliente*/
         obtenerFacturas(socioID);
@@ -113,6 +122,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         tablaMembresias = new javax.swing.JTable();
         lmsjVencimiento1 = new javax.swing.JLabel();
         lbComfenalco = new javax.swing.JLabel();
+        JcongelarMembresia = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -309,6 +319,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
         lbComfenalco.setForeground(new java.awt.Color(255, 0, 0));
         lbComfenalco.setText("NO");
 
+        JcongelarMembresia.setText("Congelar Membresia");
+        JcongelarMembresia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JcongelarMembresiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -320,7 +337,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,23 +346,26 @@ public class VerSocio extends javax.swing.JInternalFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(lEdad)
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(lmsjVencimiento)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnEditarSocio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bRegistrarPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEditarSocio)
-                                    .addComponent(bRegistrarPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(lmsjVencimiento1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lbComfenalco, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lEstadoCuentaDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lmsjVencimiento1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lbComfenalco, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lEstadoCuentaDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JcongelarMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jTabbedPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(bRegistrarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,7 +378,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel10)
                         .addGap(130, 130, 130)))
                 .addContainerGap())
@@ -366,7 +386,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -384,16 +404,18 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lEstadoCuentaDescripcion))
+                            .addComponent(lEstadoCuentaDescripcion)
+                            .addComponent(JcongelarMembresia))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lmsjVencimiento1)
-                            .addComponent(lbComfenalco)))
+                            .addComponent(lbComfenalco))
+                        .addGap(19, 19, 19))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -853,6 +875,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 try {
                     AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
                     sumarEntrada(socioID, 0);
+                    editarCongelado("descongelar",socioID);
                     miAgregarMembresia.setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -923,12 +946,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
 
-                } else if (!ValidarPago()){
-                   Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
+                } else if (!ValidarPago()) {
+                    Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
                     TelegraphQueue q = new TelegraphQueue();
-                    q.add(tele); 
-                    
-                }else {
+                    q.add(tele);
+
+                } else {
                     String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
                     ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
                     int identificador = 0;
@@ -1035,8 +1058,34 @@ public class VerSocio extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTable6MouseClicked
 
+    private void JcongelarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcongelarMembresiaActionPerformed
+        if (JcongelarMembresia.isSelected()) {
+            JcongelarMembresia.setText("Descongelar Membresia");
+
+            try {
+
+                int diasCongelados = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de dias que quiere congelar la membresia"));
+
+                modificarFechaFinMembresia(sumardias(diasCongelados, obtenerFechaFinMembresias()), obtenerIdMembresias());
+                editarCongelado("congelar",socioID);
+                editarFechaCongelacion(socioID,diasCongelados);
+                
+                
+                updateDatos();
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JcongelarMembresia.setText("Congelar Membresia");
+            editarCongelado("descongelar",socioID);
+        }
+    }//GEN-LAST:event_JcongelarMembresiaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox JcongelarMembresia;
     private javax.swing.JButton bAgregarMembresias;
     private javax.swing.JButton bEliminarMembresia;
     private javax.swing.JButton bRegistrarPago;
@@ -1148,6 +1197,51 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     }
 
+    public void recorrer(ArrayList<String> aux) {
+        for (int i = 0; i < aux.size(); i++) {
+            System.out.println(aux.get(i));
+
+        }
+    }
+
+    public ArrayList<String> obtenerFechaFinMembresias() {
+        ArrayList<String> array = new ArrayList<>();
+        CachedRowSet data;
+
+        String querySQL = String.format("SELECT mendatos.fecha_fin_membresia as \"Termina\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
+                + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND memusu.activa=TRUE  AND memusu.socio_id = " + socioID + "ORDER BY mendatos.fecha_fin_membresia DESC ");
+        data = db.sqlDatos(querySQL);
+        try {
+            while (data.next()) {
+
+                array.add(data.getDate("Termina").toString());
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return array;
+    }
+
+    public ArrayList<Integer> obtenerIdMembresias() {
+        ArrayList<Integer> array = new ArrayList<>();
+        CachedRowSet data;
+
+        String querySQL = String.format("SELECT mendatos.id as \"Id\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
+                + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND memusu.activa=TRUE  AND memusu.socio_id = " + socioID + "ORDER BY mendatos.fecha_fin_membresia DESC ");
+        data = db.sqlDatos(querySQL);
+        try {
+            while (data.next()) {
+
+                array.add(data.getInt("Id"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return array;
+    }
+
     private void getSocio() {
         try {
             CachedRowSet data;
@@ -1167,7 +1261,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         lblFoto.setBorder(null);
                         break;
                 }
-                switch(data.getString("comfenalco")){
+                switch (data.getString("comfenalco")) {
                     case "A":
                         lbComfenalco.setText("CATEGORIA A");
                         break;
@@ -1247,7 +1341,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         try {
 
             dtmEjemplo = new DefaultTableModel(null, new String[]{"Cod.", "Membresia", "Comienza", "Termina", "Estado"});
-            data = db.sqlDatos("SELECT  mem.id ,mem.nombre as \"Membresia\" , mendatos.fecha_inicio_membresia as \"Comienza\" , mendatos.fecha_fin_membresia as \"Termina\", mendatos.estado as \"Estado\", CASE WHEN mendatos.renovar = true Then 'Si' WHEN mendatos.renovar = false Then 'No' END AS \"Renueva\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
+            data = db.sqlDatos("SELECT  mendatos.id ,mem.nombre as \"Membresia\" , mendatos.fecha_inicio_membresia as \"Comienza\" , mendatos.fecha_fin_membresia as \"Termina\", mendatos.estado as \"Estado\", CASE WHEN mendatos.renovar = true Then 'Si' WHEN mendatos.renovar = false Then 'No' END AS \"Renueva\" FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
                     + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND memusu.socio_id = " + socioID + "ORDER BY mendatos.fecha_fin_membresia DESC ");
 
             tablaMembresias = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaMembresias);
@@ -1477,6 +1571,31 @@ public class VerSocio extends javax.swing.JInternalFrame {
         }
     }
 
+    public void modificarFechaFinMembresia(ArrayList<String> fechas, ArrayList<Integer> ids) {
+        String querySQL = "";
+        for (int i = 0; i < fechas.size(); i++) {
+
+            boolean suceses;
+            querySQL = String.format("UPDATE membresia_datos SET fecha_fin_membresia='%s' WHERE id=%s", fechas.get(i), ids.get(i));
+            suceses = db.sqlEjec(querySQL);
+
+            if (suceses) {
+
+            }
+        }
+
+    }
+
+    public ArrayList<String> sumardias(int dias, ArrayList<String> fechas) throws ParseException {
+        for (int i = 0; i < fechas.size(); i++) {
+
+            fechas.set(i, sumarDiasFecha(dias, fechas.get(i)));
+
+        }
+
+        return fechas;
+    }
+
     public void sumarEntrada(int clave, int entada) throws SQLException {
 
         String querySQL = "";
@@ -1498,6 +1617,131 @@ public class VerSocio extends javax.swing.JInternalFrame {
             return true;
         } else {
             return false;
+        }
+
+    }
+
+    public int diasPorMes(int nombreMes, int anio) {
+        int numDias = 0;
+        if (nombreMes == 4 || nombreMes == 6 || nombreMes == 9 || nombreMes == 11) {
+            numDias = 30;
+        } else if (nombreMes == 2) {
+
+            // para cuando el año es bisiesto
+            if ((anio % 4 == 0) && ((anio % 100 != 0) || (anio % 400 == 0))) {//si el año es bisiesto es divisible entre 4 y 100 o 400
+                numDias = 29;
+            } else {
+                numDias = 28;//queda pendiente para año bisiesto 
+            }
+        } else //todos los demas meses 
+        {
+            numDias = 31;
+        }
+
+        return numDias;
+
+    }
+
+    public String sumarDiasFecha(int numeroDiasSumar, String fecha) {
+        int diaActual, mesActual, anioActual;// se supone que estas variables ya contienen valores, supongamos que la fecha es:
+        diaActual = Integer.parseInt(fecha.substring(8, 10));
+        System.out.println(diaActual);
+        mesActual = Integer.parseInt(fecha.substring(5, 7));
+        System.out.println(mesActual);
+        anioActual = Integer.parseInt(fecha.substring(0, 4));
+        System.out.println(anioActual);
+        System.out.println("la fecha queda" + diaActual + " de " + mesActual + "  del " + anioActual);
+
+        int numDias = diasPorMes(mesActual, anioActual);
+        System.out.println(numDias);
+        if ((diaActual + numeroDiasSumar) > numDias) {
+
+            numDias = (diaActual + numeroDiasSumar) - numDias;
+            System.out.println(numDias);
+            if (mesActual == 12) {
+                mesActual = 1;
+                anioActual++;
+            } else {
+                diaActual = numDias;
+                mesActual++;
+            }
+
+            System.out.println("al sumar " + numeroDiasSumar + " dias la fecha queda" + diaActual + " de " + mesActual + "  del " + anioActual);
+
+        } else {
+            diaActual = diaActual + numeroDiasSumar;
+            System.out.println("al sumar " + numeroDiasSumar + " dias la fecha queda" + diaActual + " de " + mesActual + "  del " + anioActual);
+
+        }
+        return anioActual + "-" + mesActual + "-" + diaActual;
+    }
+
+    public String congelado() throws SQLException {
+        String aux = "";
+        CachedRowSet data;
+        data = db.sqlDatos("SELECT congelado FROM socio WHERE socio.id = " + socioID);
+
+        while (data.next()) {
+            aux = data.getString("congelado");
+
+        }
+        if (aux == null) {
+            return "no";
+        }
+        return aux;
+    }
+
+    public void editarFechaCongelacion(int clave, int dias) {
+        
+        Calendar c1 = Calendar.getInstance();
+
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+
+        String fecha_actual = anio + "-0" + mes + "-" + dia;
+        String querySQL = "";
+        System.out.println(fecha_actual);
+        String aux=sumarDiasFecha(dias,fecha_actual);
+        System.out.println(aux);
+        boolean suceses;
+
+        querySQL = String.format("UPDATE socio SET fecha_descongelar='%s' WHERE id=%s", aux,clave);
+        suceses = db.sqlEjec(querySQL);
+
+        if (suceses) {
+
+            
+
+        }
+
+    }
+    public String obtenerFechaCongelacion() throws SQLException{
+        String aux = "";
+        CachedRowSet data;
+        data = db.sqlDatos("SELECT fecha_congelar FROM socio WHERE id=%s " , socioID);
+
+        while (data.next()) {
+            aux = data.getString("fecha_congelar");
+
+        }
+        if (aux == null) {
+            return "no";
+        }
+        return aux;
+    }
+
+    public void editarCongelado(String congelado,int clave) {
+        String querySQL = "";
+
+        boolean suceses;
+
+        querySQL = String.format("UPDATE socio SET congelado='%s' WHERE id=%s", congelado,clave);
+        suceses = db.sqlEjec(querySQL);
+
+        if (suceses) {
+
+
         }
 
     }

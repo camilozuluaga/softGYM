@@ -295,9 +295,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                                     //fin comprobacion
                                     
                                     
-                                    if(!validarSiEntro(socio)){
+                                    if(!validarSiEntro(socio)||congelado()){
                                        lblNombreSocio.setVisible(true);
-                                    lblNombreSocio.setText("Hasta Luego: " + miEntrada.traerNombreSocio(clave));
+                                    lblNombreSocio.setText("Gracias por visitarnos: " + miEntrada.traerNombreSocio(clave));
                                     lblMembresiaVence.setText(venceMembresia());
                                     getVencimientoMembresias(); 
                                     }else{
@@ -348,7 +348,22 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_passKeyPressed
+public boolean congelado() throws SQLException {
+        String aux = "";
+        CachedRowSet data;
+        data = db.sqlDatos("SELECT congelado FROM socio WHERE socio.id = " + socio);
 
+        while (data.next()) {
+            aux = data.getString("congelado");
+
+        }
+        if (aux.equals("congelar")) {
+            return true;
+        }
+        return false;
+    }
+    
+    
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
