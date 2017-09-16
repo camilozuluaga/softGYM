@@ -23,7 +23,6 @@ import net.sf.jcarrierpigeon.WindowPosition;
 import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
-import puerta.PuertaArduino;
 
 /**
  *
@@ -35,7 +34,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private final DB db = new DB();
     private final AdministrarMembresia admonMembresias = new AdministrarMembresia();
     Utilidades utilidades = new Utilidades();
-    private final int socioID;
+    public final int socioID;
+
+    public int getSocioID() {
+        return socioID;
+    }
     //Variable que indica si usuario debe dinero
     private boolean usuarioDebe = false;
     int cajaActual;
@@ -868,9 +871,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
-        try {
+     
+        //try {
 
-            if (ValidarMembresiasActivas()) {
+          //  if (ValidarMembresiasActivas()) {
 
                 try {
                     AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
@@ -880,15 +884,15 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else {
-                Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
-                TelegraphQueue q = new TelegraphQueue();
-                q.add(tele);
+            //} else {
+              //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+                //TelegraphQueue q = new TelegraphQueue();
+                //q.add(tele);
 
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           // }
+        //} catch (ParseException ex) {
+          //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        //}
 
     }//GEN-LAST:event_bAgregarMembresiasActionPerformed
 

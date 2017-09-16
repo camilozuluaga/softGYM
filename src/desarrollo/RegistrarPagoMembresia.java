@@ -38,6 +38,7 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     Utilidades utilidades = new Utilidades();
     private boolean usuarioPaga;
     double valorPagado;
+    
 
 
 
@@ -470,7 +471,8 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
     }
 
     private void actualizarEstadoPagoMembresia(int membresiaId) {
-        String querySQL = String.format("UPDATE membresia_datos SET estado = 'Pagada' WHERE id = %s", membresiaId);
+        
+        String querySQL = String.format("UPDATE membresia_datos SET estado = 'Pagada'WHERE id = %s", membresiaId);
         boolean success = db.sqlEjec(querySQL);
 //        if (success) {
 //            msj.show("Membresia Pagada", "La Membresia a sido Cancelada en su Totalidad", TelegraphType.MESSAGE);

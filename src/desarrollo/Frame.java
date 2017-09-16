@@ -638,7 +638,7 @@ public class Frame extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         RegistroEntradaAutomatica miFrameBloqueo1 = new RegistroEntradaAutomatica();
-        miFrameBloqueo1.setVisible(true);
+        miFrameBloqueo1.setVisible(true); 
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
