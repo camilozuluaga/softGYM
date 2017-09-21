@@ -120,7 +120,7 @@ public final class RegistrarEntrada {
         int membresia_id = 0;
         CachedRowSet data;
         DB db = new DB();
-        String Sql = String.format("SELECT mu.membresia_id FROM membresia_usuario mu where mu.socio_id=%s and activa=true", socio);
+        String Sql = String.format("SELECT mu.membresia_id FROM membresia_usuario mu where mu.socio_id=%s order by mu.membresia_id desc limit 1", socio);
         data = db.sqlDatos(Sql);
         while (data.next()) {
             try {
@@ -129,6 +129,7 @@ public final class RegistrarEntrada {
                 Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("Ultima membresia: "+membresia_id);
         return membresia_id;
     }
 
@@ -173,20 +174,33 @@ public final class RegistrarEntrada {
 
     private boolean entreFechaInicioFin() {
         int id = 0;
+        int id2=0;
         try {
-            CachedRowSet data;
+            CachedRowSet data,data2;
             DB db = new DB();
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
+            
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '72h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            data2 = db.sqlDatos(sql2);
             while (data.next()) {
                 id = data.getInt("cantidad");
             }
+            while (data2.next()) {
+                id2 = data2.getInt("cantidad");
+            }
+            
             if (id >= 1) {
-                System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
+                System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
                 return true;
-            } else {
+            }else if(id2>=1){
+                System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
+                System.out.println("Su membresía caduco tiene 3 dias para ponerse al dia");
+                return true;
+            }else  {
                 sonido.sonar("alarma");
+                System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO REGISTRAR ENTRADA------");
                 System.out.println("No tiene membresías activas para entrar hoy,\nSi tenía una membresía promocional, ésta ya venció.");
                 mensaje("Lo sentimos.", "No tiene una membresía; debe adquirir una.\n.Si la tenía, es posible que haya caducado.", TelegraphType.NOTIFICATION_ERROR, 6000);
                 contadorFlag = true;
@@ -209,7 +223,7 @@ public final class RegistrarEntrada {
                                 validadorTiempoGracia(idMembresiaSocio);
 
                             } else {
-                                System.out.println("No se pudo persistir");
+                                System.out.println("No se pudo persistir 1");
                                 mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                             }
                         } else {
@@ -225,7 +239,7 @@ public final class RegistrarEntrada {
                     }
                 } else {
                     sonido.sonar("alerta");
-                    System.out.println("No se pudo persistir");
+                    System.out.println("No se pudo persistir 2");
                     mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
                 }
             } else {
@@ -243,7 +257,7 @@ public final class RegistrarEntrada {
                             }
                         } else {
                             sonido.sonar("alerta");
-                            System.out.println("No se pudo persistir");
+                            System.out.println("No se pudo persistir 3");
                             mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                         }
                     } else {
@@ -263,7 +277,7 @@ public final class RegistrarEntrada {
                                 }
                             }
                         } else {
-                            System.out.println("No se pudo persistir");
+                            System.out.println("No se pudo persistir 4");
                             sonido.sonar("alerta");
                             mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                         }
@@ -278,7 +292,7 @@ public final class RegistrarEntrada {
                                 validadorTiempoGracia(idMembresiaSocio);
                             } else {
                                 sonido.sonar("alerta");
-                                System.out.println("No se pudo persistir");
+                                System.out.println("No se pudo persistir 5");
                                 mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                             }
                         } else {
@@ -290,7 +304,7 @@ public final class RegistrarEntrada {
                         }
                     } else {
                         sonido.sonar("alerta");
-                        System.out.println("No se pudo persistir");
+                        System.out.println("No se pudo persistir 6");
                         mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
                     }
                 } else if (validarDiaPermitido()) {
@@ -306,12 +320,12 @@ public final class RegistrarEntrada {
                         }
                     } else {
                         sonido.sonar("alerta");
-                        System.out.println("No se pudo persistir");
+                        System.out.println("No se pudo persistir 7");
                         mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                     }
                 } else {
                     sonido.sonar("alerta");
-                    System.out.println("No se pudo persistir");
+                    System.out.println("No se pudo persistir 8");
                     mensaje("Upss!", "Su membresía no le permite ingresar el día " + "<b>" + diaActualCompleto + "</b>" + ".\n Pida ayuda al administrador.", TelegraphType.NOTIFICATION_ERROR, 4000);
                 }
             }
@@ -422,8 +436,9 @@ public final class RegistrarEntrada {
         while (data.next()) {
             diaSemana = data.getDouble("dia");
         }
-
-        return diaSemana;
+        System.out.println("diaSemana: "+diaSemana);
+        return diaSemana; 
+        
     }
     /*
      Este método permite validad qué dias de la semana el socio tiene permitido entrar.
@@ -456,6 +471,7 @@ public final class RegistrarEntrada {
                 int diaInt = (int) dia;
                 validarDiaSemana(diaInt);
                 CachedRowSet data1;
+                System.out.println("dia actual:"+diaActual);
                 String querySQL = String.format("SELECT %s as permitido FROM membresia_restriccion_semana WHERE membresia_id=%s ", diaActual, idMembresiaSocio);//preguntando si hoy se puede entrar.
                 data1 = db.sqlDatos(querySQL);
                 while (data1.next()) {
@@ -724,9 +740,10 @@ public final class RegistrarEntrada {
 
         if (exitoso) {
             pp.openDoor();
-            System.out.println("---------PERSISTIDO---------");
+            System.out.println("---------PERSISTIDO REGISTRAR ENTRADA---------");
             if (!contadorFlag) {
                 mensaje("Bienvenido", "Entrada Registrada Satisfactoriamente.", TelegraphType.NOTIFICATION_DONE);
+            
             }
         } else {
             sonido.sonar("alerta");
@@ -844,49 +861,4 @@ public final class RegistrarEntrada {
 
     }
 
-    /**
-     * Este método sirve para permitir a usuarios deudores entrar con una
-     * excepción. Esto queda registrado como comentario_excepcion en la tabla
-     * entrada_socio
-     */
-//    private void validadorTiempoGracia(int membresia_id, String excepcion) {
-//        int usuario_sistema = Integer.parseInt(System.getProperty("usuario_sistema"));
-//        String sql = String.format("INSERT INTO entrada_socio (fecha_hora, socio_id, membresia_id, usuario_sistema, fecha_registro, comentario_excepcion) VALUES (now(),%s,%s,%s,now(),'%s')", socio, membresia_id, usuario_sistema, excepcion);
-//        boolean exitoso = miDb.sqlEjec(sql);
-//        if (exitoso) {
-//            System.out.println("---------PERSISTIDO---------");
-//            if (!contadorFlag) {
-//                mensaje("Bienvenido", "Entrada Registrada Satisfactoriamente.", TelegraphType.NOTIFICATION_DONE);
-//            }
-//            contadorFlag = false;
-//        } else {
-//            System.out.println("---------NO SE HA PERSISTIDO---------");
-//            mensaje("Problemas Para Entrar", "Solicite ayuda al administrador.", TelegraphType.NOTIFICATION_ERROR);
-//
-//        }
-//    }
-    // USADO CUANDO UN USUARIO PUEDE ADQUIRIR VARIAS MEMBRESIAS----------------------
-//    public void contarMembresiasSocio() throws SQLException {
-//        DB db = new DB();
-//        CachedRowSet data;
-//        int contador = 0;
-//        String querySQL = String.format("SELECT COUNT(mu.id) AS numero_membresias \n"
-//                + "FROM membresia_usuario mu, membresia_datos md\n"
-//                + "WHERE mu.activa=true AND mu.socio_id=1 AND mu.id = md.membresia_socio_id AND NOW() BETWEEN fecha_inicio_membresia AND fecha_fin_membresia;", socio);
-//        data = db.sqlDatos(querySQL);
-//        try {
-//            while (data.next()) {
-//                contador = data.getInt("numero_membresias");
-//                System.out.println(contador);
-//                if (contador == 1) {
-//                    validaciones();
-//                } else {
-//                    System.out.println("son varias");
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
 }

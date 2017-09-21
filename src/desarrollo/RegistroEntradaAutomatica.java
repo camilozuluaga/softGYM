@@ -32,6 +32,8 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     Frame frame;
     VerSocio versocio;
     puerta.Puerta arduino;
+    String vencio;
+    String recordatorio;
     private final DB db = new DB();
 
     /**
@@ -49,6 +51,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);//maximizado
         this.setAlwaysOnTop(true);//siempre al frente
         lblFoto.setVisible(false);
+  
+        
+       
 
     }
 
@@ -418,17 +423,33 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     private boolean usuarioExiste(int socio) {
         boolean correcto = true;
         int id = 0;
+        int id2 = 0;
         try {
-            CachedRowSet data;
+            CachedRowSet data, data2;
             DB db = new DB();
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM socio s ,membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia and md.fecha_fin_membresia and md.membresia_socio_id= mu.id and s.id=%s;", socio);
             data = db.sqlDatos(sql);
+            
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '72h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            data2 = db.sqlDatos(sql2);
+            
             while (data.next()) {
                 id = data.getInt("cantidad");
+            }
+            while (data2.next()) {
+                id2 = data2.getInt("cantidad");
             }
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
+                vencio="Su membresia vence el dia:";
+                recordatorio="";
+                return true;
+            }else if(id2>=1){
+                System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
+                System.out.println("Su membresía caduco tiene 3 dias para ponerse al dia");
+                vencio="Su membresia vencio el dia:";
+                recordatorio="Recuerde que tiene 3 dias para realizar el pago";
                 return true;
             } else {
                 System.out.println("No tiene membresías activas para entrar hoy,\nSi tenía una membresía promocional, ésta ya venció.");
@@ -501,7 +522,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                     mesLetras = "Diciembre";
                     break;
             }
-            cadena = "Su membresia vence el dia: " + dia + " de " + mesLetras + " de " + año;
+            cadena = vencio +" "+ dia + " de " + mesLetras + " de " + año +" "+recordatorio;
         }
 
         return cadena;
