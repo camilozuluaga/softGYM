@@ -1169,8 +1169,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         break;
                     case "B":
                         lbComfenalco.setText("CATEGORIA B");
+                        break;
                     case "N":
                         lbComfenalco.setText("NO TIENE CATEGORIA");
+                        break;
                 }
 
                 lNombreUsuario.setText(data.getString("usuario"));
