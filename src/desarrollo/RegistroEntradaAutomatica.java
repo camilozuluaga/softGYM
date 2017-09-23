@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import logica.DB;
 import logica.Utilidades;
 import net.sf.jcarrierpigeon.WindowPosition;
@@ -35,6 +34,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     String vencio;
     String recordatorio;
     private final DB db = new DB();
+
 
     /**
      * Creates new form FrameBloqueo
@@ -78,6 +78,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         lblCumpleanios = new javax.swing.JLabel();
         lblImagen = new javax.swing.JLabel();
         lblFoto = new javax.swing.JLabel();
+        lmsjVencimiento = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,29 +150,38 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
 
         lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/sin_foto_hombre.png"))); // NOI18N
 
+        lmsjVencimiento.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lmsjVencimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lmsjVencimiento.setText("VENCE LA MEMBRESIA");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblNombreSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(10, 10, 10)
-                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(6, 6, 6)
-                            .addComponent(jButton1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblMembresiaVence, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                            .addComponent(lblCumpleanios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblImagen)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNombreSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jButton1)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblMembresiaVence, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                                    .addComponent(lblCumpleanios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblImagen))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(lmsjVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -203,7 +213,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lmsjVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -285,6 +297,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                                     lblNombreSocio.setVisible(true);
                                     lblNombreSocio.setText("Bienvenido: " + miEntrada.traerNombreSocio(clave));
                                     lblMembresiaVence.setText(venceMembresia());
+                                    getVencimientoMembresias();
                                     
                                     getImagen();
 
@@ -371,6 +384,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblMembresiaVence;
     public javax.swing.JLabel lblNombreSocio;
+    private javax.swing.JLabel lmsjVencimiento;
     public javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
 
@@ -421,6 +435,13 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     }
 
     private boolean usuarioExiste(int socio) {
+        try {
+            venceMembresia();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
+        }
         boolean correcto = true;
         int id = 0;
         int id2 = 0;
@@ -442,14 +463,16 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
-                vencio="Su membresia vence el dia:";
+                vencio="Su membresia vence el dia id 1:";
                 recordatorio="";
+                getVencimientoMembresias();
                 return true;
             }else if(id2>=1){
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
                 System.out.println("Su membresía caduco tiene 3 dias para ponerse al dia");
-                vencio="Su membresia vencio el dia:";
+                vencio="Su membresia vencio el dia id 2:";
                 recordatorio="Recuerde que tiene 3 dias para realizar el pago";
+                getVencimientoMembresias();
                 return true;
             } else {
                 System.out.println("No tiene membresías activas para entrar hoy,\nSi tenía una membresía promocional, ésta ya venció.");
@@ -586,6 +609,48 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void getVencimientoMembresias() {
+        try {
+          
+            int dias = 0;
+            java.util.Date fechaVencimiento = new java.util.Date();
+            CachedRowSet data;
+            String sql = "SELECT mendatos.fecha_fin_membresia - now()::date as dias  , mendatos.fecha_fin_membresia as fecha_vencimiento FROM membresia mem , membresia_usuario memusu , socio s , membresia_datos mendatos\n"
+                    + "WHERE  mem.id = memusu.membresia_id AND s.id = memusu.socio_id AND memusu.id = mendatos.membresia_socio_id AND mendatos.estado = 'Pagada' AND memusu.socio_id = " + socio + " ORDER BY memusu.id DESC LIMIT 1";
+
+            data = db.sqlDatos(sql);
+
+            if (data.size() == 0) {
+                lmsjVencimiento.setText("Socio no reporta Membresias Activas");
+                //btnRegistrarEntrada.setVisible(false);
+                return;
+            }
+
+            //****
+            while (data.next()) {
+                dias = data.getInt("dias");
+                fechaVencimiento = data.getDate("fecha_vencimiento");
+            }
+
+            String msj = " ";
+            String fecha = Utilidades.castFecha(fechaVencimiento, "dd/MM/yyyy");
+
+            if (dias == 0) {
+                msj = "La membresia del Usuario Vence Hoy";
+                sonidos.resaltarTexto(lmsjVencimiento, "naranja");
+            } else if (dias < 0) {
+                dias = dias * -1;
+                msj = String.format("Membresia Vencida hace %s días (%s)", dias, fecha);
+                sonidos.resaltarTexto(lmsjVencimiento, "rojo");
+            } else {
+                msj = String.format("Membresía Vence en: %s (%s Días)", fecha, dias);
+                sonidos.resaltarTexto(lmsjVencimiento, "verde");
+            }
+            lmsjVencimiento.setText(msj);
+        } catch (SQLException ex) {
+            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

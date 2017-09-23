@@ -831,7 +831,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
-        if (tablaMembresias.getRowCount() < 1) {
+        if (tablaMembresias.getRowCount() <= 1) {
 
             try {
                 AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);

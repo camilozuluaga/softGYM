@@ -496,7 +496,7 @@ public final class RegistrarEntrada {
     public int traerIdMembresiaAdquirida() throws SQLException {
         CachedRowSet data;
         int id = 0;
-        String consulta = String.format("SELECT id from membresia_usuario where socio_id=%s and membresia_id=%s and activa=true ORDER BY id DESC;", socio, idMembresiaSocio);
+        String consulta = String.format("SELECT id from membresia_usuario where socio_id=%s and membresia_id=%s  ORDER BY id DESC LIMIT 1;", socio, idMembresiaSocio);
         data = miDb.sqlDatos(consulta);
         while (data.next()) {
             try {
@@ -692,6 +692,7 @@ public final class RegistrarEntrada {
             if (hayBloqueHorario()) {
                 int aciertoHorario = 0;// cantidad de aciertos horarios// es decir cantidad de coincidencias entre la hora actual y un bloque horario definido.
                 CachedRowSet data;
+                System.out.println("membresia socio en bloque horario "+idMembresiaSocio);
                 String query = String.format("SELECT count(id) as id FROM membresia_restriccion_horario WHERE current_time BETWEEN hora_inicio and hora_fin and membresia_id=%s;", idMembresiaSocio);
                 data = miDb.sqlDatos(query);
                 while (data.next()) {
@@ -860,5 +861,6 @@ public final class RegistrarEntrada {
         return nombreCompleto;
 
     }
+        
 
 }
