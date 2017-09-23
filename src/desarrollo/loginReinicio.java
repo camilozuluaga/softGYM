@@ -32,7 +32,7 @@ import net.sf.jtelegraph.TelegraphType;
  *
  * @author capriatto
  */
-public class login extends javax.swing.JFrame {
+public class loginReinicio extends javax.swing.JFrame {
     private static ServerSocket SERVER_SOCKET;
     CargarCombos cargarCombo = new CargarCombos();
     Utilidades utilidades = new Utilidades();
@@ -44,7 +44,7 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
-    public login() {
+    public loginReinicio() {
         if (!utilidades.mostrarPantallaBienvenida()) {
             EmpresaData empre = new EmpresaData();
             this.setVisible(false);
@@ -62,13 +62,7 @@ public class login extends javax.swing.JFrame {
         }
 
         //System.out.println("=> "+Utilidades.nClase(login.class
-        try {
-            SERVER_SOCKET = new ServerSocket(1334);
-            System.out.println("Es la primera instancia de la aplicación...");
-        } catch (IOException x) {
-            JOptionPane.showMessageDialog(this, "El programa ya se esta ejecutando actualmente");
-            System.exit(1);
-        }
+
     }
 
     /**
@@ -248,9 +242,9 @@ public class login extends javax.swing.JFrame {
         try {
             verificarAcceso();
         } catch (ParseException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
@@ -271,9 +265,9 @@ public class login extends javax.swing.JFrame {
             try {
                 verificarAcceso();
             } catch (ParseException ex) {
-                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_txtClaveKeyPressed
@@ -303,20 +297,21 @@ public class login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(loginReinicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(loginReinicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(loginReinicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(loginReinicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login().setVisible(true);
+                new loginReinicio().setVisible(true);
             }
         });
     }
@@ -392,7 +387,7 @@ public class login extends javax.swing.JFrame {
                 q.add(tele);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
     }
@@ -408,7 +403,7 @@ public class login extends javax.swing.JFrame {
                 return id;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
     }
@@ -428,7 +423,7 @@ public class login extends javax.swing.JFrame {
                 System.out.println("La fecha de la bd es: " + fecha);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginReinicio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         String dia = Integer.toString(c1.get(Calendar.DATE));

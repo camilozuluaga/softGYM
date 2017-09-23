@@ -599,7 +599,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 this.dispose();
                 //Ventana Principal
                 ventana.dispose();
-                login inicio = new login();
+                loginReinicio inicio = new loginReinicio();
                 inicio.setVisible(true);
 
                 utilidades.verificarBackups("backup_cierrecaja");
