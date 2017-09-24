@@ -102,7 +102,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="txtPaga" max="32767" attributes="0"/>
-                                              <Component id="txtSaldoFavor" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                                              <Component id="txtValorPagar" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="lbDireccion" alignment="1" min="-2" pref="343" max="-2" attributes="0"/>
@@ -129,7 +129,7 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtSaldoFavor1" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="txtCambio" min="-2" pref="69" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -176,12 +176,12 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtSaldoFavor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtValorPagar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtSaldoFavor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCambio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="38" max="32767" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
@@ -308,7 +308,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Valor a pagar $"/>
+            <Property name="text" type="java.lang.String" value="Dinero recibido $"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -316,7 +316,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Monospaced" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Dinero recibido $"/>
+            <Property name="text" type="java.lang.String" value="Valor a pagar $"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
@@ -329,7 +329,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtPaga">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSaldoFavor">
+        <Component class="javax.swing.JTextField" name="txtValorPagar">
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <Properties>
@@ -393,7 +393,7 @@
             <Property name="text" type="java.lang.String" value="Cambio $"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtSaldoFavor1">
+        <Component class="javax.swing.JTextField" name="txtCambio">
         </Component>
       </SubComponents>
     </Container>

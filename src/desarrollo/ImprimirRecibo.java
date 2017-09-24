@@ -27,6 +27,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
     String descripcion;
     Date fecha = new Date();
     Utilidades utilitis = new Utilidades();
+    double valorAPagar;
 
     SpinnerNumberModel model = new SpinnerNumberModel(
             new Integer(1), // Dato visualizado al inicio en el spinner 
@@ -51,7 +52,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
         txtOperador.setEditable(false);
         txtDescripcion.setEditable(false);
         txtPaga.setEditable(false);
-        txtSaldoFavor.setEditable(false);
+        txtValorPagar.setEditable(false);
         System.out.println(idFactura);
         encabezado(idFactura);
         descripcion(idFactura);
@@ -87,14 +88,14 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtPaga = new javax.swing.JTextField();
-        txtSaldoFavor = new javax.swing.JTextField();
+        txtValorPagar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         txtImprimir = new javax.swing.JButton();
         jSVeces = new javax.swing.JSpinner();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        txtSaldoFavor1 = new javax.swing.JTextField();
+        txtCambio = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -145,10 +146,10 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
         jLabel9.setText("--------------------------------------------------------------------------------------------");
 
         jLabel10.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
-        jLabel10.setText("Valor a pagar $");
+        jLabel10.setText("Dinero recibido $");
 
         jLabel11.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
-        jLabel11.setText("Dinero recibido $");
+        jLabel11.setText("Valor a pagar $");
 
         jLabel13.setFont(new java.awt.Font("Monospaced", 1, 11)); // NOI18N
         jLabel13.setText("***NO SE HACEN DEVOLUCIONES DE DINERO***");
@@ -228,7 +229,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtPaga)
-                                            .addComponent(txtSaldoFavor, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtValorPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(lbDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,7 +245,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSaldoFavor1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -284,11 +285,11 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtSaldoFavor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtSaldoFavor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -353,21 +354,21 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbNit;
     private javax.swing.JLabel lbNombre;
     private javax.swing.JLabel lbNumeroRecibo;
+    private javax.swing.JTextField txtCambio;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JButton txtImprimir;
     private javax.swing.JTextField txtOperador;
     private javax.swing.JTextField txtPaga;
-    private javax.swing.JTextField txtSaldoFavor;
-    private javax.swing.JTextField txtSaldoFavor1;
+    private javax.swing.JTextField txtValorPagar;
     // End of variables declaration//GEN-END:variables
 
     public void encabezado(int idFactura) {
         try {
             CachedRowSet data;
             String sql;
-            sql = String.format("SELECT fac.id,fac.paga,fac.debe AS debe,fac.saldo_favor,CONCAT(us.primer_nombre||' '||us.primer_apellido) AS operador,CONCAT(s.primer_nombre||' '||s.primer_apellido) AS usuario , fac.saldo_favor_uso \n"
+            sql = String.format("SELECT fac.id,fac.paga,CONCAT(us.primer_nombre||' '||us.primer_apellido) AS operador,CONCAT(s.primer_nombre||' '||s.primer_apellido) AS usuario \n"
                     + "FROM factura fac, socio s,usuario_sistema us\n"
                     + "WHERE fac.id = %s\n"
                     + "AND s.id = fac.socio_id \n"
@@ -377,7 +378,6 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
             while (data.next()) {
                 lbNumeroRecibo.setText(data.getString("id"));
                 txtPaga.setText(data.getString("paga"));
-                txtSaldoFavor.setText(data.getString("saldo_favor"));
                 txtOperador.setText(data.getString("operador"));
                 txtCliente.setText(data.getString("usuario"));
 
@@ -394,7 +394,7 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
             CachedRowSet data;
             String sql;
 
-            sql = String.format("SELECT m.id,'Membresia',CONCAT(m.nombre||' $'||pm.pago||' ( '||md.fecha_inicio_membresia||'/'||md.fecha_fin_membresia||')') AS descripcion,\n"
+            sql = String.format("SELECT m.id,'Membresia',pm.pago AS pago,CONCAT(m.nombre||' $'||pm.pago||' ( '||md.fecha_inicio_membresia||'/'||md.fecha_fin_membresia||')') AS descripcion,\n"
                     + "CASE WHEN pm.saldo = 0 THEN 'Pago' WHEN pm.saldo > 0 THEN 'Abono'::text END AS texto\n"
                     + "FROM pago_membresia pm , factura fac, socio s, membresia m,membresia_datos md,membresia_usuario mu\n"
                     + "WHERE fac.id = %s\n"
@@ -410,6 +410,8 @@ public class ImprimirRecibo extends javax.swing.JInternalFrame {
             while (data.next()) {
                 descripcion = data.getString("id") + " " + data.getString("texto") + " " + data.getString("descripcion") + " " + "\n";
                 txtDescripcion.append(descripcion);
+                txtValorPagar.setText(String.valueOf(data.getDouble("pago")));
+                txtCambio.setText(String.valueOf(Double.parseDouble(txtPaga.getText())-Double.parseDouble(txtValorPagar.getText())));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ImprimirRecibo.class.getName()).log(Level.SEVERE, null, ex);

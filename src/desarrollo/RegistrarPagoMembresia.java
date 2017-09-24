@@ -37,6 +37,9 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
     private final int usuario_sistema = Integer.valueOf(System.getProperty("usuario_sistema"));
     Utilidades utilidades = new Utilidades();
     private boolean usuarioPaga;
+    double valorPagado;
+
+
 
     /**
      * Creates new form RegistrarPagoMembresia
@@ -626,5 +629,6 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
 
         db.sqlEjec(query);
     }
+
 
 }
