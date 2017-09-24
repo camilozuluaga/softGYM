@@ -186,12 +186,12 @@ public final class RegistrarEntrada {
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
             
-            String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
+            String sql3 = String.format("SELECT plazo_entrada FROM empresa");
             data3 = db.sqlDatos(sql3);
             while (data3.next()) {
                 id3 = data3.getInt("plazo_entrada");
             }
-            int plazo_permitido=id3*24;
+            int plazo_permitido=(id3*24)+24;
             String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '"+plazo_permitido+"h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
             while (data.next()) {
@@ -200,7 +200,7 @@ public final class RegistrarEntrada {
             while (data2.next()) {
                 id2 = data2.getInt("cantidad");
             }
-            
+            System.out.println("plazo entrada :"+plazo_permitido+"h");
 
             
             if (id >= 1) {

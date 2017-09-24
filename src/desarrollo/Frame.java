@@ -64,7 +64,7 @@ public class Frame extends javax.swing.JFrame {
         this.setTitle(utiles.CargarNombreTitulo().toUpperCase()+ " - > Sistema de Control Acceso");
         this.setVisible(true);
         txtBuscar.requestFocusInWindow();
-        setIconImage(new ImageIcon(getClass().getResource("/imagen/icon_biofisic.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
         PlaceHolder placeHolder = new PlaceHolder("Buscar socio por identificación o codigo ...", txtBuscar);
         
         cargarImagen(escritorio, foto1);
@@ -85,7 +85,7 @@ public class Frame extends javax.swing.JFrame {
         txtBuscar.setText(id);
         buscar();
         cargarImagen(escritorio, foto1);
-        setIconImage(new ImageIcon(getClass().getResource("/imagen/icono_biofisic.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
 
     }
 
