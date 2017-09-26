@@ -44,6 +44,7 @@ public final class RegistrarEntrada {
     String diaActualCompleto;// almacena lunes, martes, miercoles, sabado, domingo según sea el día de hoy. A diferencia de diaActual el nombre del día está completo. 
     double diaSemana; // día de la semana en números, siempre se carga el día de hoy, ejemplo lunes=1.0
     int cantidadDiasSemana; // cantidad de veces que puede entrar un socio en la semana.
+    int cantidadDiasMes;
     int idMembresiaAdquirida; // almacena el id de la membresía que adquirió el socio.
     int entradasHoy; // cantidad de entradas y salidas registradas del socio el día de hoy.
     boolean entrarTodoElDia; // usado para cuando hay límite de días a la semana pero no hay límite de visitas por día.
@@ -252,8 +253,8 @@ public final class RegistrarEntrada {
     private void validaciones() throws SQLException, ParseException {
         if (!congelado()) {
             if (entreFechaInicioFin() && membresiaNoExpirada(idMembresiaSocio)) { // se valida que no haya expirado si es una membresia promocional o haya terminado el tiempo de la membresia.
-                if (tieneCantidadDias() && tieneLimiteAsistenciaDiaria()) { // se valida lo sigte= esta membresia tiene limite de cantidad de dias por semana?
-                    if (permitidoCantidadDias()) { // se valida lo sigte= como tiene cantidad de díás permitidos, hoy puede entrar?
+                if (tieneCantidadDiasMes() && tieneLimiteAsistenciaDiaria()) {
+                    if (permitidoCantidadDiasMes()) { // se valida lo sigte= como tiene cantidad de díás permitidos, hoy puede entrar?
                         if (cantidadEntradasPorDia(socio)) {
                             if (bloqueHorario()) {
                                 if (socioDebe()) {
@@ -278,97 +279,128 @@ public final class RegistrarEntrada {
                     } else {
                         sonido.sonar("alerta");
                         System.out.println("No se pudo persistir 2");
-                        mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                        mensaje("Lo sentimos", "usted agotó sus entradas por este mes.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                        return;
                     }
-                } else {
-                    if (validarDiaPermitido() && tieneLimiteAsistenciaDiaria()) { // Este día de la semana puede entrar? 
-                        if (cantidadEntradasPorDia(socio)) {
-                            if (socioDebe()) {
-                                if (bloqueHorario()) {
-                                    validadorTiempoGracia(idMembresiaSocio);
-                                    sumarEntrada(socio, obtenerEntradas(socio) + 1);
-                                } else {
-                                    if (!contadorFlag) {
-                                        sonido.sonar("alerta");
-                                        mensaje("Lo sentimos", "No puede entrar a esta hora. Consulte los horarios de su membresía.", TelegraphType.NOTIFICATION_ERROR);
-                                        contadorFlag = true;
-                                    }
-                                }
-                            } else {
-                                sonido.sonar("alerta");
-                                System.out.println("No se pudo persistir 3");
-                                mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
-                            }
-                        } else {
-                            sonido.sonar("alerta");
-                            mensaje("Lo sentimos", "Usted ha sobrepasado el límite de entradas hoy.", TelegraphType.NOTIFICATION_ERROR);
-                        }
-                    } else if (!tieneCantidadDias() && !tieneRestriccionesSemana() && tieneLimiteAsistenciaDiaria()) {
-                        if (cantidadEntradasPorDia(socio)) {
-                            if (socioDebe()) {
-                                if (bloqueHorario()) {
-                                    validadorTiempoGracia(idMembresiaSocio);
-                                    sumarEntrada(socio, obtenerEntradas(socio) + 1);
-                                } else {
-                                    if (!contadorFlag) {
-                                        sonido.sonar("alerta");
-                                        mensaje("Lo sentimos", "No puede entrar a esta hora. Consulte los horarios de su membresía.", TelegraphType.NOTIFICATION_ERROR);
-                                        contadorFlag = true;
-                                    }
-                                }
-                            } else {
-                                System.out.println("No se pudo persistir 4");
-                                sonido.sonar("alerta");
-                                mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
-                            }
-                        } else {
-                            sonido.sonar("alerta");
-                            mensaje("Lo sentimos", "Usted ha sobrepasado el límite de entradas hoy.", TelegraphType.NOTIFICATION_ERROR);
-                        }
-                    } else if (tieneCantidadDias()) {
+                } 
+                if (tieneCantidadDias() && tieneLimiteAsistenciaDiaria()) { // se valida lo sigte= esta membresia tiene limite de cantidad de dias por semana?
                         if (permitidoCantidadDias()) { // se valida lo sigte= como tiene cantidad de díás permitidos, hoy puede entrar?
-                            if (bloqueHorario()) {
+                            if (cantidadEntradasPorDia(socio)) {
+                                if (bloqueHorario()) {
+                                    if (socioDebe()) {
+                                        validadorTiempoGracia(idMembresiaSocio);
+                                        sumarEntrada(socio, obtenerEntradas(socio) + 1);
+
+                                    } else {
+                                        System.out.println("No se pudo persistir 1");
+                                        mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                                    }
+                                } else {
+                                    if (!contadorFlag) {
+                                        sonido.sonar("alerta");
+                                        mensaje("Lo sentimos", "No puede entrar en este horario.", TelegraphType.NOTIFICATION_ERROR);
+                                        contadorFlag = true;
+                                    }
+                                }
+                            } else {
+                                sonido.sonar("alerta");
+                                mensaje("Lo sentimos", "Usted ha sobrepasado el límite de entradas hoy.", TelegraphType.NOTIFICATION_ERROR);
+                            }
+                        } else {
+                            sonido.sonar("alerta");
+                            System.out.println("No se pudo persistir 2");
+                            mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                        }
+                    } else {
+                        if (validarDiaPermitido() && tieneLimiteAsistenciaDiaria()) { // Este día de la semana puede entrar? 
+                            if (cantidadEntradasPorDia(socio)) {
                                 if (socioDebe()) {
-                                    validadorTiempoGracia(idMembresiaSocio);
+                                    if (bloqueHorario()) {
+                                        validadorTiempoGracia(idMembresiaSocio);
+                                        sumarEntrada(socio, obtenerEntradas(socio) + 1);
+                                    } else {
+                                        if (!contadorFlag) {
+                                            sonido.sonar("alerta");
+                                            mensaje("Lo sentimos", "No puede entrar a esta hora. Consulte los horarios de su membresía.", TelegraphType.NOTIFICATION_ERROR);
+                                            contadorFlag = true;
+                                        }
+                                    }
                                 } else {
                                     sonido.sonar("alerta");
-                                    System.out.println("No se pudo persistir 5");
+                                    System.out.println("No se pudo persistir 3");
                                     mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                                 }
                             } else {
-                                if (!contadorFlag) {
-                                    sonido.sonar("alerta");
-                                    mensaje("Lo sentimos", "No puede entrar en este horario.", TelegraphType.NOTIFICATION_ERROR);
-                                    contadorFlag = true;
-                                }
+                                sonido.sonar("alerta");
+                                mensaje("Lo sentimos", "Usted ha sobrepasado el límite de entradas hoy.", TelegraphType.NOTIFICATION_ERROR);
                             }
-                        } else {
-                            sonido.sonar("alerta");
-                            System.out.println("No se pudo persistir 6");
-                            mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
-                        }
-                    } else if (validarDiaPermitido()) {
-                        if (socioDebe()) {
-                            if (bloqueHorario()) {
-                                validadorTiempoGracia(idMembresiaSocio);
+                        } else if (!tieneCantidadDias() && !tieneRestriccionesSemana() && tieneLimiteAsistenciaDiaria()) {
+                            if (cantidadEntradasPorDia(socio)) {
+                                if (socioDebe()) {
+                                    if (bloqueHorario()) {
+                                        validadorTiempoGracia(idMembresiaSocio);
+                                        sumarEntrada(socio, obtenerEntradas(socio) + 1);
+                                    } else {
+                                        if (!contadorFlag) {
+                                            sonido.sonar("alerta");
+                                            mensaje("Lo sentimos", "No puede entrar a esta hora. Consulte los horarios de su membresía.", TelegraphType.NOTIFICATION_ERROR);
+                                            contadorFlag = true;
+                                        }
+                                    }
+                                } else {
+                                    System.out.println("No se pudo persistir 4");
+                                    sonido.sonar("alerta");
+                                    mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                                }
                             } else {
-                                if (!contadorFlag) {
-                                    sonido.sonar("alerta");
-                                    mensaje("Lo sentimos", "No puede entrar a esta hora. Consulte los horarios de su membresía.", TelegraphType.NOTIFICATION_ERROR);
-                                    contadorFlag = true;
+                                sonido.sonar("alerta");
+                                mensaje("Lo sentimos", "Usted ha sobrepasado el límite de entradas hoy.", TelegraphType.NOTIFICATION_ERROR);
+                            }
+                        } else if (tieneCantidadDias()) {
+                            if (permitidoCantidadDias()) { // se valida lo sigte= como tiene cantidad de díás permitidos, hoy puede entrar?
+                                if (bloqueHorario()) {
+                                    if (socioDebe()) {
+                                        validadorTiempoGracia(idMembresiaSocio);
+                                    } else {
+                                        sonido.sonar("alerta");
+                                        System.out.println("No se pudo persistir 5");
+                                        mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                                    }
+                                } else {
+                                    if (!contadorFlag) {
+                                        sonido.sonar("alerta");
+                                        mensaje("Lo sentimos", "No puede entrar en este horario.", TelegraphType.NOTIFICATION_ERROR);
+                                        contadorFlag = true;
+                                    }
                                 }
+                            } else {
+                                sonido.sonar("alerta");
+                                System.out.println("No se pudo persistir 6");
+                                mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                            }
+                        } else if (validarDiaPermitido()) {
+                            if (socioDebe()) {
+                                if (bloqueHorario()) {
+                                    validadorTiempoGracia(idMembresiaSocio);
+                                } else {
+                                    if (!contadorFlag) {
+                                        sonido.sonar("alerta");
+                                        mensaje("Lo sentimos", "No puede entrar a esta hora. Consulte los horarios de su membresía.", TelegraphType.NOTIFICATION_ERROR);
+                                        contadorFlag = true;
+                                    }
+                                }
+                            } else {
+                                sonido.sonar("alerta");
+                                System.out.println("No se pudo persistir 7");
+                                mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
                             }
                         } else {
                             sonido.sonar("alerta");
-                            System.out.println("No se pudo persistir 7");
-                            mensaje("Upss!", "Tiene saldo pendiente de: " + "<b>" + saldo + "</b>" + ". Póngase al día con los pagos.", TelegraphType.NOTIFICATION_ERROR, 4000);
+                            System.out.println("No se pudo persistir 8");
+                            mensaje("Upss!", "Su membresía no le permite ingresar el día " + "<b>" + diaActualCompleto + "</b>" + ".\n Pida ayuda al administrador.", TelegraphType.NOTIFICATION_ERROR, 4000);
                         }
-                    } else {
-                        sonido.sonar("alerta");
-                        System.out.println("No se pudo persistir 8");
-                        mensaje("Upss!", "Su membresía no le permite ingresar el día " + "<b>" + diaActualCompleto + "</b>" + ".\n Pida ayuda al administrador.", TelegraphType.NOTIFICATION_ERROR, 4000);
                     }
-                }
+                
             } else {
                 if (!contadorFlag) {
                     sonido.sonar("alerta");
@@ -431,6 +463,32 @@ public final class RegistrarEntrada {
         return false;
     }
 
+    public boolean tieneCantidadDiasMes() {
+
+        try {
+            CachedRowSet data;
+            DB db = new DB();
+            String sql = String.format("SELECT mem.cantidad_dias as cantidad\n"
+                    + "FROM membresia_restriccion_entradas mem\n"
+                    + "WHERE membresia_id=%s;", membresia_id());
+            data = db.sqlDatos(sql);
+            while (data.next()) {
+                cantidadDiasMes = data.getInt("cantidad");
+            }
+            //VALIDACION cantidad de días que ha entrado el socio al gimnasio
+
+            if (cantidadDiasMes == -1 || cantidadDiasMes == 0) {
+                System.out.println("No tiene límite de cantidad de días x Mes");
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public boolean permitidoCantidadDias() throws SQLException {
         int cantidadEntradasSemana = calcularLunesAdomingo(diaSemana); // cantidad de veces que ha entrado el socio esta semana.
         if ((cantidadEntradasSemana < cantidadDiasSemana)) {
@@ -444,6 +502,25 @@ public final class RegistrarEntrada {
         } else if (cantidadEntradasSemana > cantidadDiasSemana) {
             sonido.sonar("alerta");
             System.out.println("Cantidad Días por semana---> Lo sentimos, usted agotó sus entradas por esta semana.");
+            return false;
+        }
+        return false;
+
+    }
+
+    public boolean permitidoCantidadDiasMes() throws SQLException {
+        int calcularEntradasDelMes = calcularNumeroDeEntradasMes(); // cantidad de veces que ha entrado el socio esta semana.
+        if ((calcularEntradasDelMes < cantidadDiasMes)) {
+            System.out.println("Cantidad Días Por Mes---> Bienvenido");
+            return true;
+        } else if (calcularEntradasDelMes == cantidadDiasMes) {
+            System.out.println("Cantidad Días Por Mes---> Esta es su última entrada esta mes");
+            mensaje("¡Atención!", "Recuerde que:\nYa agotó sus entradas de esta mes", TelegraphType.NOTIFICATION_ERROR, 6000);
+            contadorFlag = true;
+            return true;
+        } else if (calcularEntradasDelMes > cantidadDiasMes) {
+            sonido.sonar("alerta");
+            System.out.println("Cantidad Días por Mes---> Lo sentimos, usted agotó sus entradas por este Mes.");
             return false;
         }
         return false;
@@ -506,7 +583,25 @@ public final class RegistrarEntrada {
         }
         return false;
     }
+    /*
+     Este método permite validad qué dias de la semana el socio tiene permitido entrar.
+     */
+    public boolean tieneRestriccionesMes() {
+        try {
+            int hay = 0;
+            CachedRowSet data1;
+            String querySQL = String.format("SELECT id FROM membresia_restriccion_entradas WHERE membresia_id=%s; ", idMembresiaSocio);//preguntando si hoy se puede entrar.
+            data1 = miDb.sqlDatos(querySQL);
+            while (data1.next()) {
+                hay = data1.getInt("id");
+            }
+            return hay != 0;
 
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     public boolean validarDiaPermitido() {
         if (tieneRestriccionesSemana()) {
 
@@ -518,6 +613,26 @@ public final class RegistrarEntrada {
                 validarDiaSemana(diaInt);
                 CachedRowSet data1;
                 System.out.println("dia actual:" + diaActual);
+                String querySQL = String.format("SELECT %s as permitido FROM membresia_restriccion_semana WHERE membresia_id=%s ", diaActual, idMembresiaSocio);//preguntando si hoy se puede entrar.
+                data1 = db.sqlDatos(querySQL);
+                while (data1.next()) {
+                    permitidoEntrar = data1.getBoolean("permitido");
+                }
+                return permitidoEntrar;
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return false;
+        }
+        return false;
+    }
+       public boolean validarMesPermitido() {
+        if (tieneRestriccionesMes()) {
+
+            try {
+                DB db = new DB();
+                boolean permitidoEntrar = false; // almacena t o f si el usuario puede entrar (True, false)
+                CachedRowSet data1;
                 String querySQL = String.format("SELECT %s as permitido FROM membresia_restriccion_semana WHERE membresia_id=%s ", diaActual, idMembresiaSocio);//preguntando si hoy se puede entrar.
                 data1 = db.sqlDatos(querySQL);
                 while (data1.next()) {
@@ -630,7 +745,29 @@ public final class RegistrarEntrada {
         System.out.println("Entradas esta semana " + (Integer.parseInt(entradasEstaSemana)));
         return valorAuxiliar;
     }
-
+    public int calcularNumeroDeEntradasMes() throws SQLException {
+ 
+        DB db = new DB();
+        CachedRowSet data;
+        String entradasEsteMes = "";
+        
+        String querySQL2 = String.format("WITH uniq AS (SELECT DISTINCT ON (fecha_registro) id as cantidad\n" +
+        "FROM   entrada_socio\n" +
+        "WHERE fecha_registro BETWEEN \n" +
+        "(SELECT fecha_inicio_membresia FROM membresia_datos md, membresia_usuario mu WHERE mu.socio_id="+socio+" AND mu.id=md.membresia_socio_id AND md.activa=true) \n" +
+        "AND(SELECT fecha_fin_membresia FROM membresia_datos md, membresia_usuario mu WHERE mu.socio_id="+socio+" AND mu.id=md.membresia_socio_id AND md.activa=true)\n" +
+        "AND socio_id=%s" +
+        "ORDER  BY fecha_registro DESC)\n" +
+        "SELECT COUNT(*) FROM uniq;\n" +
+         "", socio);
+        data = db.sqlDatos(querySQL2);
+        while (data.next()) {
+            entradasEsteMes = data.getString(1);
+        }
+        valorAuxiliar = Integer.parseInt(entradasEsteMes);
+        System.out.println("Entradas esta mes " + (Integer.parseInt(entradasEsteMes)));
+        return valorAuxiliar;
+    }
     public boolean expiraOno(int membresia_id) throws SQLException {
         DB db = new DB();
         CachedRowSet data;
