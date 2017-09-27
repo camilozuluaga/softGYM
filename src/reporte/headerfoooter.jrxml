@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="headerfoooter" pageWidth="212" pageHeight="566" columnWidth="202" leftMargin="5" rightMargin="5" topMargin="2" bottomMargin="2" isIgnorePagination="true" uuid="fde4637f-e4f5-4ced-9c20-59468fe4ee93">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="headerfoooter" pageWidth="153" pageHeight="650" columnWidth="143" leftMargin="5" rightMargin="5" topMargin="2" bottomMargin="2" isIgnorePagination="true" uuid="fde4637f-e4f5-4ced-9c20-59468fe4ee93">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
@@ -43,129 +43,147 @@ AND fac.usuario_sistema_id = us.id]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="85" splitType="Stretch">
+		<band height="179" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="6c2b0211-aacd-45e1-94e8-945f231cbcf4" x="19" y="63" width="60" height="20"/>
+				<reportElement uuid="6c2b0211-aacd-45e1-94e8-945f231cbcf4" x="0" y="157" width="60" height="22"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Operador:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8b3a1793-c054-41cd-9eb3-2306d56e8292" x="19" y="53" width="60" height="20"/>
+				<reportElement uuid="8b3a1793-c054-41cd-9eb3-2306d56e8292" x="0" y="137" width="60" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cliente:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ceb830ac-b768-44fc-8050-c22261185482" x="19" y="40" width="36" height="13"/>
+				<reportElement uuid="ceb830ac-b768-44fc-8050-c22261185482" x="0" y="113" width="40" height="13"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Fecha:]]></text>
+				<text><![CDATA[  Fecha:]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement uuid="9663c9d4-51c1-445a-a901-60a4e1725d21" x="55" y="40" width="96" height="13"/>
+				<reportElement uuid="9663c9d4-51c1-445a-a901-60a4e1725d21" x="40" y="113" width="103" height="13"/>
 				<textElement>
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="HH:mm">
-				<reportElement uuid="b9da112b-cacd-469e-a625-480a9201f743" x="149" y="40" width="53" height="13"/>
+				<reportElement uuid="b9da112b-cacd-469e-a625-480a9201f743" x="40" y="126" width="103" height="13"/>
 				<textElement>
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a912ce5d-dc97-4fc2-9440-b190903395e1" x="19" y="30" width="83" height="10"/>
+				<reportElement uuid="a912ce5d-dc97-4fc2-9440-b190903395e1" x="0" y="100" width="83" height="13"/>
 				<textElement>
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Recibo de Pago No. ]]></text>
+				<text><![CDATA[  Recibo de Pago No. ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="62fcc55c-6419-4f21-bddb-c74fdaf0c3e7" x="19" y="10" width="50" height="10"/>
+				<reportElement uuid="62fcc55c-6419-4f21-bddb-c74fdaf0c3e7" x="0" y="67" width="69" height="10"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nit:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="e3b28a5c-2157-4227-9043-dfd68ecc7ee8" x="113" y="30" width="64" height="10"/>
+				<reportElement uuid="e3b28a5c-2157-4227-9043-dfd68ecc7ee8" x="83" y="100" width="60" height="13"/>
 				<textElement>
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="0ad14197-246f-41cd-8baa-469c1d109f91" x="79" y="53" width="123" height="10"/>
+				<reportElement uuid="0ad14197-246f-41cd-8baa-469c1d109f91" x="60" y="137" width="82" height="20"/>
 				<textElement>
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b24d52b7-607c-45e7-8c71-313ff4a43615" x="79" y="63" width="123" height="10"/>
+				<reportElement uuid="b24d52b7-607c-45e7-8c71-313ff4a43615" x="60" y="157" width="82" height="22"/>
 				<textElement>
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{operador}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="6d7a543c-a8d6-414e-8d8c-693d153bd0a0" x="0" y="0" width="202" height="10"/>
+				<reportElement uuid="6d7a543c-a8d6-414e-8d8c-693d153bd0a0" x="0" y="47" width="143" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="3322e021-4c80-4772-8c86-f34a316eee5a" x="69" y="10" width="108" height="10"/>
-				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7"/>
+				<reportElement uuid="3322e021-4c80-4772-8c86-f34a316eee5a" x="69" y="67" width="74" height="10"/>
+				<textElement>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e3b28a5c-2157-4227-9043-dfd68ecc7ee8" x="0" y="20" width="198" height="10"/>
+				<reportElement uuid="e3b28a5c-2157-4227-9043-dfd68ecc7ee8" x="69" y="77" width="74" height="23"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dir}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement uuid="d7e7f21b-60bc-4fa9-869c-32ede36d12a4" x="25" y="0" width="92" height="47"/>
+				<imageExpression><![CDATA["H:\\Dreamsoft\\Hercules\\Gimnasio\\recibo\\impresora.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="ceb830ac-b768-44fc-8050-c22261185482" x="0" y="126" width="40" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="62fcc55c-6419-4f21-bddb-c74fdaf0c3e7" x="0" y="77" width="69" height="23"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Direccion:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="17" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="a679122e-8b76-494f-b6af-8d82c4ffff55" x="15" y="2" width="25" height="13"/>
+				<reportElement uuid="a679122e-8b76-494f-b6af-8d82c4ffff55" x="0" y="2" width="25" height="13"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cod]]></text>
+				<text><![CDATA[ Cod]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="58c18508-f1d2-4cdf-8be8-1509e9a5ee22" x="69" y="2" width="56" height="13"/>
+				<reportElement uuid="58c18508-f1d2-4cdf-8be8-1509e9a5ee22" x="38" y="2" width="56" height="13"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bfab3ae2-ebe3-4a71-b86b-2594e0d361de" x="150" y="2" width="38" height="13"/>
+				<reportElement uuid="bfab3ae2-ebe3-4a71-b86b-2594e0d361de" x="104" y="2" width="38" height="13"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<subreport>
-				<reportElement uuid="7e343bc3-c897-42ec-a019-4ed05cdb4539" x="5" y="0" width="193" height="20"/>
+				<reportElement uuid="7e343bc3-c897-42ec-a019-4ed05cdb4539" x="0" y="0" width="142" height="40"/>
 				<subreportParameter name="factura_id">
 					<subreportParameterExpression><![CDATA[$P{factura_id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -178,56 +196,70 @@ AND fac.usuario_sistema_id = us.id]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="86" splitType="Stretch">
+		<band height="117" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="fb7e8630-d98f-4443-a1c6-4c579e55edf4" x="8" y="50" width="188" height="26"/>
+				<reportElement uuid="fb7e8630-d98f-4443-a1c6-4c579e55edf4" x="0" y="51" width="142" height="26"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="9" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[***NO SE HACEN DEVOLUCIONES DE DINERO***]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4456b277-a82c-4cb2-b394-95001551137e" x="69" y="20" width="65" height="20"/>
+				<reportElement uuid="4456b277-a82c-4cb2-b394-95001551137e" x="40" y="30" width="54" height="20"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cambio:$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="90fed388-7f1c-4ec1-87b8-ae03f4382366" x="40" y="10" width="93" height="10"/>
+				<reportElement uuid="90fed388-7f1c-4ec1-87b8-ae03f4382366" x="11" y="20" width="83" height="10"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor a pagar:$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5ca5ef9c-d6c2-4a50-a0c7-b13d22d80599" x="29" y="0" width="104" height="10"/>
+				<reportElement uuid="5ca5ef9c-d6c2-4a50-a0c7-b13d22d80599" x="0" y="10" width="94" height="10"/>
 				<textElement textAlignment="Center">
-					<font fontName="Courier New" size="7" isBold="false"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dinero Recibido: $]]></text>
+				<text><![CDATA[ Dinero Recibido: $]]></text>
 			</staticText>
 			<textField pattern="#">
-				<reportElement uuid="8946903e-694f-4516-9aa4-68ec46c6ec9d" x="134" y="0" width="68" height="10"/>
+				<reportElement uuid="8946903e-694f-4516-9aa4-68ec46c6ec9d" x="94" y="10" width="48" height="10"/>
 				<textElement>
-					<font fontName="Courier New" size="7"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{paga}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#">
-				<reportElement uuid="6e2d4e64-fe67-449d-86ca-175b4f7ee756" x="134" y="10" width="68" height="10"/>
+				<reportElement uuid="6e2d4e64-fe67-449d-86ca-175b4f7ee756" x="94" y="20" width="48" height="10"/>
 				<textElement>
-					<font fontName="Courier New" size="7"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valor_pagar}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#">
-				<reportElement uuid="c07218f6-b287-4526-b088-e3ed41652d3c" x="134" y="20" width="68" height="20"/>
+				<reportElement uuid="c07218f6-b287-4526-b088-e3ed41652d3c" x="94" y="30" width="48" height="20"/>
 				<textElement>
-					<font fontName="Courier New" size="7"/>
+					<font fontName="Courier New" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cambio}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="fb7e8630-d98f-4443-a1c6-4c579e55edf4" x="0" y="77" width="142" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Software HERCULES by Dreamsoft]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fb7e8630-d98f-4443-a1c6-4c579e55edf4" x="0" y="89" width="142" height="28"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[www.DreamsofColombia.com]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
