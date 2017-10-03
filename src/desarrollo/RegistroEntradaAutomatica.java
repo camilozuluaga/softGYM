@@ -21,7 +21,7 @@ import net.sf.jtelegraph.TelegraphType;
  * @author GermanV
  */
 public class RegistroEntradaAutomatica extends javax.swing.JFrame {
-
+    int idMembresia;
     Utilidades sonidos;
     CumpleaniosSocio miCumpleañosSocio;
     RegistrarEntrada miEntrada;
@@ -35,12 +35,12 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     puerta.Puerta arduino;
     String vencio;
     String recordatorio;
-    private final DB db = new DB();
+    private DB db = new DB();
 
     /**
      * Creates new form FrameBloqueo
      */
-    public RegistroEntradaAutomatica() {
+    public RegistroEntradaAutomatica(){
         sonidos = new Utilidades();
         miCumpleañosSocio = new CumpleaniosSocio();
         midb = new DB(); //objeto de base de datos
@@ -270,6 +270,9 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         clave = getIdMembresia(pass.getText().trim());
                         claveGuardar = pass.getText().trim();
                         socio = idSocio(claveGuardar);
+                        System.out.println("************** ID DEL SOCIO *************** "+socio);
+                        actualizarMembresias(socio);
+                        System.out.println("*******************************************************");
                     }
                     miEntrada = new RegistrarEntrada(clave, null);
                     pass.setText("");
@@ -398,7 +401,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private int getIdMembresia(String clave) {
-        int idMembresia = 0;
+        idMembresia = 0;
         try {
             CachedRowSet data;
             String sql = String.format("SELECT s.id as id\n"
@@ -451,14 +454,15 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(Level.SEVERE, null, ex);
         }
-        boolean correcto = true;
-        int id = 0;
+         int id = 0;
         int id2 = 0;
         int id3 = 0;
         try {
             CachedRowSet data, data2, data3;
             DB db = new DB();
-            String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM socio s ,membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia and md.fecha_fin_membresia and md.membresia_socio_id= mu.id and s.id=%s;", socio);
+
+
+            String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id and md.activa=TRUE and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
 
             String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
@@ -467,7 +471,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                 id3 = data3.getInt("plazo_entrada");
             }
             int plazo_permitido = id3 * 24;
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and md.activa=FALSE and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
 
             while (data.next()) {
@@ -698,4 +702,27 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     public void actualizarMembresias(int idSocio){
+        try {
+            CachedRowSet dataMembresia; 
+            int id5=0;
+
+            String sql5 = String.format("SELECT mu.id, FROM membresia_usuario mu, membresia_datos md WHERE md.membresia_socio_id=mu.id AND mu.socio_id=%s;", idSocio);
+            dataMembresia = db.sqlDatos(sql5);
+            System.out.println("SQL 5"+sql5);
+            while (dataMembresia.next()) {
+                id5 = dataMembresia.getInt("id");
+                String querySQL = String.format("UPDATE membresia_datos SET activa = false WHERE activa=true AND (SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id="+id5+" and md.activa=true  and mu.socio_id="+idSocio+")<1 AND membresia_socio_id=%s", id5);
+                db.sqlEjec(querySQL);
+               System.out.println("SQL1:"+querySQL);
+                String querySQL2 = String.format("UPDATE membresia_datos SET activa = true WHERE activa=false AND (SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id="+id5+" and md.activa=false  and mu.socio_id="+idSocio+")>0 AND membresia_socio_id=%s", id5);
+                db.sqlEjec(querySQL2);
+                System.out.println("SQL2:"+querySQL2);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

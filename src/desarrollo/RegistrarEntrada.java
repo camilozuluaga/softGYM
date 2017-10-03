@@ -26,7 +26,7 @@ import net.sf.jtelegraph.TelegraphType;
  * @author Gidsoft
  */
 public final class RegistrarEntrada {
-
+    
     private DB db = new DB();
     RegistroEntradaAutomatica registroEntradaAutomatica;
     RegistroEntradaAutomatica entradaAuto;
@@ -77,6 +77,7 @@ public final class RegistrarEntrada {
         validarentradas(socio_id);
         idMembresiaAdquirida = traerIdMembresiaAdquirida(); // no es el id de la membresía sino el id de membresia_usuario. (es el id de contrato de adquisicion)
         validaciones();
+        
 
         try {
             ventanaVerSocio.updateDatos();
@@ -181,10 +182,13 @@ public final class RegistrarEntrada {
         int id = 0;
         int id2 = 0;
         int id3 = 0;
+        int id5 = 0;
         try {
             CachedRowSet data, data2, data3;
             DB db = new DB();
-            String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+
+
+            String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id and md.activa=TRUE and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
 
             String sql3 = String.format("SELECT plazo_entrada FROM empresa");
@@ -193,11 +197,12 @@ public final class RegistrarEntrada {
                 id3 = data3.getInt("plazo_entrada");
             }
             int plazo_permitido = (id3 * 24) + 24;
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id and md.activa=FALSE and mu.socio_id=%s", socio);
             data2 = db.sqlDatos(sql2);
             while (data.next()) {
                 id = data.getInt("cantidad");
             }
+
             while (data2.next()) {
                 id2 = data2.getInt("cantidad");
             }
@@ -369,7 +374,6 @@ public final class RegistrarEntrada {
             while (data.next()) {
                 cantidad = data.getInt("cantidad");
             }
-            System.out.println("OE PARCE VENGA UN MOMENTO "+cantidad);
             return cantidad >= 1;
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
@@ -980,5 +984,6 @@ public final class RegistrarEntrada {
 
         return true;
     }
+   
 
 }

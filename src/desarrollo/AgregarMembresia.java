@@ -1030,11 +1030,34 @@ public final class AgregarMembresia extends javax.swing.JFrame {
         }
 
         // Insercion en membresía_datos
-        String querySQL = String.format("INSERT INTO membresia_datos (membresia_socio_id, usuario_sistema_id, fecha_asignacion, fecha_inicio_membresia, fecha_fin_membresia, renovar, costo_inscripcion, descuento, descuento_observacion, costo_membresia, estado, fecha_registro) VALUES (%s,%s, now(), '%s', '%s', %s, %s, %s, '%s', %s, '%s', now());", id, usuario_sistema, fechaInicia, fechaTermina, renovar, inscripcion, descuentoTotal, motivoDescuento, ValorMembresia(), estado);
+        CachedRowSet dataMembresia, dataUsuario;
+        int contador = 0, idUsuario = 0;
+        
+        String sql = String.format("SELECT socio_id FROM membresia_usuario WHERE id=%s;",id);
+        dataUsuario = db.sqlDatos(sql);
+        while(dataUsuario.next()){
+        idUsuario=dataUsuario.getInt("socio_id");
+        }
+        String sql2 = "SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id=mu.id and md.activa=true  and mu.socio_id="+idUsuario;
+        dataMembresia = db.sqlDatos(sql2);
+        while(dataMembresia.next()){
+        contador=dataMembresia.getInt("cantidad");
+        }
+        System.out.println("sql2 agregar membresia"+sql2);
+        
+        if(contador!=0){
+        String querySQL = String.format("INSERT INTO membresia_datos (membresia_socio_id, usuario_sistema_id, fecha_asignacion, fecha_inicio_membresia, fecha_fin_membresia, renovar, costo_inscripcion, descuento, descuento_observacion, costo_membresia, estado, fecha_registro,activa) VALUES (%s,%s, now(), '%s', '%s', %s, %s, %s, '%s', %s, '%s', now(),false);", id, usuario_sistema, fechaInicia, fechaTermina, renovar, inscripcion, descuentoTotal, motivoDescuento, ValorMembresia(), estado);
         boolean success = db.sqlEjec(querySQL);
         key = db.getKeys();
         System.out.println("El descuento es: " + descuentoTotal);
         System.out.println("Se realizo el registro? = " + success);
+        }else{
+        String querySQL = String.format("INSERT INTO membresia_datos (membresia_socio_id, usuario_sistema_id, fecha_asignacion, fecha_inicio_membresia, fecha_fin_membresia, renovar, costo_inscripcion, descuento, descuento_observacion, costo_membresia, estado, fecha_registro,activa) VALUES (%s,%s, now(), '%s', '%s', %s, %s, %s, '%s', %s, '%s', now(),true);", id, usuario_sistema, fechaInicia, fechaTermina, renovar, inscripcion, descuentoTotal, motivoDescuento, ValorMembresia(), estado);
+        boolean success = db.sqlEjec(querySQL);
+        key = db.getKeys();
+        System.out.println("El descuento es: " + descuentoTotal);
+        System.out.println("Se realizo el registro? = " + success);
+        }
 
     }
 
