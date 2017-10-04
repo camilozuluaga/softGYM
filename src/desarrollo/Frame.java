@@ -133,7 +133,6 @@ public class Frame extends javax.swing.JFrame {
         MenuAplicacion = new javax.swing.JMenuBar();
         mArchivo = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem20 = new javax.swing.JMenuItem();
         mAcciones = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -357,15 +356,6 @@ public class Frame extends javax.swing.JFrame {
             }
         });
         mArchivo.add(jMenuItem13);
-
-        jMenuItem20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuItem20.setText("CERRAR");
-        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem20ActionPerformed(evt);
-            }
-        });
-        mArchivo.add(jMenuItem20);
 
         MenuAplicacion.add(mArchivo);
 
@@ -797,10 +787,6 @@ public class Frame extends javax.swing.JFrame {
         agregarInternalFrame(escritorio, new InformeSocioComfenalco());
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
-    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-       System.exit(1);
-    }//GEN-LAST:event_jMenuItem20ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -862,7 +848,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

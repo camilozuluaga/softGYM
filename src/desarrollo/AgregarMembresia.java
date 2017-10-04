@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -794,7 +795,7 @@ public final class AgregarMembresia extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    private void persistirAgregarMembresia() {
+    private void persistirAgregarMembresia() throws ParseException {
         try {
             int membresia_id = 0; //OBTENIENDO ID DE LA MEMBRESIA
             DB miDb = new DB();
@@ -809,6 +810,9 @@ public final class AgregarMembresia extends javax.swing.JFrame {
             String activa = "TRUE";
             validarCantidadDescuento();
             validarPorcentajeDescuento();
+            String fechaInicia = Utilidades.formatearFecha(dateComienzaMembresia.getDate(), "yyyy-MM-dd");
+            System.out.println("FECHA INICIA: "+fechaInicia);
+            if(validarAcceso(socio_id, fechaInicia)){
             if (puede_seguir || rNo.isEnabled()) {
                 String querySQL = String.format("INSERT INTO membresia_usuario (socio_id, membresia_id, usuario_sistema_id, activa, fecha_registro) VALUES (%s,%s,%s,%s, now())", socio_id, membresia_id, usuario_del_sistema, activa);
                 boolean success = db.sqlEjec(querySQL);
@@ -822,6 +826,11 @@ public final class AgregarMembresia extends javax.swing.JFrame {
 
                 flag = true;
 
+            }
+            }else{
+                 Telegraph tele = new Telegraph("¡ERROR!", "La fecha de inicio no es la correcta.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 9000);
+                    TelegraphQueue q = new TelegraphQueue();
+                    q.add(tele);
             }
 
         } catch (SQLException ex) {
@@ -1005,8 +1014,8 @@ public final class AgregarMembresia extends javax.swing.JFrame {
         String estado = "Sin Cancelar";
         boolean renovar;
         double descuentoTotal = descuento_total;
-        String fechaInicia = Utilidades.formatearFecha(dateComienzaMembresia.getDate(), "dd/MM/yyyy");
-        String fechaTermina = Utilidades.formatearFecha(dateTerminaMembresia.getDate(), "dd/MM/yyyy");
+        String fechaInicia = Utilidades.formatearFecha(dateComienzaMembresia.getDate(), "yyyy-MM-dd");
+        String fechaTermina = Utilidades.formatearFecha(dateTerminaMembresia.getDate(), "yyyy-MM-dd");
         int id = 0; // Obteniendo id de membresía_usuario
         String motivoDescuento = null;
         DB miDb = new DB();
@@ -1038,6 +1047,10 @@ public final class AgregarMembresia extends javax.swing.JFrame {
         while(dataUsuario.next()){
         idUsuario=dataUsuario.getInt("socio_id");
         }
+        if(validarAcceso(idUsuario, fechaInicia)){
+        }else{
+            return;
+        }
         String sql2 = "SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id=mu.id and md.activa=true  and mu.socio_id="+idUsuario;
         dataMembresia = db.sqlDatos(sql2);
         while(dataMembresia.next()){
@@ -1067,4 +1080,38 @@ public final class AgregarMembresia extends javax.swing.JFrame {
         System.out.println("Persistio en membresia pago? = " + success);
     }
 
+        public boolean validarAcceso(int idUsuario,String fechaInicio) throws ParseException, SQLException {
+        CachedRowSet data1,data2;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = "";
+        String querySQL = "SELECT id FROM membresia_usuario WHERE socio_id="+idUsuario;
+        data1 = db.sqlDatos(querySQL);
+            System.out.println("query: "+querySQL);
+        int idMembresia;
+            while (data1.next()) {
+                idMembresia = data1.getInt("id");
+                String sql = "SELECT fecha_fin_membresia FROM membresia_datos WHERE membresia_socio_id=" + idMembresia;
+                System.out.println("SQL: "+sql);
+                data2 = db.sqlDatos(sql); 
+                while(data2.next()){
+                    fecha = data2.getDate("fecha_fin_membresia").toString();
+                    System.out.println("La fecha de la bd es: " + fecha);
+                    System.out.println("Esta es la fecha inicio membresia: " + fechaInicio);
+                    Date date1 = sdf.parse(fechaInicio);
+                    Date date2 = sdf.parse(fecha);
+                    System.out.println("La fecha de la bd es: " + fecha);
+                    System.out.println("Esta es la fecha inicio membresia: " + fechaInicio);
+                    int v = date2.compareTo(date1);
+                    if (v == 1) {
+                        return false;
+                    }
+                }
+
+            }
+
+
+
+            return true;
+        
+        }
 }
