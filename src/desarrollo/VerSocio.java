@@ -88,6 +88,18 @@ public class VerSocio extends javax.swing.JInternalFrame {
             bAgregarMembresias.setEnabled(false);
         }
     }
+    public void congeladosocio(){
+        try {
+            if (congelado().equals("no")||congelado().equals("descongelar")) {
+                JcongelarMembresia.setVisible(true);
+            } else if (congelado().equals("congelar")) {
+                JcongelarMembresia.setSelected(true);
+                JcongelarMembresia.setText("Descongelar Membresia");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1198,9 +1210,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
         getVencimientoMembresias();
         getEstadoCuenta();
         obtenerFacturas(socioID);
+        congeladosocio();
 
     }
-
+    
     public void recorrer(ArrayList<String> aux) {
         for (int i = 0; i < aux.size(); i++) {
             System.out.println(aux.get(i));
