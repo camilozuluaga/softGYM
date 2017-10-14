@@ -23,17 +23,12 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import logica.Acceso;
 import logica.ConexionFoto;
 import logica.DB;
 import logica.Fondo;
 import logica.PlaceHolder;
 import logica.Utilidades;
-import net.sf.jcarrierpigeon.WindowPosition;
-import net.sf.jtelegraph.Telegraph;
-import net.sf.jtelegraph.TelegraphQueue;
-import net.sf.jtelegraph.TelegraphType;
 import puerta.Puerta;
 
 /**
@@ -54,6 +49,7 @@ public class Frame extends javax.swing.JFrame {
 
     public AperturaCaja aperturaCaja;
     public Utilidades utilidades;
+    Puerta pp;
 
     public Frame() {
         initComponents();
@@ -71,7 +67,9 @@ public class Frame extends javax.swing.JFrame {
         comprobarPermisosMenu();
         aperturaCaja = new AperturaCaja();
         lbUsuario.setText("USUARIO: " + aperturaCaja.cargarUsuario());
-
+        pp = new puerta.Puerta();
+       
+        pp.openConnection();
     }
 
     public Frame(String id) throws SQLException, ParseException {
@@ -85,7 +83,9 @@ public class Frame extends javax.swing.JFrame {
         buscar();
         cargarImagen(escritorio, foto1);
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
+        pp = new puerta.Puerta();
 
+        pp.openConnection();
     }
 
     public void cargarImagen(JDesktopPane jDeskp, InputStream fileImagen) {
@@ -658,7 +658,7 @@ public class Frame extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         RegistroEntradaAutomatica miFrameBloqueo1 = new RegistroEntradaAutomatica();
-        miFrameBloqueo1.setVisible(true); 
+        miFrameBloqueo1.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
@@ -666,7 +666,6 @@ public class Frame extends javax.swing.JFrame {
         agregarInternalFrame(escritorio, new AdministrarCaja());
     }//GEN-LAST:event_jMenuItem12ActionPerformed
     private void bPuerta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPuerta1ActionPerformed
-        Puerta pp = new puerta.Puerta();
         pp.openDoor();
     }//GEN-LAST:event_bPuerta1ActionPerformed
 

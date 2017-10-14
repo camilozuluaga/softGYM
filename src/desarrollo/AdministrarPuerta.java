@@ -18,6 +18,7 @@ import net.sf.jcarrierpigeon.WindowPosition;
 import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
+import puerta.Puerta;
 
 /**
  *
@@ -30,6 +31,7 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
     private final DB db = new DB();
     Utilidades util;
     String result = "";
+    Puerta arduino;
 
     /**
      * Creates new form AdministrarPuerta
@@ -38,12 +40,18 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
      */
     public AdministrarPuerta() throws SQLException, IOException {
         initComponents();
+        ocultarPuerto();
+        if (cargarCantonera()){
+            mostrarPuerto();
+        }
         tipoPuertaParametrizada = false;
         tiempoGraciaParametrizado = false;
         getInfo("tiempogracia_puerta", lblErrorMessage2, "txt", tiempoGraciaParametrizado);
         getInfo("unidad_tiempogracia_puerta", lblErrorMessage2, "combo", tiempoGraciaParametrizado);
         cargarTipoPuertaActual();
         util = new Utilidades();
+        arduino = new Puerta();
+        arduino.listarPuertos(cboPuerto);
     }
 
     /**
@@ -70,6 +78,9 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
         cboTiempoGracia = new javax.swing.JComboBox();
         txtValorTiempoGracia = new javax.swing.JTextField();
         lblErrorMessage2 = new javax.swing.JLabel();
+        lblPuerto = new javax.swing.JLabel();
+        cboPuerto = new javax.swing.JComboBox();
+        btnConectar = new javax.swing.JButton();
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/guardar.png"))); // NOI18N
@@ -173,45 +184,58 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
 
         lblErrorMessage2.setForeground(new java.awt.Color(255, 0, 0));
 
+        lblPuerto.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblPuerto.setText("Puerto");
+
+        cboPuerto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
+
+        btnConectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConectarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(381, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(lblErrorMessage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5))
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(txtValorTiempoGracia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cboTiempoGracia, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(lblErrorMessage2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(puertaCantonera)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblPuerto)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(cboPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(btnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtValorTiempoGracia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboTiempoGracia, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 14, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(puertaTorniquete, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnGuardar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(10, 10, 10)))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(puertaCantonera)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(puertaTorniquete)))
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,18 +248,26 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
                     .addComponent(puertaTorniquete)
                     .addComponent(puertaCantonera))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cboTiempoGracia)
-                    .addComponent(txtValorTiempoGracia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cboPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPuerto)))
+                            .addComponent(btnConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtValorTiempoGracia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(cboTiempoGracia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar1))))
+                .addGap(26, 26, 26)
                 .addComponent(lblErrorMessage2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,10 +275,12 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
 
     private void puertaCantoneraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puertaCantoneraActionPerformed
         // TODO add your handling code here:
+        mostrarPuerto();
     }//GEN-LAST:event_puertaCantoneraActionPerformed
 
     private void puertaTorniqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puertaTorniqueteActionPerformed
         // TODO add your handling code here:
+        ocultarPuerto();
     }//GEN-LAST:event_puertaTorniqueteActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -255,6 +289,11 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
         try {
+
+            if (!cboPuerto.getSelectedItem().equals("Seleccionar")) {
+                String sentencia = String.format("UPDATE puerto SET port='%s';", cboPuerto.getSelectedItem());
+                db.sqlEjec(sentencia);
+            }
             setTipoPuerta();
             setTiempoGracia();
             if (tiempoGraciaParametrizado && tipoPuertaParametrizada) {
@@ -280,10 +319,18 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_puertaTorniqueteKeyPressed
 
+    private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
+        // TODO add your handling code here:
+        arduino.cerrarConexion();
+        arduino.openConnection(cboPuerto.getSelectedItem().toString());
+    }//GEN-LAST:event_btnConectarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConectar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnGuardar1;
+    private javax.swing.JComboBox cboPuerto;
     private javax.swing.JComboBox cboTiempoGracia;
     private javax.swing.ButtonGroup grupoTiposPuerta;
     private javax.swing.JLabel jLabel1;
@@ -294,10 +341,23 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JLabel lblErrorMessage2;
+    private javax.swing.JLabel lblPuerto;
     private javax.swing.JRadioButton puertaCantonera;
     private javax.swing.JRadioButton puertaTorniquete;
     private javax.swing.JTextField txtValorTiempoGracia;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrarPuerto() {
+        cboPuerto.setVisible(true);
+        btnConectar.setVisible(true);
+        lblPuerto.setVisible(true);
+    }
+
+    public void ocultarPuerto() {
+        cboPuerto.setVisible(false);
+        btnConectar.setVisible(false);
+        lblPuerto.setVisible(false);
+    }
 
     private void guardar() {
         tipoPuertaParametrizada = true; // boolean que dice si la puerta ha sido parametrizada o no.
@@ -306,6 +366,7 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
 
         if (util.getSelectedButtonText(grupoTiposPuerta).equals("Puerta con cantonera eléctrica")) {
             tipoPuerta = "cantonera";
+
         } else if (util.getSelectedButtonText(grupoTiposPuerta).equals("Puerta con torniquete eléctrico")) {
             tipoPuerta = "torniquete";
         }
@@ -374,7 +435,7 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
             labelError.setText("No ha sido parametrizado el tiempo de gracia.");
             return;
         }
-        campoParametrizado=true;
+        campoParametrizado = true;
         if (tipoCampo.equals("txt")) {
             txtValorTiempoGracia.setText(String.valueOf(tiempoGracia));
         } else {
@@ -403,7 +464,7 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
                     Telegraph tele = new Telegraph("Tiempo Gracia Mensaje", "Tiempo gracia fue configurado exitosamente para la puerta.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 7000);
                     TelegraphQueue q = new TelegraphQueue();
                     q.add(tele);
-                    tiempoGraciaParametrizado=true;
+                    tiempoGraciaParametrizado = true;
                     lblErrorMessage2.setText("");
                 }
                 return true;
@@ -439,6 +500,32 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
             return true;
         }
         return false;
+    }
+    
+    
+        public boolean cargarCantonera() {
+        CachedRowSet data;
+        String tipoPuerta = "";
+        String querySQL = "SELECT tipo_puerta FROM empresa";
+        data = db.sqlDatos(querySQL);
+
+        try {
+            if (data.next()) {
+                tipoPuerta = data.getString("tipo_puerta");
+
+                System.out.println("El puerto cargado de la bd es: " + tipoPuerta);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            //mensaje("Dispositivo de control", "No se ha podido configurar el dispositivo bluetooth para el control de la puerta, verifique que este conectado \n Asegurese de configurar la cantonera", TelegraphType.NOTIFICATION_WARNING, 2500);
+
+        }
+        boolean valor=false;
+        if (tipoPuerta.equals("cantonera")){
+            valor = true;
+        }
+        
+        return valor;
     }
 
 }
