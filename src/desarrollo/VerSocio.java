@@ -3,6 +3,8 @@ package desarrollo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -831,19 +833,23 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }
 
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
-        if (tablaMembresias.getRowCount() <= 1) {
+        try {
+            if (ValidarMembresiasActivas()) {
 
-            try {
-                AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
-                miAgregarMembresia.setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
+                    miAgregarMembresia.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
+
             }
-        } else {
-            Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
-            TelegraphQueue q = new TelegraphQueue();
-            q.add(tele);
-
+        } catch (ParseException ex) {
+            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_bAgregarMembresiasActionPerformed
@@ -873,6 +879,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         crearSocio.toFront();
         crearSocio.setVisible(true);
     }//GEN-LAST:event_btnEditarSocioActionPerformed
+
 
     private void bEliminarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarMembresiaActionPerformed
         // Nos damos cuenta que membresia fue seleccionada para eliminar
@@ -1169,6 +1176,34 @@ public class VerSocio extends javax.swing.JInternalFrame {
         }
     }
 
+    public boolean ValidarMembresiasActivas() throws ParseException {
+        Calendar c1 = Calendar.getInstance();
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c1.get(Calendar.YEAR));
+
+        String fecha_actual = anio + "-0" + mes + "-" + dia;
+        int fila = tablaMembresias.getRowCount();
+
+        for (int i = 0; i < fila; i++) {
+            Object fecha = tablaMembresias.getValueAt(i, 2);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = sdf.parse(fecha_actual);
+            Date date2 = sdf.parse(String.valueOf(fecha));
+
+            int v = date1.compareTo(date2);
+            if (v == 1) {
+                return true;
+
+            } else {
+                return false;
+            }
+
+        }
+
+        return false;
+    }
+
     private void getMembresiasActivas() {
         CachedRowSet data;
         try {
@@ -1332,28 +1367,28 @@ public class VerSocio extends javax.swing.JInternalFrame {
             //consultamos cual es la caja actual
             cajaActual = utilidades.cajaActual();
 
-                System.out.println("Abono a saldo a favor Exitoso");
+            System.out.println("Abono a saldo a favor Exitoso");
 //                            si se abonó exitosamente el saldo a favor pasamos a eliminar la membresía.
-                String consultaEliminar1 = String.format("DELETE FROM pago_membresia WHERE membresiadatos_id=%s", identificador);
-                db.sqlEjec(consultaEliminar1);
-                String consultaEliminar2 = String.format("DELETE FROM membresia_datos WHERE id=%s", identificador);
-                db.sqlEjec(consultaEliminar2);
-                String consultaEliminar3 = String.format("DELETE FROM membresia_usuario WHERE socio_id=%s and membresia_id=%s and activa=TRUE", socioID, seleccion);
-                db.sqlEjec(consultaEliminar3);
-                updateDatos();
+            String consultaEliminar1 = String.format("DELETE FROM pago_membresia WHERE membresiadatos_id=%s", identificador);
+            db.sqlEjec(consultaEliminar1);
+            String consultaEliminar2 = String.format("DELETE FROM membresia_datos WHERE id=%s", identificador);
+            db.sqlEjec(consultaEliminar2);
+            String consultaEliminar3 = String.format("DELETE FROM membresia_usuario WHERE socio_id=%s and membresia_id=%s and activa=TRUE", socioID, seleccion);
+            db.sqlEjec(consultaEliminar3);
+            updateDatos();
 
-                if (saldoMembresia == 0.0) {
-                    Telegraph tele = new Telegraph("Eliminar Membresia", "Se ha eliminado la membresía exitosamente.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
-                    TelegraphQueue q = new TelegraphQueue();
-                    q.add(tele);
-                    return true;
-                } else {
-                    Telegraph tele = new Telegraph("Eliminar Membresia", "La membresía ha sido eliminada. Debe retornar al usuario la cantidad " + "<b>" + nuevoSaldoFavor + "</b>" + " de saldo a favor.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
-                    TelegraphQueue q = new TelegraphQueue();
-                    q.add(tele);
-                    return true;
-                }
-            
+            if (saldoMembresia == 0.0) {
+                Telegraph tele = new Telegraph("Eliminar Membresia", "Se ha eliminado la membresía exitosamente.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
+                return true;
+            } else {
+                Telegraph tele = new Telegraph("Eliminar Membresia", "La membresía ha sido eliminada. Debe retornar al usuario la cantidad " + "<b>" + nuevoSaldoFavor + "</b>" + " de saldo a favor.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 5000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
+                return true;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
