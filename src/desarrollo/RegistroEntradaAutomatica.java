@@ -27,6 +27,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     DB midb;
     int socio;
     int clave = 0;
+    int idEmpresa;
     String claveGuardar;
     Frame frame;
     VerSocio versocio;
@@ -45,6 +46,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         midb = new DB(); //objeto de base de datos
         this.setUndecorated(true);//quita bordes a jframe
         initComponents();
+        idEmpresa=1;
         lblImagen.setVisible(false);
         jLabel1.setText("BIENVENIDO A "+sonidos.CargarNombreTitulo().toUpperCase());
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//evita cerra jframe con ALT+C
@@ -152,7 +154,6 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
 
         lmsjVencimiento.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lmsjVencimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lmsjVencimiento.setText("VENCE LA MEMBRESIA");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,7 +215,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lmsjVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                .addComponent(lmsjVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -305,6 +306,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                                     lblNombreSocio.setText("");
                                     lblMembresiaVence.setText("");
                                     lblCumpleanios.setText("");
+                                    lmsjVencimiento.setText("");
                                     lblImagen.setVisible(false);
                                     lblFoto.setVisible(false);
 
@@ -445,14 +447,21 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         boolean correcto = true;
         int id = 0;
         int id2 = 0;
+        int id3=0;
         try {
-            CachedRowSet data, data2;
+            CachedRowSet data, data2,data3;
             DB db = new DB();
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM socio s ,membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia and md.fecha_fin_membresia and md.membresia_socio_id= mu.id and s.id=%s;", socio);
             data = db.sqlDatos(sql);
             
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '72h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
-            data2 = db.sqlDatos(sql2);
+            String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
+            data3 = db.sqlDatos(sql3);
+            while (data3.next()) {
+                id3 = data3.getInt("plazo_entrada");
+            }
+            int plazo_permitido=id3*24;
+            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '"+plazo_permitido+"h'  and md.membresia_socio_id= mu.id  and mu.socio_id=%s", socio);
+             data2 = db.sqlDatos(sql2);
             
             while (data.next()) {
                 id = data.getInt("cantidad");
@@ -463,15 +472,16 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
                 System.out.println("Su membresía no ha caducado o no es promocional.");
-                vencio="Su membresia vence el dia id 1:";
+                vencio="Su membresía vence el día:";
                 recordatorio="";
                 getVencimientoMembresias();
                 return true;
-            }else if(id2>=1){
+            }else if(id2>=1 && id3>=1){
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
-                System.out.println("Su membresía caduco tiene 3 dias para ponerse al dia");
-                vencio="Su membresia vencio el dia id 2:";
-                recordatorio="Recuerde que tiene 3 dias para realizar el pago";
+                
+                vencio="Su membresía vencio el día:";
+                System.out.println("Su membresía caduco tiene "+id3+" dias para ponerse al dia");
+                System.out.println("Su membresía caduco tiene "+plazo_permitido+" horas para ponerse al dia");
                 getVencimientoMembresias();
                 return true;
             } else {

@@ -164,7 +164,7 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lmsjVencimiento" pref="77" max="32767" attributes="0"/>
+                      <Component id="lmsjVencimiento" pref="48" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -254,7 +254,6 @@
                   <Font name="Tahoma" size="24" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="VENCE LA MEMBRESIA"/>
               </Properties>
             </Component>
           </SubComponents>
