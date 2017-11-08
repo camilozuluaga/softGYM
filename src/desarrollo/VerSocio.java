@@ -139,6 +139,62 @@ public class VerSocio extends javax.swing.JInternalFrame {
         lmsjVencimiento1 = new javax.swing.JLabel();
         lbComfenalco = new javax.swing.JLabel();
         JcongelarMembresia = new javax.swing.JCheckBox();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        lCodigo1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        lCodigo3 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        lCodigo7 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        lCodigo8 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        lCodigo9 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        lCodigo10 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        lCodigo11 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        lCodigo12 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        lCodigo13 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jPanel17 = new javax.swing.JPanel();
+        lCodigo4 = new javax.swing.JLabel();
+        lNombreUsuario2 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jPanel18 = new javax.swing.JPanel();
+        lCodigo21 = new javax.swing.JLabel();
+        lCodigo31 = new javax.swing.JLabel();
+        jTextField28 = new javax.swing.JTextField();
+        jTextField29 = new javax.swing.JTextField();
+        lCodigo34 = new javax.swing.JLabel();
+        jTextField32 = new javax.swing.JTextField();
+        jPanel19 = new javax.swing.JPanel();
+        lCodigo22 = new javax.swing.JLabel();
+        jTextField19 = new javax.swing.JTextField();
+        lCodigo23 = new javax.swing.JLabel();
+        jTextField20 = new javax.swing.JTextField();
+        lCodigo24 = new javax.swing.JLabel();
+        jTextField21 = new javax.swing.JTextField();
+        lCodigo25 = new javax.swing.JLabel();
+        jTextField22 = new javax.swing.JTextField();
+        lCodigo26 = new javax.swing.JLabel();
+        jTextField23 = new javax.swing.JTextField();
+        lCodigo27 = new javax.swing.JLabel();
+        jTextField24 = new javax.swing.JTextField();
+        lCodigo28 = new javax.swing.JLabel();
+        jTextField25 = new javax.swing.JTextField();
+        lCodigo29 = new javax.swing.JLabel();
+        jTextField26 = new javax.swing.JTextField();
+        lCodigo30 = new javax.swing.JLabel();
+        jTextField27 = new javax.swing.JTextField();
+        jPanel20 = new javax.swing.JPanel();
+        lCodigo32 = new javax.swing.JLabel();
+        lCodigo33 = new javax.swing.JLabel();
+        jTextField30 = new javax.swing.JTextField();
+        jTextField31 = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -362,7 +418,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(lEdad)
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                                            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(lmsjVencimiento)
@@ -460,6 +516,453 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Información Básica", jPanel1);
 
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Plieges (cm)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+
+        lCodigo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo1.setText("Tricipital:");
+
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo3.setText("Subescapular:");
+
+        jTextField2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo7.setText("Bíceps:");
+
+        jTextField3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo8.setText("Suprailiaco:");
+
+        jTextField4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo9.setText("Supraespinal:");
+
+        jTextField5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo10.setText("Abdominal:");
+
+        jTextField6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo11.setText("Muslo Frontal:");
+
+        jTextField7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo12.setText("Pierna Medial:");
+
+        jTextField8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo13.setText("Medio Axilar:");
+
+        jTextField9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo12)
+                            .addComponent(lCodigo13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                            .addComponent(jTextField9)))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo11)
+                            .addComponent(lCodigo10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                            .addComponent(jTextField7)))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo3)
+                            .addComponent(lCodigo1)
+                            .addComponent(lCodigo7)
+                            .addComponent(lCodigo8)
+                            .addComponent(lCodigo9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField1)
+                            .addComponent(jTextField5))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo3)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo7)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo8)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo9)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo10)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lCodigo11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo12)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo13)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 4, true), "Datos Socio"));
+
+        lCodigo4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo4.setText("Nombre:");
+
+        lNombreUsuario2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lNombreUsuario2.setText("Pepito Perez Pingüino");
+
+        jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 3, true), "Fecha Registro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lCodigo4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lNombreUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lNombreUsuario2)
+                        .addComponent(lCodigo4))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Talla y Peso (cm)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+
+        lCodigo21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo21.setText("Talla:");
+
+        lCodigo31.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo31.setText("Peso:");
+
+        jTextField28.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jTextField29.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo34.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo34.setText("IMC:");
+
+        jTextField32.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lCodigo31, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField28, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                            .addComponent(jTextField29)))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(lCodigo34, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField32)))
+                .addGap(24, 24, 24))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo21)
+                    .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo31)
+                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo34)
+                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), " Circunferencias (cm)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+
+        lCodigo22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo22.setText("Brazo relajado:");
+
+        jTextField19.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo23.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo23.setText("Brazo tensionado:");
+
+        jTextField20.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo24.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo24.setText("Antebrazo:");
+
+        jTextField21.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo25.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo25.setText("Muñeca:");
+
+        jTextField22.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo26.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo26.setText("Pecho:");
+
+        jTextField23.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo27.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo27.setText("Cintura:");
+
+        jTextField24.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo28.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo28.setText("Glúteos:");
+
+        jTextField25.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo29.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo29.setText("Muslo:");
+
+        jTextField26.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        lCodigo30.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo30.setText("Pierna:");
+
+        jTextField27.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo28)
+                            .addComponent(lCodigo27))
+                        .addGap(97, 97, 97)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField24)
+                            .addComponent(jTextField25)))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo29)
+                            .addComponent(lCodigo30))
+                        .addGap(106, 106, 106)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField26)
+                            .addComponent(jTextField27)))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(lCodigo23, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lCodigo24)
+                            .addComponent(lCodigo25)
+                            .addComponent(lCodigo26)
+                            .addComponent(lCodigo22))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField19)
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTextField21, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                                    .addComponent(jTextField20)
+                                    .addComponent(jTextField22))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTextField23))))
+                .addContainerGap())
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo22)
+                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo23)
+                    .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo24)
+                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo25)
+                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo26)
+                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo27)
+                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lCodigo28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo29)
+                    .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo30)
+                    .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Anchuras (cm)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
+
+        lCodigo32.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo32.setText("Húmero:");
+
+        lCodigo33.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lCodigo33.setText("Femur:");
+
+        jTextField30.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jTextField31.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lCodigo32, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lCodigo33, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField30, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jTextField31))
+                .addGap(24, 24, 24))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo32)
+                    .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lCodigo33)
+                    .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52))
+        );
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("MedidasAtropométricas", jPanel14);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -513,7 +1016,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(541, Short.MAX_VALUE))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,7 +1137,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -680,7 +1183,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -789,7 +1292,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -842,7 +1345,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 186, Short.MAX_VALUE))
+                .addGap(0, 190, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -866,73 +1369,105 @@ public class VerSocio extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {
-    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        if (txtBuscar.getText().length() >= 0) {
+            TableRowSorter sorter = new TableRowSorter(dtmEjemplo);
+            sorter.setRowFilter(RowFilter.regexFilter(".*" + txtBuscar.getText().trim() + ".*"));
+            jtFactura.setRowSorter(sorter);
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
-        //try {
-        //  if (ValidarMembresiasActivas()) {
-        try {
-            AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
-            sumarEntrada(socioID, 0);
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void jtFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFacturaMouseClicked
+        if (evt.getClickCount() == 1) {
+            int row = jtFactura.rowAtPoint(evt.getPoint());
+            int id = Integer.valueOf(jtFactura.getValueAt(row, 0).toString());
+            ImprimirRecibo imprimirRecibo = new ImprimirRecibo(id);
+            Frame.escritorio.add(imprimirRecibo);
+            imprimirRecibo.toFront();
+            imprimirRecibo.setVisible(true);
+            Utilidades.centrarInternalFrame(imprimirRecibo);
+        }
+    }//GEN-LAST:event_jtFacturaMouseClicked
+
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        if (evt.getClickCount() == 1) {
+            int row = tablaUltimasEntradas.rowAtPoint(evt.getPoint());
+            utilidades.construirFormulario(tablaUltimasEntradas, row, "Detalle Ultimas Entradas");
+        }
+    }//GEN-LAST:event_jTable6MouseClicked
+
+    private void JcongelarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcongelarMembresiaActionPerformed
+        if (JcongelarMembresia.isSelected()) {
+
+            CongelarMembresia congelarMembresia = new CongelarMembresia(socioID, this, JcongelarMembresia);
+            congelarMembresia.setVisible(true);
+
+        } else {
+            try {
+                modificarFechaFinMembresia(restarDias(diasRestantesCongelados(), obtenerFechaFinMembresias()), obtenerIdMembresias());
+                editarFechaCongelado(restarDiasFecha(diasRestantesCongelados(), obtenerFechaCongelacion()), socioID);
+            } catch (ParseException ex) {
+                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JcongelarMembresia.setText("Congelar Membresia");
             editarCongelado("descongelar", socioID);
-            miAgregarMembresia.setVisible(true);
+            updateDatos();
+        }
+    }//GEN-LAST:event_JcongelarMembresiaActionPerformed
+
+    private void tablaMembresiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMembresiasMouseClicked
+        if (evt.getClickCount() == 1) {
+            int row = tablaMembresias.rowAtPoint(evt.getPoint());
+            utilidades.construirFormulario(tablaMembresias, row, "Detalle Membresias Adquiridas");
+        }
+    }//GEN-LAST:event_tablaMembresiasMouseClicked
+
+    private void tablaUltimasEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUltimasEntradasMouseClicked
+        if (evt.getClickCount() == 1) {
+            int row = tablaUltimasEntradas.rowAtPoint(evt.getPoint());
+            utilidades.construirFormulario(tablaUltimasEntradas, row, "Detalle Ultimas Entradas");
+        }
+    }//GEN-LAST:event_tablaUltimasEntradasMouseClicked
+
+    private void tablaUltimosPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUltimosPagosMouseClicked
+        if (evt.getClickCount() == 1) {
+            int row = tablaUltimosPagos.rowAtPoint(evt.getPoint());
+            utilidades.construirFormulario(tablaUltimosPagos, row, "Detalle Pago");
+        }
+    }//GEN-LAST:event_tablaUltimosPagosMouseClicked
+
+    private void bRegistrarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarVisitaActionPerformed
+        try {
+            RegistrarVisita rg = new RegistrarVisita(getDatosSocio()[0], getDatosSocio()[1], getDatosSocio()[2], getDatosSocio()[3], getDatosSocio()[4], getDatosSocio()[5]);
+            Frame.escritorio.add(rg);
+            rg.toFront();
+            Utilidades.centrarInternalFrame(rg);
+            rg.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //} else {
-        //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
-        //TelegraphQueue q = new TelegraphQueue();
-        //q.add(tele);
-
-        // }
-        //} catch (ParseException ex) {
-        //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-        //}
-
-    }//GEN-LAST:event_bAgregarMembresiasActionPerformed
-
-    private void bRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {
-        RegistrarPagoMembresia pago = new RegistrarPagoMembresia(socioID, this);
-        pago.setVisible(true);
-        pago.setLocationRelativeTo(null);
-        pago.setAlwaysOnTop(true);
-
-    }
-
-    private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaActionPerformed
-        try {
-            RegistrarEntrada registrarEntrada = new RegistrarEntrada(socioID, this);
-            arduino = new puerta.Puerta();
-            arduino.openDoor();
-        } catch (ParseException | SQLException ex) {
-            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_btnRegistrarEntradaActionPerformed
-
-    private void btnEditarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSocioActionPerformed
-        CrearSocio crearSocio = new CrearSocio(socioID, this);
-        Frame.escritorio.add(crearSocio);
-        crearSocio.toFront();
-        crearSocio.setVisible(true);
-    }//GEN-LAST:event_btnEditarSocioActionPerformed
-
+    }//GEN-LAST:event_bRegistrarVisitaActionPerformed
 
     private void bEliminarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarMembresiaActionPerformed
 
@@ -950,7 +1485,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
                 // verificar que la membresía seleccionada está activa.
                 String consultaMembresiaSeleccionadaEstaActiva = String.format("SELECT activa from membresia_usuario where id=%s;", membresia_id);
-                System.out.println("activa: SELECT activa from membresia_usuario where id="+membresia_id);
+                System.out.println("activa: SELECT activa from membresia_usuario where id=" + membresia_id);
                 ResultSet rs2 = db.sqlDatos(consultaMembresiaSeleccionadaEstaActiva);
                 boolean activa = false;
                 if (rs2.next()) {
@@ -964,7 +1499,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 } else if (!ValidarPago()) {
                     int cajaDelPago = 0;
                     CachedRowSet data;
-                    String query = "SELECT id_caja  FROM pago_membresia WHERE pago>0 AND membresiadatos_id="+membresia_id;
+                    String query = "SELECT id_caja  FROM pago_membresia WHERE pago>0 AND membresiadatos_id=" + membresia_id;
                     data = db.sqlDatos(query);
                     try {
                         while (data.next()) {
@@ -973,42 +1508,42 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    cajaActual=utilidades.cajaActual();
-                    System.out.println("caja del pago "+cajaDelPago );
-                    System.out.println("caja actual "+cajaActual);
-                    if (cajaDelPago==cajaActual) {
-                         String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
-                    ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
-                    int identificador = 0;
-                    if (rs3.next()) {
-                        identificador = rs3.getInt("identificador");
-                        System.out.println("identificador = " + identificador);
-                    }
-                    String consultaCuandoHaPagado = String.format("SELECT saldo FROM pago_membresia where membresiadatos_id =%s ORDER BY fecha_registro DESC limit 1;", identificador);
-                    ResultSet rs4 = db.sqlDatos(consultaCuandoHaPagado);
-                    double saldoMembresia = 0.0;
-                    if (rs4.next()) {
-                        // esta consulta permite saber cuanto se ha pagado por una membresía.
-                        saldoMembresia = rs4.getDouble("saldo");
-                        System.out.println("saldoMembresia = " + saldoMembresia);
-                    }
+                    cajaActual = utilidades.cajaActual();
+                    System.out.println("caja del pago " + cajaDelPago);
+                    System.out.println("caja actual " + cajaActual);
+                    if (cajaDelPago == cajaActual) {
+                        String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
+                        ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
+                        int identificador = 0;
+                        if (rs3.next()) {
+                            identificador = rs3.getInt("identificador");
+                            System.out.println("identificador = " + identificador);
+                        }
+                        String consultaCuandoHaPagado = String.format("SELECT saldo FROM pago_membresia where membresiadatos_id =%s ORDER BY fecha_registro DESC limit 1;", identificador);
+                        ResultSet rs4 = db.sqlDatos(consultaCuandoHaPagado);
+                        double saldoMembresia = 0.0;
+                        if (rs4.next()) {
+                            // esta consulta permite saber cuanto se ha pagado por una membresía.
+                            saldoMembresia = rs4.getDouble("saldo");
+                            System.out.println("saldoMembresia = " + saldoMembresia);
+                        }
 
-                    if (saldoMembresia == 0.0) {
-                        System.out.println("El usuario ya pagó esta membresía o es gratuita.");
+                        if (saldoMembresia == 0.0) {
+                            System.out.println("El usuario ya pagó esta membresía o es gratuita.");
 
-                        String cosultaValorMembresia = String.format("SELECT saldo as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s", socioID, identificador);
-                        abonandoSaldoSocio(cosultaValorMembresia, identificador);
+                            String cosultaValorMembresia = String.format("SELECT saldo as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s", socioID, identificador);
+                            abonandoSaldoSocio(cosultaValorMembresia, identificador);
 
-                    } else if (saldoMembresia != 0) {
-                        System.out.println("El usuario abonó a la membresía o no la ha pagado.");
+                        } else if (saldoMembresia != 0) {
+                            System.out.println("El usuario abonó a la membresía o no la ha pagado.");
 
-                        String consultaValorAbonado = String.format("SELECT pago as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s ORDER BY id DESC", socioID, identificador);
-                        abonandoSaldoSocio(consultaValorAbonado, identificador);
-                    }
-                    }else{
-                    Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya se cerro la caja con la cual fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
-                    TelegraphQueue q = new TelegraphQueue();
-                    q.add(tele);
+                            String consultaValorAbonado = String.format("SELECT pago as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s ORDER BY id DESC", socioID, identificador);
+                            abonandoSaldoSocio(consultaValorAbonado, identificador);
+                        }
+                    } else {
+                        Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya se cerro la caja con la cual fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
+                        TelegraphQueue q = new TelegraphQueue();
+                        q.add(tele);
                     }
 
                 } else {
@@ -1050,95 +1585,55 @@ public class VerSocio extends javax.swing.JInternalFrame {
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
         }
-
     }//GEN-LAST:event_bEliminarMembresiaActionPerformed
 
-    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        // TODO add your handling code here:
-        if (txtBuscar.getText().length() >= 0) {
-            TableRowSorter sorter = new TableRowSorter(dtmEjemplo);
-            sorter.setRowFilter(RowFilter.regexFilter(".*" + txtBuscar.getText().trim() + ".*"));
-            jtFactura.setRowSorter(sorter);
-        }
-    }//GEN-LAST:event_txtBuscarKeyReleased
+    private void btnEditarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSocioActionPerformed
+        CrearSocio crearSocio = new CrearSocio(socioID, this);
+        Frame.escritorio.add(crearSocio);
+        crearSocio.toFront();
+        crearSocio.setVisible(true);
+    }//GEN-LAST:event_btnEditarSocioActionPerformed
 
-    private void jtFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFacturaMouseClicked
-        if (evt.getClickCount() == 1) {
-            int row = jtFactura.rowAtPoint(evt.getPoint());
-            int id = Integer.valueOf(jtFactura.getValueAt(row, 0).toString());
-            ImprimirRecibo imprimirRecibo = new ImprimirRecibo(id);
-            Frame.escritorio.add(imprimirRecibo);
-            imprimirRecibo.toFront();
-            imprimirRecibo.setVisible(true);
-            Utilidades.centrarInternalFrame(imprimirRecibo);
-        }
-    }//GEN-LAST:event_jtFacturaMouseClicked
+    private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
 
-    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
-
-    }//GEN-LAST:event_txtBuscarFocusLost
-
-    private void tablaUltimosPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUltimosPagosMouseClicked
-        if (evt.getClickCount() == 1) {
-            int row = tablaUltimosPagos.rowAtPoint(evt.getPoint());
-            utilidades.construirFormulario(tablaUltimosPagos, row, "Detalle Pago");
-        }
-    }//GEN-LAST:event_tablaUltimosPagosMouseClicked
-
-    private void tablaUltimasEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUltimasEntradasMouseClicked
-        if (evt.getClickCount() == 1) {
-            int row = tablaUltimasEntradas.rowAtPoint(evt.getPoint());
-            utilidades.construirFormulario(tablaUltimasEntradas, row, "Detalle Ultimas Entradas");
-        }
-    }//GEN-LAST:event_tablaUltimasEntradasMouseClicked
-
-    private void tablaMembresiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMembresiasMouseClicked
-        if (evt.getClickCount() == 1) {
-            int row = tablaMembresias.rowAtPoint(evt.getPoint());
-            utilidades.construirFormulario(tablaMembresias, row, "Detalle Membresias Adquiridas");
-        }
-    }//GEN-LAST:event_tablaMembresiasMouseClicked
-
-    private void bRegistrarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarVisitaActionPerformed
+        //try {
+        //  if (ValidarMembresiasActivas()) {
         try {
-            RegistrarVisita rg = new RegistrarVisita(getDatosSocio()[0], getDatosSocio()[1], getDatosSocio()[2], getDatosSocio()[3], getDatosSocio()[4], getDatosSocio()[5]);
-            Frame.escritorio.add(rg);
-            rg.toFront();
-            Utilidades.centrarInternalFrame(rg);
-            rg.setVisible(true);
+            AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
+            sumarEntrada(socioID, 0);
+            editarCongelado("descongelar", socioID);
+            miAgregarMembresia.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_bRegistrarVisitaActionPerformed
+        //} else {
+        //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+        //TelegraphQueue q = new TelegraphQueue();
+        //q.add(tele);
 
-    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
-        if (evt.getClickCount() == 1) {
-            int row = tablaUltimasEntradas.rowAtPoint(evt.getPoint());
-            utilidades.construirFormulario(tablaUltimasEntradas, row, "Detalle Ultimas Entradas");
+        // }
+        //} catch (ParseException ex) {
+        //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        //}
+    }//GEN-LAST:event_bAgregarMembresiasActionPerformed
+
+    private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaActionPerformed
+        try {
+            RegistrarEntrada registrarEntrada = new RegistrarEntrada(socioID, this);
+            arduino = new puerta.Puerta();
+            arduino.openDoor();
+        } catch (ParseException | SQLException ex) {
+            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jTable6MouseClicked
+    }//GEN-LAST:event_btnRegistrarEntradaActionPerformed
 
-    private void JcongelarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcongelarMembresiaActionPerformed
-        if (JcongelarMembresia.isSelected()) {
-
-            CongelarMembresia congelarMembresia = new CongelarMembresia(socioID, this, JcongelarMembresia);
-            congelarMembresia.setVisible(true);
-
-        } else {
-            try {
-                modificarFechaFinMembresia(restarDias(diasRestantesCongelados(),obtenerFechaFinMembresias()),obtenerIdMembresias());          
-                editarFechaCongelado(restarDiasFecha(diasRestantesCongelados(), obtenerFechaCongelacion()), socioID);
-            } catch (ParseException ex) {
-                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JcongelarMembresia.setText("Congelar Membresia");
-            editarCongelado("descongelar", socioID);
-            updateDatos();
-        }
-    }//GEN-LAST:event_JcongelarMembresiaActionPerformed
-
+    private void bRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarPagoActionPerformed
+        // TODO add your handling code here:
+        RegistrarPagoMembresia pago = new RegistrarPagoMembresia(socioID, this);
+        pago.setVisible(true);
+        pago.setLocationRelativeTo(null);
+        pago.setAlwaysOnTop(true);
+    }//GEN-LAST:event_bRegistrarPagoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox JcongelarMembresia;
@@ -1154,6 +1649,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1174,7 +1670,14 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1194,11 +1697,59 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField20;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField jTextField23;
+    private javax.swing.JTextField jTextField24;
+    private javax.swing.JTextField jTextField25;
+    private javax.swing.JTextField jTextField26;
+    private javax.swing.JTextField jTextField27;
+    private javax.swing.JTextField jTextField28;
+    private javax.swing.JTextField jTextField29;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField30;
+    private javax.swing.JTextField jTextField31;
+    private javax.swing.JTextField jTextField32;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JTable jtFactura;
     private javax.swing.JLabel lCodigo;
+    private javax.swing.JLabel lCodigo1;
+    private javax.swing.JLabel lCodigo10;
+    private javax.swing.JLabel lCodigo11;
+    private javax.swing.JLabel lCodigo12;
+    private javax.swing.JLabel lCodigo13;
+    private javax.swing.JLabel lCodigo21;
+    private javax.swing.JLabel lCodigo22;
+    private javax.swing.JLabel lCodigo23;
+    private javax.swing.JLabel lCodigo24;
+    private javax.swing.JLabel lCodigo25;
+    private javax.swing.JLabel lCodigo26;
+    private javax.swing.JLabel lCodigo27;
+    private javax.swing.JLabel lCodigo28;
+    private javax.swing.JLabel lCodigo29;
+    private javax.swing.JLabel lCodigo3;
+    private javax.swing.JLabel lCodigo30;
+    private javax.swing.JLabel lCodigo31;
+    private javax.swing.JLabel lCodigo32;
+    private javax.swing.JLabel lCodigo33;
+    private javax.swing.JLabel lCodigo34;
+    private javax.swing.JLabel lCodigo4;
+    private javax.swing.JLabel lCodigo7;
+    private javax.swing.JLabel lCodigo8;
+    private javax.swing.JLabel lCodigo9;
     private javax.swing.JLabel lEdad;
     private javax.swing.JLabel lEstadoCuentaDescripcion;
     private javax.swing.JLabel lNombreUsuario;
+    private javax.swing.JLabel lNombreUsuario2;
     private javax.swing.JLabel lbComfenalco;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lmsjVencimiento;
@@ -1333,7 +1884,6 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 lNombreUsuario.setText(data.getString("usuario"));
                 lCodigo.setText("Código: " + data.getString("clave"));
                 lEdad.setText(data.getString("edad"));
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -1560,13 +2110,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
 //                            si se abonó exitosamente el saldo a favor pasamos a eliminar la membresía.
             String consultaEliminar1 = String.format("DELETE FROM pago_membresia WHERE membresiadatos_id=%s", identificador);
             db.sqlEjec(consultaEliminar1);
-            
+
             String consultaEliminar2 = String.format("DELETE FROM membresia_datos WHERE id=%s", identificador);
             db.sqlEjec(consultaEliminar2);
 
             String consultaEliminar4 = String.format("DELETE FROM factura WHERE socio_id=%s and id_membresia_usuario=%s", socioID, seleccion);
             db.sqlEjec(consultaEliminar4);
-            
+
             String consultaEliminar3 = String.format("DELETE FROM membresia_usuario WHERE socio_id=%s and id=%s and activa=TRUE", socioID, seleccion);
             db.sqlEjec(consultaEliminar3);
             updateDatos();
@@ -1881,6 +2431,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         return anioActual + "-" + mesActual + "-" + aux;
     }
+
     public ArrayList<String> restarDias(int dias, ArrayList<String> fechas) throws ParseException {
         for (int i = 0; i < fechas.size(); i++) {
 
