@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -23,8 +25,9 @@ import javax.swing.tree.TreePath;
 public class Help extends javax.swing.JFrame {
 
     //dirección de la carpeta de archivos HTML e imagenes
-    private File aux = new File("");
-   String help_path=aux.getAbsolutePath()+"\\src\\help\\";
+    File fichero = new File("help");
+    String help_path=fichero.getAbsolutePath()+"\\";
+   
 
     /**
      * Constructor
@@ -32,7 +35,7 @@ public class Help extends javax.swing.JFrame {
     public Help() {
         initComponents();
         setLocationRelativeTo(this);
-        System.out.println(help_path+"************");
+        System.out.println(help_path);
         setTitle("Ayuda Hercules");
         this.setBounds(0, 0, 1300, 700);
         //propiedades de splipanel
@@ -69,6 +72,7 @@ public class Help extends javax.swing.JFrame {
         render.setLeafIcon(new ImageIcon(getClass().getResource("sheet.jpg")));
         render.setOpenIcon(new ImageIcon(getClass().getResource("open.jpg")));
         render.setClosedIcon(new ImageIcon(getClass().getResource("close.jpg")));
+        
     }
 
     /**

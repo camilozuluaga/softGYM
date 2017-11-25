@@ -5,6 +5,7 @@
       - [Registrar Visita][registrar_visita]
       - [Crear Membresia][membresia]
       - [Buscar Socio][buscar]
+      - [Cerrar Caja][cierre_caja]
    |[Socio][socio]
       - [Crear Socio][Crear_socio]
       - [buscar Socio][buscar]
@@ -15,3 +16,5 @@
       - [Pagar Membresia][pagar_membresia]
    |[Barra Superior][menu_superior]
       - [Archivos][archivos]
+      - [Acciones][acciones]
+      - [Administracion][administracion]

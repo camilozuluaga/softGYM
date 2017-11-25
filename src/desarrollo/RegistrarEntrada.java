@@ -1155,7 +1155,8 @@ public final class RegistrarEntrada {
         String anio = Integer.toString(c1.get(Calendar.YEAR));  
         String fechafin=obtenerFechaCongelacion(clave);
         String fecha_actual = anio + "-0" + mes + "-" + dia;
-        if(fechafin.equals("")){
+        System.out.println(fechafin);
+        if(fechafin==null||fechafin.equals("")){
             fechafin=fecha_actual;
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

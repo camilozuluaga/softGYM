@@ -274,7 +274,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         actualizarMembresias(socio);
                         System.out.println("*******************************************************");
                     }
-                    miEntrada = new RegistrarEntrada(clave, null);
+                     miEntrada = new RegistrarEntrada(clave, null);
                     pass.setText("");
 
                     Thread hiloEntrada = new Thread(new Runnable() {
