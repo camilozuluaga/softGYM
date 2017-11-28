@@ -27,7 +27,7 @@ public class Help extends javax.swing.JFrame {
     //dirección de la carpeta de archivos HTML e imagenes
     //File fichero = new File("\\src\\help\\");
     //String help_path=fichero.getAbsolutePath()+"\\";
-      private String help_path = System.getProperty("user.dir") + "\\dist\\help\\";
+      private String help_path = System.getProperty("user.dir") + "\\help\\";
    
 
     /**
