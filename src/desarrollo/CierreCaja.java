@@ -603,6 +603,8 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 inicio.setVisible(true);
 
                 utilidades.verificarBackups("backup_cierrecaja");
+                ventana.pp.cerrarConexion();
+                
             } else {
                 Telegraph tele = new Telegraph("Cierre Caja", "No se ha cerrado correctamente la caja", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 9000);
                 TelegraphQueue q = new TelegraphQueue();

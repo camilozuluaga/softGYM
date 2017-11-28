@@ -189,6 +189,7 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
 
         cboPuerto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar" }));
 
+        btnConectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/buscar.png"))); // NOI18N
         btnConectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConectarActionPerformed(evt);
