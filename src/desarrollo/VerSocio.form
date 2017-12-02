@@ -26,7 +26,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="0" pref="779" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -92,7 +92,7 @@
                                                           <Component id="lEdad" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
-                                                      <Component id="lNombreUsuario" pref="470" max="32767" attributes="0"/>
+                                                      <Component id="lNombreUsuario" pref="477" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="32767" attributes="0"/>
                                               </Group>
@@ -624,7 +624,7 @@
                                   <Component id="jLabel18" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="541" max="32767" attributes="0"/>
+                          <EmptySpace pref="554" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -884,7 +884,7 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <EmptySpace pref="166" max="32767" attributes="0"/>
+                                      <EmptySpace pref="179" max="32767" attributes="0"/>
                                       <Component id="jButton2" min="-2" pref="113" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1063,7 +1063,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                       <Component id="jLabel15" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <EmptySpace pref="166" max="32767" attributes="0"/>
+                                      <EmptySpace pref="179" max="32767" attributes="0"/>
                                       <Component id="jButton5" min="-2" pref="113" max="-2" attributes="0"/>
                                   </Group>
                               </Group>

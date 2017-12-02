@@ -377,8 +377,8 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10))
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboSexo, 0, 183, Short.MAX_VALUE)
-                                    .addComponent(cbComfenalco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbComfenalco, 0, 183, Short.MAX_VALUE)
                                     .addComponent(txtTelefono))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -494,7 +494,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 487, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
                 .addComponent(jcEstado)
                 .addGap(107, 107, 107))
         );
@@ -808,7 +808,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                 if (!txtPrimerApellido.getText().isEmpty()) {
                     if (!cboSexo.getSelectedItem().toString().isEmpty()) {
                         if (socioId > 0) {
-                            querySQL = String.format("UPDATE socio SET identificacion='%s',primer_nombre='%s',segundo_nombre='%s',primer_apellido='%s',segundo_apellido='%s',fecha_nacimiento=%s,telefono='%s',email='%s',sexo='%s', activo=%s , comfenalco=%s WHERE id=%s", identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, estado,comfenalco, socioId);
+                            querySQL = String.format("UPDATE socio SET identificacion='%s',primer_nombre='%s',segundo_nombre='%s',primer_apellido='%s',segundo_apellido='%s',fecha_nacimiento=%s,telefono='%s',email='%s',sexo='%s', activo=%s , comfenalco='%s' WHERE id='%s'", identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, email, sexo, estado,comfenalco, socioId);
                             success = db.sqlEjec(querySQL);
                             if (success) {
                                 this.dispose();

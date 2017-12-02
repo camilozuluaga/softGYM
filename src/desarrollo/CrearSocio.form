@@ -122,8 +122,8 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cboSexo" pref="183" max="32767" attributes="0"/>
-                                      <Component id="cbComfenalco" max="32767" attributes="0"/>
+                                      <Component id="cboSexo" max="32767" attributes="0"/>
+                                      <Component id="cbComfenalco" pref="183" max="32767" attributes="0"/>
                                       <Component id="txtTelefono" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -612,7 +612,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="252" max="-2" attributes="0"/>
-                  <EmptySpace pref="487" max="32767" attributes="0"/>
+                  <EmptySpace pref="524" max="32767" attributes="0"/>
                   <Component id="jcEstado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
               </Group>
