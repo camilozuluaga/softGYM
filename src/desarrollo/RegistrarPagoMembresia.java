@@ -382,7 +382,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
     private void cDineroRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyTyped
         // TODO add your handling code here:
         int tamano = cDineroRecibido.getText().length();
-        if (tamano > 5) {
+        if (tamano > 7) {
             Telegraph tele = new Telegraph("PAGO MEMBRESIA", "NO SE HA PODIDO AGREGAR ESTE PAGO \n HA SOBREPASASO EL VALOR DE LOS PAGOS", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
