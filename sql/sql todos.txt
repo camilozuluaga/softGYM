@@ -1,0 +1,66 @@
+alter table pago_membresia add column id_caja integer ;
+ALTER TABLE pago_membresia ADD CONSTRAINT fk_caja_membre
+   FOREIGN KEY (id_caja) 
+   REFERENCES "caja"(id);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+alter table factura add column id_membresia_usuario integer 
+ ALTER TABLE factura ADD CONSTRAINT fk_usuario_membresia
+   FOREIGN KEY (id_membresia_usuario) 
+   REFERENCES "membresia_usuario"(id);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+alter table socio add entradas_hoy int;
+alter table socio add fecha_ultima_enntrada character varying;
+alter table socio add fecha_descongelar date;
+alter table socio add congelado character varying;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#Tabla para guardar el puerto con el que se va conectar el computador y el dispositivo
+CREATE TABLE puerto(port character varying(10) PRIMARY KEY NOT NULL);
+#Es de santiago
+Alter table socio add fecha_descongelar date;
+#Es de santiago
+alter table socio add congelado character varying;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+CREATE TABLE membresia_restriccion_entradas
+(
+  id serial NOT NULL,
+  membresia_id integer NOT NULL,
+  usuario_sistema_id integer,
+  cantidad_dias integer NOT NULL,
+  fecha_registro timestamp without time zone,
+  CONSTRAINT membresia_restriccion_entradas_pkey PRIMARY KEY (id ),
+  CONSTRAINT membresia_restriccion_semana_entradas_id_fkey FOREIGN KEY (membresia_id)
+      REFERENCES membresia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT membresia_restriccion_entradas_usuario_sistema_id_fkey FOREIGN KEY (usuario_sistema_id)
+      REFERENCES usuario_sistema (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE membresia_restriccion_entradas
+  OWNER TO gidsoft;
+
+-- Trigger: auditoria on membresia_restriccion_semana
+
+-- DROP TRIGGER auditoria ON membresia_restriccion_semana;
+
+CREATE TRIGGER auditoria
+  AFTER INSERT OR UPDATE OR DELETE
+  ON membresia_restriccion_entradas
+  FOR EACH ROW
+  EXECUTE PROCEDURE registrar_auditoria();
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ALTER TABLE socio ADD COLUMN comfenalco character varying(5);
+ALTER TABLE empresa ADD COLUMN plazo_entrada smallint;
+ALTER TABLE empresa ADD COLUMN imagen bytea;
+alter table membresia_datos add column activa boolean;
+alter table membresia_usuario add column id_caja integer;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+UPDATE socio SET comfenalco = 'N';
+UPDATE socio SET congelado= 'descongelar';
+update membresia_datos set activa=true;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+alter table membresia_datos add column activa boolean;

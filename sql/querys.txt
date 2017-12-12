@@ -1,6 +1,0 @@
-#Tabla para guardar el puerto con el que se va conectar el computador y el dispositivo
-CREATE TABLE puerto(port character varying(10) PRIMARY KEY NOT NULL);
-#Es de santiago
-Alter table socio add fecha_descongelar date;
-#Es de santiago
-alter table socio add congelado character varying;

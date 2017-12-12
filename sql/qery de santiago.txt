@@ -1,4 +1,0 @@
-alter table socio add entradas_hoy int;
-alter table socio add fecha_ultima_enntrada character varying;
-alter table socio add fecha_descongelar;
-alter table socio add congelado character varying;
