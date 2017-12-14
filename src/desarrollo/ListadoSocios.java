@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import logica.DB;
 import logica.Utilidades;
+import puerta.Puerta;
 
 /**
  *
@@ -25,6 +26,8 @@ public class ListadoSocios extends javax.swing.JInternalFrame {
     private DB db = new DB();
     private final Frame Ventana;
     private Utilidades utils = new Utilidades();
+    Puerta arduino;
+
     /**
      * Creates new form ListadoSocios
      *
@@ -36,6 +39,7 @@ public class ListadoSocios extends javax.swing.JInternalFrame {
         this.busqueda = busqueda;
         this.Ventana = Ventana;
         configurarListado(busqueda, false);
+        arduino = Ventana.pp;
     }
 
     /**
@@ -164,7 +168,7 @@ public class ListadoSocios extends javax.swing.JInternalFrame {
             int id = Integer.valueOf(tablaSocios.getValueAt(row, 0).toString());
             this.dispose();
             try {
-                Ventana.agregarInternalFrame(new VerSocio(id));
+                Ventana.agregarInternalFrame(new VerSocio(arduino, id));
             } catch (SQLException | ParseException ex) {
                 Logger.getLogger(ListadoSocios.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -189,7 +193,6 @@ public class ListadoSocios extends javax.swing.JInternalFrame {
             CachedRowSet data;
             DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"Cod.", "Clave", "Socio", "Telefono", "Estado"});
 
-
             data = utils.buscarSocios(busqueda, inactivos);
             tablaSocios = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaSocios);
             tablaSocios.getColumnModel().getColumn(0).setMinWidth(0);
@@ -204,9 +207,5 @@ public class ListadoSocios extends javax.swing.JInternalFrame {
         }
 
     }
-
-
-
-
 
 }

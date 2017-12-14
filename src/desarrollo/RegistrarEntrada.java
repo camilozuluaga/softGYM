@@ -19,6 +19,7 @@ import net.sf.jcarrierpigeon.WindowPosition;
 import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
+import puerta.Puerta;
 
 /**
  * Esta clase registra la entrada de un socio.
@@ -50,7 +51,7 @@ public final class RegistrarEntrada {
     boolean entrarTodoElDia; // usado para cuando hay límite de días a la semana pero no hay límite de visitas por día.
     boolean contadorFlag; //usado con un propósito específico de notificar si ya se le avisó al socio que es su ultima entrada. 
     Utilidades sonido = new Utilidades();
-    puerta.Puerta pp = new puerta.Puerta();
+    Puerta pp;
     int plazoEntrada;
 
     /**
@@ -60,10 +61,11 @@ public final class RegistrarEntrada {
      * @throws java.sql.SQLException
      * @throws java.text.ParseException
      */
-    public RegistrarEntrada(int socio_id, VerSocio ventanaVerSocio) throws SQLException, ParseException {
+    public RegistrarEntrada(Puerta arduino, int socio_id, VerSocio ventanaVerSocio) throws SQLException, ParseException {
+        pp = arduino;
         this.socio = socio_id;
         idEmpresa = 1;
-        registroEntradaAutomatica = new RegistroEntradaAutomatica();
+        registroEntradaAutomatica = new RegistroEntradaAutomatica(arduino);
         contadorFlag = false;
         entrada = false;
         diaSemana = 0;
@@ -79,6 +81,7 @@ public final class RegistrarEntrada {
         validarentradas(socio_id);
         idMembresiaAdquirida = traerIdMembresiaAdquirida(); // no es el id de la membresía sino el id de membresia_usuario. (es el id de contrato de adquisicion)
         validaciones();
+        
         
       
         try {

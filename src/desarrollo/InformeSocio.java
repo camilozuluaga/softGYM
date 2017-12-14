@@ -20,8 +20,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
+import puerta.Puerta;
 
 /**
  *
@@ -37,8 +37,9 @@ public class InformeSocio extends javax.swing.JInternalFrame {
     logica.Utilidades utilidades = new logica.Utilidades();
     CierreCaja caja = new CierreCaja();
     int idSocio;
+    Puerta arduino;
 
-    public InformeSocio() {
+    public InformeSocio(Puerta pp) {
         initComponents();
         cargarDias();
         cargarDia();
@@ -46,6 +47,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
         Calendar fechaActual = new GregorianCalendar();
         deUno.setCalendar(fechaActual);
         aUno.setCalendar(fechaActual);
+        arduino = pp;
     }
 
     /**
@@ -492,7 +494,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             idSocio = Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
             VerSocio verSocio = null;
             try {
-                verSocio = new VerSocio(idSocio);
+                verSocio = new VerSocio(arduino, idSocio);
             } catch (SQLException ex) {
                 Logger.getLogger(InformeSocio.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
@@ -513,17 +515,16 @@ public class InformeSocio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboDiaActionPerformed
 
     private void cboDiaDosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDiaDosActionPerformed
-      
+
         if (rExpiradas.isSelected()) {
-            
+
             expirarDespues();
         }
     }//GEN-LAST:event_cboDiaDosActionPerformed
 
     private void mesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mesMouseClicked
 
-
-    // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_mesMouseClicked
 
     private void mesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mesMousePressed
@@ -567,7 +568,7 @@ public class InformeSocio extends javax.swing.JInternalFrame {
 
     public void listadoTodosLosSocios() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "FECHA REGISTRO","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "FECHA REGISTRO", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT id,CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, sexo AS Sexo, fecha_registro AS FechaRegistro, comfenalco "
@@ -896,8 +897,5 @@ public class InformeSocio extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay datos en la tabla para exportar", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
-   
 
 }

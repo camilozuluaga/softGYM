@@ -69,7 +69,7 @@ public class Frame extends javax.swing.JFrame {
         lbUsuario.setText("USUARIO: " + aperturaCaja.cargarUsuario());
         pp = new puerta.Puerta();
        
-        pp.openConnection();
+        pp.abrirConexion(pp.consultarPuerto());
     }
 
     public Frame(String id) throws SQLException, ParseException {
@@ -85,7 +85,7 @@ public class Frame extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
         pp = new puerta.Puerta();
 
-        pp.openConnection();
+        pp.abrirConexion(pp.consultarPuerto());
     }
 
     public void cargarImagen(JDesktopPane jDeskp, InputStream fileImagen) {
@@ -631,7 +631,7 @@ public class Frame extends javax.swing.JFrame {
         agregarInternalFrame(escritorio, new CrearSocio());     }//GEN-LAST:event_btnCrearSocioActionPerformed
 
     private void btnRegistrarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVisitaActionPerformed
-        agregarInternalFrame(escritorio, new RegistrarVisita());
+        agregarInternalFrame(escritorio, new RegistrarVisita(pp));
     }//GEN-LAST:event_btnRegistrarVisitaActionPerformed
 
     private void btnRegistrarEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEgresoActionPerformed
@@ -657,7 +657,7 @@ public class Frame extends javax.swing.JFrame {
 
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        RegistroEntradaAutomatica miFrameBloqueo1 = new RegistroEntradaAutomatica();
+        RegistroEntradaAutomatica miFrameBloqueo1 = new RegistroEntradaAutomatica(pp);
         miFrameBloqueo1.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
@@ -760,7 +760,7 @@ public class Frame extends javax.swing.JFrame {
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
-        agregarInternalFrame(escritorio, new InformeSocio());
+        agregarInternalFrame(escritorio, new InformeSocio(pp));
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -785,7 +785,7 @@ public class Frame extends javax.swing.JFrame {
 
     private void itemAdministrarPuertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAdministrarPuertaActionPerformed
         try {
-            agregarInternalFrame(escritorio, new AdministrarPuerta());
+            agregarInternalFrame(escritorio, new AdministrarPuerta(pp,this));
         } catch (SQLException | IOException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -803,7 +803,7 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        agregarInternalFrame(escritorio, new InformeSocioComfenalco());
+        agregarInternalFrame(escritorio, new InformeSocioComfenalco(pp));
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
@@ -958,7 +958,7 @@ public class Frame extends javax.swing.JFrame {
         if (usuarioId == -1) {
             agregarInternalFrame(escritorio, new ListadoSocios(txtBuscar.getText(), this));
         } else {
-            agregarInternalFrame(new VerSocio(usuarioId));
+            agregarInternalFrame(new VerSocio(pp,usuarioId));
         }
     }
 

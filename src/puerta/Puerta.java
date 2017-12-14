@@ -5,12 +5,19 @@
  */
 package puerta;
 
+import com.panamahitek.ArduinoException;
+import com.panamahitek.PanamaHitek_Arduino;
+import desarrollo.AdministrarCaja;
+import desarrollo.AdministrarPuerta;
 import desarrollo.login;
+import desarrollo.loginReinicio;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import jssc.*;
 import logica.DB;
 import net.sf.jcarrierpigeon.WindowPosition;
@@ -22,38 +29,90 @@ public class Puerta {
 
     static SerialPort puertoBluetooth = null;
     private DB db = new DB();
+    PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 
+    /**
+     * *
+     * Metodo que sirve para hacer la conexion entre el arduino y el puerto del
+     * computador
+     *
+     * @param puerto COM2, COM3... Parametro de conexion, el cual es el nombre
+     * del puerto
+     */
+    public void abrirConexion(String puerto) {
+        try {
+            arduino.arduinoTX(puerto, 9600);
+        } catch (ArduinoException ex) {
+            mensaje("Dispositivo de control", "No se ha podido conectar al puerto. \n Asegurese de configurar el dispositivo", TelegraphType.NOTIFICATION_ERROR, 2500);
+            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * *
+     * Metodo que permite configurar de manera automatica el puerto
+     *
+     * @param puerto nombre del puerto para la configuración
+     */
+    public void configuararPuerto(String puerto, AdministrarPuerta puerta) {
+        PanamaHitek_Arduino conexion = new PanamaHitek_Arduino();
+        try {
+            conexion.arduinoTX(puerto, 9600);
+            conexion.sendData("1");
+            conexion.killArduinoConnection();
+            System.out.println("Se reiniciara su sistema");
+            JOptionPane.showMessageDialog(puerta, "Se ha configurado correctamente el dispositivo. /n Por favor de clic guardar.", "Configuración Puerto", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ArduinoException ex) {
+            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SerialPortException ex) {
+            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * *
+     * Metodo que sirve para enviar la información al arduino
+     */
     public void openDoor() {
-        //ejecuta hilo para no bloquear UI
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                enviarDato();
-            }
-        });
-        t1.start();
+        try {
+            arduino.sendData("1");
+
+        } catch (ArduinoException ex) {
+            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SerialPortException ex) {
+            mensaje("Dispositivo de control", "No se ha podido conectar al puerto. \n Asegurese de configurar el dispositivo", TelegraphType.NOTIFICATION_ERROR, 2500);
+            mensaje("Dispositivo de control", "No se ha podido enviar la información al puerto. \n Asegurese de configurar el dispositivo", TelegraphType.NOTIFICATION_ERROR, 2500);
+            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void openConnection() {
-        //ejecuta hilo para no bloquear UI
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                abracadabra();
-            }
-        });
-        t1.start();
+    /**
+     * *
+     * Metodo que sirve para cerrar la conexion
+     */
+    public void cerrarConexion() {
+        try {
+            arduino.killArduinoConnection();
+
+        } catch (ArduinoException ex) {
+            mensaje("Dispositivo de control", "No se ha podido finalizar la conexión. \n Asegurese de configurar el dispositivo", TelegraphType.NOTIFICATION_ERROR, 2500);
+            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void openConnection(final String puerto) {
-        //ejecuta hilo para no bloquear UI
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                abracadabra(puerto);
-            }
-        });
-        t1.start();
+    /**
+     * *
+     * Metodo que sirve para cargar todos los puertos en un combo box
+     *
+     * @param puertos combo box en el cual se cargaran los puertos
+     */
+    public void cargarPuertos(JComboBox puertos) {
+        ArrayList<String> cargandoPuertos = new ArrayList<>();
+        cargandoPuertos = (ArrayList<String>) arduino.getSerialPorts();
+
+        for (int i = 0; i < cargandoPuertos.size(); i++) {
+            puertos.addItem(String.valueOf(cargandoPuertos.get(i)));
+        }
     }
 
     /**
@@ -85,148 +144,18 @@ public class Puerta {
     }
 
     /**
-     * Metodo para listar los puertos que hay actualmente en el computador
+     * *
+     * Metodo que sirve para mostrar un mensaje animado
      *
-     * @param cboPuertos
+     * @param titulo nombre del mensaje
+     * @param mensaje descripcion del mensaje
+     * @param TipoMensaje tipo del mensaje
+     * @param tiempo tiempo el cual se mostrara el mensaje
      */
-    public void listarPuertos(JComboBox cboPuertos) {
-        String com[] = SerialPortList.getPortNames();
-
-        for (int i = 0; i < com.length; i++) {
-            cboPuertos.addItem(com[i]);
-        }
-    }
-
-    /**
-     * *
-     * Metodo para enviar los datos de comunicacion, solamente una vez este
-     * abierto el puerto
-     */
-    public void enviarDato() {
-        try {
-            puertoBluetooth.writeString("1");
-        } catch (SerialPortException ex) {
-            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * *
-     * Metodo que permite abrir la comunicacion entre el computador y el
-     * dispositivo
-     */
-    public void abracadabra() {
-        try {
-
-            if (puertoBluetooth == null) {
-                puertoBluetooth = new SerialPort(consultarPuerto());
-            }
-
-            puertoBluetooth.openPort();
-            puertoBluetooth.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-
-            puertoBluetooth.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN
-                    | SerialPort.FLOWCONTROL_RTSCTS_OUT);
-            puertoBluetooth.writeString("1");
-
-        } catch (SerialPortException ex) {
-            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, "Puerto no disponible o bluetooth no conectado; verifique", ex);
-            mensaje("Dispositivo de control no configurado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado \n Asegurese de configurar la cantonera", TelegraphType.NOTIFICATION_WARNING, 2500);
-            // .show("Dispositivo de Control de Acceso no detectado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado(puerto: "+ p.getParamConfig("puerto_bluetooth") +") e intente nuevamente.", TelegraphType.NOTIFICATION_ERROR, 8000);
-        }
-    }
-
-
-
-    public void cerrarConexion() {
-        try {
-            puertoBluetooth.closePort();
-        } catch (SerialPortException ex) {
-            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void abracadabra(String puerto) {
-        try {
-
-            if (puertoBluetooth == null) {
-                puertoBluetooth = new SerialPort(consultarPuerto());
-            }
-
-            puertoBluetooth.openPort();
-            puertoBluetooth.setParams(SerialPort.BAUDRATE_9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-
-            puertoBluetooth.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN
-                    | SerialPort.FLOWCONTROL_RTSCTS_OUT);
-            puertoBluetooth.writeString("1");
-
-        } catch (SerialPortException ex) {
-            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, "Puerto no disponible o bluetooth no conectado; verifique", ex);
-            mensaje("Dispositivo de control no configurado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado \n Asegurese de configurar la cantonera", TelegraphType.NOTIFICATION_WARNING, 2500);
-            // .show("Dispositivo de Control de Acceso no detectado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado(puerto: "+ p.getParamConfig("puerto_bluetooth") +") e intente nuevamente.", TelegraphType.NOTIFICATION_ERROR, 8000);
-        }
-    }
-
-//    public void abracadabra(String puerto) {
-//        try {
-//
-//            if (puertoBluetooth == null) {
-//                puertoBluetooth = new SerialPort(puerto);
-//            }
-//
-//            if (!puertoBluetooth.isOpened()) {
-//                puertoBluetooth.openPort();
-//                puertoBluetooth.setParams(SerialPort.BAUDRATE_9600,
-//                        SerialPort.DATABITS_8,
-//                        SerialPort.STOPBITS_1,
-//                        SerialPort.PARITY_NONE);
-//
-//                puertoBluetooth.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN
-//                        | SerialPort.FLOWCONTROL_RTSCTS_OUT);
-//                puertoBluetooth.writeString("1");
-//            } else {
-//                puertoBluetooth.writeString("1");
-//                puertoBluetooth.closePort();
-//            }
-//
-//        } catch (SerialPortException ex) {
-//            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, "Puerto no disponible o bluetooth no conectado; verifique", ex);
-//            mensaje("Dispositivo de control no configurado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado \n Asegurese de configurar la cantonera", TelegraphType.NOTIFICATION_WARNING, 2500);
-//            // .show("Dispositivo de Control de Acceso no detectado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado(puerto: "+ p.getParamConfig("puerto_bluetooth") +") e intente nuevamente.", TelegraphType.NOTIFICATION_ERROR, 8000);
-//        }
-//    }
     public void mensaje(String titulo, String mensaje, TelegraphType TipoMensaje, int tiempo) {
         Telegraph tele = new Telegraph(titulo, mensaje, TipoMensaje, WindowPosition.TOPRIGHT, tiempo);
         TelegraphQueue q = new TelegraphQueue();
         q.add(tele);
     }
 
-    public void probando() {
-        try {
-
-            if (puertoBluetooth == null) {
-                puertoBluetooth = new SerialPort(consultarPuerto());
-            }
-
-            if (!puertoBluetooth.isOpened()) {
-                puertoBluetooth.openPort();
-                puertoBluetooth.setParams(SerialPort.BAUDRATE_9600,
-                        SerialPort.DATABITS_8,
-                        SerialPort.STOPBITS_1,
-                        SerialPort.PARITY_NONE);
-
-                puertoBluetooth.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN
-                        | SerialPort.FLOWCONTROL_RTSCTS_OUT);
-                puertoBluetooth.writeString("1");
-            } else {
-                puertoBluetooth.writeString("1");
-                puertoBluetooth.closePort();
-            }
-
-        } catch (SerialPortException ex) {
-            Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, "Puerto no disponible o bluetooth no conectado; verifique", ex);
-            mensaje("Dispositivo de control no configurado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado \n Asegurese de configurar la cantonera", TelegraphType.NOTIFICATION_WARNING, 2500);
-            // .show("Dispositivo de Control de Acceso no detectado", "No se logró identificar el dispositivo bluetooth para el control de la puerta, verifique que este conectado(puerto: "+ p.getParamConfig("puerto_bluetooth") +") e intente nuevamente.", TelegraphType.NOTIFICATION_ERROR, 8000);
-        }
-    }
 }
