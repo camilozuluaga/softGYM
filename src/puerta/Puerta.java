@@ -61,7 +61,7 @@ public class Puerta {
             conexion.sendData("1");
             conexion.killArduinoConnection();
             System.out.println("Se reiniciara su sistema");
-            JOptionPane.showMessageDialog(puerta, "Se ha configurado correctamente el dispositivo. /n Por favor de clic guardar.", "Configuración Puerto", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(puerta, "Se ha configurado correctamente el dispositivo. \n Por favor de clic guardar.", "Configuración Puerto", JOptionPane.INFORMATION_MESSAGE);
         } catch (ArduinoException ex) {
             Logger.getLogger(Puerta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SerialPortException ex) {
