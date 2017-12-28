@@ -131,7 +131,7 @@ public final class RegistrarEntrada {
         int membresia_id = 0;
         CachedRowSet data;
         DB db = new DB();
-        String Sql = String.format("SELECT mu.membresia_id AS membresia_id FROM membresia_usuario mu,membresia_datos md WHERE mu.socio_id=%s AND md.membresia_socio_id=mu.id AND md.activa=true ORDER BY  mu.id DESC LIMIT 1;", socio);
+        String Sql = String.format("SELECT mu.membresia_id AS membresia_id FROM membresia_usuario mu,membresia_datos md WHERE mu.socio_id=%s AND md.membresia_socio_id=mu.id ORDER BY  mu.id DESC LIMIT 1;", socio);
         data = db.sqlDatos(Sql);
         while (data.next()) {
             try {
@@ -378,7 +378,8 @@ public final class RegistrarEntrada {
                                 System.out.println("No se pudo persistir 6");
                                 mensaje("Lo sentimos", "usted agotó sus entradas por esta semana.", TelegraphType.NOTIFICATION_ERROR, 4000);
                             }
-                        } else if (validarDiaPermitido()) {
+                        } else if (!validarDiaPermitido()) {
+                            
                             if (socioDebe()) {
                                 if (bloqueHorario()) {
                                     validadorTiempoGracia(idMembresiaSocio);
@@ -426,6 +427,7 @@ public final class RegistrarEntrada {
             DB db = new DB();
             String sql = String.format("SELECT asistencia_diaria as cantidad FROM membresia WHERE id=%s", idMembresiaSocio);
             data = db.sqlDatos(sql);
+            System.out.println("Sql asistenciaDiaria "+sql);
             while (data.next()) {
                 cantidad = data.getInt("cantidad");
             }
@@ -450,7 +452,7 @@ public final class RegistrarEntrada {
                 cantidadDiasSemana = data.getInt("cantidad");
             }
             //VALIDACION cantidad de días que ha entrado el socio al gimnasio
-
+            System.out.println("sql cantidad dias semana: "+sql);
             if (cantidadDiasSemana == -1 || cantidadDiasSemana == 0) {
                 System.out.println("No tiene límite de cantidad de días x semana");
                 return false;
@@ -572,16 +574,24 @@ public final class RegistrarEntrada {
             int hay = 0;
             CachedRowSet data1;
             String querySQL = String.format("SELECT id FROM membresia_restriccion_semana WHERE membresia_id=%s; ", idMembresiaSocio);//preguntando si hoy se puede entrar.
+            System.out.println("sql restriccion semana "+ querySQL);
             data1 = miDb.sqlDatos(querySQL);
             while (data1.next()) {
                 hay = data1.getInt("id");
             }
-            return hay != 0;
-
+            if(hay != 0 && hay !=-1){
+                 System.out.println(" retorne true" +hay);
+            return true;
+               
+            }else{
+                 System.out.println(" retorne false");
+                return false;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarEntrada.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    
     }
     /*
      Este método permite validad qué dias de la semana el socio tiene permitido entrar.
@@ -603,8 +613,9 @@ public final class RegistrarEntrada {
         return false;
     }
     public boolean validarDiaPermitido() {
+        System.out.println("entre al metodo");
         if (tieneRestriccionesSemana()) {
-
+            System.out.println("Entre");
             try {
                 DB db = new DB();
                 boolean permitidoEntrar = false; // almacena t o f si el usuario puede entrar (True, false)
@@ -613,6 +624,7 @@ public final class RegistrarEntrada {
                 validarDiaSemana(diaInt);
                 CachedRowSet data1;
                 System.out.println("dia actual:" + diaActual);
+     
                 String querySQL = String.format("SELECT %s as permitido FROM membresia_restriccion_semana WHERE membresia_id=%s ", diaActual, idMembresiaSocio);//preguntando si hoy se puede entrar.
                 data1 = db.sqlDatos(querySQL);
                 while (data1.next()) {
@@ -920,6 +932,7 @@ public final class RegistrarEntrada {
         boolean exitoso;
         int usuario_sistema = Integer.parseInt(System.getProperty("usuario_sistema"));
         String sql = String.format("INSERT INTO entrada_socio (fecha_hora, socio_id, membresia_id, usuario_sistema_id, fecha_registro) VALUES (now(),%s,%s,%s,now())", socio, membresia_id, usuario_sistema);
+        System.out.println("Insert "+sql);
         exitoso = miDb.sqlEjec(sql);
 
         if (exitoso) {
