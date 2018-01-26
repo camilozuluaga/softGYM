@@ -15,12 +15,14 @@ import net.sf.jcarrierpigeon.WindowPosition;
 import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
+import puerta.Puerta;
 
 /**
  *
  * @author GermanV
  */
 public class RegistroEntradaAutomatica extends javax.swing.JFrame {
+
     int idMembresia;
     Utilidades sonidos;
     CumpleaniosSocio miCumpleañosSocio;
@@ -40,7 +42,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
     /**
      * Creates new form FrameBloqueo
      */
-    public RegistroEntradaAutomatica(){
+    public RegistroEntradaAutomatica(Puerta pp) {
         sonidos = new Utilidades();
         miCumpleañosSocio = new CumpleaniosSocio();
         midb = new DB(); //objeto de base de datos
@@ -53,7 +55,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);//maximizado
         this.setAlwaysOnTop(true);//siempre al frente
         lblFoto.setVisible(false);
-
+        arduino = pp;
     }
 
     /**
@@ -269,11 +271,11 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                         clave = getIdMembresia(pass.getText().trim());
                         claveGuardar = pass.getText().trim();
                         socio = idSocio(claveGuardar);
-                        System.out.println("************** ID DEL SOCIO *************** "+socio);
+                        System.out.println("************** ID DEL SOCIO *************** " + socio);
                         actualizarMembresias(socio);
                         System.out.println("*******************************************************");
                     }
-                     miEntrada = new RegistrarEntrada(clave, null);
+                    miEntrada = new RegistrarEntrada(arduino,clave, null);
                     pass.setText("");
 
                     Thread hiloEntrada = new Thread(new Runnable() {
@@ -295,18 +297,17 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
                                         }
                                     }
                                     //fin comprobacion
-                                    
-                                    
-                                    if(!validarSiEntro(socio)||congelado()){
-                                       lblNombreSocio.setVisible(true);
-                                    lblNombreSocio.setText("Gracias por visitarnos: " + miEntrada.traerNombreSocio(clave));
-                                    lblMembresiaVence.setText(venceMembresia());
-                                    getVencimientoMembresias(); 
-                                    }else{
-                                    lblNombreSocio.setVisible(true);
-                                    lblNombreSocio.setText("Bienvenido: " + miEntrada.traerNombreSocio(clave));
-                                    lblMembresiaVence.setText(venceMembresia());
-                                    getVencimientoMembresias();
+
+                                    if (!validarSiEntro(socio) || congelado()) {
+                                        lblNombreSocio.setVisible(true);
+                                        lblNombreSocio.setText("Gracias por visitarnos: " + miEntrada.traerNombreSocio(clave));
+                                        lblMembresiaVence.setText(venceMembresia());
+                                        getVencimientoMembresias();
+                                    } else {
+                                        lblNombreSocio.setVisible(true);
+                                        lblNombreSocio.setText("Bienvenido: " + miEntrada.traerNombreSocio(clave));
+                                        lblMembresiaVence.setText(venceMembresia());
+                                        getVencimientoMembresias();
                                     }
 
                                     getImagen();
@@ -332,8 +333,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
 
                 } else {
                     if (usuarioSistema(pass.getText().trim()) > 0) {
-                        //PuertaController.OpenDoor();
-                        arduino = new puerta.Puerta();
+
                         arduino.openDoor();
                         Telegraph tele = new Telegraph("Bienvenido", "Usuario del sistema", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 4000);
                         TelegraphQueue q = new TelegraphQueue();
@@ -350,7 +350,7 @@ public class RegistroEntradaAutomatica extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_passKeyPressed
-public boolean congelado() throws SQLException {
+    public boolean congelado() throws SQLException {
         String aux = "";
         CachedRowSet data;
         data = db.sqlDatos("SELECT congelado FROM socio WHERE socio.id = " + socio);
@@ -364,40 +364,12 @@ public boolean congelado() throws SQLException {
         }
         return false;
     }
-    
-    
+
+
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroEntradaAutomatica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new RegistroEntradaAutomatica().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel imagen;
     private javax.swing.JButton jButton1;
@@ -471,30 +443,28 @@ public boolean congelado() throws SQLException {
         int id = 0;
         int id2 = 0;
         int id3 = 0;
-        int plazo_permitido=0;
+        int plazo_permitido = 0;
         try {
             CachedRowSet data, data2, data3;
-
 
             String sql = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id= mu.id and md.activa=TRUE and mu.socio_id=%s", socio);
             data = db.sqlDatos(sql);
             while (data.next()) {
                 id = data.getInt("cantidad");
             }
-            if(id<1){
-            String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
-            data3 = db.sqlDatos(sql3);
-            while (data3.next()) {
-                id3 = data3.getInt("plazo_entrada");
-            }
-            plazo_permitido = id3 * 24;
-            String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and md.activa=FALSE and mu.socio_id=%s", socio);
-            data2 = db.sqlDatos(sql2);
+            if (id < 1) {
+                String sql3 = String.format("SELECT plazo_entrada FROM empresa WHERE id=%s", idEmpresa);
+                data3 = db.sqlDatos(sql3);
+                while (data3.next()) {
+                    id3 = data3.getInt("plazo_entrada");
+                }
+                plazo_permitido = id3 * 24;
+                String sql2 = String.format("SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '" + plazo_permitido + "h'  and md.membresia_socio_id= mu.id  and md.activa=FALSE and mu.socio_id=%s", socio);
+                data2 = db.sqlDatos(sql2);
 
-
-            while (data2.next()) {
-                id2 = data2.getInt("cantidad");
-            }
+                while (data2.next()) {
+                    id2 = data2.getInt("cantidad");
+                }
             }
             if (id >= 1) {
                 System.out.println("----------LOG DE VALIDACIONES/ENTRADA SOCIO------");
@@ -718,22 +688,23 @@ public boolean congelado() throws SQLException {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     public void actualizarMembresias(int idSocio){
+
+    public void actualizarMembresias(int idSocio) {
         try {
-            CachedRowSet dataMembresia; 
-            int id5=0;
+            CachedRowSet dataMembresia;
+            int id5 = 0;
 
             String sql5 = String.format("SELECT mu.id FROM membresia_usuario mu, membresia_datos md WHERE md.membresia_socio_id=mu.id AND mu.socio_id=%s;", idSocio);
             dataMembresia = db.sqlDatos(sql5);
-            System.out.println("SQL 5"+sql5);
+            System.out.println("SQL 5" + sql5);
             while (dataMembresia.next()) {
                 id5 = dataMembresia.getInt("id");
-                String querySQL = String.format("UPDATE membresia_datos SET activa = false WHERE activa=true AND (SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id="+id5+" and md.activa=true  and mu.socio_id="+idSocio+")<1 AND membresia_socio_id=%s", id5);
+                String querySQL = String.format("UPDATE membresia_datos SET activa = false WHERE activa=true AND (SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id=" + id5 + " and md.activa=true  and mu.socio_id=" + idSocio + ")<1 AND membresia_socio_id=%s", id5);
                 db.sqlEjec(querySQL);
-               System.out.println("SQL1:"+querySQL);
-                String querySQL2 = String.format("UPDATE membresia_datos SET activa = true WHERE activa=false AND (SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id="+id5+" and md.activa=false  and mu.socio_id="+idSocio+")>0 AND membresia_socio_id=%s", id5);
+                System.out.println("SQL1:" + querySQL);
+                String querySQL2 = String.format("UPDATE membresia_datos SET activa = true WHERE activa=false AND (SELECT count(mu.membresia_id) as cantidad FROM membresia_datos md, membresia_usuario mu where now() between md.fecha_inicio_membresia + interval '1h'  and md.fecha_fin_membresia + interval '23h'  and md.membresia_socio_id=" + id5 + " and md.activa=false  and mu.socio_id=" + idSocio + ")>0 AND membresia_socio_id=%s", id5);
                 db.sqlEjec(querySQL2);
-                System.out.println("SQL2:"+querySQL2);
+                System.out.println("SQL2:" + querySQL2);
 
             }
         } catch (SQLException ex) {

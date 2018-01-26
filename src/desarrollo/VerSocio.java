@@ -23,6 +23,7 @@ import net.sf.jcarrierpigeon.WindowPosition;
 import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
+import puerta.Puerta;
 
 /**
  *
@@ -45,7 +46,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     String fechaFin;
     String seleccion;
     double saldo;
-    puerta.Puerta arduino;
+    Puerta arduino;
 
     /**
      * Creates new form internalEjemplo
@@ -54,7 +55,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
      * @throws java.sql.SQLException
      * @throws java.text.ParseException
      */
-    public VerSocio(int socioID) throws SQLException, ParseException {
+    public VerSocio(Puerta pp, int socioID) throws SQLException, ParseException {
 
         initComponents();
         this.socioID = socioID;
@@ -69,6 +70,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jTabbedPane1.setEnabledAt(2, true);
         jTabbedPane1.setEnabledAt(3, false);
         jTabbedPane1.setEnabledAt(4, false);
+        arduino = pp;
 
         if (congelado().equals("no")) {
             JcongelarMembresia.setVisible(false);
@@ -910,8 +912,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaActionPerformed
         try {
-            RegistrarEntrada registrarEntrada = new RegistrarEntrada(socioID, this);
-            arduino = new puerta.Puerta();
+            RegistrarEntrada registrarEntrada = new RegistrarEntrada(arduino, socioID, this);
             arduino.openDoor();
         } catch (ParseException | SQLException ex) {
             Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -943,7 +944,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
                 // verificar que la membresía seleccionada está activa.
                 String consultaMembresiaSeleccionadaEstaActiva = String.format("SELECT activa from membresia_usuario where id=%s;", membresia_id);
-                System.out.println("activa: SELECT activa from membresia_usuario where id="+membresia_id);
+                System.out.println("activa: SELECT activa from membresia_usuario where id=" + membresia_id);
                 ResultSet rs2 = db.sqlDatos(consultaMembresiaSeleccionadaEstaActiva);
                 boolean activa = false;
                 if (rs2.next()) {
@@ -957,7 +958,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 } else if (!ValidarPago()) {
                     int cajaDelPago = 0;
                     CachedRowSet data;
-                    String query = "SELECT id_caja  FROM pago_membresia WHERE pago>0 AND membresiadatos_id="+membresia_id;
+                    String query = "SELECT id_caja  FROM pago_membresia WHERE pago>0 AND membresiadatos_id=" + membresia_id;
                     data = db.sqlDatos(query);
                     try {
                         while (data.next()) {
@@ -966,42 +967,42 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    cajaActual=utilidades.cajaActual();
-                    System.out.println("caja del pago "+cajaDelPago );
-                    System.out.println("caja actual "+cajaActual);
-                    if (cajaDelPago==cajaActual) {
-                         String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
-                    ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
-                    int identificador = 0;
-                    if (rs3.next()) {
-                        identificador = rs3.getInt("identificador");
-                        System.out.println("identificador = " + identificador);
-                    }
-                    String consultaCuandoHaPagado = String.format("SELECT saldo FROM pago_membresia where membresiadatos_id =%s ORDER BY fecha_registro DESC limit 1;", identificador);
-                    ResultSet rs4 = db.sqlDatos(consultaCuandoHaPagado);
-                    double saldoMembresia = 0.0;
-                    if (rs4.next()) {
-                        // esta consulta permite saber cuanto se ha pagado por una membresía.
-                        saldoMembresia = rs4.getDouble("saldo");
-                        System.out.println("saldoMembresia = " + saldoMembresia);
-                    }
+                    cajaActual = utilidades.cajaActual();
+                    System.out.println("caja del pago " + cajaDelPago);
+                    System.out.println("caja actual " + cajaActual);
+                    if (cajaDelPago == cajaActual) {
+                        String consultaMembresiaPago_id = String.format("SELECT id as identificador FROM membresia_datos WHERE membresia_socio_id=%s", membresia_id);
+                        ResultSet rs3 = db.sqlDatos(consultaMembresiaPago_id);
+                        int identificador = 0;
+                        if (rs3.next()) {
+                            identificador = rs3.getInt("identificador");
+                            System.out.println("identificador = " + identificador);
+                        }
+                        String consultaCuandoHaPagado = String.format("SELECT saldo FROM pago_membresia where membresiadatos_id =%s ORDER BY fecha_registro DESC limit 1;", identificador);
+                        ResultSet rs4 = db.sqlDatos(consultaCuandoHaPagado);
+                        double saldoMembresia = 0.0;
+                        if (rs4.next()) {
+                            // esta consulta permite saber cuanto se ha pagado por una membresía.
+                            saldoMembresia = rs4.getDouble("saldo");
+                            System.out.println("saldoMembresia = " + saldoMembresia);
+                        }
 
-                    if (saldoMembresia == 0.0) {
-                        System.out.println("El usuario ya pagó esta membresía o es gratuita.");
+                        if (saldoMembresia == 0.0) {
+                            System.out.println("El usuario ya pagó esta membresía o es gratuita.");
 
-                        String cosultaValorMembresia = String.format("SELECT saldo as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s", socioID, identificador);
-                        abonandoSaldoSocio(cosultaValorMembresia, identificador);
+                            String cosultaValorMembresia = String.format("SELECT saldo as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s", socioID, identificador);
+                            abonandoSaldoSocio(cosultaValorMembresia, identificador);
 
-                    } else if (saldoMembresia != 0) {
-                        System.out.println("El usuario abonó a la membresía o no la ha pagado.");
+                        } else if (saldoMembresia != 0) {
+                            System.out.println("El usuario abonó a la membresía o no la ha pagado.");
 
-                        String consultaValorAbonado = String.format("SELECT pago as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s ORDER BY id DESC", socioID, identificador);
-                        abonandoSaldoSocio(consultaValorAbonado, identificador);
-                    }
-                    }else{
-                    Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya se cerro la caja con la cual fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
-                    TelegraphQueue q = new TelegraphQueue();
-                    q.add(tele);
+                            String consultaValorAbonado = String.format("SELECT pago as consulta FROM pago_membresia WHERE socio_id=%s and membresiadatos_id=%s ORDER BY id DESC", socioID, identificador);
+                            abonandoSaldoSocio(consultaValorAbonado, identificador);
+                        }
+                    } else {
+                        Telegraph tele = new Telegraph("Eliminar Membresia", "Esta membresía no puede ser eliminada. Ya se cerro la caja con la cual fue pagada.", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
+                        TelegraphQueue q = new TelegraphQueue();
+                        q.add(tele);
                     }
 
                 } else {
@@ -1094,7 +1095,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void bRegistrarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarVisitaActionPerformed
         try {
-            RegistrarVisita rg = new RegistrarVisita(getDatosSocio()[0], getDatosSocio()[1], getDatosSocio()[2], getDatosSocio()[3], getDatosSocio()[4], getDatosSocio()[5]);
+            RegistrarVisita rg = new RegistrarVisita(arduino, getDatosSocio()[0], getDatosSocio()[1], getDatosSocio()[2], getDatosSocio()[3], getDatosSocio()[4], getDatosSocio()[5]);
             Frame.escritorio.add(rg);
             rg.toFront();
             Utilidades.centrarInternalFrame(rg);
@@ -1119,7 +1120,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         } else {
             try {
-                modificarFechaFinMembresia(restarDias(diasRestantesCongelados(),obtenerFechaFinMembresias()),obtenerIdMembresias());          
+                modificarFechaFinMembresia(restarDias(diasRestantesCongelados(), obtenerFechaFinMembresias()), obtenerIdMembresias());
                 editarFechaCongelado(restarDiasFecha(diasRestantesCongelados(), obtenerFechaCongelacion()), socioID);
             } catch (ParseException ex) {
                 Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -1553,13 +1554,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
 //                            si se abonó exitosamente el saldo a favor pasamos a eliminar la membresía.
             String consultaEliminar1 = String.format("DELETE FROM pago_membresia WHERE membresiadatos_id=%s", identificador);
             db.sqlEjec(consultaEliminar1);
-            
+
             String consultaEliminar2 = String.format("DELETE FROM membresia_datos WHERE id=%s", identificador);
             db.sqlEjec(consultaEliminar2);
 
             String consultaEliminar4 = String.format("DELETE FROM factura WHERE socio_id=%s and id_membresia_usuario=%s", socioID, seleccion);
             db.sqlEjec(consultaEliminar4);
-            
+
             String consultaEliminar3 = String.format("DELETE FROM membresia_usuario WHERE socio_id=%s and id=%s and activa=TRUE", socioID, seleccion);
             db.sqlEjec(consultaEliminar3);
             updateDatos();
@@ -1874,6 +1875,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         return anioActual + "-" + mesActual + "-" + aux;
     }
+
     public ArrayList<String> restarDias(int dias, ArrayList<String> fechas) throws ParseException {
         for (int i = 0; i < fechas.size(); i++) {
 

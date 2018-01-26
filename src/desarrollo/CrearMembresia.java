@@ -864,7 +864,7 @@ public final class CrearMembresia extends javax.swing.JInternalFrame {
 
     private void txtCantidadDiasMesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadDiasMesKeyReleased
         utilidades.validarCampoNumericos(txtCantidadDiasMes.getText(), txtCantidadDiasMes, 2);
-        if (Integer.parseInt(txtCantidadDiasMes.getText())>30) {
+         if (Integer.parseInt(txtCantidadDiasMes.getText())>30) {
             txtCantidadDiasMes.setText("");
         }else if(txtCantidadDiasMes.getText().substring(0,1).equals("0")){
             txtCantidadDiasMes.setText("");

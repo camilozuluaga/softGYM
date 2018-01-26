@@ -16,6 +16,7 @@ import net.sf.jcarrierpigeon.WindowPosition;
 import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
+import puerta.Puerta;
 
 /**
  *
@@ -31,12 +32,12 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
     String socioId = "";
     Utilidades utilidades = new Utilidades();
 
-    public RegistrarVisita() {
+    public RegistrarVisita(Puerta pp) {
         initComponents();
-
+        arduino = pp;
     }
 
-    public RegistrarVisita(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String socioId, String token) {
+    public RegistrarVisita(Puerta pp, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String socioId, String token) {
         initComponents();
         txtPriNombre.setText(primerNombre);
         txtSegNombre.setText(segundoNombre);
@@ -45,6 +46,7 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
         this.socioId = socioId;
         cToken.setText(token);
         txtCosto.requestFocus();
+        arduino = pp;
     }
 
     /**
@@ -481,8 +483,6 @@ public class RegistrarVisita extends javax.swing.JInternalFrame {
                 Telegraph tele = new Telegraph("Registro De Visita", "Se ha registrado Correctamente registro de la Visita", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 9000);
                 TelegraphQueue q = new TelegraphQueue();
                 q.add(tele);
-                //puertaArduino.OpenDoor();
-                arduino = new puerta.Puerta();
                 arduino.openDoor();
             } else {
                 Telegraph tele = new Telegraph("Visita No Registrada", "No se ha registrado Correctamente el registro de la Visita", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 9000);

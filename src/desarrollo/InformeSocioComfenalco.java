@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
+import puerta.Puerta;
 
 /**
  *
@@ -36,8 +37,9 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
     logica.Utilidades utilidades = new logica.Utilidades();
     CierreCaja caja = new CierreCaja();
     int idSocio;
+    Puerta arduino;
 
-    public InformeSocioComfenalco() {
+    public InformeSocioComfenalco(Puerta pp) {
         initComponents();
         cargarDias();
         cargarDia();
@@ -45,6 +47,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
         Calendar fechaActual = new GregorianCalendar();
         deUno.setCalendar(fechaActual);
         aUno.setCalendar(fechaActual);
+        arduino = pp;
     }
 
     /**
@@ -487,7 +490,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
             idSocio = Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
             VerSocio verSocio = null;
             try {
-                verSocio = new VerSocio(idSocio);
+                verSocio = new VerSocio(arduino, idSocio);
             } catch (SQLException ex) {
                 Logger.getLogger(InformeSocioComfenalco.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
@@ -508,17 +511,16 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboDiaActionPerformed
 
     private void cboDiaDosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDiaDosActionPerformed
-      
+
         if (rExpiradas.isSelected()) {
-            
+
             expirarDespues();
         }
     }//GEN-LAST:event_cboDiaDosActionPerformed
 
     private void mesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mesMouseClicked
 
-
-    // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_mesMouseClicked
 
     private void mesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mesMousePressed
@@ -562,7 +564,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void listadoTodosLosSocios() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "FECHA REGISTRO","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "FECHA REGISTRO", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT id,CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, sexo AS Sexo, fecha_registro AS FechaRegistro, comfenalco "
@@ -582,7 +584,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void sociosConMembresiasActivas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO","FECHA FIN MEMBRESIA","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO", "FECHA FIN MEMBRESIA", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'ACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\",so.comfenalco\n"
@@ -607,7 +609,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void sociosConMembresiasInactivas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO","FECHA FIN MEMBRESIA","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO", "FECHA FIN MEMBRESIA", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT  so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'INACTIVA' AS Membresia, so.sexo AS Sexo, mu.fecha_registro AS FechaRegistro, md.fecha_fin_membresia AS \"FECHA FIN\", so.comfenalco\n"
@@ -632,7 +634,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void sociosActivos() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "ESTADO", "SEXO", "FECHA REGISTRO", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT id, CONCAT(primer_nombre || ' ' || segundo_nombre) AS Nombre, CONCAT(primer_apellido || ' ' || segundo_apellido) AS Apellido, 'Activo', sexo AS Sexo, fecha_registro AS FechaRegistro,comfenalco\n"
@@ -672,7 +674,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void inactivasFechasEspecificas() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "MEMBRESIA", "SEXO", "FECHA REGISTRO", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT so.id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, 'Inactiva' AS Membresia, so.sexo AS Sexo, so.fecha_registro AS FechaRegistro,so.comfenalco\n"
@@ -694,7 +696,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void sociosCumplenMes() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "FECHA NACIMIENTO","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "FECHA NACIMIENTO", "CATEGORIA"});
         try {
             int mesSelccionado = mes.getMonth() + 1;
             String querySQL = "SELECT  id, CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, fecha_nacimiento,so.comfenalco \n"
@@ -714,7 +716,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void expirarAntes() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia,so.comfenalco\n"
@@ -737,7 +739,7 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
 
     public void expirarDespues() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA","CATEGORIA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "NOMBRE SOCIO", "APELLIDO SOCIO", "SEXO", "MEMBRESÍA", "FECHA FIN MEMBRESÍA", "CATEGORIA"});
         try {
 
             String querySQL = "SELECT  so.id,CONCAT(so.primer_nombre || ' ' || so.segundo_nombre) AS Nombre, CONCAT(so.primer_apellido || ' ' || so.segundo_apellido) AS Apellido, sexo, m.nombre, md.fecha_fin_membresia,so.comfenalco\n"
@@ -899,8 +901,5 @@ public class InformeSocioComfenalco extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay datos en la tabla para exportar", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
-   
 
 }

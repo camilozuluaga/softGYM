@@ -632,7 +632,6 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             return -1;  
         }
         
-
         String queryFactura = String.format("INSERT INTO factura(socio_id,paga,debe,usuario_sistema_id,id_membresia_usuario) VALUES (%s,%s,%s,%s,%s);", socioId, paga, debe, usuario_sistema,idMembresia);
         System.out.println("INSERTANDO EN FACTURA:"+queryFactura);
         if (db.sqlEjec(queryFactura)) {

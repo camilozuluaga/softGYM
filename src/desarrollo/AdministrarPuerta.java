@@ -32,16 +32,17 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
     Utilidades util;
     String result = "";
     Puerta arduino;
+    Frame frame;
 
     /**
      * Creates new form AdministrarPuerta
      *
      * @throws java.sql.SQLException
      */
-    public AdministrarPuerta() throws SQLException, IOException {
+    public AdministrarPuerta(Puerta pp, Frame ventana) throws SQLException, IOException {
         initComponents();
         ocultarPuerto();
-        if (cargarCantonera()){
+        if (cargarCantonera()) {
             mostrarPuerto();
         }
         tipoPuertaParametrizada = false;
@@ -50,8 +51,9 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
         getInfo("unidad_tiempogracia_puerta", lblErrorMessage2, "combo", tiempoGraciaParametrizado);
         cargarTipoPuertaActual();
         util = new Utilidades();
-        arduino = new Puerta();
-        arduino.listarPuertos(cboPuerto);
+        arduino = pp;
+        arduino.cargarPuertos(cboPuerto);
+        frame = ventana;
     }
 
     /**
@@ -296,7 +298,10 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
                 Telegraph tele = new Telegraph("Configuración Puerta", "Información actualizada exitosamente.", TelegraphType.NOTIFICATION_DONE, WindowPosition.TOPRIGHT, 7000);
                 TelegraphQueue q = new TelegraphQueue();
                 q.add(tele);
-                this.dispose();
+
+                loginReinicio inicio = new loginReinicio();
+                inicio.setVisible(true);
+                frame.dispose();
             }
         } catch (IOException ex) {
             Logger.getLogger(AdministrarPuerta.class.getName()).log(Level.SEVERE, null, ex);
@@ -317,8 +322,7 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         // TODO add your handling code here:
-        arduino.cerrarConexion();
-        arduino.openConnection(cboPuerto.getSelectedItem().toString());
+        arduino.configuararPuerto(String.valueOf(cboPuerto.getSelectedItem()), this);
     }//GEN-LAST:event_btnConectarActionPerformed
 
 
@@ -497,9 +501,8 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
         }
         return false;
     }
-    
-    
-        public boolean cargarCantonera() {
+
+    public boolean cargarCantonera() {
         CachedRowSet data;
         String tipoPuerta = "";
         String querySQL = "SELECT tipo_puerta FROM empresa";
@@ -516,11 +519,11 @@ public class AdministrarPuerta extends javax.swing.JInternalFrame {
             //mensaje("Dispositivo de control", "No se ha podido configurar el dispositivo bluetooth para el control de la puerta, verifique que este conectado \n Asegurese de configurar la cantonera", TelegraphType.NOTIFICATION_WARNING, 2500);
 
         }
-        boolean valor=false;
-        if (tipoPuerta.equals("cantonera")){
+        boolean valor = false;
+        if (tipoPuerta.equals("cantonera")) {
             valor = true;
         }
-        
+
         return valor;
     }
 
