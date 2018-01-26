@@ -130,6 +130,7 @@ public class Frame extends javax.swing.JFrame {
         bInicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bPuerta1 = new javax.swing.JButton();
+        btnCorreo = new javax.swing.JButton();
         lbUsuario = new javax.swing.JLabel();
         MenuAplicacion = new javax.swing.JMenuBar();
         mArchivo = new javax.swing.JMenu();
@@ -264,6 +265,13 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        btnCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/home.png"))); // NOI18N
+        btnCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorreoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -275,7 +283,9 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(btnCorreo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bPuerta1)
@@ -293,7 +303,8 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(bBuscar)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bPuerta1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bPuerta1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -342,7 +353,7 @@ public class Frame extends javax.swing.JFrame {
                             .addComponent(btnCrearMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(102, 102, 102)
                         .addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -815,6 +826,10 @@ public class Frame extends javax.swing.JFrame {
         help.setVisible(true);
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
+    private void btnCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorreoActionPerformed
+        agregarInternalFrame(escritorio, new Correo());
+    }//GEN-LAST:event_btnCorreoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -856,6 +871,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JButton bInicio;
     private javax.swing.JButton bPuerta1;
     private javax.swing.JButton btnCierreCaja;
+    private javax.swing.JButton btnCorreo;
     private javax.swing.JButton btnCrearMembresia;
     private javax.swing.JButton btnCrearSocio;
     private javax.swing.JButton btnRegistrarEgreso;
