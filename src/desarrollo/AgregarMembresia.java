@@ -858,7 +858,9 @@ public final class AgregarMembresia extends javax.swing.JFrame {
             puede_seguir = true;
         } else if (rSi.isSelected() && rDescuentoCantidad.isSelected() == false) {
             puede_seguir = true;
-        } else {
+        } else if(rNo.isSelected()){
+            puede_seguir = true;
+        }else {
             utilidades.llamarMensaje("Descuento Basado en Cantidad");
             puede_seguir = false;
         }
