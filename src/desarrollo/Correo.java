@@ -25,8 +25,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import logica.DB;
+import textpademo.TPEditor;
 
 /**
  *
@@ -37,11 +39,14 @@ public class Correo extends javax.swing.JInternalFrame {
     /**
      * Creates new form internalEjemplo
      */
+    TPEditor masivo;
     DB midb;
+    private JFileChooser chooser;
 
     public Correo() {
         initComponents();
         midb = new DB();
+        
         
     }
 
@@ -55,18 +60,13 @@ public class Correo extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtCorreo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         btnAdjuntar = new javax.swing.JButton();
         btnMasivo = new javax.swing.JButton();
+        lbArchivo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -75,20 +75,9 @@ public class Correo extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel4.setText("Correo");
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
-        jButton1.setText("Enviar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         btnAdjuntar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAdjuntar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
-        btnAdjuntar.setText("Adjuntar");
+        btnAdjuntar.setText("Archivo adjunto");
         btnAdjuntar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdjuntarActionPerformed(evt);
@@ -97,7 +86,7 @@ public class Correo extends javax.swing.JInternalFrame {
 
         btnMasivo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnMasivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
-        btnMasivo.setText("Masivo");
+        btnMasivo.setText("Editor de texto");
         btnMasivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMasivoActionPerformed(evt);
@@ -110,34 +99,22 @@ public class Correo extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnMasivo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAdjuntar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtCorreo))
-                .addContainerGap())
+                    .addComponent(lbArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMasivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdjuntar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdjuntar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMasivo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(btnMasivo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAdjuntar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -150,28 +127,6 @@ public class Correo extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel3.setText("Podras enviar mensajes a todos tus clientes...");
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/editar.png"))); // NOI18N
-        jButton3.setText("Editar");
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/caneco.png"))); // NOI18N
-        jButton4.setText("Eliminar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
-        jButton2.setText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -186,14 +141,7 @@ public class Correo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4)))))
+                        .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -205,12 +153,7 @@ public class Correo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74))
+                .addGap(129, 129, 129))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,183 +169,119 @@ public class Correo extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-        Properties props= new Properties();
-        props.setProperty("mail.smtp.host", "smtp.gmail.com");
-        props.setProperty("mail.smtp.starttls.enable", "true");
-        props.setProperty("mail.smtp.port", "587");
-        props.setProperty("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        
-        Session session= Session.getDefaultInstance(props);
-        String remitente="fabianchogarcia17@gmail.com";
-        String passwordRemitente="barcelona21";
-        String receptor=txtCorreo.getText();
-        String asunto="Mi primer correo en Java :D";
-        String mensaje="Este sera el contenido de mi email";
-        
-        MimeMessage message= new MimeMessage(session);
-        message.setFrom(new InternetAddress(remitente));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-        message.setSubject(asunto);
-        message.setText(mensaje);
-        
-        Transport t=session.getTransport("smtp");
-        t.connect(remitente,passwordRemitente);
-        t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-        t.close();
-        
-            JOptionPane.showMessageDialog(this, "El mensaje fue enviado correctamente");
-        } catch (AddressException ex) {
-            Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
-            Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void btnAdjuntarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjuntarActionPerformed
-                try {
-        Properties props= new Properties();
-        props.setProperty("mail.smtp.host", "smtp.gmail.com");
-        props.setProperty("mail.smtp.starttls.enable", "true");
-        props.setProperty("mail.smtp.port", "587");
-        props.setProperty("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        chooser = new JFileChooser();
+        chooser.setDialogTitle("Seleccione Ruta de Adjunto");
         
-        Session session= Session.getDefaultInstance(props);
-        String remitente="fabianchogarcia17@gmail.com";
-        String passwordRemitente="barcelona21";
-        String receptor=txtCorreo.getText();
-        String asunto="Mi primer correo en Java :D";
-        String mensaje="Este sera el contenido de mi email";
-        
-        BodyPart texto=new MimeBodyPart();
-        texto.setContent(mensaje, "text/html");
-        
-        BodyPart adjunto=new MimeBodyPart();
-        adjunto.setDataHandler(new DataHandler(new FileDataSource("C:/Users/FabianGM/Pictures/enfermera-11.jpg")));
-        adjunto.setFileName("Image.jpg");
-        
-        MimeMultipart multipart=new MimeMultipart();
-        multipart.addBodyPart(texto);
-        multipart.addBodyPart(adjunto);
-        
-        
-        MimeMessage message= new MimeMessage(session);
-        message.setFrom(new InternetAddress(remitente));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-        message.setSubject(asunto);
-        message.setContent(multipart);
-        
-        Transport t=session.getTransport("smtp");
-        t.connect(remitente,passwordRemitente);
-        t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-        t.close();
-        
-            JOptionPane.showMessageDialog(this, "El mensaje fue enviado correctamente");
-        } catch (AddressException ex) {
-            Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
-            Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
+        chooser.setAcceptAllFileFilterUsed(false);
+        String ubicacion="";
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+           
+            System.out.println("getSelectedFile() : "
+                    + chooser.getSelectedFile());
+            ubicacion=chooser.getSelectedFile().toString();
+        } else {
+            System.out.println("No Selection ");
         }
-        
-    }//GEN-LAST:event_btnAdjuntarActionPerformed
-
-    private void btnMasivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasivoActionPerformed
+        if(!ubicacion.equals("")){
         ArrayList<String> emails = new ArrayList<String>();
+        String asuntoBD="";
         try {
-        CachedRowSet data;
-        data = midb.sqlDatos("SELECT email FROM socio");
-        
-        String correo="";
-        
-        
+                    CachedRowSet data,data2;
+                    data = midb.sqlDatos("SELECT email FROM socio");
+                    data2=midb.sqlDatos("SELECT nombre FROM empresa");
+                    String correo = "";
+            while(data2.next()){
+                asuntoBD=data2.getString("nombre");
+            }
             while (data.next()) {
-                correo=data.getString("email");
-                if(!correo.equals("")&& correo!=null){
+                correo = data.getString("email");
+                if (!correo.equals("") && correo != null) {
                     emails.add(data.getString("email"));
-                    correo="";
+                    correo = "";
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-         try {
-        Properties props= new Properties();
-        props.setProperty("mail.smtp.host", "smtp.gmail.com");
-        props.setProperty("mail.smtp.starttls.enable", "true");
-        props.setProperty("mail.smtp.port", "587");
-        props.setProperty("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        
-        Session session= Session.getDefaultInstance(props);
-        String remitente="fabianchogarcia17@gmail.com";
-        String passwordRemitente="barcelona21";
-        String asunto="Mi primer correo Masivo en Java :D";
-        String mensaje="Este sera el contenido de mi email";
-        
-        MimeMessage message= new MimeMessage(session);
-        message.setFrom(new InternetAddress(remitente));
-        
-        Address receptores[]=new Address[emails.size()];
-            int j=0;
-            while(j<emails.size()){
-                receptores[j]=new InternetAddress(emails.get(j));
+        try {
+            Properties props = new Properties();
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.auth", "true");
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+            Session session = Session.getDefaultInstance(props);
+            String remitente = "dreamsoftcolombia@gmail.com";
+            String passwordRemitente = "dreamsoft2017";
+            String asunto = asuntoBD;
+            String mensaje = "El contenido se encuentra adjunto...";
+
+            BodyPart texto = new MimeBodyPart();
+            texto.setContent(mensaje, "text/html");
+
+            BodyPart adjunto = new MimeBodyPart();
+            adjunto.setDataHandler(new DataHandler(new FileDataSource(ubicacion)));
+            adjunto.setFileName("Image.jpg");
+
+            MimeMultipart multipart = new MimeMultipart();
+            multipart.addBodyPart(texto);
+            multipart.addBodyPart(adjunto);
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(remitente));
+
+            Address receptores[] = new Address[emails.size()];
+            int j = 0;
+            while (j < emails.size()) {
+                receptores[j] = new InternetAddress(emails.get(j));
                 j++;
             }
-        message.addRecipients(Message.RecipientType.TO, receptores);
-        message.setSubject(asunto);
-        message.setText(mensaje);
-        
-        Transport t=session.getTransport("smtp");
-        t.connect(remitente,passwordRemitente);
-        t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-        t.close();
-        
+            message.addRecipients(Message.RecipientType.TO, receptores);
+            message.setSubject(asunto);
+            message.setContent(multipart);
+
+            Transport t = session.getTransport("smtp");
+            t.connect(remitente, passwordRemitente);
+            t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            t.close();
+
             JOptionPane.showMessageDialog(this, "El mensaje fue enviado correctamente");
         } catch (AddressException ex) {
             Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MessagingException ex) {
             Logger.getLogger(Correo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+    }//GEN-LAST:event_btnAdjuntarActionPerformed
+
+    private void btnMasivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasivoActionPerformed
+      masivo=new TPEditor();
+      masivo.getjFrame().setVisible(true);
+      
     }//GEN-LAST:event_btnMasivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdjuntar;
     private javax.swing.JButton btnMasivo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JLabel lbArchivo;
     // End of variables declaration//GEN-END:variables
    
 

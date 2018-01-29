@@ -525,7 +525,7 @@
                       <Component id="txtBuscar" min="-2" pref="338" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="bBuscar" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnCorreo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bInicio" min="-2" max="-2" attributes="0"/>
@@ -537,19 +537,15 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="75" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
                           <Component id="bBuscar" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="txtBuscar" alignment="2" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="bInicio" alignment="2" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="bPuerta1" alignment="2" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnCorreo" alignment="2" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -621,7 +617,7 @@
             <Component class="javax.swing.JButton" name="btnCorreo">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagen/home.png"/>
+                  <Image iconType="3" name="/imagen/message.png"/>
                 </Property>
               </Properties>
               <Events>
