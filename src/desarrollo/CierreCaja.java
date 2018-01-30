@@ -45,6 +45,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         cargarUsuario();
         cargarBase();
         obtenerAdeudos();
+        obtenerMembresiasPagadasConTarjeta();
         btnAgregarDinero.setVisible(false);
 
     }
@@ -92,6 +93,8 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         lblDineroCaja = new javax.swing.JLabel();
         txtSumaVisitas = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lblDineroTarjeta = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Cierre De Caja");
@@ -274,7 +277,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 317, 805, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
-        jLabel4.setText("Dinero en caja . . . . . . . . . ");
+        jLabel4.setText("Efectivo en caja . . . . . . . . . ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
         lblDineroCaja.setBackground(new java.awt.Color(255, 102, 0));
@@ -286,6 +289,16 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         txtSumaVisitas.setEditable(false);
         txtSumaVisitas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(txtSumaVisitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 139, 30));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
+        jLabel5.setText("Pago con tarjetas . . . . . . . .  ");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
+
+        lblDineroTarjeta.setBackground(new java.awt.Color(255, 102, 0));
+        lblDineroTarjeta.setFont(new java.awt.Font("Tahoma", 1, 38)); // NOI18N
+        lblDineroTarjeta.setForeground(new java.awt.Color(0, 153, 51));
+        lblDineroTarjeta.setToolTipText("Dinero Recibido");
+        jPanel1.add(lblDineroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, 210, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -302,8 +315,8 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -387,6 +400,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -395,6 +409,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblDineroCaja;
+    private javax.swing.JLabel lblDineroTarjeta;
     private javax.swing.JLabel lblFechaApertura;
     private javax.swing.JLabel lblResponsableCaja;
     private javax.swing.JTextField txtAperturaCaja;
@@ -635,7 +650,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 base = data.getDouble("base");
             }
 
-            dineroCaja = base + calcularTotal() - obtenerDineroEgreso();
+            dineroCaja = base + calcularTotal() - obtenerDineroEgreso()-obtenerMembresiasPagadasConTarjeta();
             total = (long) dineroCaja;
             lblDineroCaja.setText(String.valueOf(total));
             txtAperturaCaja.setText(String.valueOf(base));
@@ -666,4 +681,63 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 + "AND ca.usuario_sistema_id= %s;", cargarUsuario());
         data = db.sqlDatos(nombre);
     }
+    
+      public long obtenerMembresiasPagadasConTarjeta() {
+        double suma = 0;
+        long total = 0;
+        try {
+            String querySQL = "SELECT SUM(Dinero) as Dinero\n"
+                    + "FROM (\n"
+                    + "SELECT SUM(mem.valor_adquirido - f.saldo_favor_uso) AS Dinero \n"
+                    + "FROM pago_membresia mem, caja ca , factura f\n"
+                    + "                    WHERE ca.estado=TRUE AND mem.fecha_pago >= ca.fecha_apertura AND pago <> 0.0\n"
+                    + "                    AND mem.factura_id = f.id\n"
+                    + "                    AND mem.pago_tarjeta = true\n"
+                    + "                    GROUP BY ca.fecha_apertura\n"
+                    + "UNION\n"
+                    + "SELECT SUM(valor_caja) * -1 as Dinero\n"
+                    + "FROM saldofavor \n"
+                    + "WHERE id IN (\n"
+                    + "	SELECT max(sf.id)\n"
+                    + "	FROM saldofavor sf , caja c\n"
+                    + "	WHERE sf.caja_id = c.id AND c.estado = TRUE\n"
+                    + "	and sf.socio_id IN (\n"
+                    + "		SELECT sf.socio_id\n"
+                    + "		FROM saldofavor sf, caja c\n"
+                    + "		WHERE sf.caja_id = c.id AND c.estado = TRUE\n"
+                    + "		GROUP BY sf.valor , sf.valor_caja,sf.id\n"
+                    + "		HAVING sf.valor - sf.valor_caja <= 0\n"
+                    + "		)\n"
+                    + "	GROUP BY sf.socio_id\n"
+                    + ") AND valor_caja < 0\n"
+                    + ") as ventas_membresias";
+
+            String consultaMembresia = "SELECT SUM(mem.pago) AS Dinero\n"
+                    + "FROM pago_membresia mem, caja ca\n"
+                    + "WHERE mem.fecha_pago >= ca.fecha_apertura\n"
+                    + "AND mem.pago_tarjeta = true\n"
+                    + "AND ca.estado = true AND mem.pago <> 0.0";
+
+            System.out.println("Membresia sQL: " + querySQL);
+            data = db.sqlDatos(consultaMembresia);
+
+            if (data.size() == 0) {
+                btnMembresia.setVisible(false);
+            } else {
+                btnMembresia.setVisible(true);
+            }
+            while (data.next()) {
+                suma = data.getDouble("Dinero");
+            }
+  
+                total = (long) suma;
+                lblDineroTarjeta.setText(String.valueOf(total));
+                
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CierreCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
 }
