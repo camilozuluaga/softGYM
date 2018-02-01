@@ -507,7 +507,6 @@ public class Frame extends javax.swing.JFrame {
         mInformes.add(jMenuItem14);
 
         jMenuItem19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuItem19.setText("Socios Comfenalco");
         jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem19ActionPerformed(evt);
@@ -803,7 +802,8 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        agregarInternalFrame(escritorio, new InformeSocioComfenalco(pp));
+
+//        agregarInternalFrame(escritorio, new InformeSocioComfenalco(pp));
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed

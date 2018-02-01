@@ -57,6 +57,8 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
         this.setResizable(false);
         btnEliminar.setVisible(false);
         lTieneHuella.setVisible(false);
+        lblConfenalco.setVisible(false);
+        cbComfenalco.setVisible(false);
     }
     VerSocio current;
 
@@ -73,7 +75,8 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
         btnCapturarFoto.setVisible(true);
         btnCerrar.setVisible(false);
         btnEliminar.setVisible(true);
-
+        lblConfenalco.setVisible(false);
+        cbComfenalco.setVisible(false);
     }
 
     /**
@@ -116,7 +119,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         lTieneHuella = new javax.swing.JLabel();
         btnReiniciarBiometria = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
+        lblConfenalco = new javax.swing.JLabel();
         cbComfenalco = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -316,8 +319,8 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setText("Comfenalco");
+        lblConfenalco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblConfenalco.setText("Comfenalco");
 
         cbComfenalco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbComfenalco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NO", "CATEGORIA A", "CATEGORIA B" }));
@@ -372,7 +375,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel14)
+                                    .addComponent(lblConfenalco)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel10))
                                 .addGap(10, 10, 10)
@@ -441,7 +444,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jdFechaNaci, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)
+                            .addComponent(lblConfenalco)
                             .addComponent(cbComfenalco))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -662,7 +665,6 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -679,6 +681,7 @@ public final class CrearSocio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lTieneHuella;
     private javax.swing.JLabel lbClave;
     private javax.swing.JLabel lbCodigo;
+    private javax.swing.JLabel lblConfenalco;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JPanel pnContenedorFoto;
     private javax.swing.JTextField txtCorreo;
