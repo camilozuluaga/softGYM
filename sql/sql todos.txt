@@ -67,3 +67,14 @@ UPDATE socio SET congelado= 'descongelar';
 update membresia_datos set activa=true;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 alter table membresia_datos add column activa boolean;
+
+
+
+
+
+
+##############TABLA DE MEDIDAS###################
+CREATE TABLE medidas_socio(id SERIAL PRIMARY KEY, socio_id INTEGER, fecha_registro TIMESTAMP, actividad_fisica VARCHAR(15), peso NUMERIC, estatura NUMERIC, densidad_osea NUMERIC, porcentaje_muscular NUMERIC, porcentaje_grasa NUMERIC, cuello NUMERIC, pecho_normal NUMERIC, pecho_expandido NUMERIC, cintura_normal NUMERIC, cintura_sumida NUMERIC,pierna_derecha NUMERIC, pierna_izquierda NUMERIC, brazo_derecho NUMERIC, brazo_izquierdo NUMERIC, pantorrilla_derecha NUMERIC, pantorrilla_izquierda NUMERIC
+);
+ALTER TABLE medidas_socio ADD FOREIGN KEY(socio_id) REFERENCES socio(id);
+#################################################3

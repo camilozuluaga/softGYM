@@ -175,6 +175,24 @@ public class Utilidades {
         }
     }
 
+    
+        public void validarCampoNumericosMedidas(String texto, JTextField cajaDeTexto) {
+        texto = cajaDeTexto.getText();
+        tamano = texto.length();
+        if (!cajaDeTexto.getText().matches("([0-9]*).([0-9]*)")) {
+            borraUno = cajaDeTexto.getText().substring(0, texto.length() - 1);
+            cajaDeTexto.setText(borraUno);
+            Telegraph tele = new Telegraph("Informacion", "Este Campo solo debe contener numeros", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 2000);
+            TelegraphQueue q = new TelegraphQueue();
+            q.add(tele);
+        }
+        if (tamano > 10) {
+            borraUno = cajaDeTexto.getText().substring(0, texto.length() - 1);
+            cajaDeTexto.setText(borraUno);
+
+        }
+    }
+        
     public void validarCampoNumericos(String texto, JTextField cajaDeTexto, int longitud) {
         texto = cajaDeTexto.getText();
         tamano = texto.length();

@@ -27,7 +27,7 @@ import puerta.Puerta;
 
 /**
  *
- * @author GID
+ * @author Dreamsoft
  */
 public class VerSocio extends javax.swing.JInternalFrame {
 
@@ -71,6 +71,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jTabbedPane1.setEnabledAt(3, false);
         jTabbedPane1.setEnabledAt(4, false);
         arduino = pp;
+        cargarActividadFisica();
 
         if (congelado().equals("no")) {
             JcongelarMembresia.setVisible(false);
@@ -89,6 +90,8 @@ public class VerSocio extends javax.swing.JInternalFrame {
             bEliminarMembresia.setEnabled(false);
             bAgregarMembresias.setEnabled(false);
         }
+        
+        ocultarPanel(false, false, false);
     }
 
     public void congeladosocio() {
@@ -191,6 +194,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
         rbBioimpedancia = new javax.swing.JRadioButton();
         rbMedidas = new javax.swing.JRadioButton();
         panelBioimpedancia = new javax.swing.JPanel();
+        txtDensidadOsea = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        txtMasaMuscular = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        txtGrasa = new javax.swing.JTextField();
         panelMedidas = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtPechoNormal = new javax.swing.JTextField();
@@ -212,7 +221,9 @@ public class VerSocio extends javax.swing.JInternalFrame {
         txtPantorrillaDerecha = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         txtPantorrillaIzquierda = new javax.swing.JTextField();
-        jPanel17 = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        txtCuello = new javax.swing.JTextField();
+        panelBasico = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         dateMedidas = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
@@ -415,7 +426,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                                         .addComponent(lEdad))
                                     .addComponent(lmsjVencimiento))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                            .addComponent(lNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEditarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -552,7 +563,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(554, Short.MAX_VALUE))
+                .addContainerGap(580, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -719,7 +730,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -828,7 +839,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -902,14 +913,14 @@ public class VerSocio extends javax.swing.JInternalFrame {
         btnAgregarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
         btnAgregarMedidas.setText("Agregar");
 
-        btnConsultarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/editar.png"))); // NOI18N
+        btnConsultarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/buscar.png"))); // NOI18N
         btnConsultarMedidas.setText("Consultar");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel23.setText("Toma de Medidas");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        jLabel24.setText("Podras realizar la toma de medidas del usuario y llevar un control del mismo.");
+        jLabel24.setText("Podras realizar la toma de medidas del socio y llevar un control del mismo.");
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/hoja.png"))); // NOI18N
 
@@ -927,12 +938,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)))
+                        .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAgregarMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnConsultarMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConsultarMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -956,10 +967,20 @@ public class VerSocio extends javax.swing.JInternalFrame {
         buttonGroup1.add(rbBioimpedancia);
         rbBioimpedancia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         rbBioimpedancia.setText("Bio Impedancia");
+        rbBioimpedancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbBioimpedanciaActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbMedidas);
         rbMedidas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         rbMedidas.setText("Medidas Antropometricas");
+        rbMedidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMedidasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -984,15 +1005,68 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         panelBioimpedancia.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
+        txtDensidadOsea.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtDensidadOsea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDensidadOseaKeyReleased(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel34.setText("Densidad Osea");
+
+        jLabel35.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel35.setText("% de Masa Muscular");
+
+        txtMasaMuscular.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtMasaMuscular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMasaMuscularKeyReleased(evt);
+            }
+        });
+
+        jLabel36.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel36.setText("% de Grasa");
+
+        txtGrasa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtGrasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtGrasaKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBioimpedanciaLayout = new javax.swing.GroupLayout(panelBioimpedancia);
         panelBioimpedancia.setLayout(panelBioimpedanciaLayout);
         panelBioimpedanciaLayout.setHorizontalGroup(
             panelBioimpedanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelBioimpedanciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDensidadOsea, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMasaMuscular, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtGrasa, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
         panelBioimpedanciaLayout.setVerticalGroup(
             panelBioimpedanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelBioimpedanciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBioimpedanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtMasaMuscular, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBioimpedanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel34)
+                        .addComponent(txtDensidadOsea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel36)
+                        .addComponent(txtGrasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel35)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         panelMedidas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -1000,32 +1074,112 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Pecho Normal");
 
+        txtPechoNormal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPechoNormal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPechoNormalKeyReleased(evt);
+            }
+        });
+
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Pecho Expandido");
+
+        txtPechoExtendido.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPechoExtendido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPechoExtendidoKeyReleased(evt);
+            }
+        });
 
         jLabel26.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel26.setText("Cintura Normal");
 
+        txtCinturaNormal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtCinturaNormal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCinturaNormalKeyReleased(evt);
+            }
+        });
+
         jLabel27.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel27.setText("Cintura Sumida");
+
+        txtCinturaSumida.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtCinturaSumida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCinturaSumidaKeyReleased(evt);
+            }
+        });
 
         jLabel28.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel28.setText("Brazo Derecho");
 
+        txtBrazoDerecho.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtBrazoDerecho.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBrazoDerechoKeyReleased(evt);
+            }
+        });
+
         jLabel29.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel29.setText("Brazo Izquierdo");
+
+        txtBrazoIzquierdo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtBrazoIzquierdo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBrazoIzquierdoKeyReleased(evt);
+            }
+        });
 
         jLabel30.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel30.setText("Pierna Derecha");
 
+        txtPiernaDerecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPiernaDerecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPiernaDerechaKeyReleased(evt);
+            }
+        });
+
         jLabel31.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel31.setText("Pierna Izquierda");
+
+        txtPiernaIzquierda.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPiernaIzquierda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPiernaIzquierdaKeyReleased(evt);
+            }
+        });
 
         jLabel32.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel32.setText("Pantorrilla Derecha");
 
+        txtPantorrillaDerecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPantorrillaDerecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPantorrillaDerechaKeyReleased(evt);
+            }
+        });
+
         jLabel33.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel33.setText("Pantorilla Izquierda");
+
+        txtPantorrillaIzquierda.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPantorrillaIzquierda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPantorrillaIzquierdaKeyReleased(evt);
+            }
+        });
+
+        jLabel37.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel37.setText("Cuello");
+
+        txtCuello.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtCuello.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCuelloKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMedidasLayout = new javax.swing.GroupLayout(panelMedidas);
         panelMedidas.setLayout(panelMedidasLayout);
@@ -1033,100 +1187,90 @@ public class VerSocio extends javax.swing.JInternalFrame {
             panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMedidasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMedidasLayout.createSequentialGroup()
-                        .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMedidasLayout.createSequentialGroup()
-                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPantorrillaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMedidasLayout.createSequentialGroup()
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPiernaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPantorrillaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelMedidasLayout.createSequentialGroup()
                         .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMedidasLayout.createSequentialGroup()
-                                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelMedidasLayout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(17, 17, 17))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMedidasLayout.createSequentialGroup()
-                                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCinturaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPechoNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelMedidasLayout.createSequentialGroup()
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtBrazoDerecho, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(23, 23, 23)
+                            .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel37))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMedidasLayout.createSequentialGroup()
-                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPiernaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMedidasLayout.createSequentialGroup()
-                                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtCinturaSumida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                                    .addComponent(txtBrazoIzquierdo, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPechoExtendido))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtCuello, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCinturaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPechoNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelMedidasLayout.createSequentialGroup()
+                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPiernaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPiernaIzquierda)
+                    .addComponent(txtPechoExtendido)
+                    .addComponent(txtCinturaSumida))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMedidasLayout.createSequentialGroup()
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBrazoDerecho, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMedidasLayout.createSequentialGroup()
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPantorrillaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPantorrillaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBrazoIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
         panelMedidasLayout.setVerticalGroup(
             panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMedidasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(txtCuello, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtPechoNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txtPechoExtendido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPechoExtendido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29)
+                    .addComponent(txtPechoNormal)
+                    .addComponent(txtBrazoDerecho)
+                    .addComponent(jLabel28)
+                    .addComponent(txtBrazoIzquierdo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(txtCinturaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCinturaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27)
-                    .addComponent(txtCinturaSumida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel33)
+                    .addComponent(txtPantorrillaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCinturaSumida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPantorrillaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(txtBrazoDerecho, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)
-                    .addComponent(txtBrazoIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMedidasLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel30))
-                    .addGroup(panelMedidasLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel31)
-                            .addComponent(txtPiernaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPiernaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(13, 13, 13)
-                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel33)
-                        .addComponent(txtPantorrillaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel32)
-                        .addComponent(txtPantorrillaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(txtPiernaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31)
+                    .addComponent(txtPiernaDerecha)
+                    .addComponent(jLabel30))
+                .addGap(91, 91, 91))
         );
 
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Datos Básicos"));
+        panelBasico.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Datos Básicos"));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Fecha registro");
@@ -1145,79 +1289,94 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jLabel4.setText("Peso (kg)");
 
         txtPesoMedidas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPesoMedidas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesoMedidasKeyReleased(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("Altura (mts)");
+        jLabel5.setText("Estatura (mts)");
 
         txtAlturaMedidas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtAlturaMedidas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAlturaMedidasKeyReleased(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBasicoLayout = new javax.swing.GroupLayout(panelBasico);
+        panelBasico.setLayout(panelBasicoLayout);
+        panelBasicoLayout.setHorizontalGroup(
+            panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBasicoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dateMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPesoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBasicoLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblSexoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 90, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel17Layout.createSequentialGroup()
+                    .addGroup(panelBasicoLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAlturaMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
+        panelBasicoLayout.setVerticalGroup(
+            panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBasicoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSexoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)
                         .addComponent(jLabel3)
-                        .addComponent(lblSexoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(dateMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(txtAlturaMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtPesoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBasicoLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel4))
+                    .addGroup(panelBasicoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtAlturaMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelBasicoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPesoMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(panelBioimpedancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelBasico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                        .addComponent(panelMedidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(4, 4, 4))
+                    .addComponent(panelBioimpedancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1226,12 +1385,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBasico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelBioimpedancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(91, 91, 91))
+                .addComponent(panelBioimpedancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Medidas", jPanel14);
@@ -1505,6 +1664,96 @@ public class VerSocio extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bRegistrarPagoActionPerformed
 
+    private void rbBioimpedanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBioimpedanciaActionPerformed
+        // TODO add your handling code here:
+        ocultarPanel(true, false, true);
+    }//GEN-LAST:event_rbBioimpedanciaActionPerformed
+
+    private void rbMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMedidasActionPerformed
+        // TODO add your handling code here:
+        ocultarPanel(false, true, true);
+    }//GEN-LAST:event_rbMedidasActionPerformed
+
+    private void txtPesoMedidasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoMedidasKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtPesoMedidas.getText(), txtPesoMedidas);
+    }//GEN-LAST:event_txtPesoMedidasKeyReleased
+
+    private void txtAlturaMedidasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlturaMedidasKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtAlturaMedidas.getText(), txtAlturaMedidas);
+    }//GEN-LAST:event_txtAlturaMedidasKeyReleased
+
+    private void txtDensidadOseaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDensidadOseaKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtDensidadOsea.getText(), txtDensidadOsea);
+    }//GEN-LAST:event_txtDensidadOseaKeyReleased
+
+    private void txtMasaMuscularKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMasaMuscularKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtMasaMuscular.getText(), txtMasaMuscular);
+    }//GEN-LAST:event_txtMasaMuscularKeyReleased
+
+    private void txtGrasaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGrasaKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtGrasa.getText(), txtGrasa);
+    }//GEN-LAST:event_txtGrasaKeyReleased
+
+    private void txtCuelloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuelloKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtCuello.getText(), txtCuello);
+    }//GEN-LAST:event_txtCuelloKeyReleased
+
+    private void txtPechoNormalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPechoNormalKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtPechoNormal.getText(), txtPechoNormal);
+    }//GEN-LAST:event_txtPechoNormalKeyReleased
+
+    private void txtPechoExtendidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPechoExtendidoKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtPechoExtendido.getText(), txtPechoExtendido);
+    }//GEN-LAST:event_txtPechoExtendidoKeyReleased
+
+    private void txtBrazoDerechoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBrazoDerechoKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtBrazoDerecho.getText(), txtBrazoDerecho);
+    }//GEN-LAST:event_txtBrazoDerechoKeyReleased
+
+    private void txtBrazoIzquierdoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBrazoIzquierdoKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtBrazoIzquierdo.getText(), txtBrazoIzquierdo);
+    }//GEN-LAST:event_txtBrazoIzquierdoKeyReleased
+
+    private void txtCinturaNormalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCinturaNormalKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtCinturaNormal.getText(), txtCinturaNormal);
+    }//GEN-LAST:event_txtCinturaNormalKeyReleased
+
+    private void txtCinturaSumidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCinturaSumidaKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtCinturaSumida.getText(), txtCinturaSumida);
+    }//GEN-LAST:event_txtCinturaSumidaKeyReleased
+
+    private void txtPantorrillaDerechaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPantorrillaDerechaKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtPantorrillaDerecha.getText(), txtPantorrillaDerecha);
+    }//GEN-LAST:event_txtPantorrillaDerechaKeyReleased
+
+    private void txtPantorrillaIzquierdaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPantorrillaIzquierdaKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtPantorrillaIzquierda.getText(), txtPantorrillaIzquierda);
+    }//GEN-LAST:event_txtPantorrillaIzquierdaKeyReleased
+
+    private void txtPiernaDerechaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPiernaDerechaKeyReleased
+        // TODO add your handling code here:
+        utilidades.validarCampoNumericosMedidas(txtPiernaDerecha.getText(), txtPiernaDerecha);
+    }//GEN-LAST:event_txtPiernaDerechaKeyReleased
+
+    private void txtPiernaIzquierdaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPiernaIzquierdaKeyReleased
+        // TODO add your handling code here:
+         utilidades.validarCampoNumericosMedidas(txtPiernaIzquierda.getText(), txtPiernaIzquierda);
+    }//GEN-LAST:event_txtPiernaIzquierdaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox JcongelarMembresia;
@@ -1552,6 +1801,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1566,7 +1819,6 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1597,6 +1849,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblSexoMedidas;
     private javax.swing.JLabel lmsjVencimiento;
     private javax.swing.JLabel lmsjVencimiento1;
+    private javax.swing.JPanel panelBasico;
     private javax.swing.JPanel panelBioimpedancia;
     private javax.swing.JPanel panelMedidas;
     private javax.swing.JRadioButton rbBioimpedancia;
@@ -1610,6 +1863,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCinturaNormal;
     private javax.swing.JTextField txtCinturaSumida;
+    private javax.swing.JTextField txtCuello;
+    private javax.swing.JTextField txtDensidadOsea;
+    private javax.swing.JTextField txtGrasa;
+    private javax.swing.JTextField txtMasaMuscular;
     private javax.swing.JTextField txtPantorrillaDerecha;
     private javax.swing.JTextField txtPantorrillaIzquierda;
     private javax.swing.JTextField txtPechoExtendido;
@@ -1741,6 +1998,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 }
 
                 lNombreUsuario.setText(data.getString("usuario"));
+                lblSexoMedidas.setText(data.getString("sexo"));
                 lCodigo.setText("Código: " + data.getString("clave"));
                 lEdad.setText(data.getString("edad"));
 
@@ -2304,8 +2562,26 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     
     
-    public void ocultarBioimpedancia(){
-        panelBioimpedancia.setVisible(false);
-        panelMedidas.setVisible(false);
+    /***
+     * Metodo que sirve para ocultar o no, los dos paneles de tomas de medidas
+     */
+    public void ocultarPanel(boolean bio, boolean panel, boolean basico){
+        panelBioimpedancia.setVisible(bio);
+        panelMedidas.setVisible(panel);
+        panelBasico.setVisible(basico);
     }
+    
+    
+    /***
+     * Metodo que sirve para cargar el tipo de actividad fisica del socio
+     */
+    public void cargarActividadFisica(){
+        cboTipoActividad.addItem("");
+        cboTipoActividad.addItem("Bajo");
+        cboTipoActividad.addItem("Alto");
+    }
+    
+    
+
+    
 }
