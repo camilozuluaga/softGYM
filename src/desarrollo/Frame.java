@@ -311,6 +311,14 @@ public class Frame extends javax.swing.JFrame {
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbUsuario.setText("jLabel2");
 
+        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lbUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -352,13 +360,6 @@ public class Frame extends javax.swing.JFrame {
                         .addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        escritorio.setLayer(btnRegistrarVisita, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearSocio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCierreCaja, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnRegistrarEgreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCrearMembresia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(lbUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         MenuAplicacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 

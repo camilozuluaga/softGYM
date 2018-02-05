@@ -90,7 +90,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
             bEliminarMembresia.setEnabled(false);
             bAgregarMembresias.setEnabled(false);
         }
-        
+
         ocultarPanel(false, false, false);
     }
 
@@ -912,6 +912,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         btnAgregarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
         btnAgregarMedidas.setText("Agregar");
+        btnAgregarMedidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarMedidasActionPerformed(evt);
+            }
+        });
 
         btnConsultarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/buscar.png"))); // NOI18N
         btnConsultarMedidas.setText("Consultar");
@@ -934,8 +939,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel23))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1242,31 +1246,34 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     .addComponent(jLabel37)
                     .addComponent(txtCuello, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(txtPechoExtendido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPechoNormal)
                     .addComponent(txtBrazoDerecho)
-                    .addComponent(jLabel28)
-                    .addComponent(txtBrazoIzquierdo))
+                    .addComponent(txtBrazoIzquierdo)
+                    .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel8)
+                        .addComponent(txtPechoExtendido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel29)
+                        .addComponent(jLabel28)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(txtCinturaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel32)
-                    .addComponent(jLabel33)
-                    .addComponent(txtPantorrillaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCinturaSumida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPantorrillaDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPantorrillaDerecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel26)
+                        .addComponent(txtCinturaNormal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel27)
+                        .addComponent(jLabel32)
+                        .addComponent(jLabel33)
+                        .addComponent(txtPantorrillaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCinturaSumida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPiernaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel31)
-                    .addComponent(txtPiernaDerecha)
-                    .addComponent(jLabel30))
+                .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPiernaDerecha, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelMedidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtPiernaIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel31)
+                        .addComponent(jLabel30)))
                 .addGap(91, 91, 91))
         );
 
@@ -1631,24 +1638,24 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private void bAgregarMembresiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarMembresiasActionPerformed
 
         //try {
-            //  if (ValidarMembresiasActivas()) {
-                try {
-                    AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
-                    sumarEntrada(socioID, 0);
-                    editarCongelado("descongelar", socioID);
-                    miAgregarMembresia.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                //} else {
-                //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
-                //TelegraphQueue q = new TelegraphQueue();
-                //q.add(tele);
+        //  if (ValidarMembresiasActivas()) {
+        try {
+            AgregarMembresia miAgregarMembresia = new AgregarMembresia(socioID, this);
+            sumarEntrada(socioID, 0);
+            editarCongelado("descongelar", socioID);
+            miAgregarMembresia.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //} else {
+        //  Telegraph tele = new Telegraph("Membresia existente", "El usuario ya cuenta con una membresia activa", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 4000);
+        //TelegraphQueue q = new TelegraphQueue();
+        //q.add(tele);
 
-                // }
-            //} catch (ParseException ex) {
-            //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
-            //}
+        // }
+        //} catch (ParseException ex) {
+        //  Logger.getLogger(VerSocio.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }//GEN-LAST:event_bAgregarMembresiasActionPerformed
 
     private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaActionPerformed
@@ -1751,8 +1758,13 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void txtPiernaIzquierdaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPiernaIzquierdaKeyReleased
         // TODO add your handling code here:
-         utilidades.validarCampoNumericosMedidas(txtPiernaIzquierda.getText(), txtPiernaIzquierda);
+        utilidades.validarCampoNumericosMedidas(txtPiernaIzquierda.getText(), txtPiernaIzquierda);
     }//GEN-LAST:event_txtPiernaIzquierdaKeyReleased
+
+    private void btnAgregarMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedidasActionPerformed
+        // TODO add your handling code here:
+        guardarMedidas();
+    }//GEN-LAST:event_btnAgregarMedidasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2560,28 +2572,139 @@ public class VerSocio extends javax.swing.JInternalFrame {
         return fechas;
     }
 
-    
-    
-    /***
+    /**
+     * *
      * Metodo que sirve para ocultar o no, los dos paneles de tomas de medidas
      */
-    public void ocultarPanel(boolean bio, boolean panel, boolean basico){
+    public void ocultarPanel(boolean bio, boolean panel, boolean basico) {
         panelBioimpedancia.setVisible(bio);
         panelMedidas.setVisible(panel);
         panelBasico.setVisible(basico);
     }
-    
-    
-    /***
+
+    /**
+     * *
      * Metodo que sirve para cargar el tipo de actividad fisica del socio
      */
-    public void cargarActividadFisica(){
+    public void cargarActividadFisica() {
         cboTipoActividad.addItem("");
         cboTipoActividad.addItem("Bajo");
         cboTipoActividad.addItem("Alto");
     }
-    
-    
 
-    
+    /**
+     * *
+     * Metodo que nos va a permitir guardar las medidas de los socios
+     */
+    public void guardarMedidas() {
+
+        double estatura = 0, peso = 0, densidad_osea = 0, porcentaje_masa = 0, porcentaje_grasa = 0, cuello = 0, pecho_extendido = 0, pecho_normal = 0,
+                brazo_derecho = 0, brazo_izquierdo = 0, pierna_derecha = 0, pierna_izquierda = 0, pantorrilla_derecha = 0,
+                pantorrilla_izquierda = 0, cintura_normal = 0, cintura_sumida = 0;
+
+        String tipoActividad = "Ninguno", querySQL, usuario;
+        boolean success = false;
+        int cantidad = 0, medidas_socio_id = 0;
+        usuario = System.getProperty("usuario_sistema");
+
+        CachedRowSet dataConsulta;
+        String queryConsulta = "SELECT me.id AS id\n"
+                + "FROM medidas_socio me, socio so, usuario_sistema us\n"
+                + "WHERE me.socio_id= so.id\n"
+                + "AND me.usuario_sistema_id = us.id\n"
+                + "AND so.id=" + socioID + "\n"
+                + "AND us.id=" + usuario + "\n"
+                + "ORDER BY me.id DESC\n"
+                + "LIMIT 1;";
+
+        dataConsulta = db.sqlDatos(queryConsulta);
+        try {
+            while (dataConsulta.next()) {
+                medidas_socio_id = dataConsulta.getInt("id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println("Este es el id de la medida del socio, el ultimo registro: " + medidas_socio_id);
+
+        if ((cboTipoActividad.getSelectedItem() != "") && (txtAlturaMedidas.getText() != "") && (txtPesoMedidas.getText() != "")) {
+            tipoActividad = cboTipoActividad.getSelectedItem().toString();
+            estatura = Double.parseDouble(txtAlturaMedidas.getText());
+            peso = Double.parseDouble(txtPesoMedidas.getText());
+        }
+
+        if (rbBioimpedancia.isSelected()) {
+            System.out.println("Esta seleccionado el bio");
+            densidad_osea = Double.parseDouble(txtDensidadOsea.getText());
+            porcentaje_masa = Double.parseDouble(txtMasaMuscular.getText());
+            porcentaje_grasa = Double.parseDouble(txtGrasa.getText());
+
+            querySQL = String.format("INSERT INTO medidas_socio(usuario_sistema_id, socio_id, fecha_registro , actividad_fisica , peso, estatura, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_normal, pecho_expandido, cintura_normal, cintura_sumida,pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda) VALUES (%s, %s, now(), '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", Integer.valueOf(usuario), Integer.valueOf(socioID), tipoActividad, peso, estatura, densidad_osea, porcentaje_masa, porcentaje_grasa, cuello, pecho_normal, pecho_extendido, cintura_normal, cintura_sumida, pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda);
+            success = db.sqlEjec(querySQL);
+
+        } else if (rbMedidas.isSelected()) {
+
+            System.out.println("Esta seleccionado medidas");
+            
+            cuello = Double.parseDouble(txtCuello.getText());
+            pecho_extendido = Double.parseDouble(txtPechoExtendido.getText());
+            pecho_normal = Double.parseDouble(txtPechoNormal.getText());
+            brazo_derecho = Double.parseDouble(txtBrazoDerecho.getText());
+            brazo_izquierdo = Double.parseDouble(txtBrazoIzquierdo.getText());
+            pierna_derecha = Double.parseDouble(txtPiernaDerecha.getText());
+            pierna_izquierda = Double.parseDouble(txtPiernaIzquierda.getText());
+            pantorrilla_derecha = Double.parseDouble(txtPantorrillaDerecha.getText());
+            pantorrilla_izquierda = Double.parseDouble(txtPantorrillaIzquierda.getText());
+            cintura_normal = Double.parseDouble(txtCinturaNormal.getText());
+            cintura_sumida = Double.parseDouble(txtCinturaSumida.getText());
+
+            querySQL = String.format("INSERT INTO medidas_socio(usuario_sistema_id, socio_id, fecha_registro , actividad_fisica , peso, estatura, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_normal, pecho_expandido, cintura_normal, cintura_sumida,pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda) VALUES (%s, %s, now(), '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", Integer.valueOf(usuario), Integer.valueOf(socioID), tipoActividad, peso, estatura, densidad_osea, porcentaje_masa, porcentaje_grasa, cuello, pecho_normal, pecho_extendido, cintura_normal, cintura_sumida, pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda);
+            success = db.sqlEjec(querySQL);
+        } else {
+            System.out.println("No ha seleccionado nada");
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado un tipo de medida", "Control de Medidas", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+        if (success) {
+            System.out.println("Se ha guardado con exito las medidas");
+
+            CachedRowSet data;
+            String query = "SELECT COUNT(me.id) AS CANTIDAD\n"
+                    + "FROM medidas_socio me, socio so, usuario_sistema us\n"
+                    + "WHERE so.id=" + socioID + "\n"
+                    + "AND us.id=" + usuario + "\n"
+                    + "AND me.socio_id= so.id\n"
+                    + "AND me.usuario_sistema_id = us.id";
+
+            data = db.sqlDatos(query);
+            try {
+                while (data.next()) {
+                    cantidad = data.getInt("cantidad");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println("La cantidad: " + cantidad);
+            if (cantidad <= 1) {
+                System.out.println("Solo exite un registro");
+                JOptionPane.showMessageDialog(this, "Se ha detectado que este socio no cuenta con toma de medidas anteriores. \n Para poder hacer comparaciones se necesita una nueva toma de medidas.", "Control de Medidas", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("El socio ya tiene mas de un registro");
+                int comparar = JOptionPane.showConfirmDialog(this, "¿Desea comparar estos datos con el ultimo registro?", "Control de Medidas", JOptionPane.OK_CANCEL_OPTION);
+                if (comparar == 0) {
+                    System.out.println("Entramos");
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+
+        }
+    }
+
 }
