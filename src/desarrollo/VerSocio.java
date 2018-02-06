@@ -2600,15 +2600,17 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         double estatura = 0, peso = 0, densidad_osea = 0, porcentaje_masa = 0, porcentaje_grasa = 0, cuello = 0, pecho_extendido = 0, pecho_normal = 0,
                 brazo_derecho = 0, brazo_izquierdo = 0, pierna_derecha = 0, pierna_izquierda = 0, pantorrilla_derecha = 0,
-                pantorrilla_izquierda = 0, cintura_normal = 0, cintura_sumida = 0;
+                pantorrilla_izquierda = 0, cintura_normal = 0, cintura_sumida = 0, estatura_anterior = 0, peso_anterior = 0, densidad_osea_anterior = 0, porcentaje_masa_anterior = 0, porcentaje_grasa_anterior = 0, cuello_anterior = 0, pecho_extendido_anterior = 0, pecho_normal_anterior = 0,
+                brazo_derecho_anterior = 0, brazo_izquierdo_anterior = 0, pierna_derecha_anterior = 0, pierna_izquierda_anterior = 0, pantorrilla_derecha_anterior = 0,
+                pantorrilla_izquierda_anterior = 0, cintura_normal_anterior = 0, cintura_sumida_anterior = 0;
 
-        String tipoActividad = "Ninguno", querySQL, usuario;
+        String tipoActividad = "", querySQL, usuario;
         boolean success = false;
         int cantidad = 0, medidas_socio_id = 0;
         usuario = System.getProperty("usuario_sistema");
 
         CachedRowSet dataConsulta;
-        String queryConsulta = "SELECT me.id AS id\n"
+        String queryConsulta = "SELECT me.id,  me.fecha_registro , actividad_fisica , peso , estatura , densidad_osea , porcentaje_muscular , porcentaje_grasa , cuello , pecho_normal , pecho_expandido , cintura_normal , cintura_sumida ,pierna_derecha , pierna_izquierda , brazo_derecho , brazo_izquierdo , pantorrilla_derecha , pantorrilla_izquierda \n"
                 + "FROM medidas_socio me, socio so, usuario_sistema us\n"
                 + "WHERE me.socio_id= so.id\n"
                 + "AND me.usuario_sistema_id = us.id\n"
@@ -2617,15 +2619,35 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 + "ORDER BY me.id DESC\n"
                 + "LIMIT 1;";
 
+        System.out.println(queryConsulta);
         dataConsulta = db.sqlDatos(queryConsulta);
         try {
             while (dataConsulta.next()) {
                 medidas_socio_id = dataConsulta.getInt("id");
+                peso_anterior = dataConsulta.getDouble("peso");
+                estatura_anterior = dataConsulta.getDouble("estatura");
+                densidad_osea_anterior = dataConsulta.getDouble("densidad_osea");
+                porcentaje_masa_anterior = dataConsulta.getDouble("porcentaje_masa");
+                porcentaje_grasa_anterior = dataConsulta.getDouble("porcentaje_grasa");
+                cuello_anterior = dataConsulta.getDouble("cuello");
+                pecho_extendido_anterior = dataConsulta.getDouble("pecho_extendido");
+                pecho_normal_anterior = dataConsulta.getDouble("pecho_normal");
+                brazo_derecho_anterior = dataConsulta.getDouble("brazo_derecho");
+                brazo_izquierdo_anterior = dataConsulta.getDouble("pierna_derecha");
+                pierna_derecha_anterior = dataConsulta.getDouble("pierna_derecha");
+                pierna_izquierda_anterior = dataConsulta.getDouble("pierna_izquierda");
+                pantorrilla_derecha_anterior = dataConsulta.getDouble("pantorrilla_derecha");
+                pantorrilla_izquierda_anterior = dataConsulta.getDouble("pantorrilla_izquierda");
+                cintura_normal_anterior = dataConsulta.getDouble("cintura_normal");
+                cintura_sumida_anterior = dataConsulta.getDouble("cintura_normal");
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        System.out.println("Estatura anterior: " + estatura_anterior);
+        System.out.println("Peso anterior: " + peso_anterior);
         System.out.println("Este es el id de la medida del socio, el ultimo registro: " + medidas_socio_id);
 
         if ((cboTipoActividad.getSelectedItem() != "") && (txtAlturaMedidas.getText() != "") && (txtPesoMedidas.getText() != "")) {
@@ -2646,7 +2668,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         } else if (rbMedidas.isSelected()) {
 
             System.out.println("Esta seleccionado medidas");
-            
+
             cuello = Double.parseDouble(txtCuello.getText());
             pecho_extendido = Double.parseDouble(txtPechoExtendido.getText());
             pecho_normal = Double.parseDouble(txtPechoNormal.getText());
@@ -2696,11 +2718,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 int comparar = JOptionPane.showConfirmDialog(this, "¿Desea comparar estos datos con el ultimo registro?", "Control de Medidas", JOptionPane.OK_CANCEL_OPTION);
                 if (comparar == 0) {
                     System.out.println("Entramos");
-                    
-                    
-                    
-                    
-                    
+
                 }
             }
 
