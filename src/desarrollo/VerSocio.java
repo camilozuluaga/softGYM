@@ -2719,6 +2719,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 if (comparar == 0) {
                     System.out.println("Entramos");
 
+                    
+                    
+                    
+                    
+                    
                 }
             }
 
