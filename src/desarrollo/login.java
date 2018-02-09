@@ -129,7 +129,6 @@ public class login extends javax.swing.JFrame {
         });
 
         txtClave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtClave.setText("123456");
         txtClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClaveActionPerformed(evt);
@@ -183,7 +182,6 @@ public class login extends javax.swing.JFrame {
         );
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtUsuario.setText("123456");
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusLost(evt);
