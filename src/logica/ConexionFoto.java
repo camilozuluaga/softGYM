@@ -79,14 +79,44 @@ public class ConexionFoto {
         }
         return false;
     }
-
-    public boolean guardarfoto(FileInputStream fis, int longitudimagen) {
+    
+     public boolean guardarfoto(FileInputStream fis, int longitudimagen) {
 
         try {
 
             PreparedStatement pstm = null;
 
             pstm = connection.prepareStatement("UPDATE empresa SET imagen = ? ");
+
+            pstm.setBinaryStream(1, fis, longitudimagen);
+            pstm.execute();
+            pstm.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean guardarfotoProducto(FileInputStream fis, int longitudimagen,int productoId) {
+
+        try {
+
+            PreparedStatement pstm = null;
+
+            pstm = connection.prepareStatement("UPDATE producto SET imagen = ? WHERE id='%s' ",productoId);
 
             pstm.setBinaryStream(1, fis, longitudimagen);
             pstm.execute();
