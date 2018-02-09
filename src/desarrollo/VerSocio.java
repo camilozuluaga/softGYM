@@ -2598,13 +2598,15 @@ public class VerSocio extends javax.swing.JInternalFrame {
      */
     public void guardarMedidas() {
 
+        ArrayList<Double> medidas_anteriores = new ArrayList<>();
+
         double estatura = 0, peso = 0, densidad_osea = 0, porcentaje_masa = 0, porcentaje_grasa = 0, cuello = 0, pecho_extendido = 0, pecho_normal = 0,
                 brazo_derecho = 0, brazo_izquierdo = 0, pierna_derecha = 0, pierna_izquierda = 0, pantorrilla_derecha = 0,
                 pantorrilla_izquierda = 0, cintura_normal = 0, cintura_sumida = 0, estatura_anterior = 0, peso_anterior = 0, densidad_osea_anterior = 0, porcentaje_masa_anterior = 0, porcentaje_grasa_anterior = 0, cuello_anterior = 0, pecho_extendido_anterior = 0, pecho_normal_anterior = 0,
                 brazo_derecho_anterior = 0, brazo_izquierdo_anterior = 0, pierna_derecha_anterior = 0, pierna_izquierda_anterior = 0, pantorrilla_derecha_anterior = 0,
                 pantorrilla_izquierda_anterior = 0, cintura_normal_anterior = 0, cintura_sumida_anterior = 0;
 
-        String tipoActividad = "", querySQL, usuario;
+        String tipoActividad = "", querySQL, usuario, fecha_anterior = null, actividad_fisica_anterior = "";
         boolean success = false;
         int cantidad = 0, medidas_socio_id = 0;
         usuario = System.getProperty("usuario_sistema");
@@ -2624,13 +2626,15 @@ public class VerSocio extends javax.swing.JInternalFrame {
         try {
             while (dataConsulta.next()) {
                 medidas_socio_id = dataConsulta.getInt("id");
+                fecha_anterior = dataConsulta.getString("fecha_registro");
+                actividad_fisica_anterior = dataConsulta.getString("actividad_fisica");
                 peso_anterior = dataConsulta.getDouble("peso");
                 estatura_anterior = dataConsulta.getDouble("estatura");
                 densidad_osea_anterior = dataConsulta.getDouble("densidad_osea");
-                porcentaje_masa_anterior = dataConsulta.getDouble("porcentaje_masa");
+                porcentaje_masa_anterior = dataConsulta.getDouble("porcentaje_muscular");
                 porcentaje_grasa_anterior = dataConsulta.getDouble("porcentaje_grasa");
                 cuello_anterior = dataConsulta.getDouble("cuello");
-                pecho_extendido_anterior = dataConsulta.getDouble("pecho_extendido");
+                pecho_extendido_anterior = dataConsulta.getDouble("pecho_expandido");
                 pecho_normal_anterior = dataConsulta.getDouble("pecho_normal");
                 brazo_derecho_anterior = dataConsulta.getDouble("brazo_derecho");
                 brazo_izquierdo_anterior = dataConsulta.getDouble("pierna_derecha");
@@ -2639,9 +2643,27 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 pantorrilla_derecha_anterior = dataConsulta.getDouble("pantorrilla_derecha");
                 pantorrilla_izquierda_anterior = dataConsulta.getDouble("pantorrilla_izquierda");
                 cintura_normal_anterior = dataConsulta.getDouble("cintura_normal");
-                cintura_sumida_anterior = dataConsulta.getDouble("cintura_normal");
+                cintura_sumida_anterior = dataConsulta.getDouble("cintura_sumida");
 
             }
+            medidas_anteriores.add(0.0);
+            medidas_anteriores.add(peso_anterior);
+            medidas_anteriores.add(estatura_anterior);
+            medidas_anteriores.add(densidad_osea_anterior);
+            medidas_anteriores.add(porcentaje_masa_anterior);
+            medidas_anteriores.add(porcentaje_grasa_anterior);
+            medidas_anteriores.add(cuello_anterior);
+            medidas_anteriores.add(pecho_extendido_anterior);
+            medidas_anteriores.add(pecho_normal_anterior);
+            medidas_anteriores.add(brazo_derecho_anterior);
+            medidas_anteriores.add(brazo_izquierdo_anterior);
+            medidas_anteriores.add(pierna_derecha_anterior);
+            medidas_anteriores.add(pierna_izquierda_anterior);
+            medidas_anteriores.add(pantorrilla_derecha_anterior);
+            medidas_anteriores.add(pantorrilla_izquierda_anterior);
+            medidas_anteriores.add(cintura_normal_anterior);
+            medidas_anteriores.add(cintura_sumida_anterior);
+
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2717,13 +2739,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 System.out.println("El socio ya tiene mas de un registro");
                 int comparar = JOptionPane.showConfirmDialog(this, "¿Desea comparar estos datos con el ultimo registro?", "Control de Medidas", JOptionPane.OK_CANCEL_OPTION);
                 if (comparar == 0) {
-                    System.out.println("Entramos");
+                    System.out.println("Entramos dfgfdgdgd");
 
-                    
-                    
-                    
-                    
-                    
+                    InterfazMedidas imedidas = new InterfazMedidas(fecha_anterior, medidas_anteriores, socioID, actividad_fisica_anterior);
+                    imedidas.setVisible(true);
+
                 }
             }
 
