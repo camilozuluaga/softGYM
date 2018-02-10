@@ -507,7 +507,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                         actualizarImagen(productoId);
                         if (success) {
                             this.dispose();
-                            current.updateDatos();
+                            
                             Telegraph tele = new Telegraph("Producto Actualizado", "Se ha actualizado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
                             TelegraphQueue q = new TelegraphQueue();
                             q.add(tele);

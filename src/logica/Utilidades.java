@@ -438,6 +438,23 @@ public class Utilidades {
 
         return data;
     }
+    
+    public CachedRowSet buscarProductos(String busqueda) {
+        String sql = "SELECT s.nombre ,s.cantidad , s.precio, s.descripcion FROM producto s";
+        String whereSQL = "";
+        String orderBy = " ORDER BY s.nombre DESC ";
+
+        if (!busqueda.isEmpty()) {
+            busqueda = busqueda.replaceAll("^\\s+", ""); //si escriben caracteres en blanco antes de la busqueda borrarlos
+            String filtro = "s.nombre = '" + busqueda + "'";
+            whereSQL += " WHERE " + filtro;
+        }
+        sql = sql + whereSQL + orderBy;
+        CachedRowSet data;
+        data = db.sqlDatos(sql);
+
+        return data;
+    }
 
     public int esUsuarioUnico(String busqueda, Boolean inactivos) {
 

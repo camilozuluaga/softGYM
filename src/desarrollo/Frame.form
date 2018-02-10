@@ -526,6 +526,8 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="bBuscar" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="bInicio1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCorreo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bInicio" min="-2" max="-2" attributes="0"/>
@@ -546,6 +548,7 @@
                           <Component id="bPuerta1" alignment="2" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnCorreo" alignment="2" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="bInicio1" alignment="2" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -564,6 +567,7 @@
                 <Property name="toolTipText" type="java.lang.String" value="BUSCAR UN SOCIO..."/>
               </Properties>
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarActionPerformed"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyPressed"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyReleased"/>
               </Events>
@@ -622,6 +626,16 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCorreoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="bInicio1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagen/iconotienda.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bInicio1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
