@@ -116,7 +116,7 @@ public class ConexionFoto {
 
             PreparedStatement pstm = null;
 
-            pstm = connection.prepareStatement("UPDATE producto SET imagen = ? WHERE id='%s' ",productoId);
+            pstm = connection.prepareStatement("UPDATE producto SET imagen = ? WHERE id="+productoId);
 
             pstm.setBinaryStream(1, fis, longitudimagen);
             pstm.execute();

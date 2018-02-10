@@ -440,7 +440,7 @@ public class Utilidades {
     }
     
     public CachedRowSet buscarProductos(String busqueda) {
-        String sql = "SELECT s.nombre ,s.cantidad , s.precio, s.descripcion FROM producto s";
+        String sql = "SELECT s.id, s.nombre ,s.cantidad , s.precio, s.descripcion FROM producto s";
         String whereSQL = "";
         String orderBy = " ORDER BY s.nombre DESC ";
 

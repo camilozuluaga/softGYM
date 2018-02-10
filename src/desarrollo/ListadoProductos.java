@@ -62,7 +62,7 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Lista Socios Sistema");
+        setTitle("Lista Productos");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -146,14 +146,10 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         
         if (evt.getClickCount() == 1) {
             int row = tablaSocios.rowAtPoint(evt.getPoint());
-            System.out.println("Id del socio seleccionado: " + tablaSocios.getValueAt(row, 0));
+            System.out.println("Id del producto seleccionado: " + tablaSocios.getValueAt(row, 0));
             int id = Integer.valueOf(tablaSocios.getValueAt(row, 0).toString());
             this.dispose();
-            try {
-                Ventana.agregarInternalFrame(new VerSocio(arduino, id));
-            } catch (SQLException | ParseException ex) {
-                Logger.getLogger(ListadoProductos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Ventana.agregarInternalFrame(new Producto(id));
         }
 
     }//GEN-LAST:event_tablaSociosMouseClicked
@@ -172,10 +168,12 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         try {
 
             CachedRowSet data;
-            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "Nombre", "Cantidad", "Precio", "Descripcion"});
+            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "ID","Nombre", "Cantidad", "Precio", "Descripcion"});
 
             data = utils.buscarProductos(busqueda);
             tablaSocios = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaSocios);
+            tablaSocios.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaSocios.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
             TableColumnModel columnModel = tablaSocios.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(50);
             columnModel.getColumn(1).setPreferredWidth(2);

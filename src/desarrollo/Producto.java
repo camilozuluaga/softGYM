@@ -63,12 +63,12 @@ public final class Producto extends javax.swing.JInternalFrame {
         btnEliminar.setVisible(false);
 
     }
-    VerSocio current;
+    
 
-    public Producto(int productoId, VerSocio current) {
+    public Producto(int productoId) {
         initComponents();
-        this.current = current;
-
+       
+this.productoId=productoId;
         traerDatosProducto(productoId);
         btnCapturarFoto.setVisible(true);
         btnCerrar.setVisible(false);
@@ -467,9 +467,7 @@ public final class Producto extends javax.swing.JInternalFrame {
 
     public void traerDatosProducto(int productoId) {
         CachedRowSet data;
-        String querySQL = String.format("SELECT nombre,precio,cantidad,imagen,descripcion,"
-                + "FROM producto \n"
-                + "WHERE id=%s\n", productoId);
+        String querySQL = String.format("SELECT nombre,precio,cantidad,imagen,descripcion FROM producto WHERE id=%s", productoId);
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
@@ -477,7 +475,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                 txtNombre.setText(data.getString("nombre"));
                 txtCantidad.setText(data.getString("cantidad"));
                 txtPrecio.setText(data.getString("precio"));
-                txtDescripcion.setText(data.getString("descripcin"));
+                txtDescripcion.setText(data.getString("descripcion"));
 
                 if (data.getBytes("imagen") != null) {
                     ImageIcon foto = new ImageIcon(data.getBytes("imagen"));
@@ -502,7 +500,7 @@ public final class Producto extends javax.swing.JInternalFrame {
             if (!txtPrecio.getText().isEmpty()) {
                 if (!txtCantidad.getText().isEmpty()) {
                     if (productoId > 0) {
-                        querySQL = String.format("UPDATE producto SET precio=%s,cantidad=%s,nombre='%s',descripcion='%s' WHERE id='%s'", precio, cantidad, nombre, descripcion, productoId);
+                        querySQL = String.format("UPDATE producto SET precio=%s,cantidad=%s,nombre='%s',descripcion='%s' WHERE id=%s", precio, cantidad, nombre, descripcion, productoId);
                         success = db.sqlEjec(querySQL);
                         actualizarImagen(productoId);
                         if (success) {
@@ -567,7 +565,6 @@ public final class Producto extends javax.swing.JInternalFrame {
         success = db.sqlEjec(querySQL);
         if (success) {
             this.dispose();
-            current.updateDatos();
             Telegraph tele = new Telegraph("Producto Eliminado con Exito", "El producto ha sido eliminado con exito", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 5000);
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
