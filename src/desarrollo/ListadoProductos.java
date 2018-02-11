@@ -176,9 +176,10 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
             tablaSocios.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
             TableColumnModel columnModel = tablaSocios.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(50);
-            columnModel.getColumn(1).setPreferredWidth(2);
+            columnModel.getColumn(1).setPreferredWidth(50);
             columnModel.getColumn(2).setPreferredWidth(2);
-            columnModel.getColumn(3).setPreferredWidth(200);
+            columnModel.getColumn(3).setPreferredWidth(2);
+             columnModel.getColumn(4).setPreferredWidth(200);
         } catch (SQLException ex) {
             Logger.getLogger(ListadoProductos.class.getName()).log(Level.SEVERE, null, ex);
         }

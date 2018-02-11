@@ -63,6 +63,8 @@ public class Tienda extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
+        btnCrearSocio = new javax.swing.JButton();
+        btnCrearSocio1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -117,7 +119,7 @@ public class Tienda extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -141,17 +143,48 @@ public class Tienda extends javax.swing.JInternalFrame {
                 .addGap(83, 83, 83))
         );
 
+        btnCrearSocio.setBackground(new java.awt.Color(255, 255, 255));
+        btnCrearSocio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCrearSocio.setText("CREAR PRODUCTO");
+        btnCrearSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearSocioActionPerformed(evt);
+            }
+        });
+
+        btnCrearSocio1.setBackground(new java.awt.Color(255, 255, 255));
+        btnCrearSocio1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCrearSocio1.setText("COMPRAR PRODUCTO");
+        btnCrearSocio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearSocio1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCrearSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(btnCrearSocio1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 436, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCrearSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addGap(280, 280, 280))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCrearSocio1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -194,9 +227,19 @@ private void buscar() throws SQLException, ParseException {
         }
     }//GEN-LAST:event_bBuscarActionPerformed
 
+    private void btnCrearSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSocioActionPerformed
+        agregarInternalFrame(escritorio, new Producto());
+    }//GEN-LAST:event_btnCrearSocioActionPerformed
+
+    private void btnCrearSocio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSocio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearSocio1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBuscar;
+    private javax.swing.JButton btnCrearSocio;
+    private javax.swing.JButton btnCrearSocio1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

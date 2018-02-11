@@ -446,7 +446,7 @@ public class Utilidades {
 
         if (!busqueda.isEmpty()) {
             busqueda = busqueda.replaceAll("^\\s+", ""); //si escriben caracteres en blanco antes de la busqueda borrarlos
-            String filtro = "s.nombre = '" + busqueda + "'";
+            String filtro = "s.nombre Like  '%" + busqueda + "%'";
             whereSQL += " WHERE " + filtro;
         }
         sql = sql + whereSQL + orderBy;
