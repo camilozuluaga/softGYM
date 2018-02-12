@@ -42,7 +42,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     private boolean usuarioPaga;
     double valorPagado;
     int idMembresia;
-    boolean pago_tarjeta;
+    
     
 
 
@@ -59,7 +59,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
        utilidades.llenarColumnas(TablaProductos);
        cDineroRecibido.requestFocus();
 
-        pago_tarjeta=false;
+        
 
     
 
@@ -89,10 +89,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaProductos = new javax.swing.JTable();
         bPago = new javax.swing.JButton();
-        rbPagoConTarjeta = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
         cDineroRecibido = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
 
         pagoConTarjeta.setBackground(new java.awt.Color(255, 255, 255));
@@ -189,6 +186,11 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             }
         ));
         TablaProductos.setFocusable(false);
+        TablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaProductos);
 
         bPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
@@ -198,64 +200,6 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
                 bPagoActionPerformed(evt);
             }
         });
-
-        rbPagoConTarjeta.setText("Pago con tarjeta");
-        rbPagoConTarjeta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbPagoConTarjetaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(bPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(321, 321, 321)
-                                .addComponent(lBalance))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(rbPagoConTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cValorAdquirido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cBalance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cValorAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lBalance))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbPagoConTarjeta))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         cDineroRecibido.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         cDineroRecibido.setForeground(new java.awt.Color(51, 102, 0));
@@ -283,42 +227,58 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jCheckBox1.setText("¿Registrar este pago en otra Fecha?");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel9.setText("Dinero Recibido");
         jLabel9.setToolTipText("");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cDineroRecibido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lBalance))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(bPago)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8)))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cValorAdquirido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cBalance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cDineroRecibido)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jCheckBox1))
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cDineroRecibido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cValorAdquirido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lBalance)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cDineroRecibido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -328,9 +288,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             .addComponent(pagoConTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -338,10 +296,8 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pagoConTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -354,10 +310,6 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     private void cDineroRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cDineroRecibidoActionPerformed
 
     }//GEN-LAST:event_cDineroRecibidoActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void cDineroRecibidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyReleased
         recalcularDinero();
@@ -415,24 +367,36 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         // TODO add your handling code here:
         int tamano = cDineroRecibido.getText().length();
         if (tamano > 7) {
-            Telegraph tele = new Telegraph("PAGO MEMBRESIA", "NO SE HA PODIDO AGREGAR ESTE PAGO \n HA SOBREPASASO EL VALOR DE LOS PAGOS", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
+            Telegraph tele = new Telegraph("PAGO PRODUCTOS", "NO SE HA PODIDO AGREGAR ESTE PAGO \n HA SOBREPASASO EL VALOR DE LOS PAGOS", TelegraphType.NOTIFICATION_ERROR, WindowPosition.TOPRIGHT, 5000);
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
             cDineroRecibido.setText("");
         }
     }//GEN-LAST:event_cDineroRecibidoKeyTyped
 
-    private void rbPagoConTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPagoConTarjetaActionPerformed
-         // TODO add your handling code here:
-    }//GEN-LAST:event_rbPagoConTarjetaActionPerformed
-
     private void bPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPago1ActionPerformed
-        agregarInternalFrame(escritorio, new ProductosCompras(TablaProductos,cValorAdquirido));
+        agregarInternalFrame(escritorio, new ProductosCompras(TablaProductos,cValorAdquirido,cBalance));
     }//GEN-LAST:event_bPago1ActionPerformed
+
+    private void TablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductosMouseClicked
+        int row = TablaProductos.rowAtPoint(evt.getPoint());
+            
+            Double cuenta1= Double.parseDouble(String.valueOf(TablaProductos.getValueAt(row, 3)));
+            double cuenta=Double.parseDouble(cValorAdquirido.getText());
+            double cuenta2=cuenta-cuenta1;
+          cValorAdquirido.setText(String.valueOf(cuenta2));
+          recalcularDinero();
+        DefaultTableModel modelo = (DefaultTableModel)TablaProductos.getModel(); 
+            modelo.removeRow(TablaProductos.getSelectedRow()); 
+            
+            
+            
+    }//GEN-LAST:event_TablaProductosMouseClicked
 public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funciÃ³n permite agregar un internal frame a un jframe rapidamente :)
         desktop.add(internal);
         Utilidades.centrarInternalFrame(internal);
     }
+
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaProductos;
@@ -442,24 +406,19 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
     private javax.swing.JTextField cDineroRecibido;
     private javax.swing.JTextField cValorAdquirido;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lBalance;
     private javax.swing.JPanel pagoConTarjeta;
-    private javax.swing.JRadioButton rbPagoConTarjeta;
     // End of variables declaration//GEN-END:variables
 
     private void guardar() {
-        if(rbPagoConTarjeta.isSelected()){
-            pago_tarjeta=true;
-        }
+        
         String dineroRecibido = cDineroRecibido.getText();
 
         if ("0".equals(dineroRecibido)) {
@@ -481,54 +440,7 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         Utilidades.centrarInternalFrame(imprimirRecibo);
     }
    
-//
-//    private void obtenerMembresiasActivas() {
-//        CachedRowSet data;
-//        try {
-//
-//            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"Fecha Asignacion", "Producto Adquirido", "Costo Membresia", "Saldo"});
-////            data = db.sqlDatos("SELECT  mendatos.fecha_asignacion, men.nombre || ': Comienza  ' || mendatos.fecha_inicio_membresia ||' | Termina '|| mendatos.fecha_fin_membresia , mendatos.costo_membresia , mendatos.costo_membresia + mendatos.costo_inscripcion - mendatos.descuento as saldo , mendatos.id \n"
-////                    + "FROM socio soc , membresia_usuario menusu , membresia men , membresia_datos mendatos\n"
-////                    + "WHERE menusu.socio_id = soc.id AND menusu.membresia_id = men.id AND mendatos.membresia_socio_id = menusu.id\n"
-////                    + "AND men.estado = true and menusu.activa = true AND mendatos.estado = 'Sin Cancelar' AND soc.id = " + socioId);
-//
-//            data = db.sqlDatos("SELECT  mendatos.fecha_asignacion, men.nombre || ': Comienza  ' || mendatos.fecha_inicio_membresia ||' | Termina '|| mendatos.fecha_fin_membresia , mendatos.costo_membresia , (SELECT saldo FROM pago_membresia WHERE membresiadatos_id = mendatos.id order by fecha_pago desc limit 1) as saldo , mendatos.id \n"
-//                    + "                    FROM socio soc , membresia_usuario menusu , membresia men , membresia_datos mendatos\n"
-//                    + "                    WHERE menusu.socio_id = soc.id AND menusu.membresia_id = men.id AND mendatos.membresia_socio_id = menusu.id\n"
-//                    + "                    AND men.estado = true  AND mendatos.estado = 'Sin Cancelar' AND soc.id = " + socioId);
-//
-//            TablaProductos = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, TablaProductos);
-//            double valorAdquirido = 0;
-//
-//            while (data.next()) {
-//                String ComboInfo = String.format("%s|%s| Costo = $ %s| Saldo = $ %s", data.getString(1), data.getString(2), data.getString(3), data.getString(4));
-//                //cbMembresias.addItem(ComboInfo);
-//
-//                valorAdquirido += data.getDouble("saldo");
-//                idMembresia=data.getInt("id");
-//                saldoProductos.put(data.getInt("id"), data.getDouble("saldo"));
-//                MembresiasUsuario.put(ComboInfo, data.getInt("id"));
-//                
-//            }
-//
-//            cValorAdquirido.setText(String.valueOf(valorAdquirido));
-//
-//        } catch (Exception ex) {
-//            Logger.getLogger(RegistrarPagoProductos.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
 
-    private void actualizarEstadoPagoMembresia(int membresiaId) {
-        
-        String querySQL = String.format("UPDATE membresia_datos SET estado = 'Pagada'WHERE id = %s", membresiaId);
-        boolean success = db.sqlEjec(querySQL);
-//        if (success) {
-//            msj.show("Membresia Pagada", "La Membresia a sido Cancelada en su Totalidad", TelegraphType.MESSAGE);
-//        } else {
-//            msj.show("Error Registrando Pago", "No se completó la operación de registrar el Pago, consulte con el administrador del Sistema", TelegraphType.NOTIFICATION_ERROR);
-//        }
-    }
     
     private int registrarPagos() {
         boolean success = false;
@@ -551,7 +463,7 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
                 success = procesarPago(valorAdquirido, saldo, 0.0, membresiaDatosId, facturaId);
                 //System.out.println("Membresia de id " + membresiaDatosId + " se pagara completa");
                 if (success) {
-                    actualizarEstadoPagoMembresia(membresiaDatosId);
+                   // actualizarEstadoPagoMembresia(membresiaDatosId);
                 }
                 dineroRecibido = dineroRecibido - saldo;
                 msj.show("Pago exitoso", "El cambio es: "+dineroRecibido+"", TelegraphType.NOTIFICATION_DONE, 4000);
@@ -621,9 +533,7 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPagoProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        String querySQL = String.format("INSERT INTO pago_membresia(fecha_pago,socio_id,valor_adquirido,pago,saldo,fecha_registro,usuario_sistema_id,membresiadatos_id,factura_id,id_caja,pago_tarjeta) VALUES (now(),%s,%s,%s,%s,now(),%s,%s,%s,%s,%s)", socio_id, valorAdquirido, pago, saldo, usuario_sistema, membresiaDatos, facturaId,id_caja,pago_tarjeta);
-//        boolean success = db.sqlEjec(querySQL);
-       return true;
+  return true;
     }
 
     
@@ -633,7 +543,11 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
     public void recalcularDinero() {
         if (!cDineroRecibido.getText().isEmpty()) {
             if (cDineroRecibido.getText().startsWith("0")) {
+                if(cDineroRecibido.getText().length()==1){
+                    
+                }else{
                 cDineroRecibido.setText(cDineroRecibido.getText().substring(1));
+                }
             }
             try {
                 Double valorAdquirido = Double.valueOf(cValorAdquirido.getText());
@@ -674,18 +588,26 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
      */
     private int generarFactura(Double paga) {
         int id = -1;
-        Double debe = 0.0;
+        String querySQL;
+        boolean success;
+      
 
         if (!usuarioPaga) {
             msj.show("Numero Incorrecto", "Debe de digitar una Suma Correcta para poder registrar el Pago", TelegraphType.APPLICATION_WARNING, 4000);
             return -1;  
+        }else{
+            querySQL = String.format("INSERT INTO factura_producto(usuario_sistema_id,fecha_registro,precio_total) VALUES (%s,now(),%s)", Integer.valueOf(usuario_sistema),paga);
+                        success = db.sqlEjec(querySQL);
+                        if (success) {
+                            //Telegraph tele = new Telegraph("Producto Registrado", "Se ha registrado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
+                           // TelegraphQueue q = new TelegraphQueue();
+                            //q.add(tele);
+                            //this.dispose();
+                            return traerultimo();
+                        }
         }
         
-//        String queryFactura = String.format("INSERT INTO factura(socio_id,paga,debe,usuario_sistema_id,id_membresia_usuario) VALUES (%s,%s,%s,%s,%s);", socioId, paga, debe, usuario_sistema,idMembresia);
-//        System.out.println("INSERTANDO EN FACTURA:"+queryFactura);
-     //   if (db.sqlEjec(queryFactura)) {
-     //       id = db.getKeys();
-      //  }
+
         return id;
     }
 
@@ -708,6 +630,25 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         String query = String.format("UPDATE factura SET paga = %s , debe = %s   WHERE id = %s", paga, debe, facturaId);
 
         db.sqlEjec(query);
+    }
+    public int traerultimo() {
+        CachedRowSet data;
+        int aux = 0;
+        String querySQL = String.format("select pro.id \n"
+                + "from factura_producto pro, usuario_sistema us \n"
+                + "where us.id=pro.usuario_sistema_id \n"
+                + "order by pro.id desc limit 1;");
+        data = db.sqlDatos(querySQL);
+        try {
+            while (data.next()) {
+                
+                aux = Integer.parseInt(data.getString("id"));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aux;
     }
 
 

@@ -97,5 +97,17 @@ CREATE TABLE producto(id SERIAL PRIMARY KEY NOT NULL, usuario_sistema_id INTEGER
 ALTER TABLE producto ADD FOREIGN KEY(usuario_sistema_id) REFERENCES usuario_sistema(id);
 ALTER TABLE producto OWNER TO gidsoft;
 alter table producto add column estado boolean;
+
+
+
+CREATE TABLE Factura_producto(id SERIAL PRIMARY KEY NOT NULL, usuario_sistema_id INTEGER,fecha_registro TIMESTAMP,precio_total NUMERIC);
+ALTER TABLE Factura_producto ADD FOREIGN KEY(usuario_sistema_id) REFERENCES usuario_sistema(id);
+ALTER TABLE producto OWNER TO gidsoft;
+
+
+CREATE TABLE FacturaProductos(factura_producto_id INTEGER,producto_id INTEGER);
+ALTER TABLE FacturaProductos ADD FOREIGN KEY(factura_producto_id) REFERENCES Factura_producto(id);
+ALTER TABLE FacturaProductos ADD FOREIGN KEY(producto_id) REFERENCES Producto(id);
+ALTER TABLE producto OWNER TO gidsoft;
 ####################################################
 

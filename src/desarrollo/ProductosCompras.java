@@ -33,19 +33,20 @@ public class ProductosCompras extends javax.swing.JInternalFrame {
     private Utilidades utils = new Utilidades();
     Puerta arduino;
     JTable tabla;
-    JTextField field;
-
+    JTextField field,balance;
+    
     /**
      * Creates new form ListadoSocios
      *
      * @param busqueda
      * @param Ventana
      */
-    public ProductosCompras(JTable tabla, JTextField field) {
+    public ProductosCompras(JTable tabla, JTextField field,JTextField balance) {
         initComponents();
         this.tabla = tabla;
         configurarListado("", false);
         this.field=field;
+        this.balance=balance;
 
     }
 
@@ -207,6 +208,7 @@ public class ProductosCompras extends javax.swing.JInternalFrame {
             double cuenta=Double.parseDouble(field.getText());
             double cuenta2=cuenta+cuenta1;
             field.setText(String.valueOf(cuenta2));
+            balance.setText(String.valueOf(cuenta2));
             this.dispose();
 
         }
