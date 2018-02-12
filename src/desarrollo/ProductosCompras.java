@@ -14,10 +14,11 @@ import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import logica.DB;
-import logica.PlaceHolder;
 import logica.Utilidades;
 import puerta.Puerta;
 
@@ -25,14 +26,14 @@ import puerta.Puerta;
  *
  * @author gaso
  */
-public class Tienda extends javax.swing.JInternalFrame {
+public class ProductosCompras extends javax.swing.JInternalFrame {
 
-    
     private DB db = new DB();
-    private final Frame Ventana;
+
     private Utilidades utils = new Utilidades();
     Puerta arduino;
-    private Utilidades utiles = new Utilidades();
+    JTable tabla;
+    JTextField field;
 
     /**
      * Creates new form ListadoSocios
@@ -40,12 +41,12 @@ public class Tienda extends javax.swing.JInternalFrame {
      * @param busqueda
      * @param Ventana
      */
-    public Tienda(Frame Ventana) {
+    public ProductosCompras(JTable tabla, JTextField field) {
         initComponents();
-      PlaceHolder placeHolder = new PlaceHolder("Buscar Prodcuto...", txtBuscar);
-        this.Ventana = Ventana;
-        
-        arduino = Ventana.pp;
+        this.tabla = tabla;
+        configurarListado("", false);
+        this.field=field;
+
     }
 
     /**
@@ -63,25 +64,25 @@ public class Tienda extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
-        btnCrearSocio = new javax.swing.JButton();
-        btnCrearSocio1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaSocios = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Tienda");
+        setTitle("Lista Productos");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Tienda");
+        jLabel1.setText("Listar Producto");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/registradora.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        jLabel3.setText("Busca, crea, modifica o compra productos.");
+        jLabel3.setText("Selecciona un producto a comprar.");
 
         txtBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(153, 153, 153));
@@ -119,7 +120,7 @@ public class Tienda extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -143,23 +144,23 @@ public class Tienda extends javax.swing.JInternalFrame {
                 .addGap(83, 83, 83))
         );
 
-        btnCrearSocio.setBackground(new java.awt.Color(255, 255, 255));
-        btnCrearSocio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCrearSocio.setText("CREAR PRODUCTO");
-        btnCrearSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearSocioActionPerformed(evt);
+        tablaSocios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaSocios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaSociosMouseClicked(evt);
             }
         });
-
-        btnCrearSocio1.setBackground(new java.awt.Color(255, 255, 255));
-        btnCrearSocio1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCrearSocio1.setText("COMPRAR PRODUCTO");
-        btnCrearSocio1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearSocio1ActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(tablaSocios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,58 +169,81 @@ public class Tienda extends javax.swing.JInternalFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCrearSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(btnCrearSocio1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCrearSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                        .addGap(280, 280, 280))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCrearSocio1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tablaSociosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSociosMouseClicked
+
+        if (evt.getClickCount() == 1) {
+            int row = tablaSocios.rowAtPoint(evt.getPoint());
+            System.out.println("Id del producto seleccionado: " + tablaSocios.getValueAt(row, 0));
+            Double cuenta1= Double.parseDouble(String.valueOf(tablaSocios.getValueAt(row, 3)));
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+            Object[] fila = new Object[6];
+
+            fila[0] = tablaSocios.getValueAt(row, 0);
+            fila[1] = tablaSocios.getValueAt(row, 1);
+            fila[2] = "1";
+            fila[3] = tablaSocios.getValueAt(row, 3);
+            fila[4] = tablaSocios.getValueAt(row, 4);
+
+            modelo.addRow(fila);
+
+            tabla.setModel(modelo);
+            
+            double cuenta=Double.parseDouble(field.getText());
+            double cuenta2=cuenta+cuenta1;
+            field.setText(String.valueOf(cuenta2));
+            this.dispose();
+
+        }
+
+    }//GEN-LAST:event_tablaSociosMouseClicked
+
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
 
-    public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funciÃ³n permite agregar un internal frame a un jframe rapidamente :)
-        desktop.add(internal);
-        Utilidades.centrarInternalFrame(internal);
-    }
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-                buscar();
+                buscar(txtBuscar.getText());
             } catch (SQLException | ParseException ex) {
                 Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }//GEN-LAST:event_txtBuscarKeyPressed
-private void buscar() throws SQLException, ParseException {  
-    
-            agregarInternalFrame(escritorio, new ListadoProductos(txtBuscar.getText().toUpperCase(),Ventana));
-       
+    private void buscar(String busqueda) throws SQLException, ParseException {
+        configurarListado(busqueda.toUpperCase(), true);
+
     }
+
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        // TODO add your handling code here:
+        try {
+            buscar(txtBuscar.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosCompras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProductosCompras.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         try {
-            buscar();
+            buscar(txtBuscar.getText());
         } catch (SQLException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -227,25 +251,38 @@ private void buscar() throws SQLException, ParseException {
         }
     }//GEN-LAST:event_bBuscarActionPerformed
 
-    private void btnCrearSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSocioActionPerformed
-        agregarInternalFrame(escritorio, new Producto());
-    }//GEN-LAST:event_btnCrearSocioActionPerformed
-
-    private void btnCrearSocio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSocio1ActionPerformed
-        agregarInternalFrame(escritorio, new RegistrarPagoProductos());
-    }//GEN-LAST:event_btnCrearSocio1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBuscar;
-    private javax.swing.JButton btnCrearSocio;
-    private javax.swing.JButton btnCrearSocio1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaSocios;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
-   
+    private void configurarListado(String busqueda, Boolean inactivos) {
+        try {
+
+            CachedRowSet data;
+            DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{"ID", "Nombre", "Cantidad", "Precio", "Descripcion"});
+
+            data = utils.buscarProductos(busqueda);
+            tablaSocios = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaSocios);
+            tablaSocios.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaSocios.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+            TableColumnModel columnModel = tablaSocios.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(50);
+            columnModel.getColumn(1).setPreferredWidth(50);
+            columnModel.getColumn(2).setPreferredWidth(2);
+            columnModel.getColumn(3).setPreferredWidth(2);
+            columnModel.getColumn(4).setPreferredWidth(200);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosCompras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }

@@ -45,6 +45,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -136,6 +137,24 @@ public class Utilidades {
         return activo;
     }
 
+    public void llenarColumnas(JTable TablaProductos) {
+        DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Descripcion");
+        TablaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        TablaProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        TableColumnModel columnModel = TablaProductos.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(1).setPreferredWidth(50);
+        columnModel.getColumn(2).setPreferredWidth(2);
+        columnModel.getColumn(3).setPreferredWidth(2);
+        columnModel.getColumn(4).setPreferredWidth(200);
+
+    }
+
     public static JTable llenarTabla(CachedRowSet crs, DefaultTableModel modelo, JTable tbl) {
         try {
             ResultSetMetaData rsmd = crs.getMetaData();
@@ -175,8 +194,7 @@ public class Utilidades {
         }
     }
 
-    
-        public void validarCampoNumericosMedidas(String texto, JTextField cajaDeTexto) {
+    public void validarCampoNumericosMedidas(String texto, JTextField cajaDeTexto) {
         texto = cajaDeTexto.getText();
         tamano = texto.length();
         if (!cajaDeTexto.getText().matches("([0-9]*).([0-9]*)")) {
@@ -192,7 +210,7 @@ public class Utilidades {
 
         }
     }
-        
+
     public void validarCampoNumericos(String texto, JTextField cajaDeTexto, int longitud) {
         texto = cajaDeTexto.getText();
         tamano = texto.length();
@@ -438,7 +456,7 @@ public class Utilidades {
 
         return data;
     }
-    
+
     public CachedRowSet buscarProductos(String busqueda) {
         String sql = "SELECT s.id, s.nombre ,s.cantidad , s.precio, s.descripcion FROM producto s";
         String whereSQL = "";
@@ -450,6 +468,18 @@ public class Utilidades {
             whereSQL += " WHERE " + filtro;
         }
         sql = sql + whereSQL + orderBy;
+        CachedRowSet data;
+        data = db.sqlDatos(sql);
+
+        return data;
+    }
+
+    public CachedRowSet buscarProductosPorId(int productoId) {
+        String sql = "SELECT s.id, s.nombre ,s.cantidad , s.precio, s.descripcion FROM producto s";
+
+        String orderBy = " ORDER BY s.nombre DESC ";
+
+        sql = sql + "WHERE s.id=" + productoId + orderBy;
         CachedRowSet data;
         data = db.sqlDatos(sql);
 
@@ -780,8 +810,9 @@ public class Utilidades {
         cadena = cadena.toUpperCase();
         return cadena;
     }
-    public String cargarDireccionEmpresa(){
-         CachedRowSet data;
+
+    public String cargarDireccionEmpresa() {
+        CachedRowSet data;
         String querySQL = "SELECT dir FROM empresa;";
         data = db.sqlDatos(querySQL);
         try {
@@ -792,30 +823,27 @@ public class Utilidades {
             Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
-        
+
     }
-     public String cargarNitEmpresa(){
-         CachedRowSet data;
+
+    public String cargarNitEmpresa() {
+        CachedRowSet data;
         String querySQL = "SELECT nit FROM empresa;";
         data = db.sqlDatos(querySQL);
         try {
             if (data.next()) {
-                return data.getString("nit")+dv(data.getString("nit"));
+                return data.getString("nit") + dv(data.getString("nit"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
-        
+
     }
-    
-    
-    
-    
 
     public String CargarNombreTitulo() {
 
-          CachedRowSet data;
+        CachedRowSet data;
         String querySQL = "SELECT nombre FROM empresa;";
         data = db.sqlDatos(querySQL);
         try {
@@ -826,13 +854,10 @@ public class Utilidades {
             Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "HERCULES GYM";
-        
-        
+
     }
 
-
-
-   public boolean mostrarPantallaBienvenida() {
+    public boolean mostrarPantallaBienvenida() {
         CachedRowSet data;
         String querySQL = "SELECT * FROM empresa;";
         data = db.sqlDatos(querySQL);
@@ -844,10 +869,10 @@ public class Utilidades {
             Logger.getLogger(Utilidades.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-        
+
     }
-    
-        public  String dv(String documento) {
+
+    public String dv(String documento) {
         int suma = 0;
         String[] iden = new String[100];
         int[] primos = {1, 3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71};
@@ -858,9 +883,9 @@ public class Utilidades {
         suma = suma % 11;
         if (suma > 1) {
             suma = 11 - suma;
-            return String.valueOf("-"+suma);
+            return String.valueOf("-" + suma);
         } else {
-            return String.valueOf("-"+suma);
+            return String.valueOf("-" + suma);
         }
 
     }
