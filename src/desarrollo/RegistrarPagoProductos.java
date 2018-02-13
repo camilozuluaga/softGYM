@@ -364,7 +364,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cDineroRecibidoKeyTyped
 
     private void bPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPago1ActionPerformed
-        agregarInternalFrame(escritorio, new ProductosCompras(TablaProductos, cValorAdquirido, cBalance));
+         agregarInternalFrame(escritorio, new ProductosCompras(TablaProductos, cValorAdquirido, cBalance));
     }//GEN-LAST:event_bPago1ActionPerformed
 
     private void TablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductosMouseClicked
@@ -420,7 +420,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         }
 
         this.dispose();
-        ImprimirRecibo imprimirRecibo = new ImprimirRecibo(idFactura);
+        ImprimirReciboProducto imprimirRecibo = new ImprimirReciboProducto(idFactura);
         Frame.escritorio.add(imprimirRecibo);
         imprimirRecibo.toFront();
         imprimirRecibo.setVisible(true);
@@ -432,7 +432,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             boolean success = true;
             Double dineroRecibido = Double.parseDouble(cDineroRecibido.getText());
             Double dineroAdquirido = Double.parseDouble(cValorAdquirido.getText());
-
+            Double dineroRecibido1 = Double.parseDouble(cDineroRecibido.getText());
             //Aqui Generar Factura
             int facturaId = generarFactura(dineroRecibido);
             if (facturaId == -1) {
@@ -451,7 +451,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
                 cDineroRecibido.setEditable(false);
                 //Actualizar Valores Factura Aqui.
                 registrarProductosFactura(idsDeLosProductos(), facturaId);
-                actualizarValoresFactura(facturaId, dineroRecibido);
+                actualizarValoresFactura(facturaId, dineroAdquirido,dineroRecibido1);
 
                 msj.show("Transacción Exitosa", "Pago registrado con exito", TelegraphType.NOTIFICATION_DONE, 3000);
                 return facturaId;
@@ -530,9 +530,9 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         return id;
     }
 
-    private void actualizarValoresFactura(int facturaId, double valor) {
+    private void actualizarValoresFactura(int facturaId, double valor,double pago) {
 
-        String query = String.format("UPDATE factura_producto SET precio_total = %s WHERE id = %s", valor, facturaId);
+        String query = String.format("UPDATE factura_producto SET precio_total = %s,pago=%s WHERE id = %s", valor,pago, facturaId);
         db.sqlEjec(query);
     }
 

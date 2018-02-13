@@ -170,7 +170,7 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
             CachedRowSet data;
             DefaultTableModel dtmEjemplo = new DefaultTableModel(null, new String[]{ "ID","Nombre", "Cantidad", "Precio", "Descripcion"});
 
-            data = utils.buscarProductos(busqueda);
+            data = buscarProductos(busqueda);
             tablaSocios = logica.Utilidades.llenarTabla(data.createCopy(), dtmEjemplo, tablaSocios);
             tablaSocios.getColumnModel().getColumn(0).setMinWidth(0);
             tablaSocios.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
@@ -185,5 +185,23 @@ public class ListadoProductos extends javax.swing.JInternalFrame {
         }
 
     }
+        public CachedRowSet buscarProductos(String busqueda) {
+        String sql = "SELECT s.id, s.nombre ,s.cantidad , s.precio, s.descripcion FROM producto s";
+        String whereSQL = "";
+        String orderBy = " ORDER BY s.nombre DESC ";
+
+        if (!busqueda.isEmpty()) {
+            busqueda = busqueda.replaceAll("^\\s+", ""); //si escriben caracteres en blanco antes de la busqueda borrarlos
+            String filtro = "s.nombre Like  '%" + busqueda + "%'";
+            whereSQL += " WHERE " + filtro;
+        }
+        sql = sql + whereSQL + orderBy;
+        CachedRowSet data;
+        data = db.sqlDatos(sql);
+
+        return data;
+    }
+
+   
 
 }
