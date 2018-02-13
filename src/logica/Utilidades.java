@@ -464,8 +464,12 @@ public class Utilidades {
 
         if (!busqueda.isEmpty()) {
             busqueda = busqueda.replaceAll("^\\s+", ""); //si escriben caracteres en blanco antes de la busqueda borrarlos
-            String filtro = "s.nombre Like  '%" + busqueda + "%'";
+            String filtro = "s.nombre Like  '%" + busqueda + "%' AND s.cantidad>0";
             whereSQL += " WHERE " + filtro;
+        }else{
+           busqueda = busqueda.replaceAll("^\\s+", ""); //si escriben caracteres en blanco antes de la busqueda borrarlos
+            String filtro = "s.cantidad>0";
+            whereSQL += " WHERE " + filtro; 
         }
         sql = sql + whereSQL + orderBy;
         CachedRowSet data;

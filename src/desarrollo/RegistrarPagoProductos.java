@@ -25,7 +25,7 @@ import net.sf.jtelegraph.Telegraph;
 import net.sf.jtelegraph.TelegraphQueue;
 import net.sf.jtelegraph.TelegraphType;
 import static desarrollo.Frame.escritorio;
-import javax.swing.table.TableColumnModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -34,18 +34,12 @@ import javax.swing.table.TableColumnModel;
 public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
 
     private DB db = new DB();
-    Map<Integer, Double> saldoProductos = new HashMap<>();
-    Map<String, Integer> MembresiasUsuario = new HashMap<>();
-    
+
     private final int usuario_sistema = Integer.valueOf(System.getProperty("usuario_sistema"));
     Utilidades utilidades = new Utilidades();
     private boolean usuarioPaga;
     double valorPagado;
     int idMembresia;
-    
-    
-
-
 
     /**
      * Creates new form RegistrarPagoMembresia
@@ -56,15 +50,10 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     public RegistrarPagoProductos() {
         initComponents();
         this.setTitle(".:: Hércules - Ventana de Pagos ::.");
-       utilidades.llenarColumnas(TablaProductos);
-       cDineroRecibido.requestFocus();
-
-        
-
-    
+        utilidades.llenarColumnas(TablaProductos);
+        cDineroRecibido.requestFocus();
 
     }
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -304,7 +293,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void cDineroRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cDineroRecibidoActionPerformed
@@ -343,24 +332,24 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cDineroRecibidoFocusGained
 
     private void cDineroRecibidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyPressed
-if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-    boolean validacion = false;
-        try {
-            validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistrarEgreso.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            boolean validacion = false;
+            try {
+                validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistrarEgreso.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        if (validacion == false) {
-            JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
-            Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
-            TelegraphQueue q = new TelegraphQueue();
-            q.add(tele);
-        } else {
-            guardar();
+            if (validacion == false) {
+                JOptionPane.showMessageDialog(this, "NO SE HA REGISTRADO EL PAGO", "REGISTRANDO PAGO", JOptionPane.WARNING_MESSAGE);
+                Telegraph tele = new Telegraph("Cierre Caja", "No se puede registrar el pago. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
+                TelegraphQueue q = new TelegraphQueue();
+                q.add(tele);
+            } else {
+                guardar();
+            }
+
         }
-    
-}
     }//GEN-LAST:event_cDineroRecibidoKeyPressed
 
     private void cDineroRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cDineroRecibidoKeyTyped
@@ -375,29 +364,28 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
     }//GEN-LAST:event_cDineroRecibidoKeyTyped
 
     private void bPago1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPago1ActionPerformed
-        agregarInternalFrame(escritorio, new ProductosCompras(TablaProductos,cValorAdquirido,cBalance));
+        agregarInternalFrame(escritorio, new ProductosCompras(TablaProductos, cValorAdquirido, cBalance));
     }//GEN-LAST:event_bPago1ActionPerformed
 
     private void TablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductosMouseClicked
         int row = TablaProductos.rowAtPoint(evt.getPoint());
-            
-            Double cuenta1= Double.parseDouble(String.valueOf(TablaProductos.getValueAt(row, 3)));
-            double cuenta=Double.parseDouble(cValorAdquirido.getText());
-            double cuenta2=cuenta-cuenta1;
-          cValorAdquirido.setText(String.valueOf(cuenta2));
-          recalcularDinero();
-        DefaultTableModel modelo = (DefaultTableModel)TablaProductos.getModel(); 
-            modelo.removeRow(TablaProductos.getSelectedRow()); 
-            
-            
-            
+
+        Double cuenta1 = Double.parseDouble(String.valueOf(TablaProductos.getValueAt(row, 3)));
+        double cuenta = Double.parseDouble(cValorAdquirido.getText());
+        double cuenta2 = cuenta - cuenta1;
+        cValorAdquirido.setText(String.valueOf(cuenta2));
+        recalcularDinero();
+        DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
+        modelo.removeRow(TablaProductos.getSelectedRow());
+
+
     }//GEN-LAST:event_TablaProductosMouseClicked
-public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funciÃ³n permite agregar un internal frame a un jframe rapidamente :)
+    public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funciÃ³n permite agregar un internal frame a un jframe rapidamente :)
         desktop.add(internal);
         Utilidades.centrarInternalFrame(internal);
     }
 
- 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaProductos;
     private javax.swing.JButton bPago;
@@ -418,7 +406,7 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
     // End of variables declaration//GEN-END:variables
 
     private void guardar() {
-        
+
         String dineroRecibido = cDineroRecibido.getText();
 
         if ("0".equals(dineroRecibido)) {
@@ -427,11 +415,10 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         }
 
         int idFactura = registrarPagos();
-        if(idFactura==-1){
+        if (idFactura == -1) {
             return;
         }
-         
-        //socio.updateDatos();
+
         this.dispose();
         ImprimirRecibo imprimirRecibo = new ImprimirRecibo(idFactura);
         Frame.escritorio.add(imprimirRecibo);
@@ -439,114 +426,52 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         imprimirRecibo.setVisible(true);
         Utilidades.centrarInternalFrame(imprimirRecibo);
     }
-   
 
-    
     private int registrarPagos() {
-        boolean success = false;
-        Double dineroRecibido =Double.parseDouble(cDineroRecibido.getText());
-       
-        //Aqui Generar Factura
-        int facturaId = generarFactura(dineroRecibido);
-        if (facturaId == -1) {
-            Logger.getLogger(RegistrarPagoProductos.class.getName()).log(Level.SEVERE, "Error generado factura .. no es posible registrar Pago");
-            return -1; 
-        }
+        if (TablaProductos.getRowCount() != 0) {
+            boolean success = true;
+            Double dineroRecibido = Double.parseDouble(cDineroRecibido.getText());
+            Double dineroAdquirido = Double.parseDouble(cValorAdquirido.getText());
 
-        for (Map.Entry<Integer, Double> entry : saldoProductos.entrySet()) {
-            int membresiaDatosId = entry.getKey();
-            Double saldo = entry.getValue();
+            //Aqui Generar Factura
+            int facturaId = generarFactura(dineroRecibido);
+            if (facturaId == -1) {
+                Logger.getLogger(RegistrarPagoProductos.class.getName()).log(Level.SEVERE, "Error generado factura .. no es posible registrar Pago");
+                success = false;
+                return -1;
+            }
 
-            //Obtener valor adquirido de pago_membresia en base a id
-            Double valorAdquirido = obtenerValorAdquirido(membresiaDatosId);
-            if (dineroRecibido >= saldo) {
-                success = procesarPago(valorAdquirido, saldo, 0.0, membresiaDatosId, facturaId);
-                //System.out.println("Membresia de id " + membresiaDatosId + " se pagara completa");
-                if (success) {
-                   // actualizarEstadoPagoMembresia(membresiaDatosId);
+            if (success) {
+                if (dineroRecibido >= dineroAdquirido) {
+
+                    dineroRecibido = dineroRecibido - dineroAdquirido;
+                    msj.show("Pago exitoso", "El cambio es: " + dineroRecibido + "", TelegraphType.NOTIFICATION_DONE, 4000);
                 }
-                dineroRecibido = dineroRecibido - saldo;
-                msj.show("Pago exitoso", "El cambio es: "+dineroRecibido+"", TelegraphType.NOTIFICATION_DONE, 4000);
-            } 
+                
+                cDineroRecibido.setEditable(false);
+                //Actualizar Valores Factura Aqui.
+                registrarProductosFactura(idsDeLosProductos(), facturaId);
+                actualizarValoresFactura(facturaId, dineroRecibido);
 
-        }
-
-
-        if (success) {
-            bPago.setEnabled(false);
-            cDineroRecibido.setEditable(false);
-            //Actualizar Valores Factura Aqui.
-            actualizarValoresFactura(facturaId);
-
-            msj.show("Transacción Exitosa", "Pago registrado con exito", TelegraphType.NOTIFICATION_DONE, 3000);
-        } else {
-
-        }
-
-        return facturaId;
-
-    }
-
-    
-    /**
-     * Consultar el Valor adquirido de una membresia en la tabla de pagos,
-     * obteniendo el ultimo registro de manera descendente.
-     *
-     * @param membresiadatos_id
-     */
-    private Double obtenerValorAdquirido(int membresiadatos_id) {
-        CachedRowSet data;
-        String query = "SELECT valor_adquirido FROM pago_membresia WHERE membresiadatos_id = " + membresiadatos_id + " ORDER BY fecha_pago DESC LIMIT 1";
-        Double valorAdquirido = -1.0;
-        try {
-            data = db.sqlDatos(query);
-            while (data.next()) {
-                valorAdquirido = data.getDouble("valor_adquirido");
+                msj.show("Transacción Exitosa", "Pago registrado con exito", TelegraphType.NOTIFICATION_DONE, 3000);
+                return facturaId;
+            } else {
+                return -1;
             }
-        } catch (SQLException e) {
-            Logger.getLogger(RegistrarPagoProductos.class.getName()).log(Level.WARNING, "Error ejecutando consulta para obtener valor adquirido ...");
+        }else{
+            msj.show("Registrar Pago", "selecciona algun producto", TelegraphType.NOTIFICATION_ERROR, 3000);
+            return -1;
         }
-
-        return valorAdquirido;
 
     }
 
-    /**
-     * Registrar el Pago de la Membresia
-     *
-     * @param valorAdquirido
-     * @param pago
-     * @param saldo
-     * @param membresiaDatos
-     * @return
-     */
-    private boolean procesarPago(Double valorAdquirido, Double pago, Double saldo, int membresiaDatos, int facturaId) {
-//        int socio_id = socioId;
-        int id_caja = 0;
-        CachedRowSet data;
-        String query = "SELECT id  FROM caja WHERE estado=TRUE ORDER BY id DESC LIMIT 1";
-        data = db.sqlDatos(query);
-        try {
-            while (data.next()) {
-                id_caja = data.getInt("id");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistrarPagoProductos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-  return true;
-    }
-
-    
-
-
-   
     public void recalcularDinero() {
         if (!cDineroRecibido.getText().isEmpty()) {
             if (cDineroRecibido.getText().startsWith("0")) {
-                if(cDineroRecibido.getText().length()==1){
-                    
-                }else{
-                cDineroRecibido.setText(cDineroRecibido.getText().substring(1));
+                if (cDineroRecibido.getText().length() == 1) {
+
+                } else {
+                    cDineroRecibido.setText(cDineroRecibido.getText().substring(1));
                 }
             }
             try {
@@ -565,7 +490,7 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
                     usuarioPaga = true;
                 } else if (saldo < 0) {
                     lBalance.setText("Cambio $");
-                    cBalance.setText(String.valueOf((saldo)*(-1)));
+                    cBalance.setText(String.valueOf((saldo) * (-1)));
                     usuarioPaga = true;
                 }
 
@@ -590,47 +515,27 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         int id = -1;
         String querySQL;
         boolean success;
-      
 
         if (!usuarioPaga) {
             msj.show("Numero Incorrecto", "Debe de digitar una Suma Correcta para poder registrar el Pago", TelegraphType.APPLICATION_WARNING, 4000);
-            return -1;  
-        }else{
-            querySQL = String.format("INSERT INTO factura_producto(usuario_sistema_id,fecha_registro,precio_total) VALUES (%s,now(),%s)", Integer.valueOf(usuario_sistema),paga);
-                        success = db.sqlEjec(querySQL);
-                        if (success) {
-                            //Telegraph tele = new Telegraph("Producto Registrado", "Se ha registrado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
-                           // TelegraphQueue q = new TelegraphQueue();
-                            //q.add(tele);
-                            //this.dispose();
-                            return traerultimo();
-                        }
+            return -1;
+        } else {
+            querySQL = String.format("INSERT INTO factura_producto(usuario_sistema_id,fecha_registro,precio_total) VALUES (%s,now(),%s)", Integer.valueOf(usuario_sistema), paga);
+            success = db.sqlEjec(querySQL);
+            if (success) {
+                return traerultimo();
+            }
         }
-        
 
         return id;
     }
 
-    private void actualizarValoresFactura(int facturaId) {
-        Double paga = 0.0;
-        if (!cDineroRecibido.getText().isEmpty()) {
-            paga = Double.valueOf(cDineroRecibido.getText());
-        }
+    private void actualizarValoresFactura(int facturaId, double valor) {
 
-        Double valorAdquirido = Double.valueOf(cValorAdquirido.getText());
-
-
-
-        Double debe = 0.0;
-
-        if (lBalance.getText().equals("Resta $")) {
-            debe = Double.valueOf(cBalance.getText());
-        }
-
-        String query = String.format("UPDATE factura SET paga = %s , debe = %s   WHERE id = %s", paga, debe, facturaId);
-
+        String query = String.format("UPDATE factura_producto SET precio_total = %s WHERE id = %s", valor, facturaId);
         db.sqlEjec(query);
     }
+
     public int traerultimo() {
         CachedRowSet data;
         int aux = 0;
@@ -641,9 +546,9 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
-                
+
                 aux = Integer.parseInt(data.getString("id"));
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
@@ -651,5 +556,40 @@ public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) 
         return aux;
     }
 
+    public ArrayList<Integer> idsDeLosProductos() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (int i = 0; i < TablaProductos.getRowCount(); i++) {
+            ids.add(Integer.parseInt(String.valueOf(TablaProductos.getValueAt(i, 0)))); //La columna 3 es la de total
+        }
+
+        return ids;
+    }
+    
+    
+    
+    
+    public void registrarProductosFactura(ArrayList<Integer> ids,int facturaId){
+        
+        for (int i = 0; i < ids.size(); i++) {
+            String querySQL;
+            boolean success;
+            querySQL = String.format("INSERT INTO facturaProductos(factura_producto_id,producto_id) VALUES (%s,%s)", facturaId, ids.get(i));
+            success = db.sqlEjec(querySQL);
+            if(success){
+                actualizarProducto(ids.get(i));
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    public void actualizarProducto(int idproducto){
+        
+        String query = String.format("UPDATE producto SET cantidad=cantidad-1 WHERE id = %s", idproducto);
+        db.sqlEjec(query);
+        
+    }
 
 }
