@@ -20,8 +20,7 @@ import logica.DB;
  */
 public class InterfazMedidas extends javax.swing.JFrame {
 
-
-    ArrayList<Double> medidas_anterioress = new ArrayList<>();
+    ArrayList<Double> medidas_anteriores = new ArrayList<>();
     int socioID;
     private final DB db = new DB();
     String fecha_anterior, actividad_fisica_anterior;
@@ -36,20 +35,21 @@ public class InterfazMedidas extends javax.swing.JFrame {
         this.fecha_anterior = fecha_anterior;
         actividad_fisica_anterior = actividad_fisica;
         System.out.println("Estamos en la otra parte");
-        medidas_anterioress = medidas_anteriores;
+        this.medidas_anteriores = medidas_anteriores;
         consultar();
-        
     }
+
     /**
      * Creates new form InterfazMedidas
      */
-    public InterfazMedidas(int socioid) {
+    public InterfazMedidas(int socioid, ArrayList<Double> medidas_anteriores) {
         initComponents();
         setLocationRelativeTo(this);
         socioID = socioid;
+        this.medidas_anteriores = medidas_anteriores;
         consultar();
-        
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,8 +122,7 @@ public class InterfazMedidas extends javax.swing.JFrame {
         lblFecha4 = new javax.swing.JLabel();
         lblFecha5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -769,78 +768,77 @@ public class InterfazMedidas extends javax.swing.JFrame {
 
         lblFecha.setText("Fecha Registro: ".concat(fecha_anterior));
         lblFecha1.setText("Fecha Registro: ".concat(fecha_nueva));
-  
+
         lblActividadFisica.setText("Actividad Física: ".concat(String.valueOf(actividad_fisica_anterior)));
         lblActividadFisica1.setText("Actividad Física: ".concat(String.valueOf(actividad_fisica)));
-    
-        lblPeso.setText("Peso: ".concat(String.valueOf(medidas_anterioress.get(1))));
+
+        lblPeso.setText("Peso: ".concat(String.valueOf(medidas_anteriores.get(1))));
         lblPeso1.setText("Peso: ".concat(String.valueOf(peso_anterior)));
-        lblPeso2.setText(retornarResultado(medidas_anterioress.get(1), peso_anterior, lblPeso2).concat(" kg"));
+        lblPeso2.setText(retornarResultado(medidas_anteriores.get(1), peso_anterior, lblPeso2).concat(" kg"));
 
-        lblEstatura.setText("Estatura: ".concat(String.valueOf(medidas_anterioress.get(2))));
+        lblEstatura.setText("Estatura: ".concat(String.valueOf(medidas_anteriores.get(2))));
         lblEstatura1.setText("Estatura: ".concat(String.valueOf(estatura_anterior)));
-        lblEstatura2.setText(retornarResultado(medidas_anterioress.get(2), estatura_anterior, lblEstatura2).concat(" m"));
+        lblEstatura2.setText(retornarResultado(medidas_anteriores.get(2), estatura_anterior, lblEstatura2).concat(" m"));
 
-        lblDensidad.setText("Densidad Osea: ".concat(String.valueOf(medidas_anterioress.get(3))));
+        lblDensidad.setText("Densidad Osea: ".concat(String.valueOf(medidas_anteriores.get(3))));
         lblDensidad1.setText("Densidad Osea: ".concat(String.valueOf(densidad_osea_anterior)));
-        lblDensidad2.setText(retornarResultado(medidas_anterioress.get(3), densidad_osea_anterior, lblDensidad2));
+        lblDensidad2.setText(retornarResultado(medidas_anteriores.get(3), densidad_osea_anterior, lblDensidad2));
 
-        lblMuscular.setText("% Masa Muscular: ".concat(String.valueOf(medidas_anterioress.get(4))));
+        lblMuscular.setText("% Masa Muscular: ".concat(String.valueOf(medidas_anteriores.get(4))));
         lblMuscular1.setText("% Masa Muscular: ".concat(String.valueOf(porcentaje_masa_anterior)));
-        lblMuscular2.setText(retornarResultado(medidas_anterioress.get(4), porcentaje_masa_anterior, lblMuscular2).concat(" %"));
+        lblMuscular2.setText(retornarResultado(medidas_anteriores.get(4), porcentaje_masa_anterior, lblMuscular2).concat(" %"));
 
-        lblGrasa.setText("% Grasa: ".concat(String.valueOf(medidas_anterioress.get(5))));
+        lblGrasa.setText("% Grasa: ".concat(String.valueOf(medidas_anteriores.get(5))));
         lblGrasa1.setText("% Grasa: ".concat(String.valueOf(porcentaje_grasa_anterior)));
-        lblGrasa2.setText(retornarResultado(medidas_anterioress.get(5), porcentaje_grasa_anterior, lblGrasa2).concat(" %"));
+        lblGrasa2.setText(retornarResultado(medidas_anteriores.get(5), porcentaje_grasa_anterior, lblGrasa2).concat(" %"));
 
-        lblCuello.setText("Cuello: ".concat(String.valueOf(medidas_anterioress.get(6))));
+        lblCuello.setText("Cuello: ".concat(String.valueOf(medidas_anteriores.get(6))));
         lblCuello1.setText("Cuello: ".concat(String.valueOf(cuello_anterior)));
-        lblCuello2.setText(retornarResultado(medidas_anterioress.get(6), cuello_anterior, lblCuello2).concat(" cm"));
+        lblCuello2.setText(retornarResultado(medidas_anteriores.get(6), cuello_anterior, lblCuello2).concat(" cm"));
 
-        lblPecho.setText("Pecho Normal: ".concat(String.valueOf(medidas_anterioress.get(7))));
+        lblPecho.setText("Pecho Normal: ".concat(String.valueOf(medidas_anteriores.get(7))));
         lblPecho1.setText("Pecho Normal: ".concat(String.valueOf(pecho_normal_anterior)));
-        lblPecho2.setText(retornarResultado(medidas_anterioress.get(7), pecho_normal_anterior, lblPecho2).concat(" cm"));
+        lblPecho2.setText(retornarResultado(medidas_anteriores.get(7), pecho_normal_anterior, lblPecho2).concat(" cm"));
 
-        lblPechoExtendido.setText("Pecho Extendido: ".concat(String.valueOf(medidas_anterioress.get(8))));
+        lblPechoExtendido.setText("Pecho Extendido: ".concat(String.valueOf(medidas_anteriores.get(8))));
         lblPechoExtendido1.setText("Pecho Extendido: ".concat(String.valueOf(pecho_extendido_anterior)));
-        lblPechoExtendido2.setText(retornarResultado(medidas_anterioress.get(8), pecho_extendido_anterior, lblPechoExtendido2).concat(" cm"));
+        lblPechoExtendido2.setText(retornarResultado(medidas_anteriores.get(8), pecho_extendido_anterior, lblPechoExtendido2).concat(" cm"));
 
-        lblCintura.setText("Cintura Normal: ".concat(String.valueOf(medidas_anterioress.get(9))));
+        lblCintura.setText("Cintura Normal: ".concat(String.valueOf(medidas_anteriores.get(9))));
         lblCintura1.setText("Cintura Normal: ".concat(String.valueOf(cintura_normal_anterior)));
-        lblCintura2.setText(retornarResultado(medidas_anterioress.get(9), cintura_normal_anterior, lblCintura2).concat(" cm"));
+        lblCintura2.setText(retornarResultado(medidas_anteriores.get(9), cintura_normal_anterior, lblCintura2).concat(" cm"));
 
-        lblCinturaSumida.setText("Cintura Sumida: ".concat(String.valueOf(medidas_anterioress.get(10))));
+        lblCinturaSumida.setText("Cintura Sumida: ".concat(String.valueOf(medidas_anteriores.get(10))));
         lblCinturaSumida1.setText("Cintura Sumida: ".concat(String.valueOf(cintura_sumida_anterior)));
-        lblCinturaSumida2.setText(retornarResultado(medidas_anterioress.get(10), cintura_sumida_anterior, lblCinturaSumida2).concat(" cm"));
+        lblCinturaSumida2.setText(retornarResultado(medidas_anteriores.get(10), cintura_sumida_anterior, lblCinturaSumida2).concat(" cm"));
 
-        lblPiernaDerecha.setText("Pierna Derecha: ".concat(String.valueOf(medidas_anterioress.get(11))));
+        lblPiernaDerecha.setText("Pierna Derecha: ".concat(String.valueOf(medidas_anteriores.get(11))));
         lblPiernaDerecha1.setText("Pierna Derecha: ".concat(String.valueOf(pierna_derecha_anterior)));
-        lblPiernaDerecha2.setText(retornarResultado(medidas_anterioress.get(11), pierna_derecha_anterior, lblPiernaDerecha2).concat(" cm"));
+        lblPiernaDerecha2.setText(retornarResultado(medidas_anteriores.get(11), pierna_derecha_anterior, lblPiernaDerecha2).concat(" cm"));
 
-        lblPiernaIzquierda.setText("Pierna Izquierda: ".concat(String.valueOf(medidas_anterioress.get(12))));
+        lblPiernaIzquierda.setText("Pierna Izquierda: ".concat(String.valueOf(medidas_anteriores.get(12))));
         lblPiernaIzquierda1.setText("Pierna Izquierda: ".concat(String.valueOf(pierna_izquierda_anterior)));
-        lblPiernaIzquierda2.setText(retornarResultado(medidas_anterioress.get(12), pierna_izquierda_anterior, lblPiernaIzquierda2).concat(" cm"));
+        lblPiernaIzquierda2.setText(retornarResultado(medidas_anteriores.get(12), pierna_izquierda_anterior, lblPiernaIzquierda2).concat(" cm"));
 
-        lblBrazoDerecho.setText("Brazo Derecho: ".concat(String.valueOf(medidas_anterioress.get(13))));
+        lblBrazoDerecho.setText("Brazo Derecho: ".concat(String.valueOf(medidas_anteriores.get(13))));
         lblBrazoDerecho1.setText("Brazo Derecho: ".concat(String.valueOf(brazo_derecho_anterior)));
-        lblBrazoDerecho2.setText(retornarResultado(medidas_anterioress.get(13), brazo_derecho_anterior, lblBrazoDerecho2).concat(" cm"));
+        lblBrazoDerecho2.setText(retornarResultado(medidas_anteriores.get(13), brazo_derecho_anterior, lblBrazoDerecho2).concat(" cm"));
 
-        lblBrazoIzquierdo.setText("Brazo Izquierda: ".concat(String.valueOf(medidas_anterioress.get(14))));
+        lblBrazoIzquierdo.setText("Brazo Izquierda: ".concat(String.valueOf(medidas_anteriores.get(14))));
         lblBrazoIzquierdo1.setText("Brazo Izquierda: ".concat(String.valueOf(brazo_izquierdo_anterior)));
-        lblBrazoIzquierdo2.setText(retornarResultado(medidas_anterioress.get(14), brazo_izquierdo_anterior, lblBrazoIzquierdo2).concat(" cm"));
+        lblBrazoIzquierdo2.setText(retornarResultado(medidas_anteriores.get(14), brazo_izquierdo_anterior, lblBrazoIzquierdo2).concat(" cm"));
 
-        lblPantorrillaDerecha.setText("Pantorrilla Derecha: ".concat(String.valueOf(medidas_anterioress.get(15))));
+        lblPantorrillaDerecha.setText("Pantorrilla Derecha: ".concat(String.valueOf(medidas_anteriores.get(15))));
         lblPantorrillaDerecha1.setText("Pantorrilla Derecha: ".concat(String.valueOf(pantorrilla_derecha_anterior)));
-        lblPantorrillaDerecha2.setText(retornarResultado(medidas_anterioress.get(15), pantorrilla_derecha_anterior, lblPantorrillaDerecha2).concat(" cm"));
+        lblPantorrillaDerecha2.setText(retornarResultado(medidas_anteriores.get(15), pantorrilla_derecha_anterior, lblPantorrillaDerecha2).concat(" cm"));
 
-        lblPantorrillaIzquierda.setText("Pantorrilla Izquierda: ".concat(String.valueOf(medidas_anterioress.get(16))));
+        lblPantorrillaIzquierda.setText("Pantorrilla Izquierda: ".concat(String.valueOf(medidas_anteriores.get(16))));
         lblPantorrillaIzquierda1.setText("Pantorrilla Izquierda: ".concat(String.valueOf(pantorrilla_izquierda_anterior)));
-        lblPantorrillaIzquierda2.setText(retornarResultado(medidas_anterioress.get(16), pantorrilla_izquierda_anterior, lblPantorrillaIzquierda2).concat(" cm"));
+        lblPantorrillaIzquierda2.setText(retornarResultado(medidas_anteriores.get(16), pantorrilla_izquierda_anterior, lblPantorrillaIzquierda2).concat(" cm"));
 
     }
 
-
-        public String retornarResultado(Double valor1, Double valor2, JLabel label) {
+    public String retornarResultado(Double valor1, Double valor2, JLabel label) {
         String resultado = "Sin medida";
         if (valor1 > valor2) {
             resultado = "Bajo de Medida ".concat(String.valueOf(valor1 - valor2));

@@ -6,6 +6,7 @@
 package desarrollo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
@@ -24,6 +25,14 @@ public class ControlMedidas extends javax.swing.JFrame {
     int idSocio;
     private DB db = new DB();
     logica.Utilidades utilidades = new logica.Utilidades();
+    double estatura = 0, peso = 0, densidad_osea = 0, porcentaje_masa = 0, porcentaje_grasa = 0, cuello = 0, pecho_extendido = 0, pecho_normal = 0,
+            brazo_derecho = 0, brazo_izquierdo = 0, pierna_derecha = 0, pierna_izquierda = 0, pantorrilla_derecha = 0,
+            pantorrilla_izquierda = 0, cintura_normal = 0, cintura_sumida = 0, estatura_anterior = 0, peso_anterior = 0, densidad_osea_anterior = 0, porcentaje_masa_anterior = 0, porcentaje_grasa_anterior = 0, cuello_anterior = 0, pecho_extendido_anterior = 0, pecho_normal_anterior = 0,
+            brazo_derecho_anterior = 0, brazo_izquierdo_anterior = 0, pierna_derecha_anterior = 0, pierna_izquierda_anterior = 0, pantorrilla_derecha_anterior = 0,
+            pantorrilla_izquierda_anterior = 0, cintura_normal_anterior = 0, cintura_sumida_anterior = 0;
+    ArrayList<Double> medidas_anteriores = new ArrayList<>();
+
+    String usuario = System.getProperty("usuario_sistema");
 
     public ControlMedidas(int socio, String nombre) {
         initComponents();
@@ -31,6 +40,7 @@ public class ControlMedidas extends javax.swing.JFrame {
         txtNombre.setText(nombre);
         txtNombre.setEditable(false);
         consultarMedidasSocio();
+        cargarArraylistMedidas();
         setLocationRelativeTo(this);
     }
 
@@ -197,13 +207,16 @@ public class ControlMedidas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        InterfazMedidas imedidas = new InterfazMedidas(idSocio);
+        for (int i = 0; i < medidas_anteriores.size(); i++) {
+            System.out.println(medidas_anteriores.get(i));
+        }
+        InterfazMedidas imedidas = new InterfazMedidas(idSocio, medidas_anteriores);
         imedidas.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         // TODO add your handling code here:
-                if (evt.getClickCount() == 1) {
+        if (evt.getClickCount() == 1) {
             int row = tabla.rowAtPoint(evt.getPoint());
             utilidades.construirFormulario(tabla, row, "Control de Medidas");
         }
@@ -245,6 +258,77 @@ public class ControlMedidas extends javax.swing.JFrame {
             tabla.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         } catch (SQLException ex) {
             Logger.getLogger(ConsultarMedidas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void cargarArraylistMedidas() {
+
+        String tipoActividad = "", querySQL, fecha_anterior = null, actividad_fisica_anterior = "";
+        boolean success = false;
+        int cantidad = 0, medidas_socio_id = 0;
+        CachedRowSet dataConsulta;
+        String queryConsulta = "SELECT me.id, me.fecha_registro, actividad_fisica, estatura, peso, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_expandido, pecho_normal, brazo_derecho, brazo_izquierdo, pierna_derecha, pierna_izquierda, pantorrilla_derecha, pantorrilla_izquierda, cintura_normal, cintura_sumida\n"
+                + "FROM medidas_socio me, socio so, usuario_sistema us\n"
+                + "WHERE so.id=" + idSocio + " \n"
+                + "AND us.id=" + usuario + " \n"
+                + "AND me.socio_id= so.id\n"
+                + "AND me.usuario_sistema_id = us.id\n"
+                + "AND me.id != (SELECT me.id\n"
+                + "FROM medidas_socio me, socio so, usuario_sistema us\n"
+                + "WHERE so.id=" + idSocio + " \n"
+                + "AND us.id=" + usuario + " \n"
+                + "AND me.socio_id= so.id\n"
+                + "AND me.usuario_sistema_id = us.id\n"
+                + "ORDER BY me.id DESC\n"
+                + "LIMIT 1)\n"
+                + "ORDER BY me.id DESC\n"
+                + "LIMIT 1;";
+
+        System.out.println("hola" + queryConsulta);
+        dataConsulta = db.sqlDatos(queryConsulta);
+        try {
+            while (dataConsulta.next()) {
+                medidas_socio_id = dataConsulta.getInt("id");
+                fecha_anterior = dataConsulta.getString("fecha_registro");
+                actividad_fisica_anterior = dataConsulta.getString("actividad_fisica");
+                peso_anterior = dataConsulta.getDouble("peso");
+                estatura_anterior = dataConsulta.getDouble("estatura");
+                densidad_osea_anterior = dataConsulta.getDouble("densidad_osea");
+                porcentaje_masa_anterior = dataConsulta.getDouble("porcentaje_muscular");
+                porcentaje_grasa_anterior = dataConsulta.getDouble("porcentaje_grasa");
+                cuello_anterior = dataConsulta.getDouble("cuello");
+                pecho_extendido_anterior = dataConsulta.getDouble("pecho_expandido");
+                pecho_normal_anterior = dataConsulta.getDouble("pecho_normal");
+                brazo_derecho_anterior = dataConsulta.getDouble("brazo_derecho");
+                brazo_izquierdo_anterior = dataConsulta.getDouble("pierna_derecha");
+                pierna_derecha_anterior = dataConsulta.getDouble("pierna_derecha");
+                pierna_izquierda_anterior = dataConsulta.getDouble("pierna_izquierda");
+                pantorrilla_derecha_anterior = dataConsulta.getDouble("pantorrilla_derecha");
+                pantorrilla_izquierda_anterior = dataConsulta.getDouble("pantorrilla_izquierda");
+                cintura_normal_anterior = dataConsulta.getDouble("cintura_normal");
+                cintura_sumida_anterior = dataConsulta.getDouble("cintura_sumida");
+
+            }
+            medidas_anteriores.add(0.0);
+            medidas_anteriores.add(peso_anterior);
+            medidas_anteriores.add(estatura_anterior);
+            medidas_anteriores.add(densidad_osea_anterior);
+            medidas_anteriores.add(porcentaje_masa_anterior);
+            medidas_anteriores.add(porcentaje_grasa_anterior);
+            medidas_anteriores.add(cuello_anterior);
+            medidas_anteriores.add(pecho_extendido_anterior);
+            medidas_anteriores.add(pecho_normal_anterior);
+            medidas_anteriores.add(brazo_derecho_anterior);
+            medidas_anteriores.add(brazo_izquierdo_anterior);
+            medidas_anteriores.add(pierna_derecha_anterior);
+            medidas_anteriores.add(pierna_izquierda_anterior);
+            medidas_anteriores.add(pantorrilla_derecha_anterior);
+            medidas_anteriores.add(pantorrilla_izquierda_anterior);
+            medidas_anteriores.add(cintura_normal_anterior);
+            medidas_anteriores.add(cintura_sumida_anterior);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
