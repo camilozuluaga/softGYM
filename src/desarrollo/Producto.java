@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -40,7 +41,7 @@ import net.sf.jtelegraph.TelegraphType;
  * @author santoescu
  */
 public final class Producto extends javax.swing.JInternalFrame {
-
+    
     String usuarioSistema = System.getProperty("usuario_sistema");
     private Utilidades utilidades = new Utilidades();
     private DB db = new DB();
@@ -56,24 +57,23 @@ public final class Producto extends javax.swing.JInternalFrame {
      */
     public Producto() {
         initComponents();
-
+        
         btnCapturarFoto.setVisible(true);
         btnCerrar.setVisible(false);
         this.setResizable(false);
         btnEliminar.setVisible(false);
-
+        
     }
-    VerSocio current;
-
-    public Producto(int productoId, VerSocio current) {
+    
+    public Producto(int productoId) {
         initComponents();
-        this.current = current;
-
+        
+        this.productoId = productoId;
         traerDatosProducto(productoId);
         btnCapturarFoto.setVisible(true);
         btnCerrar.setVisible(false);
         btnEliminar.setVisible(true);
-
+        
     }
 
     /**
@@ -171,6 +171,7 @@ public final class Producto extends javax.swing.JInternalFrame {
 
         btnCapturarFoto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnCapturarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
+        btnCapturarFoto.setText("Agregar");
         btnCapturarFoto.setToolTipText("Tomar fotografia de perfil para el usuario");
         btnCapturarFoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +228,9 @@ public final class Producto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnContenedorFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCapturarFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnContenedorFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,7 +247,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
                         .addGap(18, 18, 18)
@@ -252,10 +255,6 @@ public final class Producto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(btnCapturarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,11 +277,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel11)
                                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGuardar)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -290,8 +285,11 @@ public final class Producto extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5))
                             .addComponent(pnContenedorFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCapturarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 30, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCapturarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGuardar)))))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -318,7 +316,7 @@ public final class Producto extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 589, Short.MAX_VALUE))
+                .addGap(107, 585, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,7 +344,7 @@ public final class Producto extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -355,10 +353,10 @@ public final class Producto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
+        
         try {
             boolean validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
-
+            
             if (validacion == false) {
                 JOptionPane.showMessageDialog(this, "NO SE HA CREADO EL PRODUCTO", "CREANDO PRODUCTO", JOptionPane.WARNING_MESSAGE);
                 Telegraph tele = new Telegraph("Cierre Caja", "No se puede crear el producto. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
@@ -390,24 +388,27 @@ public final class Producto extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         EliminarProducto(productoId);
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+    
     public void actualizarImagen(int productoid) {
         ConexionFoto foto = new ConexionFoto();
-        foto.guardarfotoProducto(fis, longitudBytes, productoid);
-
+        if (longitudBytes != 0) {
+            foto.guardarfotoProducto(fis, longitudBytes, productoid);
+        } else {
+            System.out.println("no entro");
+        }
     }
-
+    
     public void foto() {
-
+        
         JFileChooser j = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         j.setFileFilter(imageFilter);
-
+        
         j.setFileSelectionMode(JFileChooser.FILES_ONLY);//solo archivos y no carpetas
         int estado = j.showOpenDialog(null);
         if (estado == JFileChooser.APPROVE_OPTION) {
             try {
-
+                
                 fis = new FileInputStream(j.getSelectedFile());
                 //necesitamos saber la cantidad de bytes
                 this.longitudBytes = (int) j.getSelectedFile().length();
@@ -415,7 +416,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                     Image icono = ImageIO.read(j.getSelectedFile()).getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT);
                     lblFoto.setIcon(new ImageIcon(icono));
                     lblFoto.updateUI();
-
+                    
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(rootPane, "imagen: " + ex);
                 }
@@ -467,51 +468,51 @@ public final class Producto extends javax.swing.JInternalFrame {
 
     public void traerDatosProducto(int productoId) {
         CachedRowSet data;
-        String querySQL = String.format("SELECT nombre,precio,cantidad,imagen,descripcion,"
-                + "FROM producto \n"
-                + "WHERE id=%s\n", productoId);
+        String querySQL = String.format("SELECT nombre,precio,cantidad,imagen,descripcion FROM producto WHERE id=%s", productoId);
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
-
+                
                 txtNombre.setText(data.getString("nombre"));
                 txtCantidad.setText(data.getString("cantidad"));
                 txtPrecio.setText(data.getString("precio"));
-                txtDescripcion.setText(data.getString("descripcin"));
-
+                txtDescripcion.setText(data.getString("descripcion"));
+                
                 if (data.getBytes("imagen") != null) {
                     ImageIcon foto = new ImageIcon(data.getBytes("imagen"));
-                    lblFoto.setIcon(foto);
+                    Icon icono = new ImageIcon(foto.getImage().getScaledInstance(141, 129, Image.SCALE_DEFAULT));
+                    lblFoto.setIcon(icono);
+                    this.repaint();
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void guardarProducto() {
         String nombre = txtNombre.getText();
         String precio = txtPrecio.getText().trim();
         String cantidad = txtCantidad.getText().trim();
         String descripcion = txtDescripcion.getText();
-
+        
         String querySQL;
         boolean success;
-
+        
         if (!txtNombre.getText().isEmpty()) {
             if (!txtPrecio.getText().isEmpty()) {
                 if (!txtCantidad.getText().isEmpty()) {
                     if (productoId > 0) {
-                        querySQL = String.format("UPDATE producto SET precio=%s,cantidad=%s,nombre='%s',descripcion='%s' WHERE id='%s'", precio, cantidad, nombre, descripcion, productoId);
+                        querySQL = String.format("UPDATE producto SET precio=%s,cantidad=%s,nombre='%s',descripcion='%s' WHERE id=%s", precio, cantidad, nombre, descripcion, productoId);
                         success = db.sqlEjec(querySQL);
                         actualizarImagen(productoId);
                         if (success) {
                             this.dispose();
-                            current.updateDatos();
+                            
                             Telegraph tele = new Telegraph("Producto Actualizado", "Se ha actualizado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
                             TelegraphQueue q = new TelegraphQueue();
                             q.add(tele);
-
+                            
                         }
                     } else {
                         querySQL = String.format("INSERT INTO producto(usuario_sistema_id,fecha_registro,nombre,cantidad,descripcion,precio,estado) VALUES (%s,now(),'%s',%s,'%s',%s,TRUE)", Integer.valueOf(usuarioSistema), nombre, cantidad, descripcion, precio);
@@ -525,7 +526,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                             TelegraphQueue q = new TelegraphQueue();
                             q.add(tele);
                             this.dispose();
-
+                            
                         }
                     }
                 } else {
@@ -538,7 +539,7 @@ public final class Producto extends javax.swing.JInternalFrame {
             utilidades.llamarMensaje("Nombre");
         }
     }
-
+    
     public int traerultimo() {
         CachedRowSet data;
         int aux = 0;
@@ -549,30 +550,29 @@ public final class Producto extends javax.swing.JInternalFrame {
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
-
+                
                 aux = Integer.parseInt(data.getString("id"));
-
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return aux;
     }
-
+    
     public void EliminarProducto(int productoId) {
         String querySQL;
         boolean success;
-
+        
         querySQL = String.format("UPDATE producto SET estado=%s WHERE id='%s'", false, productoId);
         success = db.sqlEjec(querySQL);
         if (success) {
             this.dispose();
-            current.updateDatos();
             Telegraph tele = new Telegraph("Producto Eliminado con Exito", "El producto ha sido eliminado con exito", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 5000);
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
-
+            
         }
-
+        
     }
 }

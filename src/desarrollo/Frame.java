@@ -131,6 +131,7 @@ public class Frame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         bPuerta1 = new javax.swing.JButton();
         btnCorreo = new javax.swing.JButton();
+        bInicio1 = new javax.swing.JButton();
         lbUsuario = new javax.swing.JLabel();
         MenuAplicacion = new javax.swing.JMenuBar();
         mArchivo = new javax.swing.JMenu();
@@ -230,6 +231,11 @@ public class Frame extends javax.swing.JFrame {
         txtBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(153, 153, 153));
         txtBuscar.setToolTipText("BUSCAR UN SOCIO...");
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyPressed(evt);
@@ -272,6 +278,13 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        bInicio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/iconotienda.png"))); // NOI18N
+        bInicio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bInicio1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -284,6 +297,8 @@ public class Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bInicio1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCorreo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bInicio)
@@ -301,7 +316,8 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(bInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPuerta1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(bInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -683,7 +699,7 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_bPuerta1ActionPerformed
 
     private void bInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInicioActionPerformed
-        JInternalFrame items[] = escritorio.getAllFrames();
+         JInternalFrame items[] = escritorio.getAllFrames();
         for (int i = 0; i < items.length; i++) {
             try {
                 items[i].setClosed(true); //cerrar todos los internal frames
@@ -828,6 +844,14 @@ public class Frame extends javax.swing.JFrame {
         agregarInternalFrame(escritorio, new Correo());
     }//GEN-LAST:event_btnCorreoActionPerformed
 
+    private void bInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInicio1ActionPerformed
+         agregarInternalFrame(escritorio, new Tienda(this));
+    }//GEN-LAST:event_bInicio1ActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+         // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -867,6 +891,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuAplicacion;
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bInicio;
+    private javax.swing.JButton bInicio1;
     private javax.swing.JButton bPuerta1;
     private javax.swing.JButton btnCierreCaja;
     private javax.swing.JButton btnCorreo;
