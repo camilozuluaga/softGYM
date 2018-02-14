@@ -5,11 +5,13 @@
  */
 package desarrollo;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.JLabel;
 import logica.DB;
 
 /**
@@ -17,6 +19,7 @@ import logica.DB;
  * @author Brayhan Jaramillo
  */
 public class InterfazMedidas extends javax.swing.JFrame {
+
 
     ArrayList<Double> medidas_anterioress = new ArrayList<>();
     int socioID;
@@ -34,12 +37,19 @@ public class InterfazMedidas extends javax.swing.JFrame {
         actividad_fisica_anterior = actividad_fisica;
         System.out.println("Estamos en la otra parte");
         medidas_anterioress = medidas_anteriores;
-        for (int i = 0; i < medidas_anterioress.size(); i++) {
-            System.out.println(medidas_anterioress.get(i) + "\t" + "hola");
-        }
         consultar();
+        
     }
-
+    /**
+     * Creates new form InterfazMedidas
+     */
+    public InterfazMedidas(int socioid) {
+        initComponents();
+        setLocationRelativeTo(this);
+        socioID = socioid;
+        consultar();
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,14 +74,14 @@ public class InterfazMedidas extends javax.swing.JFrame {
         lblMuscular = new javax.swing.JLabel();
         lblGrasa = new javax.swing.JLabel();
         lblCuello = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblCintura = new javax.swing.JLabel();
+        lblCinturaSumida = new javax.swing.JLabel();
+        lblPiernaDerecha = new javax.swing.JLabel();
+        lblPiernaIzquierda = new javax.swing.JLabel();
         lblPecho = new javax.swing.JLabel();
         lblPechoExtendido = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        lblBrazoDerecho = new javax.swing.JLabel();
+        lblBrazoIzquierdo = new javax.swing.JLabel();
         lblFecha1 = new javax.swing.JLabel();
         lblActividadFisica1 = new javax.swing.JLabel();
         lblPeso1 = new javax.swing.JLabel();
@@ -80,8 +90,6 @@ public class InterfazMedidas extends javax.swing.JFrame {
         lblMuscular1 = new javax.swing.JLabel();
         lblGrasa1 = new javax.swing.JLabel();
         lblCuello1 = new javax.swing.JLabel();
-        lblFecha2 = new javax.swing.JLabel();
-        lblActividadFisica2 = new javax.swing.JLabel();
         lblPeso2 = new javax.swing.JLabel();
         lblEstatura2 = new javax.swing.JLabel();
         lblDensidad2 = new javax.swing.JLabel();
@@ -92,8 +100,30 @@ public class InterfazMedidas extends javax.swing.JFrame {
         lblPechoExtendido1 = new javax.swing.JLabel();
         lblPechoExtendido2 = new javax.swing.JLabel();
         lblPecho2 = new javax.swing.JLabel();
+        lblCintura1 = new javax.swing.JLabel();
+        lblCinturaSumida1 = new javax.swing.JLabel();
+        lblPiernaDerecha1 = new javax.swing.JLabel();
+        lblPiernaIzquierda1 = new javax.swing.JLabel();
+        lblBrazoDerecho1 = new javax.swing.JLabel();
+        lblBrazoIzquierdo1 = new javax.swing.JLabel();
+        lblCintura2 = new javax.swing.JLabel();
+        lblCinturaSumida2 = new javax.swing.JLabel();
+        lblPiernaDerecha2 = new javax.swing.JLabel();
+        lblPiernaIzquierda2 = new javax.swing.JLabel();
+        lblBrazoIzquierdo2 = new javax.swing.JLabel();
+        lblBrazoDerecho2 = new javax.swing.JLabel();
+        lblPantorrillaDerecha = new javax.swing.JLabel();
+        lblPantorrillaIzquierda = new javax.swing.JLabel();
+        lblPantorrillaDerecha1 = new javax.swing.JLabel();
+        lblPantorrillaIzquierda1 = new javax.swing.JLabel();
+        lblPantorrillaDerecha2 = new javax.swing.JLabel();
+        lblPantorrillaIzquierda2 = new javax.swing.JLabel();
+        lblFecha3 = new javax.swing.JLabel();
+        lblFecha4 = new javax.swing.JLabel();
+        lblFecha5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -111,6 +141,11 @@ public class InterfazMedidas extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Back-32.png"))); // NOI18N
         jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -153,151 +188,440 @@ public class InterfazMedidas extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblActividadFisica.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblActividadFisica.setText("Nombre");
-        jPanel1.add(lblActividadFisica, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 48, 116, -1));
 
         lblFecha.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblFecha.setText("Nombre");
-        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 27, 104, -1));
 
         lblPeso.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPeso.setText("Nombre");
-        jPanel1.add(lblPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 74, 116, -1));
 
         lblEstatura.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblEstatura.setText("Nombre");
-        jPanel1.add(lblEstatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 100, 116, -1));
 
         lblDensidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblDensidad.setText("Nombre");
-        jPanel1.add(lblDensidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 121, 108, -1));
 
         lblMuscular.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblMuscular.setText("Nombre");
-        jPanel1.add(lblMuscular, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 147, 108, -1));
 
         lblGrasa.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblGrasa.setText("Nombre");
-        jPanel1.add(lblGrasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 173, -1, -1));
 
         lblCuello.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCuello.setText("Nombre");
-        jPanel1.add(lblCuello, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 199, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel12.setText("Nombre");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 272, 116, -1));
+        lblCintura.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCintura.setText("Nombre");
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel13.setText("Nombre");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 298, 105, -1));
+        lblCinturaSumida.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCinturaSumida.setText("Nombre");
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel14.setText("Nombre");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 326, 116, -1));
+        lblPiernaDerecha.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPiernaDerecha.setText("Nombre");
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel15.setText("Nombre");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 347, 124, -1));
+        lblPiernaIzquierda.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPiernaIzquierda.setText("Nombre");
 
         lblPecho.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPecho.setText("Nombre");
-        jPanel1.add(lblPecho, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 225, 94, -1));
 
         lblPechoExtendido.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPechoExtendido.setText("Nombre");
-        jPanel1.add(lblPechoExtendido, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 246, 93, -1));
 
-        jLabel20.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel20.setText("Nombre");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 368, 91, -1));
+        lblBrazoDerecho.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrazoDerecho.setText("Nombre");
 
-        jLabel21.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel21.setText("Nombre");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 389, 113, -1));
+        lblBrazoIzquierdo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrazoIzquierdo.setText("Nombre");
 
         lblFecha1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblFecha1.setText("Nombre");
-        jPanel1.add(lblFecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 27, 104, -1));
 
         lblActividadFisica1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblActividadFisica1.setText("Nombre");
-        jPanel1.add(lblActividadFisica1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 48, -1, -1));
 
         lblPeso1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPeso1.setText("Nombre");
-        jPanel1.add(lblPeso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 74, -1, -1));
 
         lblEstatura1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblEstatura1.setText("Nombre");
-        jPanel1.add(lblEstatura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 100, -1, -1));
 
         lblDensidad1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblDensidad1.setText("Nombre");
-        jPanel1.add(lblDensidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 121, 108, -1));
 
         lblMuscular1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblMuscular1.setText("Nombre");
-        jPanel1.add(lblMuscular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 147, 108, -1));
 
         lblGrasa1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblGrasa1.setText("Nombre");
-        jPanel1.add(lblGrasa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 173, -1, -1));
 
         lblCuello1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCuello1.setText("Nombre");
-        jPanel1.add(lblCuello1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 199, -1, -1));
-
-        lblFecha2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblFecha2.setText("Nombre");
-        jPanel1.add(lblFecha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 104, -1));
-
-        lblActividadFisica2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblActividadFisica2.setText("Nombre");
-        jPanel1.add(lblActividadFisica2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, -1, -1));
 
         lblPeso2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPeso2.setText("Nombre");
-        jPanel1.add(lblPeso2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, -1, -1));
 
         lblEstatura2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblEstatura2.setText("Nombre");
-        jPanel1.add(lblEstatura2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
 
         lblDensidad2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblDensidad2.setText("Nombre");
-        jPanel1.add(lblDensidad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 108, -1));
 
         lblMuscular2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblMuscular2.setText("Nombre");
-        jPanel1.add(lblMuscular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 108, -1));
 
         lblGrasa2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblGrasa2.setText("Nombre");
-        jPanel1.add(lblGrasa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, -1, -1));
 
         lblCuello2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCuello2.setText("Nombre");
-        jPanel1.add(lblCuello2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, -1, -1));
 
         lblPecho1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPecho1.setText("Nombre");
-        jPanel1.add(lblPecho1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 225, 108, -1));
 
         lblPechoExtendido1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPechoExtendido1.setText("Nombre");
-        jPanel1.add(lblPechoExtendido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 251, 108, -1));
 
         lblPechoExtendido2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPechoExtendido2.setText("Nombre");
-        jPanel1.add(lblPechoExtendido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 131, -1));
 
         lblPecho2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPecho2.setText("Nombre");
-        jPanel1.add(lblPecho2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 131, -1));
+
+        lblCintura1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCintura1.setText("Nombre");
+
+        lblCinturaSumida1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCinturaSumida1.setText("Nombre");
+
+        lblPiernaDerecha1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPiernaDerecha1.setText("Nombre");
+
+        lblPiernaIzquierda1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPiernaIzquierda1.setText("Nombre");
+
+        lblBrazoDerecho1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrazoDerecho1.setText("Nombre");
+
+        lblBrazoIzquierdo1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrazoIzquierdo1.setText("Nombre");
+
+        lblCintura2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCintura2.setText("Nombre");
+
+        lblCinturaSumida2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCinturaSumida2.setText("Nombre");
+
+        lblPiernaDerecha2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPiernaDerecha2.setText("Nombre");
+
+        lblPiernaIzquierda2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPiernaIzquierda2.setText("Nombre");
+
+        lblBrazoIzquierdo2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrazoIzquierdo2.setText("Nombre");
+
+        lblBrazoDerecho2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrazoDerecho2.setText("Nombre");
+
+        lblPantorrillaDerecha.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPantorrillaDerecha.setText("Nombre");
+
+        lblPantorrillaIzquierda.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPantorrillaIzquierda.setText("Nombre");
+
+        lblPantorrillaDerecha1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPantorrillaDerecha1.setText("Nombre");
+
+        lblPantorrillaIzquierda1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPantorrillaIzquierda1.setText("Nombre");
+
+        lblPantorrillaDerecha2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPantorrillaDerecha2.setText("Nombre");
+
+        lblPantorrillaIzquierda2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblPantorrillaIzquierda2.setText("Nombre");
+
+        lblFecha3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblFecha3.setText("Registro Anterior");
+
+        lblFecha4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblFecha4.setText("Ultimo Registro");
+
+        lblFecha5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblFecha5.setText("Resultando");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblGrasa, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                            .addComponent(lblCuello, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(70, 70, 70)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblCuello1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(lblCuello2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblGrasa1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblGrasa2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblDensidad, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                    .addComponent(lblMuscular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(50, 50, 50)
+                                .addComponent(lblPecho1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblPecho2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblActividadFisica, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(lblPantorrillaIzquierda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPantorrillaDerecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblBrazoIzquierdo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblBrazoDerecho, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPiernaIzquierda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPiernaDerecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCinturaSumida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCintura, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPechoExtendido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblPechoExtendido1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(lblPechoExtendido2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblCintura1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(lblPiernaIzquierda1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                                        .addComponent(lblPiernaDerecha1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addGap(39, 39, 39))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(lblPantorrillaIzquierda1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblPantorrillaDerecha1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblBrazoIzquierdo1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblBrazoDerecho1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblCinturaSumida1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGap(30, 30, 30)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblCintura2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                            .addComponent(lblCinturaSumida2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblPiernaDerecha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblPiernaIzquierda2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblBrazoIzquierdo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblPantorrillaIzquierda2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblPantorrillaDerecha2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblBrazoDerecho2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblPeso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblEstatura, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                        .addGap(34, 34, 34)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblActividadFisica1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblPeso1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(19, 19, 19)
+                                        .addComponent(lblPeso2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lblEstatura1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                            .addComponent(lblDensidad1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblMuscular1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblEstatura2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblDensidad2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblMuscular2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFecha3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFecha4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addComponent(lblFecha5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 24, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(58, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFecha)
+                            .addComponent(lblFecha1))
+                        .addGap(3, 3, 3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblFecha5)
+                            .addComponent(lblFecha4)
+                            .addComponent(lblFecha3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lblActividadFisica))
+                    .addComponent(lblActividadFisica1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPeso)
+                            .addComponent(lblPeso1))
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPeso2)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEstatura)
+                    .addComponent(lblEstatura1)
+                    .addComponent(lblEstatura2))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDensidad2)
+                    .addComponent(lblDensidad)
+                    .addComponent(lblDensidad1))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMuscular)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblMuscular1)
+                        .addComponent(lblMuscular2)))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGrasa2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblGrasa)
+                            .addComponent(lblGrasa1))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCuello)
+                            .addComponent(lblCuello1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lblCuello2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPecho)
+                            .addComponent(lblPecho1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(lblPecho2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lblPechoExtendido))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(lblPechoExtendido2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lblPechoExtendido1)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCintura)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(lblCintura2)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(lblCinturaSumida))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblCinturaSumida2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPiernaDerecha)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(lblPiernaDerecha2)))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPiernaIzquierda)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(lblPiernaIzquierda2)))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBrazoDerecho)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(lblBrazoDerecho2)))
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBrazoIzquierdo)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(lblBrazoIzquierdo2))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCintura1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCinturaSumida1)
+                        .addGap(9, 9, 9)
+                        .addComponent(lblPiernaDerecha1)
+                        .addGap(5, 5, 5)
+                        .addComponent(lblPiernaIzquierda1)
+                        .addGap(5, 5, 5)
+                        .addComponent(lblBrazoDerecho1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblBrazoIzquierdo1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPantorrillaDerecha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPantorrillaIzquierda))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPantorrillaDerecha1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPantorrillaIzquierda1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPantorrillaDerecha2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPantorrillaIzquierda2)))
+                .addGap(31, 31, 31))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -321,23 +645,33 @@ public class InterfazMedidas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblActividadFisica;
     private javax.swing.JLabel lblActividadFisica1;
-    private javax.swing.JLabel lblActividadFisica2;
+    private javax.swing.JLabel lblBrazoDerecho;
+    private javax.swing.JLabel lblBrazoDerecho1;
+    private javax.swing.JLabel lblBrazoDerecho2;
+    private javax.swing.JLabel lblBrazoIzquierdo;
+    private javax.swing.JLabel lblBrazoIzquierdo1;
+    private javax.swing.JLabel lblBrazoIzquierdo2;
+    private javax.swing.JLabel lblCintura;
+    private javax.swing.JLabel lblCintura1;
+    private javax.swing.JLabel lblCintura2;
+    private javax.swing.JLabel lblCinturaSumida;
+    private javax.swing.JLabel lblCinturaSumida1;
+    private javax.swing.JLabel lblCinturaSumida2;
     private javax.swing.JLabel lblCuello;
     private javax.swing.JLabel lblCuello1;
     private javax.swing.JLabel lblCuello2;
@@ -349,7 +683,9 @@ public class InterfazMedidas extends javax.swing.JFrame {
     private javax.swing.JLabel lblEstatura2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFecha1;
-    private javax.swing.JLabel lblFecha2;
+    private javax.swing.JLabel lblFecha3;
+    private javax.swing.JLabel lblFecha4;
+    private javax.swing.JLabel lblFecha5;
     private javax.swing.JLabel lblGrasa;
     private javax.swing.JLabel lblGrasa1;
     private javax.swing.JLabel lblGrasa2;
@@ -357,6 +693,12 @@ public class InterfazMedidas extends javax.swing.JFrame {
     private javax.swing.JLabel lblMuscular;
     private javax.swing.JLabel lblMuscular1;
     private javax.swing.JLabel lblMuscular2;
+    private javax.swing.JLabel lblPantorrillaDerecha;
+    private javax.swing.JLabel lblPantorrillaDerecha1;
+    private javax.swing.JLabel lblPantorrillaDerecha2;
+    private javax.swing.JLabel lblPantorrillaIzquierda;
+    private javax.swing.JLabel lblPantorrillaIzquierda1;
+    private javax.swing.JLabel lblPantorrillaIzquierda2;
     private javax.swing.JLabel lblPecho;
     private javax.swing.JLabel lblPecho1;
     private javax.swing.JLabel lblPecho2;
@@ -366,6 +708,12 @@ public class InterfazMedidas extends javax.swing.JFrame {
     private javax.swing.JLabel lblPeso;
     private javax.swing.JLabel lblPeso1;
     private javax.swing.JLabel lblPeso2;
+    private javax.swing.JLabel lblPiernaDerecha;
+    private javax.swing.JLabel lblPiernaDerecha1;
+    private javax.swing.JLabel lblPiernaDerecha2;
+    private javax.swing.JLabel lblPiernaIzquierda;
+    private javax.swing.JLabel lblPiernaIzquierda1;
+    private javax.swing.JLabel lblPiernaIzquierda2;
     // End of variables declaration//GEN-END:variables
 
     public void consultar() {
@@ -421,43 +769,89 @@ public class InterfazMedidas extends javax.swing.JFrame {
 
         lblFecha.setText("Fecha Registro: ".concat(fecha_anterior));
         lblFecha1.setText("Fecha Registro: ".concat(fecha_nueva));
-        lblFecha2.setText("hola");
-
+  
         lblActividadFisica.setText("Actividad Física: ".concat(String.valueOf(actividad_fisica_anterior)));
         lblActividadFisica1.setText("Actividad Física: ".concat(String.valueOf(actividad_fisica)));
-        lblActividadFisica2.setText("hola");
-
+    
         lblPeso.setText("Peso: ".concat(String.valueOf(medidas_anterioress.get(1))));
         lblPeso1.setText("Peso: ".concat(String.valueOf(peso_anterior)));
-        lblPeso2.setText("hola");
+        lblPeso2.setText(retornarResultado(medidas_anterioress.get(1), peso_anterior, lblPeso2).concat(" kg"));
 
         lblEstatura.setText("Estatura: ".concat(String.valueOf(medidas_anterioress.get(2))));
         lblEstatura1.setText("Estatura: ".concat(String.valueOf(estatura_anterior)));
-        lblEstatura2.setText("hola");
+        lblEstatura2.setText(retornarResultado(medidas_anterioress.get(2), estatura_anterior, lblEstatura2).concat(" m"));
 
         lblDensidad.setText("Densidad Osea: ".concat(String.valueOf(medidas_anterioress.get(3))));
         lblDensidad1.setText("Densidad Osea: ".concat(String.valueOf(densidad_osea_anterior)));
-        lblDensidad2.setText("hola");
+        lblDensidad2.setText(retornarResultado(medidas_anterioress.get(3), densidad_osea_anterior, lblDensidad2));
 
         lblMuscular.setText("% Masa Muscular: ".concat(String.valueOf(medidas_anterioress.get(4))));
         lblMuscular1.setText("% Masa Muscular: ".concat(String.valueOf(porcentaje_masa_anterior)));
-        lblMuscular2.setText("hola");
+        lblMuscular2.setText(retornarResultado(medidas_anterioress.get(4), porcentaje_masa_anterior, lblMuscular2).concat(" %"));
 
         lblGrasa.setText("% Grasa: ".concat(String.valueOf(medidas_anterioress.get(5))));
         lblGrasa1.setText("% Grasa: ".concat(String.valueOf(porcentaje_grasa_anterior)));
-        lblGrasa2.setText("hola");
+        lblGrasa2.setText(retornarResultado(medidas_anterioress.get(5), porcentaje_grasa_anterior, lblGrasa2).concat(" %"));
 
         lblCuello.setText("Cuello: ".concat(String.valueOf(medidas_anterioress.get(6))));
-        lblCuello1.setText("\t Cuello: ".concat(String.valueOf(cuello_anterior)));
-        lblCuello2.setText("hola");
+        lblCuello1.setText("Cuello: ".concat(String.valueOf(cuello_anterior)));
+        lblCuello2.setText(retornarResultado(medidas_anterioress.get(6), cuello_anterior, lblCuello2).concat(" cm"));
 
         lblPecho.setText("Pecho Normal: ".concat(String.valueOf(medidas_anterioress.get(7))));
-        lblPecho1.setText("\t Pecho Normal: ".concat(String.valueOf(pecho_normal_anterior)));
-        lblPecho2.setText("hola");
+        lblPecho1.setText("Pecho Normal: ".concat(String.valueOf(pecho_normal_anterior)));
+        lblPecho2.setText(retornarResultado(medidas_anterioress.get(7), pecho_normal_anterior, lblPecho2).concat(" cm"));
 
-        lblPechoExtendido.setText("Pecho Expandido: ".concat(String.valueOf(medidas_anterioress.get(8))));
-        lblPechoExtendido1.setText("Pecho Expandido: ".concat(String.valueOf(pecho_extendido_anterior)));
-        lblPechoExtendido2.setText("hola");
+        lblPechoExtendido.setText("Pecho Extendido: ".concat(String.valueOf(medidas_anterioress.get(8))));
+        lblPechoExtendido1.setText("Pecho Extendido: ".concat(String.valueOf(pecho_extendido_anterior)));
+        lblPechoExtendido2.setText(retornarResultado(medidas_anterioress.get(8), pecho_extendido_anterior, lblPechoExtendido2).concat(" cm"));
+
+        lblCintura.setText("Cintura Normal: ".concat(String.valueOf(medidas_anterioress.get(9))));
+        lblCintura1.setText("Cintura Normal: ".concat(String.valueOf(cintura_normal_anterior)));
+        lblCintura2.setText(retornarResultado(medidas_anterioress.get(9), cintura_normal_anterior, lblCintura2).concat(" cm"));
+
+        lblCinturaSumida.setText("Cintura Sumida: ".concat(String.valueOf(medidas_anterioress.get(10))));
+        lblCinturaSumida1.setText("Cintura Sumida: ".concat(String.valueOf(cintura_sumida_anterior)));
+        lblCinturaSumida2.setText(retornarResultado(medidas_anterioress.get(10), cintura_sumida_anterior, lblCinturaSumida2).concat(" cm"));
+
+        lblPiernaDerecha.setText("Pierna Derecha: ".concat(String.valueOf(medidas_anterioress.get(11))));
+        lblPiernaDerecha1.setText("Pierna Derecha: ".concat(String.valueOf(pierna_derecha_anterior)));
+        lblPiernaDerecha2.setText(retornarResultado(medidas_anterioress.get(11), pierna_derecha_anterior, lblPiernaDerecha2).concat(" cm"));
+
+        lblPiernaIzquierda.setText("Pierna Izquierda: ".concat(String.valueOf(medidas_anterioress.get(12))));
+        lblPiernaIzquierda1.setText("Pierna Izquierda: ".concat(String.valueOf(pierna_izquierda_anterior)));
+        lblPiernaIzquierda2.setText(retornarResultado(medidas_anterioress.get(12), pierna_izquierda_anterior, lblPiernaIzquierda2).concat(" cm"));
+
+        lblBrazoDerecho.setText("Brazo Derecho: ".concat(String.valueOf(medidas_anterioress.get(13))));
+        lblBrazoDerecho1.setText("Brazo Derecho: ".concat(String.valueOf(brazo_derecho_anterior)));
+        lblBrazoDerecho2.setText(retornarResultado(medidas_anterioress.get(13), brazo_derecho_anterior, lblBrazoDerecho2).concat(" cm"));
+
+        lblBrazoIzquierdo.setText("Brazo Izquierda: ".concat(String.valueOf(medidas_anterioress.get(14))));
+        lblBrazoIzquierdo1.setText("Brazo Izquierda: ".concat(String.valueOf(brazo_izquierdo_anterior)));
+        lblBrazoIzquierdo2.setText(retornarResultado(medidas_anterioress.get(14), brazo_izquierdo_anterior, lblBrazoIzquierdo2).concat(" cm"));
+
+        lblPantorrillaDerecha.setText("Pantorrilla Derecha: ".concat(String.valueOf(medidas_anterioress.get(15))));
+        lblPantorrillaDerecha1.setText("Pantorrilla Derecha: ".concat(String.valueOf(pantorrilla_derecha_anterior)));
+        lblPantorrillaDerecha2.setText(retornarResultado(medidas_anterioress.get(15), pantorrilla_derecha_anterior, lblPantorrillaDerecha2).concat(" cm"));
+
+        lblPantorrillaIzquierda.setText("Pantorrilla Izquierda: ".concat(String.valueOf(medidas_anterioress.get(16))));
+        lblPantorrillaIzquierda1.setText("Pantorrilla Izquierda: ".concat(String.valueOf(pantorrilla_izquierda_anterior)));
+        lblPantorrillaIzquierda2.setText(retornarResultado(medidas_anterioress.get(16), pantorrilla_izquierda_anterior, lblPantorrillaIzquierda2).concat(" cm"));
+
+    }
+
+
+        public String retornarResultado(Double valor1, Double valor2, JLabel label) {
+        String resultado = "Sin medida";
+        if (valor1 > valor2) {
+            resultado = "Bajo de Medida ".concat(String.valueOf(valor1 - valor2));
+            label.setForeground(Color.GREEN);
+        } else if (valor1 < valor2) {
+            resultado = "Subio de Medida ".concat(String.valueOf(valor2 - valor1));
+            label.setForeground(Color.RED);
+        } else {
+            resultado = "Se mantuvo";
+        }
+        return resultado;
     }
 
 }

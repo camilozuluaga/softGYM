@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
@@ -47,6 +48,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     String seleccion;
     double saldo;
     Puerta arduino;
+    String nombreSocio;
 
     /**
      * Creates new form internalEjemplo
@@ -92,6 +94,9 @@ public class VerSocio extends javax.swing.JInternalFrame {
         }
 
         ocultarPanel(false, false, false);
+
+        Calendar fechaActual = new GregorianCalendar();
+        dateMedidas.setCalendar(fechaActual);
     }
 
     public void congeladosocio() {
@@ -911,7 +916,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
 
         btnAgregarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/agregar.png"))); // NOI18N
-        btnAgregarMedidas.setText("Agregar");
+        btnAgregarMedidas.setText("Guardar");
         btnAgregarMedidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMedidasActionPerformed(evt);
@@ -920,6 +925,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
         btnConsultarMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/buscar.png"))); // NOI18N
         btnConsultarMedidas.setText("Consultar");
+        btnConsultarMedidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarMedidasActionPerformed(evt);
+            }
+        });
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel23.setText("Toma de Medidas");
@@ -1766,6 +1776,12 @@ public class VerSocio extends javax.swing.JInternalFrame {
         guardarMedidas();
     }//GEN-LAST:event_btnAgregarMedidasActionPerformed
 
+    private void btnConsultarMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarMedidasActionPerformed
+        // TODO add your handling code here:
+        ControlMedidas medidas = new ControlMedidas(socioID, nombreSocio);
+        medidas.setVisible(true);
+    }//GEN-LAST:event_btnConsultarMedidasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox JcongelarMembresia;
@@ -2010,6 +2026,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
                 }
 
                 lNombreUsuario.setText(data.getString("usuario"));
+                nombreSocio= data.getString("usuario");
                 lblSexoMedidas.setText(data.getString("sexo"));
                 lCodigo.setText("Código: " + data.getString("clave"));
                 lEdad.setText(data.getString("edad"));
@@ -2678,38 +2695,27 @@ public class VerSocio extends javax.swing.JInternalFrame {
             peso = Double.parseDouble(txtPesoMedidas.getText());
         }
 
-        if (rbBioimpedancia.isSelected()) {
-            System.out.println("Esta seleccionado el bio");
-            densidad_osea = Double.parseDouble(txtDensidadOsea.getText());
-            porcentaje_masa = Double.parseDouble(txtMasaMuscular.getText());
-            porcentaje_grasa = Double.parseDouble(txtGrasa.getText());
+        System.out.println("Esta seleccionado el bio");
+        densidad_osea = Double.parseDouble(txtDensidadOsea.getText());
+        porcentaje_masa = Double.parseDouble(txtMasaMuscular.getText());
+        porcentaje_grasa = Double.parseDouble(txtGrasa.getText());
 
-            querySQL = String.format("INSERT INTO medidas_socio(usuario_sistema_id, socio_id, fecha_registro , actividad_fisica , peso, estatura, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_normal, pecho_expandido, cintura_normal, cintura_sumida,pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda) VALUES (%s, %s, now(), '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", Integer.valueOf(usuario), Integer.valueOf(socioID), tipoActividad, peso, estatura, densidad_osea, porcentaje_masa, porcentaje_grasa, cuello, pecho_normal, pecho_extendido, cintura_normal, cintura_sumida, pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda);
-            success = db.sqlEjec(querySQL);
+        System.out.println("Esta seleccionado medidas");
 
-        } else if (rbMedidas.isSelected()) {
+        cuello = (txtCuello.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtCuello.getText());
+        pecho_extendido = (txtPechoExtendido.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtPechoExtendido.getText());
+        pecho_normal = (txtPechoNormal.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtPechoNormal.getText());
+        brazo_derecho = (txtBrazoDerecho.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtBrazoDerecho.getText());
+        brazo_izquierdo = (txtBrazoIzquierdo.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtBrazoIzquierdo.getText());
+        pierna_derecha = (txtPiernaDerecha.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtPiernaDerecha.getText());
+        pierna_izquierda = (txtPiernaIzquierda.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtPiernaIzquierda.getText());
+        pantorrilla_derecha = (txtPantorrillaDerecha.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtPantorrillaDerecha.getText());
+        pantorrilla_izquierda = (txtPantorrillaIzquierda.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtPantorrillaIzquierda.getText());
+        cintura_normal = (txtCinturaNormal.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtCinturaNormal.getText());
+        cintura_sumida = (txtCinturaSumida.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtCinturaSumida.getText());
 
-            System.out.println("Esta seleccionado medidas");
-
-            cuello = Double.parseDouble(txtCuello.getText());
-            pecho_extendido = Double.parseDouble(txtPechoExtendido.getText());
-            pecho_normal = Double.parseDouble(txtPechoNormal.getText());
-            brazo_derecho = Double.parseDouble(txtBrazoDerecho.getText());
-            brazo_izquierdo = Double.parseDouble(txtBrazoIzquierdo.getText());
-            pierna_derecha = Double.parseDouble(txtPiernaDerecha.getText());
-            pierna_izquierda = Double.parseDouble(txtPiernaIzquierda.getText());
-            pantorrilla_derecha = Double.parseDouble(txtPantorrillaDerecha.getText());
-            pantorrilla_izquierda = Double.parseDouble(txtPantorrillaIzquierda.getText());
-            cintura_normal = Double.parseDouble(txtCinturaNormal.getText());
-            cintura_sumida = Double.parseDouble(txtCinturaSumida.getText());
-
-            querySQL = String.format("INSERT INTO medidas_socio(usuario_sistema_id, socio_id, fecha_registro , actividad_fisica , peso, estatura, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_normal, pecho_expandido, cintura_normal, cintura_sumida,pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda) VALUES (%s, %s, now(), '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", Integer.valueOf(usuario), Integer.valueOf(socioID), tipoActividad, peso, estatura, densidad_osea, porcentaje_masa, porcentaje_grasa, cuello, pecho_normal, pecho_extendido, cintura_normal, cintura_sumida, pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda);
-            success = db.sqlEjec(querySQL);
-        } else {
-            System.out.println("No ha seleccionado nada");
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado un tipo de medida", "Control de Medidas", JOptionPane.ERROR_MESSAGE);
-
-        }
+        querySQL = String.format("INSERT INTO medidas_socio(usuario_sistema_id, socio_id, fecha_registro , actividad_fisica , peso, estatura, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_normal, pecho_expandido, cintura_normal, cintura_sumida,pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda) VALUES (%s, %s, now(), '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", Integer.valueOf(usuario), Integer.valueOf(socioID), tipoActividad, peso, estatura, densidad_osea, porcentaje_masa, porcentaje_grasa, cuello, pecho_normal, pecho_extendido, cintura_normal, cintura_sumida, pierna_derecha, pierna_izquierda, brazo_derecho, brazo_izquierdo, pantorrilla_derecha, pantorrilla_izquierda);
+        success = db.sqlEjec(querySQL);
 
         if (success) {
             System.out.println("Se ha guardado con exito las medidas");
