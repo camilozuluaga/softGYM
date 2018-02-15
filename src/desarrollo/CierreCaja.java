@@ -39,6 +39,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         lblFechaApertura.setText(utilidades.fecha_apertura());
         lblResponsableCaja.setText(cargarUsuario());
         obtenerDineroEgreso();
+        obtenerDineroTienda();
         obtenerVisitas();
         obtenerMembresias();
         calcularTotal();
@@ -95,6 +96,9 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         txtSumaVisitas = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         lblDineroTarjeta = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtSumaTienda = new javax.swing.JTextField();
+        btnTienda = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cierre De Caja");
@@ -274,17 +278,17 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btnEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, -1, 30));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 317, 805, 40));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 805, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
         jLabel4.setText("Efectivo en caja . . . . . . . . . ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
 
         lblDineroCaja.setBackground(new java.awt.Color(255, 102, 0));
         lblDineroCaja.setFont(new java.awt.Font("Tahoma", 1, 38)); // NOI18N
         lblDineroCaja.setForeground(new java.awt.Color(0, 153, 51));
         lblDineroCaja.setToolTipText("Dinero Recibido");
-        jPanel1.add(lblDineroCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 210, 50));
+        jPanel1.add(lblDineroCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 210, 50));
 
         txtSumaVisitas.setEditable(false);
         txtSumaVisitas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -292,13 +296,31 @@ public class CierreCaja extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
         jLabel5.setText("Pago con tarjetas . . . . . . . .  ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
 
         lblDineroTarjeta.setBackground(new java.awt.Color(255, 102, 0));
         lblDineroTarjeta.setFont(new java.awt.Font("Tahoma", 1, 38)); // NOI18N
         lblDineroTarjeta.setForeground(new java.awt.Color(0, 153, 51));
         lblDineroTarjeta.setToolTipText("Dinero Recibido");
-        jPanel1.add(lblDineroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, 210, 50));
+        jPanel1.add(lblDineroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 210, 50));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel17.setText("Suma total de ventas en la tienda. . . . . . . . . . . . . . . . .");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 400, 30));
+
+        txtSumaTienda.setEditable(false);
+        txtSumaTienda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtSumaTienda.setForeground(new java.awt.Color(51, 153, 255));
+        jPanel1.add(txtSumaTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 139, 30));
+
+        btnTienda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnTienda.setText("Detalle");
+        btnTienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTiendaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,7 +337,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -384,6 +406,13 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSumaTotalVentasActionPerformed
 
+    private void btnTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiendaActionPerformed
+        DetalleTienda egreso = new DetalleTienda();
+        Frame.escritorio.add(egreso);
+        egreso.toFront();
+        egreso.setVisible(true);
+    }//GEN-LAST:event_btnTiendaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarDinero;
@@ -391,12 +420,14 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCerrarCaja;
     private javax.swing.JButton btnEgresos;
     private javax.swing.JButton btnMembresia;
+    private javax.swing.JButton btnTienda;
     private javax.swing.JButton btnTotal;
     private javax.swing.JButton btnVisitas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -414,6 +445,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblResponsableCaja;
     private javax.swing.JTextField txtAperturaCaja;
     private javax.swing.JTextField txtSumaEgreso;
+    private javax.swing.JTextField txtSumaTienda;
     private javax.swing.JTextField txtSumaTotalVentas;
     private javax.swing.JTextField txtSumaVisitas;
     private javax.swing.JTextField txtVentaMembresia;
@@ -460,6 +492,34 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             } else {
                 total = (long) suma;
                 txtSumaEgreso.setText(String.valueOf(total));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CierreCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+public double obtenerDineroTienda() {
+        double suma = 0;
+        long total = 0;
+        try {
+            String querySQL = "SELECT SUM(mov.precio_total) AS Dinero, ca.fecha_apertura FROM factura_producto mov, caja ca WHERE ca.fecha_apertura='".concat(fecha_apertura()).concat("'") + "AND mov.fecha_registro >= ca.fecha_apertura GROUP BY ca.fecha_apertura";
+            data = db.sqlDatos(querySQL);
+
+            if (data.size() == 0) {
+                btnTienda.setVisible(false);
+            } else {
+                btnTienda.setVisible(true);
+            }
+
+            while (data.next()) {
+                suma = data.getDouble("Dinero");
+            }
+            if (suma == 0) {
+                txtSumaTienda.setText("0.0");
+            } else {
+                total = (long) suma;
+                txtSumaTienda.setText(String.valueOf(total));
             }
 
         } catch (SQLException ex) {

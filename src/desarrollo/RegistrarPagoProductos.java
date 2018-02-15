@@ -420,11 +420,11 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         }
 
         this.dispose();
-        ImprimirReciboProducto imprimirRecibo = new ImprimirReciboProducto(idFactura);
-        Frame.escritorio.add(imprimirRecibo);
-        imprimirRecibo.toFront();
-        imprimirRecibo.setVisible(true);
-        Utilidades.centrarInternalFrame(imprimirRecibo);
+//       ImprimirReciboProducto imprimirRecibo = new ImprimirReciboProducto(idFactura);
+//        Frame.escritorio.add(imprimirRecibo);
+//        imprimirRecibo.toFront();
+//        imprimirRecibo.setVisible(true);
+//        Utilidades.centrarInternalFrame(imprimirRecibo);
     }
 
     private int registrarPagos() {
