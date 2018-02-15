@@ -222,7 +222,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel11.setText("Suma total de ventas . . . . . . . . . . . . . . . . . . . . . . . . .");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, -1));
 
         txtSumaTotalVentas.setEditable(false);
         txtSumaTotalVentas.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -232,16 +232,16 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 txtSumaTotalVentasActionPerformed(evt);
             }
         });
-        jPanel1.add(txtSumaTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 139, 35));
+        jPanel1.add(txtSumaTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 139, 35));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel16.setText("Suma de gastos de caja (Egresos) . . . . . . . . . . . . . . . .");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 400, 30));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 400, 30));
 
         txtSumaEgreso.setEditable(false);
         txtSumaEgreso.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSumaEgreso.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel1.add(txtSumaEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 260, 139, 30));
+        jPanel1.add(txtSumaEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 139, 30));
 
         btnVisitas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisitas.setText("Detalle");
@@ -268,7 +268,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnTotalActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 215, -1, 30));
+        jPanel1.add(btnTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, -1, 30));
 
         btnEgresos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEgresos.setText("Detalle");
@@ -277,7 +277,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnEgresosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, -1, 30));
+        jPanel1.add(btnEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, -1, 30));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 805, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
@@ -306,12 +306,12 @@ public class CierreCaja extends javax.swing.JInternalFrame {
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel17.setText("Suma total de ventas en la tienda. . . . . . . . . . . . . . . . .");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 400, 30));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 400, 30));
 
         txtSumaTienda.setEditable(false);
         txtSumaTienda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSumaTienda.setForeground(new java.awt.Color(51, 153, 255));
-        jPanel1.add(txtSumaTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 139, 30));
+        jPanel1.add(txtSumaTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 139, 30));
 
         btnTienda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnTienda.setText("Detalle");
@@ -320,7 +320,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
                 btnTiendaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, -1, 30));
+        jPanel1.add(btnTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -646,10 +646,12 @@ public double obtenerDineroTienda() {
         String totalMembresia = txtVentaMembresia.getText();
         String totalVisitas = txtSumaVisitas.getText();
         String fecha_cierre = "now()";
+        String totalTienda=txtSumaTienda.getText();
 
         double egresos = Double.parseDouble(totalEgresos);
         double membresia = Double.parseDouble(totalMembresia);
         double visitas = Double.parseDouble(totalVisitas);
+        double tienda=Double.parseDouble(totalTienda);
         double adeudos = 0.0;
 
         if (calcularTotal() < 0) {
@@ -723,7 +725,9 @@ public double obtenerDineroTienda() {
         String totalEgresos = txtSumaEgreso.getText();
         String totalMembresia = txtVentaMembresia.getText();
         String totalVisitas = txtSumaVisitas.getText();
-        long total = (long) ((long)  Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia));
+        String totalTienda= txtSumaTienda.getText();
+        
+        long total = (long) ((long)  Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia)+Double.parseDouble(totalTienda));
         long menosEgresos = (long) ((long)  Double.parseDouble(totalVisitas) + Double.parseDouble(totalMembresia));
         txtSumaTotalVentas.setText(String.valueOf(total));
         if (total == 0.0) {

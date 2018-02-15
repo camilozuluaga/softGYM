@@ -26,6 +26,8 @@ public class DetalleDineroRecibido extends javax.swing.JInternalFrame {
     public DetalleDineroRecibido() {
         initComponents();
         cargarDineroRecibido();
+        cargarTienda();
+        
     }
 
     /**
@@ -44,6 +46,8 @@ public class DetalleDineroRecibido extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTotal = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaTotalVenta = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -103,20 +107,37 @@ public class DetalleDineroRecibido extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaTotal);
 
+        tablaTotalVenta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tablaTotalVenta);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -149,7 +170,9 @@ public class DetalleDineroRecibido extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaTotal;
+    private javax.swing.JTable tablaTotalVenta;
     // End of variables declaration//GEN-END:variables
 
     private void cargarDineroRecibido() {
@@ -282,6 +305,19 @@ public class DetalleDineroRecibido extends javax.swing.JInternalFrame {
              * so.id AND mu.activa = True"
              */
             tablaTotal = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tablaTotal);
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void cargarTienda() {
+        CachedRowSet data;
+
+        try {
+            DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"Nombre", "Cantidad", "Precio"});
+            data = db.sqlDatos("SELECT  mov.nombre,1, mov.precio FROM producto mov, caja ca, factura_producto fp,facturaproductos fps WHERE fp.id=fps.factura_producto_id AND fps.producto_id=mov.id AND ca.fecha_apertura='".concat(utilidades.fecha_apertura()).concat("'").concat(" AND fp.fecha_registro >= '").concat(utilidades.fecha_apertura()).concat("'"));
+
+            tablaTotalVenta = logica.Utilidades.llenarTabla(data.createCopy(), tableModel, tablaTotalVenta);
+
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
