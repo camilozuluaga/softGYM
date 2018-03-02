@@ -47,6 +47,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         cargarBase();
         obtenerAdeudos();
         obtenerMembresiasPagadasConTarjeta();
+        dineroRecibidoTotalTarjeta();
         btnAgregarDinero.setVisible(false);
 
     }
@@ -278,7 +279,7 @@ public class CierreCaja extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btnEgresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, -1, 30));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 805, 40));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 805, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 32)); // NOI18N
         jLabel4.setText("Efectivo en caja . . . . . . . . . ");
@@ -499,6 +500,30 @@ public class CierreCaja extends javax.swing.JInternalFrame {
         }
         return total;
     }
+    public double  obtenerDineroTIendaTargeta(){
+        double suma = 0;
+        long total = 0;
+        try {
+            String querySQL = "SELECT SUM(mov.precio_total) AS Dinero, ca.fecha_apertura FROM factura_producto mov, caja ca WHERE ca.fecha_apertura='".concat(fecha_apertura()).concat("'") + "AND mov.fecha_registro >= ca.fecha_apertura AND mov.pago_tarjeta=TRUE GROUP BY ca.fecha_apertura";
+            data = db.sqlDatos(querySQL);
+
+            if (data.size() == 0) {
+                return 0.0;
+            }
+
+            while (data.next()) {
+                suma = data.getDouble("Dinero");
+            }
+            
+                total = (long) suma;
+               
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CierreCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
 public double obtenerDineroTienda() {
         double suma = 0;
         long total = 0;
@@ -712,7 +737,7 @@ public double obtenerDineroTienda() {
                 base = data.getDouble("base");
             }
 
-            dineroCaja = base + calcularTotal() - obtenerDineroEgreso()-obtenerMembresiasPagadasConTarjeta();
+            dineroCaja = base + calcularTotal() - obtenerDineroEgreso()-obtenerMembresiasPagadasConTarjeta()-obtenerDineroTIendaTargeta();
             total = (long) dineroCaja;
             lblDineroCaja.setText(String.valueOf(total));
             txtAperturaCaja.setText(String.valueOf(base));
@@ -803,5 +828,8 @@ public double obtenerDineroTienda() {
         }
         return total;
     }
+      public void dineroRecibidoTotalTarjeta(){
+          lblDineroTarjeta.setText(String.valueOf(Double.parseDouble(lblDineroTarjeta.getText()+obtenerDineroTIendaTargeta())));
+      }
 
 }

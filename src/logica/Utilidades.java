@@ -152,7 +152,7 @@ public class Utilidades {
         columnModel.getColumn(2).setPreferredWidth(2);
         columnModel.getColumn(3).setPreferredWidth(2);
         columnModel.getColumn(4).setPreferredWidth(200);
-
+        
     }
 
     public static JTable llenarTabla(CachedRowSet crs, DefaultTableModel modelo, JTable tbl) {

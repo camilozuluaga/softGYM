@@ -90,7 +90,7 @@ AND me.usuario_sistema_id = us.id
 ORDER BY me.id DESC
 LIMIT 1;
 #############################################tabla de producto#########
-CREATE TABLE producto(id SERIAL PRIMARY KEY NOT NULL, usuario_sistema_id INTEGER,fecha_registro TIMESTAMP, nombre VARCHAR(15), cantidad INTEGER,descripcion varchar(250),
+CREATE TABLE producto(id SERIAL PRIMARY KEY NOT NULL, usuario_sistema_id INTEGER,fecha_registro TIMESTAMP, nombre VARCHAR(250), cantidad INTEGER,descripcion varchar(250),
  precio NUMERIC,imagen bytea
 );
 
@@ -110,5 +110,10 @@ ALTER TABLE FacturaProductos ADD FOREIGN KEY(factura_producto_id) REFERENCES Fac
 ALTER TABLE FacturaProductos ADD FOREIGN KEY(producto_id) REFERENCES Producto(id);
 ALTER TABLE producto OWNER TO gidsoft;
 alter table factura_producto add column pago numeric;
+ALTER TABLE factura_producto ADD COLUMN pago_tarjeta boolean;
+alter table producto add column codigo int
+
+alter table producto add constraint uq_producto_codigo unique (codigo);
+ALTER TABLE producto ALTER COLUMN codigo type varchar(250);
 ####################################################
 

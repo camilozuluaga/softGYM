@@ -143,6 +143,7 @@ public class Frame extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         mAdministracion = new javax.swing.JMenu();
         mMembresia = new javax.swing.JMenuItem();
         mEmpleado = new javax.swing.JMenuItem();
@@ -442,6 +443,15 @@ public class Frame extends javax.swing.JFrame {
             }
         });
         mAcciones.add(jMenuItem1);
+
+        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jMenuItem6.setText("Tienda");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        mAcciones.add(jMenuItem6);
 
         MenuAplicacion.add(mAcciones);
 
@@ -845,12 +855,16 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCorreoActionPerformed
 
     private void bInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInicio1ActionPerformed
-         agregarInternalFrame(escritorio, new Tienda(this));
+         agregarInternalFrame(escritorio, new RegistrarPagoProductos());
     }//GEN-LAST:event_bInicio1ActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
          // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+         agregarInternalFrame(escritorio, new Tienda(this));
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -919,6 +933,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
