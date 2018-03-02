@@ -31,6 +31,7 @@ public class ControlMedidas extends javax.swing.JFrame {
             brazo_derecho_anterior = 0, brazo_izquierdo_anterior = 0, pierna_derecha_anterior = 0, pierna_izquierda_anterior = 0, pantorrilla_derecha_anterior = 0,
             pantorrilla_izquierda_anterior = 0, cintura_normal_anterior = 0, cintura_sumida_anterior = 0;
     ArrayList<Double> medidas_anteriores = new ArrayList<>();
+    ArrayList<String> medidasFaltantes = new ArrayList<>();
 
     String usuario = System.getProperty("usuario_sistema");
 
@@ -42,6 +43,7 @@ public class ControlMedidas extends javax.swing.JFrame {
         consultarMedidasSocio();
         cargarArraylistMedidas();
         setLocationRelativeTo(this);
+        lblFechaRegistro.setText(consultarFecha());
     }
 
     /**
@@ -64,6 +66,8 @@ public class ControlMedidas extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lblFechaRegistro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,20 +160,31 @@ public class ControlMedidas extends javax.swing.JFrame {
 
         txtNombre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setText("Ultima Toma de Medida ");
+
+        lblFechaRegistro.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(348, 348, 348))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblFechaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(348, 348, 348))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +193,11 @@ public class ControlMedidas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -199,7 +218,7 @@ public class ControlMedidas extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,7 +229,7 @@ public class ControlMedidas extends javax.swing.JFrame {
         for (int i = 0; i < medidas_anteriores.size(); i++) {
             System.out.println(medidas_anteriores.get(i));
         }
-        InterfazMedidas imedidas = new InterfazMedidas(idSocio, medidas_anteriores);
+        InterfazMedidas imedidas = new InterfazMedidas(idSocio, medidas_anteriores, medidasFaltantes);
         imedidas.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -228,9 +247,11 @@ public class ControlMedidas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblFechaRegistro;
     private javax.swing.JLabel lblId;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtNombre;
@@ -238,11 +259,11 @@ public class ControlMedidas extends javax.swing.JFrame {
 
     public void consultarMedidasSocio() {
         CachedRowSet data;
-        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.", "ESTATURA", "PESO", "DEN. OSEA", "% MUSCULAR", "%GRASA", "CUELLO", "PECHO EXP.", "PECHO NORM.", "BRAZO DER.", "BRAZO IZQ", "PIERNA DER", "PIERNA IZQ", "PANTORIILA DER", "PANTORRILLA IZQ", "CONTURA NOR", "CINTURA SUMIDA"});
+        DefaultTableModel tableModel = new DefaultTableModel(null, new String[]{"COD.","FECHA REG.", "ESTATURA", "PESO", "DEN. OSEA", "% MUSCULAR", "%GRASA", "CUELLO", "PECHO EXP.", "PECHO NORM.", "BRAZO DER.", "BRAZO IZQ", "PIERNA DER", "PIERNA IZQ", "PANTORIILA DER", "PANTORRILLA IZQ", "CONTURA NOR", "CINTURA SUMIDA"});
         try {
 
             String usuario = System.getProperty("usuario_sistema");
-            String querySQL = "SELECT me.id, estatura, peso, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_expandido, pecho_normal, brazo_derecho, brazo_izquierdo, pierna_derecha, pierna_izquierda, pantorrilla_derecha, pantorrilla_izquierda, cintura_normal, cintura_sumida \n"
+            String querySQL = "SELECT me.id, me.fecha_registro, estatura, peso, densidad_osea, porcentaje_muscular, porcentaje_grasa, cuello, pecho_expandido, pecho_normal, brazo_derecho, brazo_izquierdo, pierna_derecha, pierna_izquierda, pantorrilla_derecha, pantorrilla_izquierda, cintura_normal, cintura_sumida \n"
                     + "FROM medidas_socio me, socio so, usuario_sistema us\n"
                     + "WHERE me.socio_id= so.id\n"
                     + "AND me.usuario_sistema_id = us.id\n"
@@ -326,10 +347,38 @@ public class ControlMedidas extends javax.swing.JFrame {
             medidas_anteriores.add(pantorrilla_izquierda_anterior);
             medidas_anteriores.add(cintura_normal_anterior);
             medidas_anteriores.add(cintura_sumida_anterior);
+            medidasFaltantes.add(fecha_anterior);
+            medidasFaltantes.add(actividad_fisica_anterior);
 
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String consultarFecha(){
+        String fecha_registro = null;
+                CachedRowSet dataConsulta;
+        String queryConsulta = "SELECT me.id,  me.fecha_registro , actividad_fisica , peso , estatura , densidad_osea , porcentaje_muscular , porcentaje_grasa , cuello , pecho_normal , pecho_expandido , cintura_normal , cintura_sumida ,pierna_derecha , pierna_izquierda , brazo_derecho , brazo_izquierdo , pantorrilla_derecha , pantorrilla_izquierda \n"
+                + "FROM medidas_socio me, socio so, usuario_sistema us\n"
+                + "WHERE me.socio_id= so.id\n"
+                + "AND me.usuario_sistema_id = us.id\n"
+                + "AND so.id=" + idSocio + "\n"
+                + "AND us.id=" + usuario + "\n"
+                + "ORDER BY me.id DESC\n"
+                + "LIMIT 1;";
+
+        System.out.println(queryConsulta);
+        dataConsulta = db.sqlDatos(queryConsulta);
+        try {
+            while (dataConsulta.next()) {
+                fecha_registro = dataConsulta.getString("fecha_registro");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarPagoMembresia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return fecha_registro;
     }
 
 }
