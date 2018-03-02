@@ -1775,12 +1775,11 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void btnAgregarMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedidasActionPerformed
         // TODO add your handling code here:
-        if (txtAlturaMedidas.getText().isEmpty() || txtPesoMedidas.getText().isEmpty() || cboTipoActividad.getSelectedItem().equals("")){
-           JOptionPane.showMessageDialog(this, "Por favor asegurese de diligenciar los siguientes datos: \n Peso \n Estatura \n Tipo Actividad", "Control de Medidas", JOptionPane.INFORMATION_MESSAGE);
-                 
-        }else{
-        
-        guardarMedidas();
+        if (txtAlturaMedidas.getText().isEmpty() || txtPesoMedidas.getText().isEmpty() || cboTipoActividad.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(this, "Por favor asegurese de diligenciar los siguientes datos: \n \t ■Peso \n \t ■Estatura \n \t ■Tipo Actividad", "Control de Medidas", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            guardarMedidas();
         }
     }//GEN-LAST:event_btnAgregarMedidasActionPerformed
 
@@ -2704,9 +2703,9 @@ public class VerSocio extends javax.swing.JInternalFrame {
         }
 
         System.out.println("Esta seleccionado el bio");
-        densidad_osea = Double.parseDouble(txtDensidadOsea.getText());
-        porcentaje_masa = Double.parseDouble(txtMasaMuscular.getText());
-        porcentaje_grasa = Double.parseDouble(txtGrasa.getText());
+        densidad_osea = (txtDensidadOsea.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtDensidadOsea.getText());
+        porcentaje_masa = (txtMasaMuscular.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtMasaMuscular.getText());
+        porcentaje_grasa = (txtGrasa.getText().isEmpty()) ? 0.0 : Double.parseDouble(txtGrasa.getText());
 
         System.out.println("Esta seleccionado medidas");
 
@@ -2758,7 +2757,6 @@ public class VerSocio extends javax.swing.JInternalFrame {
                     limpiarCajaTexto();
                     InterfazMedidas imedidas = new InterfazMedidas(fecha_anterior, medidas_anteriores, socioID, actividad_fisica_anterior);
                     imedidas.setVisible(true);
-                    
 
                 }
             }
