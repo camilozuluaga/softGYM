@@ -1776,7 +1776,7 @@ public class VerSocio extends javax.swing.JInternalFrame {
     private void btnAgregarMedidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedidasActionPerformed
         // TODO add your handling code here:
         if (txtAlturaMedidas.getText().isEmpty() || txtPesoMedidas.getText().isEmpty() || cboTipoActividad.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(this, "Por favor asegurese de diligenciar los siguientes datos: \n \t ■Peso \n \t ■Estatura \n \t ■Tipo Actividad", "Control de Medidas", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor asegurese de diligenciar los siguientes datos: \n \t ■ \tPeso \n \t ■ \tEstatura \n \t ■ \tTipo Actividad", "Control de Medidas", JOptionPane.ERROR_MESSAGE);
         } else {
 
             guardarMedidas();
