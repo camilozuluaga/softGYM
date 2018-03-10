@@ -1679,6 +1679,10 @@ public class VerSocio extends javax.swing.JInternalFrame {
 
     private void bRegistrarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegistrarPagoActionPerformed
         // TODO add your handling code here:
+        RegistrarPagoMembresia pago = new RegistrarPagoMembresia(socioID, this);
+        pago.setVisible(true);
+        pago.setLocationRelativeTo(null);
+        pago.setAlwaysOnTop(true);
     }//GEN-LAST:event_bRegistrarPagoActionPerformed
 
     private void rbBioimpedanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBioimpedanciaActionPerformed

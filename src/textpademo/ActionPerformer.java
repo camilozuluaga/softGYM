@@ -257,7 +257,7 @@ public class ActionPerformer {
                     props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
                     Session session = Session.getDefaultInstance(props);
-                    String remitente = "dreamsoftcolombia@gmail.com";
+                    String remitente = "madboxpereira@gmail.com";
                     String passwordRemitente = "dreamsoft2017";
                     String asunto = tpEditor.getTxtAsunto().getText();
                     String mensaje = tpEditor.getJTextArea().getText();

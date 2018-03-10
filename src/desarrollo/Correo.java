@@ -223,7 +223,7 @@ public class Correo extends javax.swing.JInternalFrame {
             props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
             Session session = Session.getDefaultInstance(props);
-            String remitente = "dreamsoftcolombia@gmail.com";
+            String remitente = "madboxpereira@gmail.com";
             String passwordRemitente = "dreamsoft2017";
             String asunto = asuntoBD;
             String mensaje = "El contenido se encuentra adjunto...";
