@@ -41,7 +41,7 @@ import net.sf.jtelegraph.TelegraphType;
  * @author santoescu
  */
 public final class Producto extends javax.swing.JInternalFrame {
-    
+
     String usuarioSistema = System.getProperty("usuario_sistema");
     private Utilidades utilidades = new Utilidades();
     private DB db = new DB();
@@ -57,23 +57,23 @@ public final class Producto extends javax.swing.JInternalFrame {
      */
     public Producto() {
         initComponents();
-        
+
         btnCapturarFoto.setVisible(true);
         btnCerrar.setVisible(false);
         this.setResizable(false);
         btnEliminar.setVisible(false);
-        
+
     }
-    
+
     public Producto(int productoId) {
         initComponents();
-        
+
         this.productoId = productoId;
         traerDatosProducto(productoId);
         btnCapturarFoto.setVisible(true);
         btnCerrar.setVisible(false);
         btnEliminar.setVisible(true);
-        
+
     }
 
     /**
@@ -103,6 +103,8 @@ public final class Producto extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
+        jLabel12 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -220,6 +222,21 @@ public final class Producto extends javax.swing.JInternalFrame {
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setText("Codigo");
+
+        txtCodigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -233,27 +250,33 @@ public final class Producto extends javax.swing.JInternalFrame {
                     .addComponent(pnContenedorFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPrecio)
-                            .addComponent(txtCantidad)
-                            .addComponent(txtNombre))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 211, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCerrar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)))
+                        .addComponent(btnGuardar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo)
+                            .addComponent(txtCantidad))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPrecio)
+                            .addComponent(txtNombre)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,22 +285,28 @@ public final class Producto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel12)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGuardar))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -285,11 +314,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5))
                             .addComponent(pnContenedorFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCapturarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGuardar)))))
+                        .addComponent(btnCapturarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -308,15 +333,16 @@ public final class Producto extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 585, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,10 +379,10 @@ public final class Producto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+
         try {
             boolean validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
-            
+
             if (validacion == false) {
                 JOptionPane.showMessageDialog(this, "NO SE HA CREADO EL PRODUCTO", "CREANDO PRODUCTO", JOptionPane.WARNING_MESSAGE);
                 Telegraph tele = new Telegraph("Cierre Caja", "No se puede crear el producto. \n La fecha actual es menor que la fecha de apertura", TelegraphType.NOTIFICATION_WARNING, WindowPosition.TOPRIGHT, 9000);
@@ -388,7 +414,7 @@ public final class Producto extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         EliminarProducto(productoId);
     }//GEN-LAST:event_btnEliminarActionPerformed
-    
+
     public void actualizarImagen(int productoid) {
         ConexionFoto foto = new ConexionFoto();
         if (longitudBytes != 0) {
@@ -397,18 +423,18 @@ public final class Producto extends javax.swing.JInternalFrame {
             System.out.println("no entro");
         }
     }
-    
+
     public void foto() {
-        
+
         JFileChooser j = new JFileChooser();
         FileFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         j.setFileFilter(imageFilter);
-        
+
         j.setFileSelectionMode(JFileChooser.FILES_ONLY);//solo archivos y no carpetas
         int estado = j.showOpenDialog(null);
         if (estado == JFileChooser.APPROVE_OPTION) {
             try {
-                
+
                 fis = new FileInputStream(j.getSelectedFile());
                 //necesitamos saber la cantidad de bytes
                 this.longitudBytes = (int) j.getSelectedFile().length();
@@ -416,7 +442,7 @@ public final class Producto extends javax.swing.JInternalFrame {
                     Image icono = ImageIO.read(j.getSelectedFile()).getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT);
                     lblFoto.setIcon(new ImageIcon(icono));
                     lblFoto.updateUI();
-                    
+
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(rootPane, "imagen: " + ex);
                 }
@@ -440,6 +466,14 @@ public final class Producto extends javax.swing.JInternalFrame {
         utilidades.validarCampoNumericos(txtPrecio.getText(), txtPrecio);
     }//GEN-LAST:event_txtPrecioKeyReleased
 
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapturarFoto;
@@ -449,6 +483,7 @@ public final class Producto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -461,6 +496,7 @@ public final class Producto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblFoto;
     private javax.swing.JPanel pnContenedorFoto;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
@@ -468,16 +504,17 @@ public final class Producto extends javax.swing.JInternalFrame {
 
     public void traerDatosProducto(int productoId) {
         CachedRowSet data;
-        String querySQL = String.format("SELECT nombre,precio,cantidad,imagen,descripcion FROM producto WHERE id=%s", productoId);
+        String querySQL = String.format("SELECT nombre,precio,cantidad,imagen,descripcion,codigo FROM producto WHERE id=%s", productoId);
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
-                
+
                 txtNombre.setText(data.getString("nombre"));
                 txtCantidad.setText(data.getString("cantidad"));
                 txtPrecio.setText(data.getString("precio"));
                 txtDescripcion.setText(data.getString("descripcion"));
-                
+                txtCodigo.setText(data.getString("codigo"));
+
                 if (data.getBytes("imagen") != null) {
                     ImageIcon foto = new ImageIcon(data.getBytes("imagen"));
                     Icon icono = new ImageIcon(foto.getImage().getScaledInstance(141, 129, Image.SCALE_DEFAULT));
@@ -489,57 +526,67 @@ public final class Producto extends javax.swing.JInternalFrame {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void guardarProducto() {
         String nombre = txtNombre.getText();
         String precio = txtPrecio.getText().trim();
         String cantidad = txtCantidad.getText().trim();
         String descripcion = txtDescripcion.getText();
-        
+        String codigo = txtCodigo.getText();
+
         String querySQL;
         boolean success;
-        
-        if (!txtNombre.getText().isEmpty()) {
-            if (!txtPrecio.getText().isEmpty()) {
-                if (!txtCantidad.getText().isEmpty()) {
-                    if (productoId > 0) {
-                        querySQL = String.format("UPDATE producto SET precio=%s,cantidad=%s,nombre='%s',descripcion='%s' WHERE id=%s", precio, cantidad, nombre, descripcion, productoId);
-                        success = db.sqlEjec(querySQL);
-                        actualizarImagen(productoId);
-                        if (success) {
-                            this.dispose();
-                            
-                            Telegraph tele = new Telegraph("Producto Actualizado", "Se ha actualizado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
-                            TelegraphQueue q = new TelegraphQueue();
-                            q.add(tele);
-                            
+        if(esUnica(codigo)){
+        if (!txtCodigo.getText().isEmpty()) {
+            if (!txtNombre.getText().isEmpty()) {
+                if (!txtPrecio.getText().isEmpty()) {
+                    if (!txtCantidad.getText().isEmpty()) {
+                        if (productoId > 0) {
+                            querySQL = String.format("UPDATE producto SET precio=%s,cantidad=%s,nombre='%s',descripcion='%s',codigo='%s' WHERE id=%s", precio, cantidad, nombre, descripcion, codigo, productoId);
+                            success = db.sqlEjec(querySQL);
+                            actualizarImagen(productoId);
+                            if (success) {
+                                this.dispose();
+
+                                Telegraph tele = new Telegraph("Producto Actualizado", "Se ha actualizado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
+                                TelegraphQueue q = new TelegraphQueue();
+                                q.add(tele);
+
+                            }
+                        } else {
+                            querySQL = String.format("INSERT INTO producto(usuario_sistema_id,fecha_registro,nombre,cantidad,descripcion,precio,estado,codigo) VALUES (%s,now(),'%s',%s,'%s',%s,TRUE,'%s')", Integer.valueOf(usuarioSistema), nombre, cantidad, descripcion, precio, codigo);
+                            success = db.sqlEjec(querySQL);
+                            if (success) {
+                                actualizarImagen(traerultimo());
+                                txtNombre.requestFocus(false);
+                                btnGuardar.setVisible(false);
+                                btnCerrar.setVisible(true);
+                                Telegraph tele = new Telegraph("Producto Registrado", "Se ha registrado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
+                                TelegraphQueue q = new TelegraphQueue();
+                                q.add(tele);
+                                this.dispose();
+
+                            }
                         }
                     } else {
-                        querySQL = String.format("INSERT INTO producto(usuario_sistema_id,fecha_registro,nombre,cantidad,descripcion,precio,estado) VALUES (%s,now(),'%s',%s,'%s',%s,TRUE)", Integer.valueOf(usuarioSistema), nombre, cantidad, descripcion, precio);
-                        success = db.sqlEjec(querySQL);
-                        if (success) {
-                            actualizarImagen(traerultimo());
-                            txtNombre.requestFocus(false);
-                            btnGuardar.setVisible(false);
-                            btnCerrar.setVisible(true);
-                            Telegraph tele = new Telegraph("Producto Registrado", "Se ha registrado Correctamente el Producto", TelegraphType.NOTIFICATION_ADD, WindowPosition.TOPRIGHT, 9000);
-                            TelegraphQueue q = new TelegraphQueue();
-                            q.add(tele);
-                            this.dispose();
-                            
-                        }
+                        utilidades.llamarMensaje("Cantidad");
                     }
                 } else {
-                    utilidades.llamarMensaje("Cantidad");
+                    utilidades.llamarMensaje("Precio");
                 }
             } else {
-                utilidades.llamarMensaje("Precio");
+                utilidades.llamarMensaje("Nombre");
             }
         } else {
-            utilidades.llamarMensaje("Nombre");
+            utilidades.llamarMensaje("Codigo");
+        }
+        } else {
+           Telegraph tele = new Telegraph("Producto a Registrar", "El codigo del producto esta asociado a otro producto", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 9000);
+                                TelegraphQueue q = new TelegraphQueue();
+                                q.add(tele);
         }
     }
-    
+
     public int traerultimo() {
         CachedRowSet data;
         int aux = 0;
@@ -550,20 +597,20 @@ public final class Producto extends javax.swing.JInternalFrame {
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
-                
+
                 aux = Integer.parseInt(data.getString("id"));
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return aux;
     }
-    
+
     public void EliminarProducto(int productoId) {
         String querySQL;
         boolean success;
-        
+
         querySQL = String.format("UPDATE producto SET estado=%s WHERE id='%s'", false, productoId);
         success = db.sqlEjec(querySQL);
         if (success) {
@@ -571,8 +618,18 @@ public final class Producto extends javax.swing.JInternalFrame {
             Telegraph tele = new Telegraph("Producto Eliminado con Exito", "El producto ha sido eliminado con exito", TelegraphType.NOTIFICATION_INFO, WindowPosition.TOPRIGHT, 5000);
             TelegraphQueue q = new TelegraphQueue();
             q.add(tele);
-            
+
         }
+
+    }
+    public boolean esUnica(String codigo){
+        CachedRowSet data;
+        String querySQL = String.format("SELECT codigo FROM producto WHERE codigo='%s'", codigo);
+        data = db.sqlDatos(querySQL);
+      if(data.size()==0){
+         return true;
+          
+      }else return false;
         
     }
 }

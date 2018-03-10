@@ -40,6 +40,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     private boolean usuarioPaga;
     double valorPagado;
     int idMembresia;
+   boolean pago_tarjeta;
 
     /**
      * Creates new form RegistrarPagoMembresia
@@ -52,7 +53,8 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         this.setTitle(".:: Hércules - Ventana de Pagos ::.");
         utilidades.llenarColumnas(TablaProductos);
         cDineroRecibido.requestFocus();
-
+        pago_tarjeta=false;
+        
     }
 
     /**
@@ -80,6 +82,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         bPago = new javax.swing.JButton();
         cDineroRecibido = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        rbPagoConTarjeta = new javax.swing.JRadioButton();
 
         pagoConTarjeta.setBackground(new java.awt.Color(255, 255, 255));
         pagoConTarjeta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -220,6 +223,13 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         jLabel9.setText("Dinero Recibido");
         jLabel9.setToolTipText("");
 
+        rbPagoConTarjeta.setText("Pago con tarjeta");
+        rbPagoConTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbPagoConTarjetaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -231,7 +241,8 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(rbPagoConTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(75, 75, 75)
                                 .addComponent(lBalance))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(bPago)
@@ -252,7 +263,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,9 +271,11 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8)
                             .addComponent(bPago, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lBalance)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lBalance))
+                            .addComponent(rbPagoConTarjeta)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,7 +318,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cDineroRecibidoKeyReleased
 
     private void bPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPagoActionPerformed
-
+  
         boolean validacion = false;
         try {
             validacion = utilidades.validarFechaRegistro(utilidades.fecha_apertura(), utilidades.obtnerFechaActual());
@@ -370,6 +383,9 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     private void TablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductosMouseClicked
         int row = TablaProductos.rowAtPoint(evt.getPoint());
 
+        
+        int res=JOptionPane.showConfirmDialog(null,"¿estas seguro que quieres eliminar este producto?");
+        if(res==0){
         Double cuenta1 = Double.parseDouble(String.valueOf(TablaProductos.getValueAt(row, 3)));
         double cuenta = Double.parseDouble(cValorAdquirido.getText());
         double cuenta2 = cuenta - cuenta1;
@@ -377,9 +393,14 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
         recalcularDinero();
         DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
         modelo.removeRow(TablaProductos.getSelectedRow());
+        }
 
 
     }//GEN-LAST:event_TablaProductosMouseClicked
+
+    private void rbPagoConTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPagoConTarjetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbPagoConTarjetaActionPerformed
     public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funciÃ³n permite agregar un internal frame a un jframe rapidamente :)
         desktop.add(internal);
         Utilidades.centrarInternalFrame(internal);
@@ -403,10 +424,14 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lBalance;
     private javax.swing.JPanel pagoConTarjeta;
+    private javax.swing.JRadioButton rbPagoConTarjeta;
     // End of variables declaration//GEN-END:variables
 
     private void guardar() {
-
+        
+if(rbPagoConTarjeta.isSelected()){
+            pago_tarjeta=true;
+}
         String dineroRecibido = cDineroRecibido.getText();
 
         if ("0".equals(dineroRecibido)) {
@@ -520,7 +545,7 @@ public class RegistrarPagoProductos extends javax.swing.JInternalFrame {
             msj.show("Numero Incorrecto", "Debe de digitar una Suma Correcta para poder registrar el Pago", TelegraphType.APPLICATION_WARNING, 4000);
             return -1;
         } else {
-            querySQL = String.format("INSERT INTO factura_producto(usuario_sistema_id,fecha_registro,precio_total) VALUES (%s,now(),%s)", Integer.valueOf(usuario_sistema), paga);
+            querySQL = String.format("INSERT INTO factura_producto(usuario_sistema_id,fecha_registro,precio_total,pago_tarjeta) VALUES (%s,now(),%s,%s)", Integer.valueOf(usuario_sistema), paga,pago_tarjeta);
             success = db.sqlEjec(querySQL);
             if (success) {
                 return traerultimo();

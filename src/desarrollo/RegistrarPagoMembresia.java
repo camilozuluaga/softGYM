@@ -120,6 +120,11 @@ public class RegistrarPagoMembresia extends javax.swing.JFrame {
         });
 
         rbPagoConTarjeta.setText("Pago con tarjeta");
+        rbPagoConTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbPagoConTarjetaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pagoConTarjetaLayout = new javax.swing.GroupLayout(pagoConTarjeta);
         pagoConTarjeta.setLayout(pagoConTarjetaLayout);
@@ -397,6 +402,10 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             cDineroRecibido.setText("");
         }
     }//GEN-LAST:event_cDineroRecibidoKeyTyped
+
+    private void rbPagoConTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPagoConTarjetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbPagoConTarjetaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
