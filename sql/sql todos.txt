@@ -116,4 +116,6 @@ alter table producto add column codigo int
 alter table producto add constraint uq_producto_codigo unique (codigo);
 ALTER TABLE producto ALTER COLUMN codigo type varchar(250);
 ####################################################
+alter table empresa add imagen_recibo bytea;
+alter table empresa add imagen_principal bytea;
 

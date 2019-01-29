@@ -7,17 +7,22 @@ package desarrollo;
 
 import help.Help;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -42,6 +47,8 @@ public class Frame extends javax.swing.JFrame {
      */
     private DB db = new DB();
     private CachedRowSet data;
+    private Connection connection = null;
+     private ResultSet resultSet = null;
     private Utilidades utiles = new Utilidades();
     private PlaceHolder placeholder;
     public InputStream foto1 = this.getClass().getResourceAsStream("/imagen/biofisic_logo.png");
@@ -61,7 +68,8 @@ public class Frame extends javax.swing.JFrame {
         txtBuscar.requestFocusInWindow();
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
         PlaceHolder placeHolder = new PlaceHolder("Buscar socio por identificación o codigo ...", txtBuscar);
-
+        System.out.println("pos aca");
+        //cargarImagen1(escritorio);
         cargarImagen(escritorio, foto1);
 
         comprobarPermisosMenu();
@@ -81,7 +89,7 @@ public class Frame extends javax.swing.JFrame {
         txtBuscar.requestFocusInWindow();
         txtBuscar.setText(id);
         buscar();
-        cargarImagen(escritorio, foto1);
+        //cargarImagen1(escritorio);
         setIconImage(new ImageIcon(getClass().getResource("/imagen/icon.png")).getImage());
         pp = new puerta.Puerta();
 
@@ -96,8 +104,41 @@ public class Frame extends javax.swing.JFrame {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void cargarImagen1(JDesktopPane jDeskp) {
+        CachedRowSet data;
+        String querySQL = String.format("SELECT imagen_principal FROM empresa");
+        data = db.sqlDatos(querySQL);
+        
+        System.out.println("entro a este metodo");
+        try {
+            while (data.next()) {
 
-    public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funciÃ³n permite agregar un internal frame a un jframe rapidamente :)
+                if (data.getBytes("imagen_principal") != null) {
+                   ImageIcon foto = new ImageIcon(data.getBytes("imagen_principal"));
+                  
+                   Image j =foto.getImage();
+                   //BufferedImage image = ImageIO.
+                  
+                   
+                   
+                    
+                    
+                    
+                    
+                    
+                    
+                   
+                    
+                    
+                   // jDeskp.setBorder(new Fondo(image));
+                    System.out.println("hola como estas");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+   }
+    public void agregarInternalFrame(JDesktopPane desktop, JInternalFrame internal) { //esta funcion permite agregar un internal frame a un jframe rapidamente :)
         desktop.add(internal);
         Utilidades.centrarInternalFrame(internal);
     }
@@ -1057,5 +1098,5 @@ public class Frame extends javax.swing.JFrame {
 
             }
         }
-    }
+    }   
 }
