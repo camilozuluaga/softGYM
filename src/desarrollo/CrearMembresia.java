@@ -72,7 +72,7 @@ public final class CrearMembresia extends javax.swing.JInternalFrame {
         cbActivar.setVisible(false);
         clave = id;
         traerDatos(clave);
-        txtValor.setEditable(false);
+       // txtValor.setEditable(false);
         jLabel1.setText("Editar Membresias");
 
     }
