@@ -179,7 +179,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jTabbedPane2" pref="296" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane2" pref="477" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -559,7 +559,7 @@
                       <Component id="panelBioimpedancia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="panelMedidas" min="-2" pref="198" max="-2" attributes="0"/>
-                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                      <EmptySpace pref="385" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1515,7 +1515,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel13" min="-2" pref="94" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtBuscar" pref="44" max="32767" attributes="0"/>
+                      <Component id="txtBuscar" pref="406" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" min="-2" pref="412" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -1851,7 +1851,7 @@
                           <Component id="jPanel10" min="-2" pref="97" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane5" min="-2" pref="292" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="186" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="548" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

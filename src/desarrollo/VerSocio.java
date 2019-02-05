@@ -70,8 +70,9 @@ public class VerSocio extends javax.swing.JInternalFrame {
         getVencimientoMembresias();
         pane.setEnabledAt(1, true);
         pane.setEnabledAt(2, true);
-        pane.setEnabledAt(3, false);
+        pane.setEnabledAt(3, true);
         pane.setEnabledAt(4, false);
+        pane.setEnabledAt(5, false);
         arduino = pp;
         cargarActividadFisica();
 
@@ -1523,7 +1524,9 @@ public class VerSocio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bRegistrarVisitaActionPerformed
 
     private void bEliminarMembresiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarMembresiaActionPerformed
+            
 
+        
         if (tablaMembresias.getSelectedRow() >= 0) {
 
             try {
