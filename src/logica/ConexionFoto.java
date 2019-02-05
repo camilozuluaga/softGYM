@@ -109,6 +109,64 @@ public class ConexionFoto {
         }
         return false;
     }
+     public boolean guardarfoto2(FileInputStream fis, int longitudimagen) {
+
+        try {
+
+            PreparedStatement pstm = null;
+
+            pstm = connection.prepareStatement("UPDATE empresa SET imagen_recibo = ? ");
+
+            pstm.setBinaryStream(1, fis, longitudimagen);
+            pstm.execute();
+            pstm.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+     public boolean guardarfoto3(FileInputStream fis, int longitudimagen) {
+
+        try {
+
+            PreparedStatement pstm = null;
+
+            pstm = connection.prepareStatement("UPDATE empresa SET imagen_principal = ? ");
+
+            pstm.setBinaryStream(1, fis, longitudimagen);
+            pstm.execute();
+            pstm.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public boolean guardarfotoProducto(FileInputStream fis, int longitudimagen,int productoId) {
 
@@ -173,6 +231,62 @@ public class ConexionFoto {
                 if (resultSet.getBytes("imagen") != null) {
 
                     ImageIcon foto = new ImageIcon(resultSet.getBytes("imagen"));
+                    Image img = foto.getImage();
+                    Image newimg = img.getScaledInstance(lbFoto.getWidth(), lbFoto.getHeight(), java.awt.Image.SCALE_SMOOTH);
+
+                    ImageIcon newicon = new ImageIcon(newimg);
+                    lbFoto.setIcon(newicon);
+                }
+            }
+            pstm.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public boolean consultarFoto2(JLabel lbFoto) {
+        try {
+            PreparedStatement pstm = connection.prepareStatement("SELECT imagen_recibo FROM empresa");
+            resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+
+                if (resultSet.getBytes("imagen_recibo") != null) {
+
+                    ImageIcon foto = new ImageIcon(resultSet.getBytes("imagen_recibo"));
+                    Image img = foto.getImage();
+                    Image newimg = img.getScaledInstance(lbFoto.getWidth(), lbFoto.getHeight(), java.awt.Image.SCALE_SMOOTH);
+
+                    ImageIcon newicon = new ImageIcon(newimg);
+                    lbFoto.setIcon(newicon);
+                }
+            }
+            pstm.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionFoto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public boolean consultarFoto3(JLabel lbFoto) {
+        try {
+            PreparedStatement pstm = connection.prepareStatement("SELECT imagen_principal FROM empresa");
+            resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+
+                if (resultSet.getBytes("imagen_principal") != null) {
+
+                    ImageIcon foto = new ImageIcon(resultSet.getBytes("imagen_principal"));
                     Image img = foto.getImage();
                     Image newimg = img.getScaledInstance(lbFoto.getWidth(), lbFoto.getHeight(), java.awt.Image.SCALE_SMOOTH);
 

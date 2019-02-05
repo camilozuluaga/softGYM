@@ -410,7 +410,7 @@ public class AdministrarMembresia extends javax.swing.JInternalFrame {
     public boolean saberMembresiaUsuario(String idMembresia) {
         CachedRowSet data;
         int contador = 0;
-        String querySQL = String.format("SELECT COUNT(mu.membresia_id) AS numero_socios_membresia FROM membresia mem,membresia_usuario mu WHERE mem.id=%s AND mem.id=mu.membresia_id;", idMembresia);
+        String querySQL = String.format("SELECT COUNT(mu.membresia_id) AS numero_socios_membresia FROM membresia mem,membresia_usuario mu WHERE mem.id=%s AND mem.id=mu.membresia_id AND mu.activa=TRUE;", idMembresia);
         data = db.sqlDatos(querySQL);
         try {
             while (data.next()) {
